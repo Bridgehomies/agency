@@ -4,6 +4,9 @@ import './globals.css'
 export const metadata: Metadata = {
   title: 'Bridge Homies',
   description: 'Building Digital Bridges',
+  icons: {
+    icon: 'logo-bg.png',
+  },
 }
 
 export default function RootLayout({

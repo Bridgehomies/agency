@@ -42,7 +42,6 @@ export default function StickyTransformSection() {
   const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8])
   const rotate = useTransform(scrollYProgress, [0, 1], [0, 360])
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-
   const springScale = useSpring(scale, { stiffness: 100, damping: 30 })
 
   const featureTransforms = features.map((_, index) => ({
@@ -51,27 +50,32 @@ export default function StickyTransformSection() {
   }))
 
   return (
-    <section ref={containerRef} className="py-32 relative overflow-hidden">
-      <div className="container">
-        <motion.div className="text-center mb-16" style={{ opacity }}>
-          <motion.h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ scale: springScale }}>
+    <section ref={containerRef} className="py-20 sm:py-28 md:py-32 relative overflow-hidden">
+      <div className="container px-4 sm:px-6 md:px-8">
+        {/* Heading Section */}
+        <motion.div className="text-center mb-12 sm:mb-16" style={{ opacity }}>
+          <motion.h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ scale: springScale }}>
             Why Choose Our Solutions
           </motion.h2>
           <motion.p
-            className="text-xl text-muted-foreground"
+            className="text-base sm:text-lg text-muted-foreground"
             style={{ y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
           >
             Experience the difference with our cutting-edge approach
           </motion.p>
         </motion.div>
 
-        <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-28" style={{ scale: springScale }}>
+        {/* Feature Cards */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-20 sm:mt-28"
+          style={{ scale: springScale }}
+        >
           {features.map((feature, index) => (
             <motion.div key={index} style={featureTransforms[index]}>
               <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <CardContent className="p-6 text-center">
+                <CardContent className="p-4 sm:p-6 text-center">
                   <motion.div
-                    className="text-4xl mb-4"
+                    className="text-3xl sm:text-4xl mb-4"
                     animate={{
                       scale: [1, 1.2, 1],
                       rotate: [0, 10, 0],
@@ -84,8 +88,8 @@ export default function StickyTransformSection() {
                   >
                     {feature.icon}
                   </motion.div>
-                  <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{feature.description}</p>
+                  <h3 className="text-base sm:text-lg font-semibold mb-2">{feature.title}</h3>
+                  <p className="text-sm sm:text-base text-muted-foreground mb-4">{feature.description}</p>
                   <Badge className={`bg-gradient-to-r ${feature.color} text-white border-none`}>Featured</Badge>
                 </CardContent>
               </Card>
@@ -94,16 +98,16 @@ export default function StickyTransformSection() {
         </motion.div>
       </div>
 
-      {/* Background Elements */}
+      {/* Background Visual Elements */}
       <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-primary/20 rounded-full"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-96 h-72 sm:h-96 border border-primary/20 rounded-full"
         style={{
           scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1.5, 0.5]),
           rotate,
         }}
       />
       <motion.div
-        className="absolute top-1/4 right-1/4 w-32 h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-xl"
+        className="absolute top-1/4 right-1/4 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-xl"
         style={{
           x: useTransform(scrollYProgress, [0, 1], [0, 100]),
           y: useTransform(scrollYProgress, [0, 1], [0, -100]),

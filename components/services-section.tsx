@@ -95,19 +95,19 @@ const services = [
   },
   {
     icon: <Shield className="h-10 w-10" />,
-    title: "Cybersecurity",
-    description: "Protect your digital assets with our comprehensive security solutions and best practices.",
+    title: "Ai & Machine Learning",
+    description: "Leverage the power of AI and machine learning to drive innovation and efficiency.",
     color: "from-primary to-violet-400",
     skills: [
-      { name: "Security Audits", value: 94 },
-      { name: "Penetration Testing", value: 90 },
-      { name: "Compliance", value: 88 },
+      { name: "Machine Learning", value: 94 },
+      { name: "Natural Language Processing", value: 90 },
+      { name: "Computer Vision", value: 88 },
     ],
     features: [
-      "Security audits and assessments",
-      "Penetration testing",
-      "Compliance (GDPR, HIPAA, etc.)",
-      "Security training and awareness",
+      "AI model development and training",
+      "Natural language processing solutions",
+      "Computer vision applications",
+      "Predictive analytics and data modeling",
     ],
   },
 ]

@@ -26,43 +26,27 @@ export default function InteractiveMap() {
 
   // Load Google Maps script
   useEffect(() => {
-    const script = document.createElement("script")
-    script.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places`
-    script.async = true
-    script.onload = initMap
-    document.head.appendChild(script)
-    return () => {
-      document.head.removeChild(script)
+    // Instead of loading Google Maps JS API, embed the Google Map via iframe
+    const mapContainer = document.getElementById("map")
+    if (mapContainer) {
+      mapContainer.innerHTML = `
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d27219.67049573309!2d74.3387!3d31.5204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391904ddc2b2c7d7%3A0x6a6b1b3da8932e19!2sBridge%20Homies!5e0!3m2!1sen!2s!4v1718030000000!5m2!1sen!2s"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      `
     }
+    // No cleanup needed for iframe
   }, [])
 
-  // Initialize Google Map
-  const initMap = () => {
-    const mapInstance = new google.maps.Map(document.getElementById("map") as HTMLElement, {
-      center: { lat: 31.5204, lng: 74.3587 }, // Centered on Lahore
-      zoom: 13,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-    })
-
-    // Create markers for each office
-    const newMarkers = offices.map((office) => {
-      const marker = new google.maps.Marker({
-        position: office.coordinates,
-        map: mapInstance,
-        title: office.name,
-      })
-
-      // Add click listener to marker
-      marker.addListener("click", () => {
-        setSelectedLocation(office)
-      })
-
-      return marker
-    })
-
-    setMap(mapInstance)
-    setMarkers(newMarkers)
-  }
+  // The following block is not needed when using an iframe for Google Maps, so it should be removed.
+  // If you want to use Google Maps JS API, you need to load the API and create a map instance.
+  // Since you are embedding via iframe, remove this block entirely.
 
   // Update map center when a location is selected
   useEffect(() => {

@@ -232,7 +232,7 @@ export default function DiagnosticQuiz() {
                     </Button>
                     <Button variant="outline" onClick={resetQuiz}>
                       <RotateCcw className="mr-2 h-4 w-4" />
-                      Retake Quiz
+                      Start Over
                     </Button>
                   </div>
                 </motion.div>

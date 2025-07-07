@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background sm:min-h-screen md:min-h-screen lg:min-h-screen xl:min-h-screen">
       <Toaster />
       <Navbar />
       <main>

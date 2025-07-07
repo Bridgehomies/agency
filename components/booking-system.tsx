@@ -17,21 +17,18 @@ const consultationTypes = [
     title: "Discovery Call",
     duration: "30 min",
     description: "Initial consultation to understand your project needs",
-    price: "Free",
   },
   {
     id: "strategy",
     title: "Strategy Session",
     duration: "60 min",
     description: "Deep dive into your project strategy and planning",
-    price: "$150",
   },
   {
     id: "technical",
     title: "Technical Review",
     duration: "45 min",
     description: "Technical assessment and architecture discussion",
-    price: "$200",
   },
 ]
 
@@ -62,18 +59,51 @@ export default function BookingSystem() {
 
   const dates = generateDates()
 
-  const handleSubmit = () => {
+const handleSubmit = async () => {
+  const payload = {
+    name: formData.name,
+    email: formData.email,
+    phone: formData.phone,
+    company: formData.company,
+    message: formData.message,
+    date: selectedDate,
+    time: selectedTime,
+    consultation_type: consultationTypes.find((t) => t.id === selectedType)?.title,
+  };
+
+  try {
+    const response = await fetch("/api/send-booking", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (response.ok) {
+      toast({
+        title: "Booking Confirmed! 🎉",
+        description: "We’ve sent your booking information.",
+      });
+
+      setStep(1);
+      setSelectedType("");
+      setSelectedDate("");
+      setSelectedTime("");
+      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+    } else {
+      throw new Error("Email failed to send.");
+    }
+  } catch (error) {
     toast({
-      title: "Booking Confirmed! 🎉",
-      description: "We'll send you a calendar invite shortly.",
-    })
-    // Reset form
-    setStep(1)
-    setSelectedType("")
-    setSelectedDate("")
-    setSelectedTime("")
-    setFormData({ name: "", email: "", phone: "", company: "", message: "" })
+      title: "Submission Failed",
+      description: "Please try again later or contact support.",
+      variant: "destructive",
+    });
   }
+};
+
+
 
   const isStepComplete = (stepNumber: number) => {
     switch (stepNumber) {
