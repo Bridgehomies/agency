@@ -70,20 +70,21 @@ export default function HomePage() {
     <main className="font-sans bg-gray-50 text-gray-800">
       <Navbar></Navbar>
       {/* Hero Section */}
+      
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
         <div className="particles" id="particles"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="md:flex items-center">
             <div className="md:w-1/2 mb-12 md:mb-0">
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                We Craft{' '}
+                We Build{' '}
                 <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Digital Experiences
+                  Custom Software Solutions
                 </span>{' '}
-                That Matter
+                with Python
               </h1>
               <p className="text-lg text-gray-600 mb-8">
-                At Bridge Homies, we transform ideas into powerful digital solutions. Our team of experts delivers cutting-edge web applications that drive business growth and engage users.
+                At Bridge Homies, we leverage the power of Python to create scalable, efficient, and innovative custom software tailored to your business needs. Our team of experts delivers solutions that drive growth, automate processes, and unlock new opportunities.
               </p>
               <div className="flex space-x-4">
                 <a
@@ -105,8 +106,8 @@ export default function HomePage() {
                 <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-50 z-10"></div>
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
                 <img
-                  src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
-                  alt="Web Development"
+                  src="https://images.unsplash.com/photo-1516131206008-dd041a9764fd?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                  alt="Python Development"
                   className="rounded-2xl shadow-2xl border-8 border-blue-50 transform transition duration-500 hover:scale-105 hover:shadow-xl"
                 />
               </div>
