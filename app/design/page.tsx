@@ -33,7 +33,7 @@ const StatsCounter: React.FC = () => {
   useEffect(() => {
     animateCounter('counter-projects', 30, false);
     animateCounter('counter-feedback', 97, true);
-    animateCounter('counter-team', 15, false);
+    animateCounter('counter-team', 3, false);
     animateCounter('counter-launched', 2024, false);
   }, []);
   return (
@@ -42,7 +42,7 @@ const StatsCounter: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div className="p-6">
             <div id="counter-projects" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">Python Projects Delivered</div>
+            <div className="text-gray-600">Projects Delivered</div>
           </div>
           <div className="p-6">
             <div id="counter-feedback" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0%</div>
@@ -50,7 +50,7 @@ const StatsCounter: React.FC = () => {
           </div>
           <div className="p-6">
             <div id="counter-team" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">Python Experts</div>
+            <div className="text-gray-600">Social Expert</div>
           </div>
           <div className="p-6">
             <div id="counter-launched" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0</div>
