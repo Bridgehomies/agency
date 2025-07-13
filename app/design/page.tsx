@@ -7,6 +7,7 @@ import { IoMdMail } from "react-icons/io";
 import WorkSection from '@/components/work-section';
 import Form from '@/components/form/form';
 import VideoGallery from '@/components/video-gallery';
+import FaqAccordion from "@/components/FaqAccordion";
 
 // Stats Counter Component
 const StatsCounter: React.FC = () => {
@@ -321,20 +322,8 @@ export default function HomePage() {
           </div>
           <div className="max-w-3xl mx-auto">
             {/* FAQ Item */}
-            <div className="mb-6 border-b border-gray-200 pb-6">
-              <button className="faq-toggle flex justify-between items-center w-full text-left">
-                <h3 className="text-xl font-bold text-gray-800">
-                  Why should I choose Bridge Homies for my digital strategy?
-                </h3>
-                <i className="fas fa-chevron-down text-blue-600 transition-transform"></i>
-              </button>
-              <div className="faq-content mt-4 text-gray-600 hidden">
-                <p>
-                  At Bridge Homies, we blend creative storytelling with performance-driven strategy. From high-quality video editing to content calendars and viral trend research — we offer everything you need to grow your brand online. We don’t just follow trends — we help you set them, using proven techniques to increase visibility, engagement, and conversions.
-                </p>
-              </div>
-            </div>
-            {/* Add more FAQs similarly... */}
+            <FaqAccordion />
+            
           </div>
         </div>
       </section>
