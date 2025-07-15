@@ -36,6 +36,16 @@ const team = [
       github: "#",
     },
   },
+  {
+    name: "Zain",
+    role: "Video Editor Head",
+    image: "/team/zain.jpg",
+    bio: "Creative video editor with a passion for storytelling and visual effects. Expert in Adobe Premiere Pro and After Effects.",
+    social: {
+      linkedin: "#",
+      github: "#",
+    },
+  },
 ];
 
 export default function iTeamSection() {

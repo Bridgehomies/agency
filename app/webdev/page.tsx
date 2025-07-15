@@ -338,7 +338,7 @@ export default function HomePage() {
       
 
       {/* CTA Section */}
-        <Form />
+        {/* <Form /> */}
 
       {/* FAQ Section */}
       <section className="py-16 md:py-24 bg-white">
