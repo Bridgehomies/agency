@@ -24,6 +24,7 @@ export default function Navbar() {
     { name: "Services", href: "#services" },
     { name: "Work", href: "#work" },
     { name: "Team", href: "#team" },
+    { name: "Products", href: "/products" },
   ];
 
   // Update smoothScrollTo to handle "/" as a route navigation
