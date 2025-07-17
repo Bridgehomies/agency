@@ -29,16 +29,14 @@ export default function Navbar() {
 
   // Update smoothScrollTo to handle "/" as a route navigation
   const smoothScrollTo = (href: string) => {
-    if (href === "/") {
-      window.location.href = "/";
+    if (href.startsWith("#")) {
+      const el = document.getElementById(href.replace("#", ""));
+      if (el) el.scrollIntoView({ behavior: "smooth" });
       setIsOpen(false);
-      return;
+    } else {
+      window.location.href = href;
     }
-    const el = document.getElementById(href.replace("#", ""));
-    if (el) el.scrollIntoView({ behavior: "smooth" });
-    setIsOpen(false);
   };
-
 
   return (
     <>
@@ -105,12 +103,12 @@ export default function Navbar() {
             {/* Left: Nav Links Centered in Half Screen */}
             <div className="w-1/2 flex items-center justify-center relative">
               {/* Close Button */}
-              <button
+              <Button
                 onClick={() => setIsOpen(false)}
                 className="absolute top-6 right-6 text-black hover:text-primary transition"
               >
                 <X className="w-6 h-6" />
-              </button>
+              </Button>
 
               {/* Nav Links */}
               <div className="flex flex-col space-y-6 text-center">
