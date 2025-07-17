@@ -36,16 +36,6 @@ const team = [
       github: "#",
     },
   },
-  {
-    name: "Zain",
-    role: "Video Editor Head",
-    image: "/team/zain.jpg",
-    bio: "Creative video editor with a passion for storytelling and visual effects. Expert in Adobe Premiere Pro and After Effects.",
-    social: {
-      linkedin: "#",
-      github: "#",
-    },
-  },
 ];
 
 export default function iTeamSection() {
@@ -71,35 +61,34 @@ export default function iTeamSection() {
           </p>
         </motion.div>
 
-       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-  {team.map((member, index) => (
-    <motion.div
-      key={index}
-      initial={{ opacity: 0, y: 30 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-    >
-      <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
-        <div className="relative overflow-hidden">
-          <div className="w-full aspect-square overflow-hidden bg-muted">
-            <img
-              src={member.image || "/placeholder.svg"}
-              alt={member.name}
-              className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
-              loading="lazy"
-            />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {team.map((member, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <Card className="overflow-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group">
+                <div className="relative overflow-hidden">
+                  <div className="w-full aspect-square overflow-hidden bg-muted">
+                    <img
+                      src={member.image || "/placeholder.svg"}
+                      alt={member.name}
+                      className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                <CardContent className="text-center p-6">
+                  <h3 className="text-xl font-bold mb-1">{member.name}</h3>
+                  <p className="text-primary font-medium mb-2">{member.role}</p>
+                  <p className="text-muted-foreground">{member.bio}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
         </div>
-        <CardContent className="text-center p-6">
-          <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-          <p className="text-primary font-medium mb-2">{member.role}</p>
-          <p className="text-muted-foreground">{member.bio}</p>
-        </CardContent>
-      </Card>
-    </motion.div>
-  ))}
-</div>
-
       </div>
     </section>
   );
