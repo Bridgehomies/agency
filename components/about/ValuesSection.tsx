@@ -4,7 +4,7 @@ export default function ValuesSection() {
       <div className="grid md:grid-cols-2 gap-12 items-center">
         {/* Left Side */}
         <div className="relative h-full min-h-96 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-3xl overflow-hidden shadow-2xl">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
+          <div className="absolute inset-0 bg-[url('/team.png')] bg-cover bg-center mix-blend-overlay opacity-30"></div>
           <div className="relative h-full flex items-center justify-center p-12">
             <h2 className="text-4xl md:text-5xl font-playfair font-bold text-white text-center drop-shadow-lg">
               Our <span className="text-white/90">Core</span> Values
@@ -25,7 +25,8 @@ export default function ValuesSection() {
                   Innovation First
                 </h3>
                 <p className="text-gray-600 mt-1">
-                  We challenge conventions and embrace emerging technologies to deliver cutting-edge solutions.
+                  We challenge conventions and embrace emerging technologies to
+                  deliver cutting-edge solutions.
                 </p>
               </div>
             </div>
@@ -42,7 +43,8 @@ export default function ValuesSection() {
                   Human-Centered
                 </h3>
                 <p className="text-gray-600 mt-1">
-                  Every decision starts with people—understanding needs, behaviors, and aspirations.
+                  Every decision starts with people—understanding needs,
+                  behaviors, and aspirations.
                 </p>
               </div>
             </div>
@@ -59,7 +61,8 @@ export default function ValuesSection() {
                   Radical Transparency
                 </h3>
                 <p className="text-gray-600 mt-1">
-                  Open communication builds trust with our team, clients, and community.
+                  Open communication builds trust with our team, clients, and
+                  community.
                 </p>
               </div>
             </div>
@@ -76,7 +79,8 @@ export default function ValuesSection() {
                   Sustainable Growth
                 </h3>
                 <p className="text-gray-600 mt-1">
-                  We measure success not just by profits, but by positive impact and lasting relationships.
+                  We measure success not just by profits, but by positive impact
+                  and lasting relationships.
                 </p>
               </div>
             </div>
