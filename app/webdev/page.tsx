@@ -258,7 +258,7 @@ export default function HomePage() {
 
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                <img src="/webdev/Mobile-first.png" alt="" />
+                <img src="webdev/Mobile-first.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">
                 Mobile-First Development
