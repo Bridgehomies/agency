@@ -30,6 +30,7 @@ export default function Footer() {
       tooltip: "Jobs Comming Soon",
     },
     { name: "Our Team", href: "/#team" },
+    { name: "Products", href: "/products" },
     // { name: "Contact", href: "/#contact" },
   ];
 
@@ -62,7 +63,7 @@ export default function Footer() {
 
   return (
     <footer className="bg-muted/30 border-t">
-      <div className="container py-12 md:py-16">
+      <div className="container py-12 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Brand */}
           <div className="space-y-4">
@@ -164,7 +165,7 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <div className="mt-5 text-xs text-muted-foreground text-center lg:text-left">
+            <div className="mt-2 mb-7 text-xs text-muted-foreground text-center lg:text-left">
               © {new Date().getFullYear()} Bridge Homies. All rights reserved.
             </div>
           </div>
