@@ -170,6 +170,7 @@ export default function HomePage() {
                 <div className="flex items-center">
                   <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
                     <i className="fas fa-lightbulb text-blue-600 text-xl"></i>
+                    <img src="/webdev/Innovative.png" alt="" />
                   </div>
                   <div>
                     <div className="font-bold">Innovative</div>
@@ -179,8 +180,13 @@ export default function HomePage() {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
+                  <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mr-4">
                     <i className="fas fa-heart text-purple-600 text-xl"></i>
+                    <img
+                      className="w-11 h-11"
+                      src="/webdev/passionate.png"
+                      alt=""
+                    />
                   </div>
                   <div>
                     <div className="font-bold">Passionate</div>
@@ -221,8 +227,10 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Service Card Example */}
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition case-study-card">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 service-icon">
-                <i className="fas fa-code text-blue-600 text-2xl"></i>
+              <div className="w-16 h-16  rounded-full flex items-center justify-center mb-6 service-icon">
+                {/* <i className="fas fa-code text-blue-600 text-2xl"> */}
+                <img src="/webdev/Custom Web Development.png" alt="" />
+                {/* </i> */}
               </div>
               <h3 className="text-xl font-bold mb-3">Custom Web Development</h3>
               <p className="text-gray-600 mb-4">
@@ -249,8 +257,8 @@ export default function HomePage() {
             </div>
 
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-mobile-alt text-purple-600 text-2xl"></i>
+              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/Mobile-first.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">
                 Mobile-First Development
@@ -279,8 +287,8 @@ export default function HomePage() {
             </div>
 
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-shopping-cart text-indigo-600 text-2xl"></i>
+              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="webdev/E-Commerce.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">E-Commerce Solutions</h3>
               <p className="text-gray-600 mb-4">
@@ -307,8 +315,8 @@ export default function HomePage() {
             </div>
 
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-search text-green-600 text-2xl"></i>
+              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/SEO&Performance.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">SEO & Performance</h3>
               <p className="text-gray-600 mb-4">
@@ -335,8 +343,9 @@ export default function HomePage() {
             </div>
 
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-shield-alt text-yellow-600 text-2xl"></i>
+              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                {/* <i className="fas fa-shield-alt text-yellow-600 text-2xl"></i> */}
+                <img src="/webdev/Security&Maintenance.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">Security & Maintenance</h3>
               <p className="text-gray-600 mb-4">
@@ -362,9 +371,10 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-headset text-red-600 text-2xl"></i>
+            <div className="service-card p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                {/* <i className="fas fa-headset text-red-600 text-2xl"></i> */}
+                <img src="/webdev/Support&Consulting.png" alt="" />
               </div>
               <h3 className="text-xl font-bold mb-3">Support & Consulting</h3>
               <p className="text-gray-600 mb-4">
