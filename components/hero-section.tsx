@@ -21,6 +21,8 @@ import {
 import ParallaxBackground from "./parallax-background";
 import ScrollReveal from "./scroll-reveal";
 import FloatingElements from "./floating-elements";
+import { ScrollingGrid } from "./scrolling-grid";
+
 
 export default function HeroSection() {
   const { toast } = useToast();
@@ -112,6 +114,11 @@ export default function HeroSection() {
       className="relative pt-20 pb-10 md:pt-32 md:pb-20 overflow-hidden min-h-screen flex items-center"
       ref={heroRef}
     >
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        <ScrollingGrid />
+        <div className="absolute left-1/2 top-1/2 w-[80%] h-[60%] -translate-x-1/2 -translate-y-1/2 bg-white/20 rounded-xl backdrop-blur-md" />
+      </div>
+
       {/* Custom Cursor */}
       {isHovering && (
         <motion.div
@@ -257,7 +264,7 @@ export default function HeroSection() {
                 rotateX: useTransform(scrollYProgress, [0, 0.5], [0, 5]),
               }}
             >
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-purple-600/10 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-purple-600/10 mix-blend-overlay " />
               <motion.img
                 src="/team.png"
                 alt="Dashboard preview"
