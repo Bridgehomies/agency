@@ -6,24 +6,24 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Bridge Homies | Software Agency & Digital Solutions",
   description:
-    "Bridge Homies is a full-service software agency providing AI, SaaS, web & mobile app development, and digital solutions. Build, scale, and grow your business with us.",
+    "Bridge Homies is a top-tier software agency specializing in AI, SaaS, web & mobile app development, and digital solutions. We help businesses scale faster with cutting-edge technology.",
   keywords: [
     "Bridge Homies",
     "software agency",
-    "web development",
     "AI solutions",
     "SaaS development",
-    "app development",
+    "web development",
+    "mobile app development",
     "digital marketing",
-    "Pakistan software agency",
-    "Next.js development",
-    "Django development",
+    "Next.js developers",
+    "Django developers",
+    "Pakistan software company",
   ],
   authors: [{ name: "Bridge Homies", url: "https://bridgehomies.com" }],
   openGraph: {
     title: "Bridge Homies | Software Agency & Digital Solutions",
     description:
-      "We build SaaS, AI-powered apps, and digital products to help your business scale faster.",
+      "We build scalable SaaS, AI-powered applications, and digital products that accelerate business growth.",
     url: "https://bridgehomies.com",
     siteName: "Bridge Homies",
     images: [
