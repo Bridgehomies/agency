@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
   title: "Bridge Homies | Software Agency & Digital Solutions",
@@ -70,6 +71,7 @@ export default function RootLayout({
         {children}
         {/* Vercel Analytics */}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
