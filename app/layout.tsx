@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: "Bridge Homies",
     images: [
       {
-        url: "/logo-bg.png",
+        url: "/logo.jpg",
         width: 800,
         height: 600,
         alt: "Bridge Homies Logo",
@@ -39,9 +39,9 @@ export const metadata: Metadata = {
     type: "website",
   },
   icons: {
-    icon: "/logo-bg.png",
-    shortcut: "/logo-bg.png",
-    apple: "/logo-bg.png",
+    icon: "/logo.jpg",
+    shortcut: "/logo.jpg",
+    apple: "/logo.jpg",
   },
 };
 
