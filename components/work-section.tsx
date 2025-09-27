@@ -12,6 +12,26 @@ const categories = ["All", "Web", "Mobile"];
 
 const projects = [
   {
+    id: 7,
+    title: "Nabeera Bareera - Ecommerce Website",
+    category: "web",
+    image: "/work/nb.png",
+    description: "Ecommerce platform for fashion and lifestyle products.",
+    longDescription:
+      "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
+    technologies: ["Next.js", "Fast API", "Supabase"],
+  },
+  {
+    id: 4,
+    title: "Aierpify - FBR Approved Invoicing Software",
+    category: "web",
+    image: "/work/aierpify.png",
+    description: "Digital invoicing software for businesses.",
+    longDescription:
+      "Aierpify is a digital invoicing software designed to streamline the billing process for businesses. It offers features such as invoice creation, payment tracking, and financial reporting. The software is user-friendly and helps businesses manage their finances efficiently while ensuring compliance with FBR regulations.",
+    technologies: ["Next", "Tailwind", "Supabase"],
+  },
+  {
     id: 1,
     title: "Cv Jet",
     category: "Web",
@@ -47,16 +67,7 @@ const projects = [
       "MoveX Auto Shipping is a comprehensive vehicle transport service platform that allows users to book and track their vehicle shipments in real-time. The website features an intuitive interface for scheduling pickups, managing shipments, and accessing customer support. It is built with a focus on user experience and includes robust security measures to protect user data.",
     technologies: ["React", "BootStrap", "JavaScript"],
   },
-  {
-    id: 4,
-    title: "Car Shipping Service Website – USA Trax",
-    category: "web",
-    image: "/work/usa.png",
-    description: "Complete car shipping service website for USA Trax.",
-    longDescription:
-      "Create a modern, responsive website for USA Trax, a nationwide car shipping service, to enhance user experience and streamline the booking process.",
-    technologies: ["React", "BootStrap", "JavaScript"],
-  },
+  
   {
     id: 5,
     title: "Facebook Automations",
@@ -77,6 +88,7 @@ const projects = [
       "Developed a comprehensive fintech solution for modern banking, including features like online account management, transaction tracking, and financial analytics.",
     technologies: ["React", "Node.js", "Express", "MongoDB"],
   },
+  
 ];
 
 export default function WorkSection() {

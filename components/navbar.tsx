@@ -60,7 +60,7 @@ export default function Navbar() {
             <img
               src="/logo-bg.png"
               alt="Logo"
-              className="h-16 w-auto object-contain cursor-pointer"
+              className="h-20 w-auto object-contain cursor-pointer"
               onClick={() => smoothScrollTo("/")} // Optional: scroll to top
             />
           </div>

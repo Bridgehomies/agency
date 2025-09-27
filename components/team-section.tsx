@@ -12,8 +12,8 @@ const team = [
     image: "/team/bini.jpg",
     bio: "Visionary leader with a passion for technology and innovation, dedicated to driving the company's mission forward.",
     social: {
-      linkedin: "#",
-      github: "#",
+      linkedin: "https://www.linkedin.com/in/mbinasif/",
+      github: "https://github.com/MBinAsif",
     },
   },
   {
@@ -22,8 +22,8 @@ const team = [
     image: "/team/tal.jpg",
     bio: "Experienced software engineer with a passion for building scalable applications. Expert in full-stack development.",
     social: {
-      linkedin: "#",
-      github: "#",
+      linkedin: "https://www.linkedin.com/in/muhammad-talha-100949260/",
+      github: "https://github.com/TalhahaRana",
     },
   },
   {
@@ -32,8 +32,8 @@ const team = [
     image: "/team/ddani.png",
     bio: "Tech enthusiast, driving innovation and excellence in our projects. Expert in cloud computing and AI.",
     social: {
-      linkedin: "#",
-      github: "#",
+      linkedin: "",
+      github: "https://github.com/DanyaalMajid",
     },
   },
 ];
