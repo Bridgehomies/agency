@@ -20,6 +20,7 @@ const projects = [
     longDescription:
       "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
     technologies: ["Next.js", "Fast API", "Supabase"],
+    link: "https://www.nabeerabareera.com/", // Add actual link
   },
   {
     id: 4,
@@ -30,6 +31,7 @@ const projects = [
     longDescription:
       "Aierpify is a digital invoicing software designed to streamline the billing process for businesses. It offers features such as invoice creation, payment tracking, and financial reporting. The software is user-friendly and helps businesses manage their finances efficiently while ensuring compliance with FBR regulations.",
     technologies: ["Next", "Tailwind", "Supabase"],
+    link: "https://aierpify.com", // Add actual link
   },
   {
     id: 1,
@@ -40,6 +42,7 @@ const projects = [
     longDescription:
       "A comprehensive CV selector solution built with Next.js, resume parsing, and job matching. The platform includes advanced filtering, search capabilities, and a responsive design for optimal user experience across all devices.",
     technologies: ["Next.js"],
+    link: "https://cvjet.com", // Add actual link
   },
   {
     id: 2,
@@ -55,6 +58,7 @@ const projects = [
       "Natural Language Processing (NLP)",
       "Streamlit",
     ],
+    link: "https://text-sentiments-detector.streamlit.app/", // Add actual link
   },
   {
     id: 3,
@@ -66,8 +70,9 @@ const projects = [
     longDescription:
       "MoveX Auto Shipping is a comprehensive vehicle transport service platform that allows users to book and track their vehicle shipments in real-time. The website features an intuitive interface for scheduling pickups, managing shipments, and accessing customer support. It is built with a focus on user experience and includes robust security measures to protect user data.",
     technologies: ["React", "BootStrap", "JavaScript"],
+    link: "https://movexautoshipping.com", // Add actual link
   },
-  
+
   {
     id: 5,
     title: "Facebook Automations",
@@ -77,6 +82,7 @@ const projects = [
     longDescription:
       "Developed a comprehensive tool for automating Facebook posts, comments, and messages, enhancing user engagement and streamlining social media management.",
     technologies: ["React", "Node.js", "Facebook API"],
+    link: "https://facebook-automations.com", // Add actual link
   },
   {
     id: 6,
@@ -87,13 +93,14 @@ const projects = [
     longDescription:
       "Developed a comprehensive fintech solution for modern banking, including features like online account management, transaction tracking, and financial analytics.",
     technologies: ["React", "Node.js", "Express", "MongoDB"],
+    link: "https://onyxfintech.com", // Add actual link
   },
-  
+
 ];
 
 export default function WorkSection() {
   const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const ref = useRef(null);
@@ -278,7 +285,10 @@ export default function WorkSection() {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="group"
                 >
-                  <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
+                  <div
+                    className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
+                    onClick={() => project.link && window.open(project.link, '_blank')}
+                  >
                     <div className="aspect-[4/3] overflow-hidden">
                       <img
                         src={project.image || "/placeholder.svg"}
