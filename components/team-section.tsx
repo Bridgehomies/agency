@@ -5,7 +5,21 @@ import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Github, Linkedin, Twitter } from "lucide-react";
 
-const team = [
+// Define the type for a team member to ensure all properties are present
+interface TeamMember {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  social: {
+    linkedin: string;
+    github: string;
+    twitter: string; // Explicitly defined, resolving the TS2339 error
+  };
+}
+
+// Apply the interface to the data array
+const team: TeamMember[] = [
   {
     name: "Muhammad Bin Asif",
     role: "Founder & Director",
@@ -14,6 +28,7 @@ const team = [
     social: {
       linkedin: "https://www.linkedin.com/in/mbinasif/",
       github: "https://github.com/MBinAsif",
+      twitter: "", // Added missing property
     },
   },
   {
@@ -24,6 +39,7 @@ const team = [
     social: {
       linkedin: "https://www.linkedin.com/in/muhammad-talha-100949260/",
       github: "https://github.com/TalhahaRana",
+      twitter: "", // Added missing property
     },
   },
   {
@@ -34,6 +50,7 @@ const team = [
     social: {
       linkedin: "",
       github: "https://github.com/DanyaalMajid",
+      twitter: "", // Added missing property
     },
   },
 ];
