@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, X, Sparkles, TrendingUp, Shield } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, X, Sparkles, TrendingUp, Shield, Share2, Copy, Check } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 
@@ -149,6 +149,7 @@ export default function WorkSection() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const ref = useRef(null);
   const carouselRef = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
@@ -178,7 +179,33 @@ export default function WorkSection() {
   const openProjectDetails = (project: Project) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
+    // Update URL without page reload for sharing
+    const projectSlug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    window.history.pushState({}, '', `#project-${projectSlug}`);
   };
+
+  // Handle closing modal
+  const closeModal = () => {
+    setIsDialogOpen(false);
+    setSelectedProject(null);
+    // Remove project from URL
+    window.history.pushState({}, '', window.location.pathname);
+  };
+
+  // Check URL on mount to open project if shared link
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash.startsWith('#project-')) {
+      const slug = hash.replace('#project-', '');
+      const project = projects.find(p => {
+        const projectSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
+        return projectSlug === slug;
+      });
+      if (project) {
+        openProjectDetails(project);
+      }
+    }
+  }, []);
 
   const getIcon = (iconName: string) => {
     switch(iconName) {
@@ -187,6 +214,15 @@ export default function WorkSection() {
       case "shield": return <Shield className="h-5 w-5" />;
       default: return <Sparkles className="h-5 w-5" />;
     }
+  };
+
+  // Copy current URL to clipboard
+  const copyShareLink = () => {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
   };
 
   return (
@@ -361,7 +397,10 @@ export default function WorkSection() {
       </div>
 
       {/* Enhanced Project Details Modal */}
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+      <Dialog open={isDialogOpen} onOpenChange={(open) => {
+        if (!open) closeModal();
+        else setIsDialogOpen(true);
+      }}>
         <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0 bg-gradient-to-b from-background to-muted/20">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
@@ -384,11 +423,19 @@ export default function WorkSection() {
                 initial={{ y: -20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="absolute top-6 left-6"
+                className="absolute top-6 left-6 flex gap-3"
               >
                 <Badge className="bg-primary/90 backdrop-blur-sm text-lg px-4 py-2">
                   {selectedProject?.category}
                 </Badge>
+                <Button
+                  size="icon"
+                  variant="secondary"
+                  className="h-10 w-10 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background shadow-lg"
+                  onClick={copyShareLink}
+                >
+                  {copied ? <Check className="h-4 w-4 text-green-600" /> : <Share2 className="h-4 w-4" />}
+                </Button>
               </motion.div>
             </div>
 
