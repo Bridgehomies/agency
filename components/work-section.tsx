@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, X, Sparkles, TrendingUp, Shield } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 
@@ -20,7 +20,7 @@ const projects = [
     longDescription:
       "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
     technologies: ["Next.js", "Fast API", "Supabase"],
-    link: "https://www.nabeerabareera.com/", // Add actual link
+    link: "https://www.nabeerabareera.com/",
   },
   {
     id: 4,
@@ -31,7 +31,7 @@ const projects = [
     longDescription:
       "Aierpify is a digital invoicing software designed to streamline the billing process for businesses. It offers features such as invoice creation, payment tracking, and financial reporting. The software is user-friendly and helps businesses manage their finances efficiently while ensuring compliance with FBR regulations.",
     technologies: ["Next", "Tailwind", "Supabase"],
-    link: "https://aierpify.com", // Add actual link
+    link: "https://aierpify.com",
   },
   {
     id: 1,
@@ -42,7 +42,7 @@ const projects = [
     longDescription:
       "A comprehensive CV selector solution built with Next.js, resume parsing, and job matching. The platform includes advanced filtering, search capabilities, and a responsive design for optimal user experience across all devices.",
     technologies: ["Next.js"],
-    link: "https://cvjet.com", // Add actual link
+    link: "https://cvjet.com",
   },
   {
     id: 2,
@@ -58,7 +58,7 @@ const projects = [
       "Natural Language Processing (NLP)",
       "Streamlit",
     ],
-    link: "https://text-sentiments-detector.streamlit.app/", // Add actual link
+    link: "https://text-sentiments-detector.streamlit.app/",
   },
   {
     id: 3,
@@ -70,9 +70,8 @@ const projects = [
     longDescription:
       "MoveX Auto Shipping is a comprehensive vehicle transport service platform that allows users to book and track their vehicle shipments in real-time. The website features an intuitive interface for scheduling pickups, managing shipments, and accessing customer support. It is built with a focus on user experience and includes robust security measures to protect user data.",
     technologies: ["React", "BootStrap", "JavaScript"],
-    link: "https://movexautoshipping.com", // Add actual link
+    link: "https://movexautoshipping.com",
   },
-
   {
     id: 5,
     title: "Facebook Automations",
@@ -82,21 +81,68 @@ const projects = [
     longDescription:
       "Developed a comprehensive tool for automating Facebook posts, comments, and messages, enhancing user engagement and streamlining social media management.",
     technologies: ["React", "Node.js", "Facebook API"],
-    link: "https://facebook-automations.com", // Add actual link
+    link: "https://facebook-automations.com",
   },
   {
     id: 6,
     title: "Onyx Fintech System",
     category: "web",
     image: "/work/fin.webp",
-    description: "Comprehensive fintech solution for modern banking.",
+    description: "AI-powered loan matchmaking platform for financial institutions.",
     longDescription:
-      "Developed a comprehensive fintech solution for modern banking, including features like online account management, transaction tracking, and financial analytics.",
-    technologies: ["React", "Node.js", "Express", "MongoDB"],
-    link: "https://onyxfintech.com", // Add actual link
+      "The Onyx Fintech System represents a comprehensive and robust solution tailored for loan-finding organizations. This application streamlines the intricate processes of managing a diverse network of clients, businesses seeking loans, and lending institutions. At its core, Onyx facilitates the creation of mutually beneficial deals by employing advanced AI-powered matchmaking algorithms to intelligently connect the right borrowers with the most suitable lenders.",
+    technologies: ["React", "TypeScript", "Django", "PostgreSQL", "AI/ML", "AWS"],
+    link: "https://onyxfintech.com",
+    keyFeatures: [
+      {
+        icon: "sparkles",
+        title: "AI-Powered Matchmaking",
+        description: "Sophisticated algorithms analyze client profiles and requirements to predict optimal borrower-lender pairings"
+      },
+      {
+        icon: "trending",
+        title: "Deal Management Dashboard",
+        description: "Intuitive centralized platform for managing deal creation, tracking progress, and overseeing interactions"
+      },
+      {
+        icon: "shield",
+        title: "Secure Infrastructure",
+        description: "Enterprise-grade security with PostgreSQL, load balancing, and comprehensive server monitoring"
+      }
+    ],
+    highlights: [
+      "Advanced Data Visualization & Analytics",
+      "Dynamic Data Input Forms",
+      "Targeted Email Campaigns",
+      "CI/CD Pipeline Integration",
+      "Real-time Server Monitoring"
+    ]
   },
-
 ];
+
+interface ProjectStat {
+  label: string;
+  value: string;
+}
+
+interface Project {
+  id: number;
+  title: string;
+  category: string | string[];
+  image: string;
+  description: string;
+  longDescription: string;
+  technologies: string[];
+  stats?: ProjectStat[];
+  link?: string;
+  github?: string;
+  keyFeatures?: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+  highlights?: string[];
+}
 
 export default function WorkSection() {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -129,27 +175,18 @@ export default function WorkSection() {
     setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
   };
 
-  interface ProjectStat {
-    label: string;
-    value: string;
-  }
-
-  interface Project {
-    id: number;
-    title: string;
-    category: string | string[];
-    image: string;
-    description: string;
-    longDescription: string;
-    technologies: string[];
-    stats?: ProjectStat[];
-    link?: string;
-    github?: string;
-  }
-
   const openProjectDetails = (project: Project) => {
     setSelectedProject(project);
     setIsDialogOpen(true);
+  };
+
+  const getIcon = (iconName: string) => {
+    switch(iconName) {
+      case "sparkles": return <Sparkles className="h-5 w-5" />;
+      case "trending": return <TrendingUp className="h-5 w-5" />;
+      case "shield": return <Shield className="h-5 w-5" />;
+      default: return <Sparkles className="h-5 w-5" />;
+    }
   };
 
   return (
@@ -249,14 +286,14 @@ export default function WorkSection() {
                             </Badge>
                           ))}
                         </div>
-                        {/* <Button
+                        <Button
                           variant="outline"
                           className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white"
                           onClick={() => openProjectDetails(filteredProjects[currentIndex])}
                         >
                           View Project Details
                           <ArrowUpRight className="ml-2 h-4 w-4" />
-                        </Button> */}
+                        </Button>
                       </motion.div>
                     </div>
                   </motion.div>
@@ -287,7 +324,7 @@ export default function WorkSection() {
                 >
                   <div
                     className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
-                    onClick={() => project.link && window.open(project.link, '_blank')}
+                    onClick={() => openProjectDetails(project)}
                   >
                     <div className="aspect-[4/3] overflow-hidden">
                       <img
@@ -307,14 +344,13 @@ export default function WorkSection() {
                       <p className="text-white/80 text-sm sm:text-base mb-4">
                         {project.description}
                       </p>
-                      {/* <Button
+                      <Button
                         variant="outline"
                         className="w-fit bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white"
-                        onClick={() => openProjectDetails(project)}
                       >
-                        View Project
+                        View Details
                         <ArrowUpRight className="ml-2 h-4 w-4" />
-                      </Button> */}
+                      </Button>
                     </div>
                   </div>
                 </motion.div>
@@ -323,6 +359,179 @@ export default function WorkSection() {
           </TabsContent>
         </Tabs>
       </div>
+
+      {/* Enhanced Project Details Modal */}
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0 bg-gradient-to-b from-background to-muted/20">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+            className="relative"
+          >
+            {/* Hero Section with Image */}
+            <div className="relative h-72 md:h-96 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-600/20 z-0" />
+              <img
+                src={selectedProject?.image || "/placeholder.svg"}
+                alt={selectedProject?.title}
+                className="w-full h-full object-cover opacity-40"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+              
+              {/* Floating Badge */}
+              <motion.div
+                initial={{ y: -20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.2 }}
+                className="absolute top-6 left-6"
+              >
+                <Badge className="bg-primary/90 backdrop-blur-sm text-lg px-4 py-2">
+                  {selectedProject?.category}
+                </Badge>
+              </motion.div>
+            </div>
+
+            {/* Content Section */}
+            <div className="p-6 md:p-10 -mt-20 relative z-10">
+              {/* Title and Description */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3 }}
+              >
+                <DialogHeader className="mb-6">
+                  <DialogTitle className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
+                    {selectedProject?.title}
+                  </DialogTitle>
+                  <DialogDescription className="text-base md:text-lg text-muted-foreground leading-relaxed">
+                    {selectedProject?.longDescription}
+                  </DialogDescription>
+                </DialogHeader>
+              </motion.div>
+
+              {/* Key Features Section (if available) */}
+              {selectedProject?.keyFeatures && (
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.4 }}
+                  className="mb-8"
+                >
+                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                    <Sparkles className="h-5 w-5 text-primary" />
+                    Key Features
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {selectedProject.keyFeatures.map((feature, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.5 + index * 0.1 }}
+                        className="p-5 rounded-lg bg-gradient-to-br from-primary/5 to-purple-500/5 border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 rounded-lg bg-primary/10 text-primary">
+                            {getIcon(feature.icon)}
+                          </div>
+                          <div>
+                            <h4 className="font-semibold mb-1 text-sm">{feature.title}</h4>
+                            <p className="text-xs text-muted-foreground leading-relaxed">
+                              {feature.description}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Highlights Section (if available) */}
+              {selectedProject?.highlights && (
+                <motion.div
+                  initial={{ y: 20, opacity: 0 }}
+                  animate={{ y: 0, opacity: 1 }}
+                  transition={{ delay: 0.6 }}
+                  className="mb-8"
+                >
+                  <h3 className="text-xl font-semibold mb-4">Additional Highlights</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {selectedProject.highlights.map((highlight, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ x: -20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        transition={{ delay: 0.7 + index * 0.05 }}
+                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
+                      >
+                        <div className="h-2 w-2 rounded-full bg-primary" />
+                        <span className="text-sm">{highlight}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Technologies Section */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="mb-8"
+              >
+                <h3 className="text-xl font-semibold mb-4">Technologies Used</h3>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject?.technologies.map((tech, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ delay: 0.6 + i * 0.05 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="text-sm px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 hover:from-primary/20 hover:to-purple-500/20 transition-all"
+                      >
+                        {tech}
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Action Buttons */}
+              <motion.div
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="flex flex-wrap gap-4 pt-6 border-t"
+              >
+                {selectedProject?.link && (
+                  <Button
+                    className="flex-1 min-w-[200px] bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all"
+                    onClick={() => window.open(selectedProject.link, '_blank')}
+                  >
+                    Visit Live Site
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                )}
+                {selectedProject?.github && (
+                  <Button
+                    variant="outline"
+                    className="flex-1 min-w-[200px] border-2"
+                    onClick={() => window.open(selectedProject.github, '_blank')}
+                  >
+                    View on GitHub
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                )}
+              </motion.div>
+            </div>
+          </motion.div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
