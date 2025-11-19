@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bridgehomies.com
+
+# Sitemaps
+Sitemap: https://bridgehomies.com/sitemap.xml

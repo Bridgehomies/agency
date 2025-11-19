@@ -80,7 +80,7 @@ export default function ContactSection() {
                 </div>
                 <div>
                   <h4 className="text-lg font-medium mb-1">Email</h4>
-                  <p className="text-muted-foreground">bridgehomies@gmail.com</p>
+                  <p className="text-muted-foreground">info@bridgehomies.com</p>
                 </div>
               </div>
 
