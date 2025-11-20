@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { Calendar, Clock, ArrowRight, Search, TrendingUp, Sparkles, Eye, BookOpen } from 'lucide-react';
 
@@ -220,7 +222,8 @@ export default function BlogSystem() {
               prose-ul:my-6 prose-li:text-gray-300 prose-li:marker:text-purple-500
               prose-a:text-purple-400 prose-a:no-underline hover:prose-a:text-purple-300
               prose-strong:text-white prose-strong:font-bold"
-            dangerouslySetInnerHTML={{ __html: selectedBlog.content }}
+            dangerouslySetInnerHTML={{ __html: selectedBlog.content as string }}
+
           />
 
           {/* Tags */}

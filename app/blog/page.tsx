@@ -1,11 +1,18 @@
-// app/blog/page.tsx
-import BlogSystem from '@/components/BlogSystem';
+import BlogSystem from "@/components/BlogSystem";
+import Navbar from "@/components/navbar";
+import Footer from "@/components/footer";
 
 export const metadata = {
-  title: 'Blog | Your Agency Name',
-  description: 'Latest insights on web development, design, and technology'
+  title: "Blog | Bridge Homies",
+  description: "Latest insights on web development, design, and technology",
 };
 
 export default function BlogPage() {
-  return <BlogSystem />;
+  return (
+    <>
+      <Navbar />
+      <BlogSystem />
+      <Footer />
+    </>
+  );
 }
