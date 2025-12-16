@@ -3,11 +3,11 @@ import HeroSection from "@/components/hero-section"
 import ServicesSection from "@/components/services-section"
 import WorkSection from "@/components/work-section"
 import TimelineSection from "@/components/timeline-section"
-import DiagnosticQuiz from "@/components/diagnostic-quiz"
-import InteractiveChecklist from "@/components/interactive-checklist"
-import BookingSystem from "@/components/booking-system"
+// import DiagnosticQuiz from "@/components/diagnostic-quiz"
+// import InteractiveChecklist from "@/components/interactive-checklist"
+// import BookingSystem from "@/components/booking-system"
 import InteractiveMap from "@/components/interactive-map"
-import RealTimePoll from "@/components/real-time-poll"
+// import RealTimePoll from "@/components/real-time-poll"
 import TeamSection from "@/components/team-section"
 import ContactSection from "@/components/contact-section"
 import Navbar from "@/components/navbar"
@@ -31,11 +31,11 @@ export default function Home() {
         <WorkSection />
         <TimelineSection />
         <StickyTransformSection />
-        <DiagnosticQuiz />
-        <InteractiveChecklist />
-        <BookingSystem />
+        {/* <DiagnosticQuiz /> */}
+        {/* <InteractiveChecklist /> */}
+        {/* <BookingSystem /> */}
         <InteractiveMap />
-        <RealTimePoll />
+        {/* <RealTimePoll /> */}
         <TeamSection />
         <ContactSection />
       </main>
