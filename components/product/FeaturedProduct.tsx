@@ -97,7 +97,7 @@ export default function FeaturedProduct() {
           </div>
 
           {/* Right: Dashboard Card */}
-          <div className="relative">
+          {/* <div className="relative">
             <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-blue-50 p-6 shadow-md">
               <div className="bg-white rounded-xl p-6 shadow-sm">
                 <div className="flex items-center justify-between mb-6">
@@ -127,7 +127,7 @@ export default function FeaturedProduct() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

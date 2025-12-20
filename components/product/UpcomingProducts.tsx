@@ -136,14 +136,14 @@ export default function UpcomingProducts() {
         </div>
 
         {/* CTA Button */}
-        <div className="text-center mt-14">
+        {/* <div className="text-center mt-14">
         <button
           onClick={() => setOpen(true)}
           className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-xl shadow-lg"
         >
           Get Notified When Available
         </button>
-      </div>
+      </div> */}
 
       {/* Modal */}
       {open && (

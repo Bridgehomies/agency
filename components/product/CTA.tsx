@@ -19,7 +19,7 @@ export default function CTA() {
             ))}
           </div>
           <span className="ml-3 text-white/90 text-sm sm:text-base">
-            Rated 4.9/5 by 500+ customers
+            Rated 4.9/5 by 50+ customers
           </span>
         </div>
 

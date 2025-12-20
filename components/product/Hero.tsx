@@ -46,14 +46,14 @@ export default function Hero() {
           </div>
 
           {/* Brands Section */}
-          <div className="mt-20 animate-slide-up" style={{ animationDelay: '0.6s' }}>
+          {/* <div className="mt-20 animate-slide-up" style={{ animationDelay: '0.6s' }}>
             <p className="text-sm text-gray-500 mb-4">Trusted by modern businesses</p>
             <div className="flex justify-center items-center gap-6 opacity-60">
               {[...Array(4)].map((_, i) => (
                 <div key={i} className="w-24 h-8 bg-gray-300 rounded animate-pulse" />
-              ))}
+              ))}1
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </section>

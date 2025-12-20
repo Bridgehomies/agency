@@ -4,7 +4,7 @@ export default function Stats() {
   const stats = [
     {
       icon: TrendingUp,
-      number: '500+',
+      number: '50+',
       label: 'Businesses Served',
       description: 'Growing companies trust our solutions'
     },
