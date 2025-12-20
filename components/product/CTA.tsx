@@ -35,7 +35,7 @@ export default function CTA() {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
+        {/* <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           <button className="bg-white text-primary-700 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-all transform hover:scale-105 shadow-lg flex items-center justify-center group">
             Start Free Trial
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -43,7 +43,7 @@ export default function CTA() {
           <button className="border border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-primary-700 transition-all">
             Schedule a Demo
           </button>
-        </div>
+        </div> */}
 
         {/* Benefits Row */}
         
