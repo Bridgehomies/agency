@@ -225,7 +225,7 @@ export default function HomePage() {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service Card Example */}
+          
             <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition case-study-card">
               <div className="w-16 h-16  rounded-full flex items-center justify-center mb-6 service-icon">
                 {/* <i className="fas fa-code text-blue-600 text-2xl"> */}
