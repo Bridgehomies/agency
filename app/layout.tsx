@@ -5,9 +5,17 @@ import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
 export const metadata: Metadata = {
-  title: "Bridge Homies | Software Agency & Digital Solutions",
+  metadataBase: new URL("https://bridgehomies.com"),
+  title: {
+    default: "AI & Software Development Agency | Bridge Homies",
+    template: "%s | Bridge Homies",
+  },
   description:
     "Bridge Homies is a top-tier software agency specializing in AI, SaaS, web & mobile app development, and digital solutions. We help businesses scale faster with cutting-edge technology.",
+  alternates: {
+    canonical: "/",
+  },
+
   keywords: [
     "Bridge Homies",
     "software agency",
@@ -58,6 +66,26 @@ export default function RootLayout({
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32"
         />
+        <Script id="org-schema" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Bridge Homies",
+            url: "https://bridgehomies.com",
+            logo: "https://bridgehomies.com/Favicon.png",
+            sameAs: [
+              "https://www.linkedin.com/company/bridgehomies",
+            ],
+          })}
+        </Script>
+        <Script id="website-schema" type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            name: "Bridge Homies",
+            url: "https://bridgehomies.com",
+          })}
+        </Script>
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

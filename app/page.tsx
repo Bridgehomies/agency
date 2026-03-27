@@ -16,8 +16,12 @@ import { Toaster } from "@/components/ui/toaster"
 import StickyTransformSection from "@/components/sticky-transform-section"
 
 export const metadata: Metadata = {
-  title: "Bridge Homies",
-  description: "Bridge Homies is a software company that specializes in building innovative solutions for businesses. We are a team of software developers, and designers who are passionate about creating software that solves real-world problems.",
+  title: "AI & Software Development Agency | Bridge Homies",
+  description:
+    "Bridge Homies builds AI-powered software, SaaS platforms, and custom web & mobile apps that help businesses scale. Based in Lahore, serving clients globally.",
+  alternates: {
+    canonical: "https://bridgehomies.com",
+  },
 }
 
 export default function Home() {

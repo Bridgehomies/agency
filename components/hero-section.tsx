@@ -267,11 +267,11 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-purple-600/10 mix-blend-overlay " />
               <motion.img
                 src="/team.png"
-                alt="Dashboard preview"
+                alt="Bridge Homies team working on software projects"
                 className="w-full h-auto cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                loading="lazy"
+                fetchPriority="high"
               />
 
               {/* Interactive Hotspots */}
