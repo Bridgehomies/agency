@@ -59,6 +59,41 @@ const StatsCounter: React.FC = () => {
   );
 };
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://bridgehomies.com/mobile/#service",
+  name: "Mobile App Development",
+  provider: { "@id": "https://bridgehomies.com/#organization" },
+  url: "https://bridgehomies.com/mobile",
+  description:
+    "Custom iOS and Android mobile app development. Fast, intuitive apps built to scale with your business.",
+  serviceType: "Mobile App Development",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Mobile Development Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "iOS App Development" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Android App Development" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cross-Platform Development" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile UI/UX Design" } },
+    ],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Mobile App Development", item: "https://bridgehomies.com/mobile" },
+    ],
+  },
+};
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 export default function HomePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">

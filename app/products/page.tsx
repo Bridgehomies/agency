@@ -1,24 +1,41 @@
-"use client"
-import Hero from '@/components/product/Hero'
-import FeaturedProduct from '@/components/product/FeaturedProduct'
-import UpcomingProducts from '@/components/product/UpcomingProducts'
-import Features from '@/components/product/Features'
-import Stats from '@/components/product/Stats'
-import CTA from '@/components/product/CTA'
-import Footer from '@/components/footer'
-import Navbar from '@/components/navbar'
+import type { Metadata } from "next"
+import ProductsClient from "./ProductsClient"
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Our Products — Software We've Built",
+  description:
+    "Explore the software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
+  alternates: {
+    canonical: "https://bridgehomies.com/products",
+  },
+}
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "@id": "https://bridgehomies.com/products/#page",
+  name: "Our Products",
+  url: "https://bridgehomies.com/products",
+  description:
+    "Software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
+  publisher: { "@id": "https://bridgehomies.com/#organization" },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Products", item: "https://bridgehomies.com/products" },
+    ],
+  },
+}
+
+export default function ProductsPage() {
   return (
-    <main className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <Stats />
-      <FeaturedProduct />
-      <UpcomingProducts />
-      <Features />
-      <CTA />
-      <Footer />
-    </main>
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <ProductsClient />
+    </>
   )
 }

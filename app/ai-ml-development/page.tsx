@@ -60,6 +60,41 @@ const StatsCounter: React.FC = () => {
   );
 };
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://bridgehomies.com/ai-ml-development/#service",
+  name: "AI & ML Development",
+  provider: { "@id": "https://bridgehomies.com/#organization" },
+  url: "https://bridgehomies.com/ai-ml-development",
+  description:
+    "Production-grade AI and ML solutions — RAG pipelines, LLM integrations, intelligent automation, and data-driven systems built for real business impact.",
+  serviceType: "AI & Machine Learning Development",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "AI & ML Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration & Fine-Tuning" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Workflow Automation" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Predictive Analytics & ML Models" } },
+    ],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "AI & ML Development", item: "https://bridgehomies.com/ai-ml-development" },
+    ],
+  },
+};
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 export default function HomePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">
