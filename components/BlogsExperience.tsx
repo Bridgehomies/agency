@@ -62,9 +62,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               <h1 className="mt-6 max-w-4xl font-serif text-5xl leading-none text-[#f8f4ec] md:text-7xl">
                 Articles designed to rank, answer, and convert.
               </h1>
-              <p className="mt-6 max-w-2xl text-lg leading-8 text-[#ddd5ca]">
-                `/blog` is your public archive, and every article lives on its own clean URL at `/blog/[slug]` so search engines can index it properly.
-              </p>
+
             </div>
             <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
               <p className="text-sm uppercase tracking-[0.22em] text-[#f6c27a]">Publishing workflow</p>
@@ -114,11 +112,10 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             <button
               key={item}
               onClick={() => setCategory(item)}
-              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
-                category === item
+              className={`rounded-full px-4 py-2 text-sm font-semibold transition ${category === item
                   ? "bg-[#111111] text-[#f8f4ec]"
                   : "border border-black/10 bg-white/70 text-slate-700 hover:bg-white"
-              }`}
+                }`}
             >
               {item}
             </button>
@@ -142,9 +139,8 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className={`group flex h-full flex-col overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_-50px_rgba(17,17,17,0.5)] transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(17,17,17,0.65)] ${
-                    featured ? "md:col-span-2 xl:col-span-2" : ""
-                  }`}
+                  className={`group flex h-full flex-col overflow-hidden rounded-[2rem] border border-black/10 bg-white shadow-[0_24px_80px_-50px_rgba(17,17,17,0.5)] transition hover:-translate-y-1 hover:shadow-[0_24px_80px_-40px_rgba(17,17,17,0.65)] ${featured ? "md:col-span-2 xl:col-span-2" : ""
+                    }`}
                 >
                   <div className={`relative overflow-hidden ${featured ? "h-80" : "h-56"}`}>
                     <img
