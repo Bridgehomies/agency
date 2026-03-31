@@ -94,7 +94,7 @@ export default function RealTimePoll() {
   }
 
   return (
-    <section className="py-20 md:py-32 bg-muted/30">
+    <section className="relative py-20 md:py-32 bg-muted/30">
       <div className="container max-w-4xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -122,9 +122,10 @@ export default function RealTimePoll() {
                     <Users className="h-4 w-4" />
                     <motion.span
                       key={totalVotes}
-                      initial={{ scale: 1.2, color: "#10b981" }}
-                      animate={{ scale: 1, color: "inherit" }}
+                      initial={{ scale: 1.2 }}
+                      animate={{ scale: 1 }}
                       transition={{ duration: 0.3 }}
+                      className="text-muted-foreground"
                     >
                       {totalVotes} votes
                     </motion.span>
