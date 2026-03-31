@@ -16,11 +16,18 @@ import { Toaster } from "@/components/ui/toaster"
 import StickyTransformSection from "@/components/sticky-transform-section"
 
 export const metadata: Metadata = {
-  title: "AI & Software Development Agency | Bridge Homies",
+  title: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
   description:
-    "Bridge Homies builds AI-powered software, SaaS platforms, and custom web & mobile apps that help businesses scale. Based in Lahore, serving clients globally.",
+    "Bridge Homies is a leading machine learning agency and top ai ml engineering service providers. We offer expert ai/ml engineering services, SaaS, and custom software to help businesses scale globally.",
   alternates: {
     canonical: "https://bridgehomies.com",
+  },
+  openGraph: {
+    title: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
+    description:
+      "Top ai ml engineering service providers delivering expert ai/ml engineering services. A trusted machine learning agency for enterprise AI solutions.",
+    url: "https://bridgehomies.com",
+    type: "website",
   },
 }
 
