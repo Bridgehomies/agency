@@ -1,13 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // 👈 this enables static export
-
-  
+  // output: 'export',  // 👈 comment this out temporarily
   typescript: {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true, // 👈 important for image export
+    unoptimized: true,
   },
 }
 
