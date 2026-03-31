@@ -60,6 +60,41 @@ const StatsCounter: React.FC = () => {
   );
 };
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://bridgehomies.com/software/#service",
+  name: "Custom Software Development",
+  provider: { "@id": "https://bridgehomies.com/#organization" },
+  url: "https://bridgehomies.com/software",
+  description:
+    "End-to-end custom software development tailored to your business workflows. Built for maintainability, performance, and long-term scale.",
+  serviceType: "Custom Software Development",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Custom Software Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Product Development" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Enterprise Software" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "API Development & Integration" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Legacy System Modernization" } },
+    ],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Custom Software Development", item: "https://bridgehomies.com/software" },
+    ],
+  },
+};
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 export default function HomePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">

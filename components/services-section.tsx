@@ -95,8 +95,8 @@ const services = [
   },
   {
     icon: <Shield className="h-10 w-10" />,
-    title: "Ai & Machine Learning",
-    description: "Leverage the power of AI and machine learning to drive innovation and efficiency.",
+    title: "AI & Machine Learning",
+    description: "Leverage the power of AI with our comprehensive ai ml engineering services to drive innovation and efficiency.",
     color: "from-primary to-violet-400",
     skills: [
       { name: "Machine Learning", value: 94 },
@@ -104,9 +104,9 @@ const services = [
       { name: "Computer Vision", value: 88 },
     ],
     features: [
-      "AI model development and training",
+      "End-to-end AI ML engineering services",
       "Natural language processing solutions",
-      "Computer vision applications",
+      "Computer vision & image recognition",
       "Predictive analytics and data modeling",
     ],
   },
@@ -131,9 +131,9 @@ export default function ServicesSection() {
           transition={{ duration: 0.5 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our AI ML Engineering Services & More</h2>
           <p className="text-xl text-muted-foreground">
-            We offer a comprehensive range of digital services to help your business succeed in the digital landscape.
+            As trusted ai ml engineering service providers, we offer a comprehensive range of AI/ML engineering services and digital solutions to help your business succeed.
           </p>
         </motion.div>
 

@@ -99,13 +99,13 @@ export default function HeroSection() {
   };
 
   const interactiveElements = [
-    { icon: <Zap className="h-6 w-6" />, text: "Fast Development", delay: 0.2 },
+    { icon: <Zap className="h-6 w-6" />, text: "AI/ML Engineering", delay: 0.2 },
     {
       icon: <Target className="h-6 w-6" />,
-      text: "Precise Solutions",
+      text: "Machine Learning Solutions",
       delay: 0.4,
     },
-    { icon: <Rocket className="h-6 w-6" />, text: "Launch Ready", delay: 0.6 },
+    { icon: <Rocket className="h-6 w-6" />, text: "Production Ready", delay: 0.6 },
   ];
 
   return (
@@ -186,7 +186,7 @@ export default function HeroSection() {
 
           <ScrollReveal direction="up" delay={0.2}>
             <motion.h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-              We Build{" "}
+              Expert{" "}
               <motion.span
                 className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-600"
                 animate={{
@@ -198,17 +198,15 @@ export default function HeroSection() {
                   ease: "linear",
                 }}
               >
-                Software
+                AI/ML Engineering Services
               </motion.span>{" "}
-              That Drives Growth
+              That Drive Growth
             </motion.h1>
           </ScrollReveal>
 
           <ScrollReveal direction="up" delay={0.4}>
             <motion.p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-8">
-              Our team of experts combines creativity and technology to deliver
-              exceptional digital solutions that help businesses thrive in the
-              digital age.
+              Bridge Homies is a trusted machine learning agency and one of the top AI ML engineering service providers. Our engineers deliver production-grade AI/ML engineering services that help businesses automate, innovate, and scale.
             </motion.p>
           </ScrollReveal>
 
@@ -267,11 +265,11 @@ export default function HeroSection() {
               <div className="absolute inset-0 bg-gradient-to-tr from-primary/10 to-purple-600/10 mix-blend-overlay " />
               <motion.img
                 src="/team.png"
-                alt="Dashboard preview"
+                alt="Bridge Homies team working on software projects"
                 className="w-full h-auto cursor-pointer"
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
-                loading="lazy"
+                fetchPriority="high"
               />
 
               {/* Interactive Hotspots */}

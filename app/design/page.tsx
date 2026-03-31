@@ -62,6 +62,41 @@ const StatsCounter: React.FC = () => {
   );
 };
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://bridgehomies.com/design/#service",
+  name: "Product & Brand Design",
+  provider: { "@id": "https://bridgehomies.com/#organization" },
+  url: "https://bridgehomies.com/design",
+  description:
+    "Brand identity and digital product design that communicates clearly and converts. From logo systems to full design languages.",
+  serviceType: "Design Services",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "Design Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Brand Identity Design" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Digital Product Design" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Design Systems" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Visual Communication" } },
+    ],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Design", item: "https://bridgehomies.com/design" },
+    ],
+  },
+};
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 export default function HomePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">

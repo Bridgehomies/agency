@@ -60,6 +60,41 @@ const StatsCounter: React.FC = () => {
   );
 };
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://bridgehomies.com/ui-ux-design/#service",
+  name: "UI/UX Design",
+  provider: { "@id": "https://bridgehomies.com/#organization" },
+  url: "https://bridgehomies.com/ui-ux-design",
+  description:
+    "User-first UI/UX design for web and mobile products. We prototype fast, test early, and ship interfaces that users actually want to use.",
+  serviceType: "UI/UX Design",
+  areaServed: "Worldwide",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "UI/UX Design Services",
+    itemListElement: [
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "User Research & Wireframing" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Prototype & Usability Testing" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Conversion-Focused UI Design" } },
+      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Design Handoff & Dev Support" } },
+    ],
+  },
+  breadcrumb: {
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "UI/UX Design", item: "https://bridgehomies.com/ui-ux-design" },
+    ],
+  },
+};
+
+<script
+  type="application/ld+json"
+  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+/>
+
 export default function HomePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">
