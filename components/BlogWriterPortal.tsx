@@ -159,7 +159,9 @@ function JsonPreview({ content }: { content: string }) {
 
           if (type === "heading") {
             const level = Math.min(6, Math.max(1, Number(block.level || 2)));
-            const Tag = `h${level}` as keyof JSX.IntrinsicElements;
+            // FIX: Cast to any or React.ElementType to satisfy the JSX parser
+            const Tag = `h${level}` as any; 
+            
             return (
               <Tag key={index} className="font-serif text-2xl font-bold text-slate-950">
                 {String(block.text || "")}
@@ -178,7 +180,7 @@ function JsonPreview({ content }: { content: string }) {
           if (type === "list") {
             const items = Array.isArray(block.items) ? block.items : [];
             const ordered = Boolean(block.ordered);
-            const ListTag = ordered ? "ol" : "ul";
+            const ListTag = (ordered ? "ol" : "ul") as any;
             return (
               <ListTag key={index} className="space-y-2 pl-5 text-sm leading-7 text-slate-700 list-disc">
                 {items.map((item, itemIndex) => (
