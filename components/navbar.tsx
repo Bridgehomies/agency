@@ -25,6 +25,8 @@ export default function Navbar() {
     { name: "Work", href: "#work" },
     { name: "Team", href: "#team" },
     { name: "Products", href: "/products" },
+    { name: "Blog", href: "/blog" },
+    
   ];
 
   // Update smoothScrollTo to handle "/" as a route navigation
@@ -81,12 +83,15 @@ export default function Navbar() {
           </div>
 
           {/* Get Started Right */}
-          <Button
-            className="bg-gradient-to-r from-primary to-purple-600 text-black shadow hover:from-primary/90 hover:to-purple-600/90"
-            onClick={() => smoothScrollTo("#contact")}
-          >
-            Get Started
-          </Button>
+          <div className="flex items-center gap-3">
+            
+            <Button
+              className="bg-gradient-to-r from-primary to-purple-600 text-white  shadow hover:from-primary/90 hover:to-purple-600/90"
+              onClick={() => smoothScrollTo("#contact")}
+            >
+              Get Started
+            </Button>
+          </div>
         </div>
       </header>
 
