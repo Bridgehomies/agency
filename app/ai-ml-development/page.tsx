@@ -1,23 +1,16 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import { FaPhoneAlt } from "react-icons/fa";
-import { IoMdMail } from "react-icons/io";
-import WorkSection from '@/components/work-section';
-import Form from '@/components/form/form';
+import WorkSection from "@/components/work-section";
+import Link from "next/link";
 
-// Stats Counter Component
 const StatsCounter: React.FC = () => {
-  const animateCounter = (
-    id: string,
-    endValue: number,
-    isPercentage: boolean = false
-  ) => {
+  const animateCounter = (id: string, endValue: number, isPercentage: boolean = false) => {
     const element = document.getElementById(id);
     if (!element) return;
     let current = 0;
-    const increment = Math.ceil(endValue / 50); // adjust speed
+    const increment = Math.ceil(endValue / 50);
     const timer = setInterval(() => {
       current += increment;
       if (current >= endValue) {
@@ -28,12 +21,14 @@ const StatsCounter: React.FC = () => {
       }
     }, 30);
   };
+
   useEffect(() => {
-    animateCounter('counter-projects', 15, false);
-    animateCounter('counter-feedback', 98, true);
-    animateCounter('counter-team', 2, false);
-    animateCounter('counter-launched', 2024, false);
+    animateCounter("counter-projects", 15, false);
+    animateCounter("counter-feedback", 98, true);
+    animateCounter("counter-team", 2, false);
+    animateCounter("counter-launched", 2024, false);
   }, []);
+
   return (
     <section className="py-12 bg-gradient-to-r from-blue-50 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -62,81 +57,112 @@ const StatsCounter: React.FC = () => {
 
 const schema = {
   "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": "https://bridgehomies.com/ai-ml-development/#service",
-  name: "AI & ML Development",
-  provider: { "@id": "https://bridgehomies.com/#organization" },
-  url: "https://bridgehomies.com/ai-ml-development",
-  description:
-    "Production-grade AI and ML solutions — RAG pipelines, LLM integrations, intelligent automation, and data-driven systems built for real business impact.",
-  serviceType: "AI & Machine Learning Development",
-  areaServed: "Worldwide",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "AI & ML Services",
-    itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration & Fine-Tuning" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Workflow Automation" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Predictive Analytics & ML Models" } },
-    ],
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-      { "@type": "ListItem", position: 2, name: "AI & ML Development", item: "https://bridgehomies.com/ai-ml-development" },
-    ],
-  },
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://bridgehomies.com/ai-ml-development/#webpage",
+      url: "https://bridgehomies.com/ai-ml-development",
+      name: "AI ML Engineering Services — Machine Learning Agency | Bridge Homies",
+      description:
+        "Bridge Homies is a machine learning agency delivering production-grade AI ML engineering services — RAG pipelines, LLM integrations, intelligent automation, and AI automation for real business impact.",
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
+          { "@type": "ListItem", position: 2, name: "AI ML Engineering Services", item: "https://bridgehomies.com/ai-ml-development" },
+        ],
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": "https://bridgehomies.com/ai-ml-development/#service",
+      name: "AI ML Engineering Services",
+      provider: { "@id": "https://bridgehomies.com/#organization" },
+      url: "https://bridgehomies.com/ai-ml-development",
+      description:
+        "Production-grade AI ML engineering services — RAG pipelines, LLM integrations, intelligent automation, and data-driven systems. Bridge Homies is a trusted machine learning agency built for real business impact.",
+      serviceType: "AI & Machine Learning Engineering",
+      areaServed: "Worldwide",
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "AI ML Engineering Services",
+        itemListElement: [
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration & Fine-Tuning" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation Workflows" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Predictive Analytics & ML Models" } },
+        ],
+      },
+    },
+    {
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "What AI ML engineering services does Bridge Homies offer?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Bridge Homies offers end-to-end AI ML engineering services including RAG pipelines, LLM integration, machine learning model deployment, predictive analytics, and AI automation for enterprise use cases.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Is Bridge Homies a machine learning agency?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Bridge Homies is a dedicated machine learning agency serving clients worldwide with expert AI ML engineering services, custom AI automation, and data-driven software solutions.",
+          },
+        },
+      ],
+    },
+  ],
 };
 
-<script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-/>
-
-export default function HomePage() {
+export default function AiMlPage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">
-      <Navbar></Navbar>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <Navbar />
+
       {/* Hero Section */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="particles" id="particles"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="md:flex items-center">
             <div className="md:w-1/2 mb-12 md:mb-0">
+              {/* H1 — primary keyword */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                We Engineer{' '}
+                Expert{" "}
                 <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Intelligent Solutions
-                </span>{' '}
+                  AI ML Engineering Services
+                </span>{" "}
                 That Drive Growth
               </h1>
+              {/* First paragraph — keyword-rich */}
               <p className="text-lg text-gray-600 mb-8">
-                At Bridge Homies, we transform data into actionable insights using cutting-edge AI and ML technologies. Our team of experts delivers scalable, intelligent solutions that optimize processes, predict outcomes, and drive business innovation.
+                Bridge Homies is a machine learning agency and AI ML engineering service provider delivering
+                production-grade solutions — from RAG pipelines and LLM integrations to intelligent AI automation
+                and data-driven enterprise software. We help businesses automate, innovate, and scale with AI.
               </p>
               <div className="flex space-x-4">
-                <a
-                  href="#contact"
-                  className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg transition"
-                >
-                  Start Your Project
+                <a href="#contact" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg transition">
+                  Start Your AI Project
                 </a>
-                <a
-                  href="#work"
-                  className="px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition"
-                >
+                <a href="#work" className="px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition">
                   View Our Work
                 </a>
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md floating">
+              <div className="relative w-full max-w-md">
                 <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-50"></div>
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
+                {/* Image alt — keyword */}
                 <img
-                  src="https://img.freepik.com/free-vector/hand-drawn-flat-design-rpa-illustration_23-2149277643.jpg?t=st=1751450653~exp=1751454253~hmac=da28d9536ece99ccd9a506d706634ba7435100f0878bde7a3e76776d92f83107&w=826"
-                  alt="AI/ML Engineering"
+                  src="https://img.freepik.com/free-vector/hand-drawn-flat-design-rpa-illustration_23-2149277643.jpg?w=826"
+                  alt="Bridge Homies AI ML engineering services and machine learning agency solutions"
                   className="rounded-2xl shadow-2xl border-8 border-blue-50 transform transition duration-500 hover:scale-105 hover:shadow-xl"
                 />
               </div>
@@ -144,50 +170,40 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       <StatsCounter />
-      {/* About Section */}
+
+      {/* About */}
       <section id="about" className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Story</h2>
+            {/* H2 */}
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Your Trusted Machine Learning Agency for AI Automation
+            </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
           </div>
           <div className="md:flex items-center">
             <div className="md:w-1/2 mb-12 md:mb-0 md:pr-12">
               <h3 className="text-2xl font-bold mb-6">From Data to Intelligence</h3>
               <p className="text-gray-600 mb-6">
-                Founded in 2024, Bridge Homies began as a small team of passionate engineers with a vision to harness the power of AI and ML. Today, we've grown into a full-service AI/ML engineering agency serving clients worldwide.
+                Founded in 2024, Bridge Homies started as a passionate team of engineers focused on AI ML
+                engineering services. Today we are a full-service machine learning agency serving clients
+                worldwide — transforming raw data into actionable intelligence with AI automation and enterprise
+                software solutions.
               </p>
               <p className="text-gray-600 mb-6">
-                Our journey has been marked by innovation, dedication, and an unwavering commitment to delivering intelligent solutions that solve real-world problems. We believe in the transformative potential of AI and ML to revolutionize industries and create lasting impact.
+                Our AI ML engineering services cover the entire lifecycle — from data engineering and model
+                training to deployment and monitoring — so your business gets lasting value from every
+                AI investment.
               </p>
-              <div className="flex space-x-4">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                    <i className="fas fa-brain text-blue-600 text-xl"></i>
-                  </div>
-                  <div>
-                    <div className="font-bold">Data-Driven</div>
-                    <div className="text-sm text-gray-500">Solutions that scale</div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center mr-4">
-                    <i className="fas fa-bolt text-purple-600 text-xl"></i>
-                  </div>
-                  <div>
-                    <div className="font-bold">Innovative</div>
-                    <div className="text-sm text-gray-500">Pushing boundaries</div>
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="md:w-1/2">
               <div className="relative">
                 <div className="absolute -top-6 -left-6 w-full h-full border-2 border-blue-200 rounded-lg"></div>
                 <img
-                  src=" https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
-                  alt="Our Team"
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
+                  alt="Machine learning agency team delivering AI ML engineering services"
                   className="relative rounded-lg shadow-lg"
                 />
               </div>
@@ -195,150 +211,148 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      {/* Services Section */}
+
+      {/* Services */}
       <section id="services" className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Our AI ML Engineering Services
+            </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
             <p className="text-gray-600 max-w-2xl mx-auto mt-6">
-              We offer comprehensive AI/ML engineering services tailored to your business needs. From data analysis to deployment, we deliver intelligent solutions that drive innovation and growth.
+              As a machine learning agency, we deliver AI ML engineering services, AI automation, and
+              data-driven enterprise software for businesses at every stage of growth.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service Card Example */}
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-brain text-blue-600 text-2xl"></i>
+            {[
+              {
+                title: "Machine Learning Models",
+                desc: "Custom ML models designed to solve specific business challenges. Our AI ML engineering services cover predictive analytics, NLP, and image recognition.",
+                items: ["Predictive Analytics", "Natural Language Processing", "Image Recognition"],
+                color: "bg-blue-100",
+              },
+              {
+                title: "Data Science & Analytics",
+                desc: "Transform raw data into actionable insights with our machine learning agency's data science and visualisation capabilities.",
+                items: ["Data Cleaning & Preprocessing", "Statistical Analysis", "Dashboard Development"],
+                color: "bg-purple-100",
+              },
+              {
+                title: "AI Automation",
+                desc: "Automate repetitive tasks and optimise workflows using AI automation tools and intelligent algorithms.",
+                items: ["Process Automation", "Supply Chain Optimisation", "Resource Allocation"],
+                color: "bg-indigo-100",
+              },
+              {
+                title: "LLM Integration & RAG",
+                desc: "Integrate large language models and build RAG pipelines that power intelligent, context-aware applications.",
+                items: ["OpenAI & Anthropic APIs", "RAG Pipeline Development", "Fine-Tuning LLMs"],
+                color: "bg-green-100",
+              },
+              {
+                title: "AI Security & Compliance",
+                desc: "Ensure your AI ML engineering services are secure, ethical, and compliant with industry regulations.",
+                items: ["Bias Detection", "Data Privacy", "Regulatory Compliance"],
+                color: "bg-yellow-100",
+              },
+              {
+                title: "Support & Consulting",
+                desc: "Expert guidance and ongoing support to help you implement AI ML engineering services effectively.",
+                items: ["Dedicated Support", "Technology Consulting", "Training Sessions"],
+                color: "bg-red-100",
+              },
+            ].map((s, i) => (
+              <div key={i} className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+                <div className={`w-16 h-16 ${s.color} rounded-full flex items-center justify-center mb-6`}>
+                  <span className="text-2xl">🤖</span>
+                </div>
+                <h3 className="text-xl font-bold mb-3">{s.title}</h3>
+                <p className="text-gray-600 mb-4 text-sm">{s.desc}</p>
+                <ul className="text-gray-600 space-y-1 text-sm">
+                  {s.items.map((item, j) => <li key={j}>✓ {item}</li>)}
+                </ul>
               </div>
-              <h3 className="text-xl font-bold mb-3">Machine Learning Models</h3>
-              <p className="text-gray-600 mb-4">
-                Custom-built machine learning models designed to solve specific business challenges and improve decision-making.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Predictive Analytics</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Natural Language Processing</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Image Recognition</i>
-                </li>
-              </ul>
-            </div>
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-chart-line text-purple-600 text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Data Science & Analytics</h3>
-              <p className="text-gray-600 mb-4">
-                Transform raw data into actionable insights with advanced data science techniques and visualization tools.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Data Cleaning & Preprocessing</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Statistical Analysis</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Dashboard Development</i>
-                </li>
-              </ul>
-            </div>
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-robot text-indigo-600 text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Automation & Optimization</h3>
-              <p className="text-gray-600 mb-4">
-                Automate repetitive tasks and optimize workflows using AI-powered tools and algorithms.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Process Automation</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Supply Chain Optimization</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Resource Allocation</i>
-                </li>
-              </ul>
-            </div>
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-shield-alt text-green-600 text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3">AI Security & Compliance</h3>
-              <p className="text-gray-600 mb-4">
-                Ensure your AI systems are secure, ethical, and compliant with industry regulations.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Bias Detection</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Data Privacy</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Regulatory Compliance</i>
-                </li>
-              </ul>
-            </div>
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
-                <i className="fas fa-headset text-yellow-600 text-2xl"></i>
-              </div>
-              <h3 className="text-xl font-bold mb-3">Support & Consulting</h3>
-              <p className="text-gray-600 mb-4">
-                Expert guidance and ongoing support to help you navigate the complexities of AI/ML implementation.
-              </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Dedicated Support</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Technology Consulting</i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">Training Sessions</i>
-                </li>
-              </ul>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-      {/* Work Section */}
+
+      {/* Interlinks */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Explore All Our Software &amp; AI Services
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/webdev" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Website Development</div>
+              <div className="text-xs text-gray-500 mt-1">Next.js &amp; React</div>
+            </Link>
+            <Link href="/software" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Enterprise Software</div>
+              <div className="text-xs text-gray-500 mt-1">SaaS &amp; Web Apps</div>
+            </Link>
+            <Link href="/mobile" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Mobile Development</div>
+              <div className="text-xs text-gray-500 mt-1">iOS &amp; Android</div>
+            </Link>
+            <Link href="/products" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Our Products</div>
+              <div className="text-xs text-gray-500 mt-1">FBR ERP &amp; More</div>
+            </Link>
+          </div>
+          {/* External link */}
+          <p className="text-center text-xs text-gray-500 mt-6">
+            Our machine learning agency follows{" "}
+            <a
+              href="https://developers.google.com/machine-learning/guides/rules-of-ml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Google's Rules of Machine Learning
+            </a>{" "}
+            to build reliable AI systems.
+          </p>
+        </div>
+      </section>
+
       <WorkSection />
-      {/* CTA Section */}
-      {/* <Form/> */}
-      {/* FAQ Section */}
+
+      {/* FAQ */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
           </div>
-          <div className="max-w-3xl mx-auto">
-            {/* FAQ Item */}
-            <div className="mb-6 border-b border-gray-200 pb-6">
-              <button className="faq-toggle flex justify-between items-center w-full text-left">
-                <h3 className="text-xl font-bold text-gray-800">How can AI/ML benefit my business?</h3>
-                <i className="fas fa-chevron-down text-blue-600 transition-transform"></i>
-              </button>
-              <div className="faq-content mt-4 text-gray-600 hidden">
-                <p>
-                  AI/ML can help your business by automating repetitive tasks, predicting customer behavior, optimizing processes, and providing actionable insights from data. These technologies enable smarter decision-making, reduce costs, and enhance user experiences, ultimately driving growth and innovation.
-                </p>
-              </div>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="border-b border-gray-200 pb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">
+                How can AI ML engineering services benefit my business?
+              </h3>
+              <p className="text-gray-600">
+                AI ML engineering services help your business by automating repetitive tasks, predicting
+                customer behaviour, optimising processes, and providing actionable insights from data.
+                As a machine learning agency, Bridge Homies enables smarter decision-making and reduces costs.
+              </p>
             </div>
-            {/* Add more FAQs similarly... */}
+            <div className="border-b border-gray-200 pb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">
+                What industries do your AI ML engineering services serve?
+              </h3>
+              <p className="text-gray-600">
+                Our machine learning agency serves fintech, e-commerce, healthcare, logistics, and SaaS companies
+                with tailored AI automation and enterprise software solutions.
+              </p>
+            </div>
           </div>
         </div>
       </section>
-      <Footer></Footer>
+
+      <Footer />
     </main>
   );
 }

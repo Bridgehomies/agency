@@ -4,21 +4,14 @@ import React, { useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/work-section";
+import Link from "next/link";
 
-
-// Stats Counter Component
 const StatsCounter: React.FC = () => {
-  const animateCounter = (
-    id: string,
-    endValue: number,
-    isPercentage: boolean = false
-  ) => {
+  const animateCounter = (id: string, endValue: number, isPercentage: boolean = false) => {
     const element = document.getElementById(id);
     if (!element) return;
-
     let current = 0;
-    const increment = Math.ceil(endValue / 50); // adjust speed
-
+    const increment = Math.ceil(endValue / 50);
     const timer = setInterval(() => {
       current += increment;
       if (current >= endValue) {
@@ -42,39 +35,19 @@ const StatsCounter: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div className="p-6">
-            <div
-              id="counter-projects"
-              className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2"
-            >
-              0+
-            </div>
-            <div className="text-gray-600">Projects Initiated</div>
+            <div id="counter-projects" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
+            <div className="text-gray-600">Website Development Projects</div>
           </div>
           <div className="p-6">
-            <div
-              id="counter-feedback"
-              className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2"
-            >
-              0%
-            </div>
-            <div className="text-gray-600">Positive Feedback</div>
+            <div id="counter-feedback" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0%</div>
+            <div className="text-gray-600">Client Satisfaction</div>
           </div>
           <div className="p-6">
-            <div
-              id="counter-team"
-              className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2"
-            >
-              0+
-            </div>
-            <div className="text-gray-600">Talented Professionals</div>
+            <div id="counter-team" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
+            <div className="text-gray-600">Software Developers</div>
           </div>
           <div className="p-6">
-            <div
-              id="counter-launched"
-              className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2"
-            >
-              0
-            </div>
+            <div id="counter-launched" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0</div>
             <div className="text-gray-600">Launched in</div>
           </div>
         </div>
@@ -83,69 +56,29 @@ const StatsCounter: React.FC = () => {
   );
 };
 
-// Add this inside your page's return JSX, before the main content
-const schema = {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "@id": "https://bridgehomies.com/webdev/#service",
-  name: "Web Development",
-  provider: { "@id": "https://bridgehomies.com/#organization" },
-  url: "https://bridgehomies.com/webdev",
-  description:
-    "Custom web application development using Next.js, React, and Django. From MVPs to full-scale platforms built for performance and scale.",
-  serviceType: "Web Development",
-  areaServed: "Worldwide",
-  hasOfferCatalog: {
-    "@type": "OfferCatalog",
-    name: "Web Development Services",
-    itemListElement: [
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Next.js Development" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "React Application Development" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Django Backend Development" } },
-      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MVP Development" } },
-    ],
-  },
-  breadcrumb: {
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-      { "@type": "ListItem", position: 2, name: "Web Development", item: "https://bridgehomies.com/webdev" },
-    ],
-  },
-};
-
-<script
-  type="application/ld+json"
-  dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-/>
-
-
-
-export default function HomePage() {
+export default function WebDevClient() {
   return (
     <main className="font-sans bg-gray-50 text-gray-800">
-      <Navbar></Navbar>
-      {/* Hero Section */}
+      <Navbar />
 
+      {/* Hero Section */}
       <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="particles" id="particles"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="md:flex items-center">
             <div className="md:w-1/2 mb-12 md:mb-0">
+              {/* H1 — primary keyword */}
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                We Build{" "}
+                Expert{" "}
                 <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Dynamic Web Experiences
+                  Website Development
                 </span>{" "}
-                with Cutting-Edge Technologies
+                &amp; Web App Services
               </h1>
+              {/* First paragraph — keyword-rich */}
               <p className="text-lg text-gray-600 mb-8">
-                At Bridge Homies, we craft responsive, user-friendly, and
-                high-performance web applications tailored to your unique
-                business requirements. Our expert team leverages the latest
-                frontend and backend technologies to deliver solutions that
-                captivate your audience, streamline operations, and drive online
-                success.
+                Bridge Homies is a software developer company delivering professional website development,
+                SaaS platforms, web apps, and enterprise software using Next.js, React, and Django.
+                Our expert team integrates AI automation into every project to help businesses scale faster and smarter.
               </p>
               <div className="flex space-x-4">
                 <a
@@ -163,12 +96,13 @@ export default function HomePage() {
               </div>
             </div>
             <div className="md:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md floating">
+              <div className="relative w-full max-w-md">
                 <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-50 z-10"></div>
                 <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
+                {/* Image alt — keyword */}
                 <img
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80"
-                  alt="Python Development"
+                  alt="Bridge Homies website development and web apps software developer company"
                   className="rounded-2xl shadow-2xl border-8 border-blue-50 transform transition duration-500 hover:scale-105 hover:shadow-xl"
                 />
               </div>
@@ -183,63 +117,31 @@ export default function HomePage() {
       <section id="about" className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Story</h2>
+            {/* H2 — secondary keyword */}
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Your Software Developer Company for SaaS &amp; Web Apps
+            </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
           </div>
           <div className="md:flex items-center">
             <div className="md:w-1/2 mb-12 md:mb-0 md:pr-12">
-              <h3 className="text-2xl font-bold mb-6">
-                From Vision to Reality
-              </h3>
+              <h3 className="text-2xl font-bold mb-6">From Vision to Reality</h3>
               <p className="text-gray-600 mb-6">
-                Founded in 2024, Bridge Homies began as a small team of
-                passionate developers with a vision to create digital solutions
-                that make a real difference. Today, we've grown into a
-                full-service web development agency serving clients worldwide.
+                Founded in 2024, Bridge Homies is a software company that began building scalable websites and
+                web apps for businesses worldwide. Our website development services span custom web applications,
+                SaaS platforms, enterprise software, and AI automation — all under one roof.
               </p>
               <p className="text-gray-600 mb-6">
-                Our journey has been marked by innovation, dedication, and an
-                unwavering commitment to quality. We believe in the power of
-                technology to transform businesses and create meaningful
-                connections with users.
+                As a trusted software developer company, we believe in shipping production-ready code fast,
+                with clean architecture and performance built in from day one.
               </p>
-              <div className="flex space-x-4">
-                <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                    <i className="fas fa-lightbulb text-blue-600 text-xl"></i>
-                    <img src="/webdev/Innovative.png" alt="" />
-                  </div>
-                  <div>
-                    <div className="font-bold">Innovative</div>
-                    <div className="text-sm text-gray-500">
-                      Cutting-edge solutions
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center">
-                  <div className="w-14 h-14 rounded-full bg-purple-100 flex items-center justify-center mr-4">
-                    <i className="fas fa-heart text-purple-600 text-xl"></i>
-                    <img
-                      className="w-11 h-11"
-                      src="/webdev/passionate.png"
-                      alt=""
-                    />
-                  </div>
-                  <div>
-                    <div className="font-bold">Passionate</div>
-                    <div className="text-sm text-gray-500">
-                      About what we do
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
             <div className="md:w-1/2">
               <div className="relative">
                 <div className="absolute -top-6 -left-6 w-full h-full border-2 border-blue-200 rounded-lg"></div>
                 <img
-                  src=" https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
-                  alt="Our Team"
+                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
+                  alt="Bridge Homies software developer team building web apps and enterprise software"
                   className="relative rounded-lg shadow-lg"
                 />
               </div>
@@ -252,234 +154,196 @@ export default function HomePage() {
       <section id="services" className="py-16 md:py-24 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
+            {/* H2 */}
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our Services
+              Website Development &amp; Software Services
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
             <p className="text-gray-600 max-w-2xl mx-auto mt-6">
-              We offer comprehensive web development services tailored to your
-              business needs. From concept to deployment, we've got you covered.
+              We offer end-to-end website development, SaaS, web apps, enterprise software, and AI automation
+              services tailored to your business needs.
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Service Card Example */}
-            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition case-study-card">
-              <div className="w-16 h-16  rounded-full flex items-center justify-center mb-6 service-icon">
-                {/* <i className="fas fa-code text-blue-600 text-2xl"> */}
-                <img src="/webdev/Custom Web Development.png" alt="" />
-                {/* </i> */}
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/Custom Web Development.png" alt="Custom website development service" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Custom Web Development</h3>
+              <h3 className="text-xl font-bold mb-3">Custom Website Development</h3>
               <p className="text-gray-600 mb-4">
-                Tailored web applications built with modern technologies to meet
-                your specific business requirements.
+                Tailored websites and web apps built with modern technologies. Our software developer company
+                delivers responsive, scalable, and performance-optimised solutions.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Responsive Design
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Scalable Architecture
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Performance Optimized
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Responsive Website Design</li>
+                <li>✓ Scalable Architecture</li>
+                <li>✓ Performance Optimised</li>
               </ul>
             </div>
 
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                <img src="/webdev/Mobile-First.png" alt="" />
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/Mobile-First.png" alt="Mobile-first web app development" />
               </div>
-              <h3 className="text-xl font-bold mb-3">
-                Mobile-First Development
-              </h3>
+              <h3 className="text-xl font-bold mb-3">SaaS &amp; Web Apps</h3>
               <p className="text-gray-600 mb-4">
-                Websites and applications designed with mobile users in mind,
-                ensuring seamless experiences across all devices.
+                Full-stack SaaS platforms and web apps designed for growth. We build with Next.js and Django
+                to deliver production-ready enterprise software.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Progressive Web Apps
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Cross-Platform Compatibility
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Touch-Optimized UI
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Progressive Web Apps</li>
+                <li>✓ Cross-Platform Compatibility</li>
+                <li>✓ Touch-Optimised UI</li>
               </ul>
             </div>
 
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                <img src="webdev/E-Commerce.png" alt="" />
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="webdev/E-Commerce.png" alt="E-commerce website development" />
               </div>
-              <h3 className="text-xl font-bold mb-3">E-Commerce Solutions</h3>
+              <h3 className="text-xl font-bold mb-3">E-Commerce Development</h3>
               <p className="text-gray-600 mb-4">
-                Powerful online stores with secure payment gateways, inventory
-                management, and conversion-focused design.
+                Powerful online stores with secure payment gateways, inventory management, and conversion-focused
+                website development.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Shopify & WooCommerce
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Custom Checkout Flows
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    SEO Optimized
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Shopify &amp; WooCommerce</li>
+                <li>✓ Custom Checkout Flows</li>
+                <li>✓ SEO Optimised</li>
               </ul>
             </div>
 
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                <img src="/webdev/SEO&Performance.png" alt="" />
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/SEO&Performance.png" alt="SEO and performance for web apps" />
               </div>
-              <h3 className="text-xl font-bold mb-3">SEO & Performance</h3>
+              <h3 className="text-xl font-bold mb-3">SEO &amp; Performance</h3>
               <p className="text-gray-600 mb-4">
-                Optimize your website's visibility and speed to attract more
-                visitors and keep them engaged.
+                Optimise your website's visibility and speed to attract more visitors and outperform competitors.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Technical SEO Audits
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Page Speed Optimization
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Content Strategy
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Technical SEO Audits</li>
+                <li>✓ Page Speed Optimisation</li>
+                <li>✓ Content Strategy</li>
               </ul>
             </div>
 
-            <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                {/* <i className="fas fa-shield-alt text-yellow-600 text-2xl"></i> */}
-                <img src="/webdev/Security&Maintenance.png" alt="" />
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/Security&Maintenance.png" alt="Security for enterprise software" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Security & Maintenance</h3>
+              <h3 className="text-xl font-bold mb-3">Security &amp; Maintenance</h3>
               <p className="text-gray-600 mb-4">
-                Protect your digital assets with robust security measures and
-                keep everything running smoothly.
+                Protect your enterprise software with robust security measures and keep everything running smoothly.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Weekly Updates
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Security Audits
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    24/7 Monitoring
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Weekly Updates</li>
+                <li>✓ Security Audits</li>
+                <li>✓ 24/7 Monitoring</li>
               </ul>
             </div>
 
-            <div className="service-card p-8 rounded-xl shadow-md hover:shadow-xl transition">
-              <div className="service-icon w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                {/* <i className="fas fa-headset text-red-600 text-2xl"></i> */}
-                <img src="/webdev/Support&Consulting.png" alt="" />
+            <div className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
+              <div className="w-16 h-16 rounded-full flex items-center justify-center mb-6">
+                <img src="/webdev/Support&Consulting.png" alt="Software development consulting" />
               </div>
-              <h3 className="text-xl font-bold mb-3">Support & Consulting</h3>
+              <h3 className="text-xl font-bold mb-3">Support &amp; Consulting</h3>
               <p className="text-gray-600 mb-4">
-                Expert guidance and ongoing support to help you navigate the
-                digital landscape with confidence.
+                Expert guidance and ongoing support to navigate your website development and software journey.
               </p>
-              <ul className="text-gray-600 space-y-2">
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Dedicated Support
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Technology Consulting
-                  </i>
-                </li>
-                <li className="flex items-center">
-                  <i className="fas fa-check-circle text-green-500 mr-2">
-                    Training Sessions
-                  </i>
-                </li>
+              <ul className="text-gray-600 space-y-2 text-sm">
+                <li>✓ Dedicated Support</li>
+                <li>✓ Technology Consulting</li>
+                <li>✓ Training Sessions</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Work Section */}
+      {/* Interlinks */}
+      <section className="py-12 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-2xl font-bold text-center mb-8">
+            Related Software &amp; AI Services
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/ai-ml-development" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">AI ML Engineering</div>
+              <div className="text-xs text-gray-500 mt-1">Machine Learning Agency</div>
+            </Link>
+            <Link href="/software" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Enterprise Software</div>
+              <div className="text-xs text-gray-500 mt-1">Custom Python Solutions</div>
+            </Link>
+            <Link href="/mobile" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">Mobile Development</div>
+              <div className="text-xs text-gray-500 mt-1">iOS &amp; Android Apps</div>
+            </Link>
+            <Link href="/ui-ux-design" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
+              <div className="font-semibold text-sm">UI/UX Design</div>
+              <div className="text-xs text-gray-500 mt-1">User-Centred Design</div>
+            </Link>
+          </div>
+          {/* External link */}
+          <p className="text-center text-xs text-gray-500 mt-6">
+            Our website development follows{" "}
+            <a
+              href="https://web.dev/performance/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline"
+            >
+              Google Web Performance best practices
+            </a>{" "}
+            for all client projects.
+          </p>
+        </div>
+      </section>
+
       <WorkSection />
 
-      {/* CTA Section */}
-      {/* <Form /> */}
-
-      {/* FAQ Section */}
+      {/* FAQ */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Frequently Asked Questions
-            </h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
             <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
           </div>
-          <div className="max-w-3xl mx-auto">
-            {/* FAQ Item */}
-            <div className="mb-6 border-b border-gray-200 pb-6">
-              <button className="faq-toggle flex justify-between items-center w-full text-left">
-                <h3 className="text-xl font-bold text-gray-800">
-                  How long does a typical web development project take?
-                </h3>
-                <i className="fas fa-chevron-down text-blue-600 transition-transform"></i>
-              </button>
-              <div className="faq-content mt-4 text-gray-600 hidden">
-                <p>
-                  Project timelines vary depending on complexity, features, and
-                  scope. A simple website might take 4-6 weeks, while a complex
-                  web application could take 3-6 months or more. During our
-                  initial consultation, we'll provide a detailed timeline based
-                  on your specific requirements.
-                </p>
-              </div>
+          <div className="max-w-3xl mx-auto space-y-6">
+            <div className="border-b border-gray-200 pb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">
+                How long does a typical website development project take?
+              </h3>
+              <p className="text-gray-600">
+                Project timelines vary depending on complexity. A simple website typically takes 4–6 weeks,
+                while complex SaaS platforms or enterprise software may take 3–6 months. We provide a detailed
+                timeline during our initial consultation.
+              </p>
             </div>
-            {/* Add more FAQs similarly... */}
+            <div className="border-b border-gray-200 pb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">
+                Do you build SaaS and enterprise software?
+              </h3>
+              <p className="text-gray-600">
+                Yes. Bridge Homies is a software developer company specialising in SaaS, web apps, and enterprise
+                software. We use Next.js, React, and Django to deliver scalable, production-ready solutions.
+              </p>
+            </div>
+            <div className="border-b border-gray-200 pb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-3">
+                Can you integrate AI automation into my website?
+              </h3>
+              <p className="text-gray-600">
+                Absolutely. As a machine learning agency, we integrate AI automation, chatbots, recommendation
+                engines, and intelligent workflows into any website development project.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      <Footer></Footer>
+      <Footer />
     </main>
   );
 }

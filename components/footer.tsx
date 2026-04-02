@@ -16,10 +16,10 @@ export default function Footer() {
   const services = [
     { name: "Web Development", href: "/webdev" },
     { name: "Mobile Development", href: "/mobile" },
-    { name: "UI/UX Design", href: "/ui&ux" },
+    { name: "UI/UX Design", href: "/ui-ux-design" },
     { name: "Custom Software", href: "/software" },
     { name: "Digital Strategy", href: "/design" },
-    { name: "AI & Machine Learning", href: "/ai&ml" },
+    { name: "AI & Machine Learning", href: "/ai-ml-development" },
   ];
   const Company = [
     { name: "About Us", href: "/aboutus" },
