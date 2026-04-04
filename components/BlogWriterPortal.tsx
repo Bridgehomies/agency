@@ -3,6 +3,7 @@
 import { useEffect, useState, useTransition } from "react";
 import Link from "next/link";
 import { ArrowRight, FileText, Pencil, Save, Trash2 } from "lucide-react";
+import { notifyIndexNow } from '@/lib/indexnow';
 
 const ADMIN_ENDPOINT =
   process.env.NEXT_PUBLIC_BLOG_ADMIN_URL || "http://localhost:3001";
@@ -326,6 +327,9 @@ export default function BlogWriterPortal() {
 
       setStatus(`Deleted /blog/${slug}`);
       await loadPosts();
+      if (result.slug) {
+        await notifyIndexNow(result.slug);   // Notify even on delete
+      }
     });
   }
 
@@ -371,6 +375,9 @@ export default function BlogWriterPortal() {
       setStatus(`Saved successfully. Public URL: /blog/${result.slug}`);
       resetForm();
       await loadPosts();
+      if (result.slug && form.published) {
+        await notifyIndexNow(result.slug);
+      }
     });
   }
 
