@@ -1,0 +1,30 @@
+# Bridge Homies
+
+> Bridge Homies is a software development company and machine learning agency based in Lahore, Pakistan, serving clients worldwide. Founded in 2024, the company delivers AI/ML engineering services, custom web and mobile applications, SaaS platforms, enterprise software, UI/UX design, and digital strategy. Key team members are Muhammad Bin Asif (Founder & Director), Muhammad Talha (Co-Founder & Director), and Danyaal Majid (CTO & Director).
+
+Bridge Homies builds production-grade digital products using Next.js, React, Django, FastAPI, Python, and PostgreSQL. The company's AI/ML engineering services include RAG pipeline development, LLM integration, predictive analytics, AI automation workflows, and fine-tuning. Their client work spans Pakistan and international markets, including UK-based contracts.
+
+All service pages are available at https://bridgehomies.com. The company office is located at 167-A, Block G-1, Phase-1, Johar Town, Lahore, Punjab, Pakistan. Contact email: info@bridgehomies.com. Phone: +92 342 9263395.
+
+## Core Services
+
+- [AI/ML Engineering Services](https://bridgehomies.com/ai-ml-development): Production-grade machine learning agency services — RAG pipelines, LLM integrations, AI automation, predictive analytics, NLP, and computer vision.
+- [Website Development](https://bridgehomies.com/webdev): Custom website development using Next.js, React, and Django. Includes SaaS platforms, web apps, e-commerce, SEO, and enterprise software.
+- [Enterprise Software & SaaS](https://bridgehomies.com/software): Custom enterprise software, SaaS platforms, API development, microservices, and Python/Django-based solutions.
+- [Mobile App Development](https://bridgehomies.com/mobile): iOS and Android mobile apps with AI automation and machine learning integration.
+- [UI/UX Design](https://bridgehomies.com/ui-ux-design): User-centred design for web apps, SaaS platforms, and enterprise software. Covers prototyping, wireframing, design systems, and visual identity.
+- [Digital Strategy & Brand Design](https://bridgehomies.com/design): Video editing, social media management, content strategy, brand design, viral campaigns, and consulting.
+
+## Products
+
+- [Products Overview](https://bridgehomies.com/products): Software products built by Bridge Homies, including FBR-approved invoicing and upcoming platforms.
+- [Aierpify – FBR Invoicing Software](https://www.aierpify.com): Live FBR-integrated invoicing and ERP software for Pakistani businesses. Features automated tax compliance and invoice submission.
+
+## Company Information
+
+- [About Us](https://bridgehomies.com/aboutus): Company story, founding team, core values (Innovation First, Human-Centered, Radical Transparency, Sustainable Growth), and client stats.
+- [Blog](https://bridgehomies.com/blog): Engineering insights, AI/ML articles, product updates, and digital strategy content from the Bridge Homies team.
+
+## Optional
+
+- [Terms & Conditions](https://bridgehomies.com/terms): Legal terms governing use of Bridge Homies products and services.
