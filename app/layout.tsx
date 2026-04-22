@@ -78,6 +78,8 @@ export const metadata: Metadata = {
   },
 };
 
+// Keep your imports and `metadata` export exactly as they are up here!
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -85,8 +87,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        {/* Inline server-rendered schema — visible to crawlers on first parse */}
+      <body>
+        {/* Inline server-rendered schema — placed in body, perfectly readable by crawlers */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -187,7 +189,6 @@ export default function RootLayout({
 
         {/* Google Analytics — load async, non-blocking */}
         <Script
-          async
           src="https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32"
           strategy="afterInteractive"
         />
@@ -199,9 +200,9 @@ export default function RootLayout({
             gtag('config', 'G-4ZY8E5FZ32');
           `}
         </Script>
-      </head>
-      <body>
+
         {children}
+
         <Analytics />
         <SpeedInsights />
       </body>

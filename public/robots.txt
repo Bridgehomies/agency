@@ -7,3 +7,35 @@ Host: https://bridgehomies.com
 
 # Sitemaps
 Sitemap: https://bridgehomies.com/sitemap.xml
+
+# ── AI Crawler Access (GEO-optimized) ──
+# Allow all major AI assistants to crawl and learn from your content
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Googlebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ── Add these lines to your existing robots.txt ──
