@@ -14,10 +14,10 @@ const navLinks = [
 ];
 
 const socials = [
-  { label: "LinkedIn", href: "#" },
-  { label: "Github", href: "#" },
-  { label: "Instagram", href: "#" },
-  { label: "Twitter", href: "#" },
+  { label: "LinkedIn", href: "https://www.linkedin.com/company/bridge-homies" },
+  { label: "Github", href: "https://github.com/Bridgehomies" },
+  { label: "Instagram", href: "https://www.instagram.com/bridgehomies/" },
+  { label: "Twitter", href: "https://x.com/BridgeHomies" },
 ];
 
 const tickerItems = [
