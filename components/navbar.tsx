@@ -193,10 +193,10 @@ export default function Navbar() {
                     Get in touch
                   </p>
                   <a
-                    href="mailto:hi@bridgehomies.com"
+                    href="mailto:info@bridgehomies.com"
                     className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 border-b border-black/20 pb-3 block tracking-[-0.02em]"
                   >
-                    hi@bridgehomies.com
+                    info@bridgehomies.com
                   </a>
                 </div>
 

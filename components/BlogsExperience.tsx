@@ -45,12 +45,12 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
   }, [category, posts, query]);
 
   return (
-    <div className="min-h-screen bg-[#0e0e0e] text-[#f0ece4]">
+    <div className="min-h-screen bg-[#080C01] text-[#f0ece4]">
 
       {/* ── HERO — LIGHT ── */}
-      <section className="relative overflow-hidden bg-[#f5f0e8] text-[#111]">
+      <section className="relative pt-20 overflow-hidden bg-[#f7f3fe] text-[#111]">
         {/* Decorative circle */}
-        <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-[#e8dcc8]" />
+        <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-violet-600" />
 
         <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-28">
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-[#8a7a65]">
@@ -79,7 +79,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               <PenLine className="h-4 w-4" />
               Open writing portal
             </Link>
-            
+
           </div>
         </div>
       </section>
@@ -104,8 +104,8 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               key={item}
               onClick={() => setCategory(item)}
               className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${category === item
-                  ? "bg-[#f5f0e8] text-[#111]"
-                  : "border border-[#2e2e2e] bg-[#1a1a1a] text-[#666] hover:text-[#f0ece4]"
+                ? "bg-[#f5f0e8] text-[#111]"
+                : "border border-[#2e2e2e] bg-[#1a1a1a] text-[#666] hover:text-[#f0ece4]"
                 }`}
             >
               {item}
@@ -190,7 +190,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                           {formatViews(post.views)}
                         </span>
                       </div>
-                      <span className="flex items-center gap-1.5 text-xs font-medium text-[#8a7a65] transition group-hover:text-[#c5b89e]">
+                      <span className="flex items-center gap-1.5 text-xs font-medium text-[#f7f3fe] transition group-hover:text-[#DCCBFB]">
                         Read
                         <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                       </span>
