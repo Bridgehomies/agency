@@ -67,21 +67,19 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           </h1>
 
           <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-[#5a5040]">
-            Practical articles on AI, software, automation, and digital growth —
+            Practical articles on AI, software, automation, and digital growth
             built for humans and search engines alike.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
-              href="/write"
+              href="/blog/submit"
               className="inline-flex items-center gap-2 rounded-full bg-[#111] px-6 py-3 text-sm font-medium text-[#f5f0e8] transition hover:bg-[#2a2520]"
             >
               <PenLine className="h-4 w-4" />
               Open writing portal
             </Link>
-            <button className="rounded-full border border-[#c5b89e] px-6 py-3 text-sm text-[#5a5040] transition hover:bg-[#ede8e0]">
-              Browse all posts
-            </button>
+            
           </div>
         </div>
       </section>
