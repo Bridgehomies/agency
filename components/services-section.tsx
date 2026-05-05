@@ -1,218 +1,203 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState, useRef } from "react"
-import { useInView } from "framer-motion"
-import { Code, Smartphone, Globe, Layers, Rocket, Shield, ArrowRight, Check } from "lucide-react"
-import { Card, CardContent } from "@/components/ui/card"
-import { Progress } from "@/components/ui/progress"
+import { useState, useRef, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
+import { Code, Smartphone, Globe, Layers, Rocket, Sparkles, ArrowUpRight } from "lucide-react"
 
 const services = [
   {
-    icon: <Code className="h-10 w-10" />,
-    title: "Web Development",
-    description: "We build responsive, fast, and scalable web applications using the latest technologies.",
-    color: "from-blue-500 to-cyan-400",
-    skills: [
-      { name: "React & Next.js", value: 95 },
-      { name: "Node.js & Express", value: 90 },
-      { name: "UI/UX Implementation", value: 85 },
-    ],
-    features: [
-      "Custom web application development",
-      "E-commerce solutions",
-      "Progressive Web Apps (PWAs)",
-      "API development and integration",
-    ],
+    num: "01", icon: Code, name: "Web Dev",
+    desc: "Blazing-fast web apps built with React, Next.js and Node. From idea to production.",
+    tags: ["Next.js", "React", "Node", "APIs"],
+    skills: [["React / Next", 95], ["Node / Express", 90], ["UI Engineering", 85]] as [string, number][],
+    span: "lg:col-span-5", tall: false,
   },
   {
-    icon: <Smartphone className="h-10 w-10" />,
-    title: "Mobile Development",
-    description: "Native and cross-platform mobile applications that deliver exceptional user experiences.",
-    color: "from-green-500 to-emerald-400",
-    skills: [
-      { name: "React Native", value: 92 },
-      { name: "Swift & SwiftUI", value: 88 },
-      { name: "Flutter", value: 85 },
-    ],
-    features: [
-      "Cross-platform mobile apps",
-      "Native iOS and Android development",
-      "Mobile UI/UX design",
-      "App Store optimization",
-    ],
+    num: "02", icon: Smartphone, name: "Mobile",
+    desc: "Native & cross-platform apps that feel genuinely at home on every device.",
+    tags: ["React Native", "Swift", "Flutter"],
+    skills: [["React Native", 92], ["SwiftUI", 88], ["Flutter", 85]] as [string, number][],
+    span: "lg:col-span-4", tall: false,
   },
   {
-    icon: <Globe className="h-10 w-10" />,
-    title: "UI/UX Design",
-    description: "User-centered design that creates intuitive, engaging, and memorable digital experiences.",
-    color: "from-purple-500 to-pink-400",
-    skills: [
-      { name: "User Research", value: 90 },
-      { name: "Wireframing & Prototyping", value: 95 },
-      { name: "Visual Design", value: 92 },
-    ],
-    features: [
-      "User research and testing",
-      "Wireframing and prototyping",
-      "Visual design and branding",
-      "Interaction design",
-    ],
+    num: "03", icon: Globe, name: "UI/UX",
+    desc: "Research-driven design that converts. Every pixel earns its place.",
+    tags: ["Research", "Figma", "Systems", "Motion"],
+    skills: [["User Research", 90], ["Prototyping", 95], ["Visual Design", 92]] as [string, number][],
+    span: "lg:col-span-3 lg:row-span-2", tall: true,
   },
   {
-    icon: <Layers className="h-10 w-10" />,
-    title: "Custom Software",
-    description: "Tailored software solutions designed to address your specific business challenges.",
-    color: "from-orange-500 to-amber-400",
-    skills: [
-      { name: "Enterprise Solutions", value: 88 },
-      { name: "Cloud Architecture", value: 90 },
-      { name: "Database Design", value: 85 },
-    ],
-    features: [
-      "Enterprise software development",
-      "Legacy system modernization",
-      "Cloud-based solutions",
-      "Database design and optimization",
-    ],
+    num: "04", icon: Layers, name: "Software",
+    desc: "Custom enterprise solutions engineered for your exact scale and logic.",
+    tags: ["Cloud", "Enterprise", "DB"],
+    skills: [["Architecture", 90], ["Cloud", 88], ["DB Design", 85]] as [string, number][],
+    span: "lg:col-span-4", tall: false,
   },
   {
-    icon: <Rocket className="h-10 w-10" />,
-    title: "Digital Strategy",
-    description: "Strategic planning and roadmapping to help you achieve your digital transformation goals.",
-    color: "from-red-500 to-rose-400",
-    skills: [
-      { name: "Market Analysis", value: 92 },
-      { name: "Digital Transformation", value: 88 },
-      { name: "Growth Strategy", value: 90 },
-    ],
-    features: [
-      "Digital transformation roadmaps",
-      "Technology stack consulting",
-      "Market and competitor analysis",
-      "Growth strategy development",
-    ],
+    num: "05", icon: Rocket, name: "Strategy",
+    desc: "Roadmaps and transformation plans that cut through noise and move fast.",
+    tags: ["Consulting", "Roadmaps", "GTM"],
+    skills: [["Market Analysis", 92], ["Transformation", 88], ["Growth", 90]] as [string, number][],
+    span: "lg:col-span-5", tall: false,
   },
   {
-    icon: <Shield className="h-10 w-10" />,
-    title: "AI & Machine Learning",
-    description: "Leverage the power of AI with our comprehensive ai ml engineering services to drive innovation and efficiency.",
-    color: "from-primary to-violet-400",
-    skills: [
-      { name: "Machine Learning", value: 94 },
-      { name: "Natural Language Processing", value: 90 },
-      { name: "Computer Vision", value: 88 },
-    ],
-    features: [
-      "End-to-end AI ML engineering services",
-      "Natural language processing solutions",
-      "Computer vision & image recognition",
-      "Predictive analytics and data modeling",
-    ],
+    num: "06", icon: Sparkles, name: "AI & ML",
+    desc: "End-to-end ML engineering. Turn raw data into your sharpest competitive edge.",
+    tags: ["LLMs", "Vision", "NLP", "MLOps"],
+    skills: [["Machine Learning", 94], ["NLP", 90], ["Computer Vision", 88]] as [string, number][],
+    span: "lg:col-span-3", tall: false,
   },
 ]
 
-export default function ServicesSection() {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, amount: 0.2 })
-  const [flippedCard, setFlippedCard] = useState<number | null>(null)
+function ServiceCard({
+  service, isActive, onToggle,
+}: {
+  service: typeof services[0]
+  isActive: boolean
+  onToggle: () => void
+}) {
+  const Icon = service.icon
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [mouse, setMouse] = useState({ x: 50, y: 50 })
 
-  const handleFlip = (index: number) => {
-    setFlippedCard(flippedCard === index ? null : index)
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const rect = cardRef.current?.getBoundingClientRect()
+    if (!rect) return
+    setMouse({ x: ((e.clientX - rect.left) / rect.width) * 100, y: ((e.clientY - rect.top) / rect.height) * 100 })
   }
 
   return (
-    <section id="services" className="py-20 md:py-32 bg-muted/30">
-      <div className="container">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our AI ML Engineering Services & More</h2>
-          <p className="text-xl text-muted-foreground">
-            As trusted ai ml engineering service providers, we offer a comprehensive range of AI/ML engineering services and digital solutions to help your business succeed.
-          </p>
-        </motion.div>
+    <div
+      ref={cardRef}
+      onClick={onToggle}
+      onMouseMove={handleMouseMove}
+      className={`relative overflow-hidden rounded-sm border cursor-pointer select-none transition-all duration-300 flex flex-col p-5 sm:p-6 min-h-[180px] sm:min-h-[200px] h-full
+        ${service.tall ? "lg:min-h-[408px]" : ""}
+        ${isActive ? "bg-purple-500 border-purple-500" : " border-[#151515] hover:border-[#252525]"}`}
+    >
+      {!isActive && (
+        <div className="absolute inset-0 pointer-events-none"
+          style={{ background: `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, rgba(168,85,247,0.09) 0%, transparent 60%)` }} />
+      )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="perspective-1000"
-            >
-              <div
-                className={`relative transition-all duration-500 preserve-3d cursor-pointer ${flippedCard === index ? "rotate-y-180" : ""}`}
-                style={{ height: "400px" }}
-                onClick={() => handleFlip(index)}
-              >
-                {/* Front of card */}
-                <Card className="absolute inset-0 backface-hidden border-none shadow-lg hover:shadow-xl transition-all duration-300 h-full">
-                  <CardContent className="flex flex-col items-start h-full p-6">
-                    <div className="relative pb-0 flex flex-col h-full">
-                      <div className="absolute inset-0 -z-10 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
-                        <div className={`absolute inset-0 bg-gradient-to-br ${service.color} blur-3xl`} />
-                      </div>
-                      <div
-                        className={`w-16 h-16 rounded-2xl flex items-center justify-center bg-gradient-to-br ${service.color} text-white mb-4`}
-                      >
-                        {service.icon}
-                      </div>
-                      <h3 className="text-xl font-bold mb-2">{service.title}</h3>
-                      <p className="text-muted-foreground mb-6">{service.description}</p>
-                      <div className="mt-auto flex items-center text-sm text-primary">
-                        <span>Learn more</span>
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+      <span className={`absolute top-4 right-5 font-black leading-none select-none pointer-events-none text-[clamp(28px,4vw,44px)] ${isActive ? "text-white/10" : "text-[#151515]"}`}
+        style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+        {service.num}
+      </span>
 
-                {/* Back of card */}
-                <Card className="absolute inset-0 backface-hidden rotate-y-180 border-none shadow-lg h-full overflow-hidden">
-                  <CardContent className="flex flex-col h-full p-6">
-                    <h3 className="text-xl font-bold mb-4">{service.title}</h3>
+      <div className={`w-9 h-9 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 border transition-all duration-300
+        ${isActive ? "bg-white/15 text-white border-white/20" : "bg- text-[#444] border-[#1f1f1f]"}`}>
+        <Icon size={16} />
+      </div>
 
-                    <div className="mb-4">
-                      <h4 className="font-medium mb-2">Expertise</h4>
-                      <div className="space-y-3">
-                        {service.skills.map((skill, skillIndex) => (
-                          <div key={skillIndex} className="space-y-1">
-                            <div className="flex justify-between text-sm">
-                              <span>{skill.name}</span>
-                              <span>{skill.value}%</span>
-                            </div>
-                            <Progress
-                              value={skill.value}
-                              className={`h-2 bg-muted`}
-                              indicatorClassName={`bg-gradient-to-r ${service.color}`}
-                            />
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+      <p className={`font-mono text-[10px] tracking-widest uppercase mb-2 transition-colors duration-300 ${isActive ? "text-white/40" : "text-[#2a2a2a]"}`}>
+        {service.num} / 06
+      </p>
 
-                    <div className="mt-auto">
-                      <h4 className="font-medium mb-2">What we offer</h4>
-                      <ul className="space-y-1">
-                        {service.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start">
-                            <Check className="mr-2 h-4 w-4 text-primary mt-1 flex-shrink-0" />
-                            <span className="text-sm">{feature}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
+      <h3 className={`leading-none mb-2.5 transition-colors duration-300 text-[clamp(20px,2.5vw,26px)] ${isActive ? "text-white" : "text-[#e0e0e0]"}`}
+        style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}>
+        {service.name}
+      </h3>
+
+      <p className={`text-[11px] sm:text-[12px] leading-relaxed mb-3 transition-colors duration-300 ${isActive ? "text-white/65" : "text-[#3a3a3a]"}`}>
+        {service.desc}
+      </p>
+
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        {service.tags.map(tag => (
+          <span key={tag} className={`font-mono text-[10px] px-2 py-1 rounded-[2px] border tracking-tight transition-all duration-300
+            ${isActive ? "bg-white/12 text-white/60 border-white/15" : " text-[#2d2d2d] border-[#1d1d1d]"}`}>
+            {tag}
+          </span>
+        ))}
+      </div>
+
+      <AnimatePresence>
+        {isActive && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            className="mt-auto space-y-2.5 overflow-hidden"
+          >
+            {service.skills.map(([label, val], si) => (
+              <div key={label} className="flex items-center gap-2.5">
+                <span className="font-mono text-[9px] text-white/50 uppercase tracking-widest w-20 sm:w-24 flex-shrink-0">{label}</span>
+                <div className="flex-1 h-[2px] bg-white/20 rounded-full overflow-hidden">
+                  <motion.div className="h-full bg-white rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${val}%` }}
+                    transition={{ duration: 0.9, delay: si * 0.1, ease: [0.16, 1, 0.3, 1] }} />
+                </div>
+                <span className="font-mono text-[9px] text-white/70 w-7 text-right">{val}%</span>
               </div>
-            </motion.div>
-          ))}
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+export default function ServicesSection() {
+  const [active, setActive] = useState<number | null>(null)
+  const toggle = (i: number) => setActive(active === i ? null : i)
+
+  useEffect(() => {
+    const link = document.createElement("link")
+    link.href = "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap"
+    link.rel = "stylesheet"
+    document.head.appendChild(link)
+  }, [])
+
+  return (
+    <section className="min-h-screen px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-12">
+      {/* Header */}
+      <div className="flex justify-between items-start flex-wrap gap-4 mb-8 sm:mb-10 lg:mb-12">
+        <div>
+          <p className="font-mono text-[11px] text-[#333] tracking-[.2em] uppercase mb-3">Expertise</p>
+          <h2 className="leading-[.9] text-back/80"
+            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 7vw, 96px)", letterSpacing: "2px" }}>
+            What<br />We <span className="text-purple-500">Build</span>
+          </h2>
+          <div className="flex items-center gap-2 mt-4  border border-[#1f1f1f] rounded-full px-4 py-2 w-fit">
+            <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse flex-shrink-0" />
+            <span className="font-mono text-[10px] sm:text-[11px] text-[#444]">6 active disciplines — tap to inspect</span>
+          </div>
+        </div>
+        <div className="text-right flex-shrink-0">
+          <div className="leading-none text-[#111] select-none"
+            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 7vw, 72px)", WebkitTextStroke: "1px #222", letterSpacing: "-2px" }}>
+            06
+          </div>
+          <p className="font-mono text-[11px] text-[#333] tracking-[.15em] uppercase mt-1">Services</p>
+        </div>
+      </div>
+
+      {/* Bento grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-[2px] mb-[2px]">
+        {services.map((s, i) => (
+          <div key={i} className={s.span}>
+            <ServiceCard service={s} isActive={active === i} onToggle={() => toggle(i)} />
+          </div>
+        ))}
+      </div>
+
+      {/* Bottom strip */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-[2px]">
+        <div className=" border border-[#151515] rounded-sm flex items-center px-5 sm:px-7 py-5">
+          <span className="font-mono text-[10px] sm:text-[11px] text-[#2a2a2a] tracking-widest uppercase">
+           <a href="https://www.iso.org/standard/81230.html" target="_blank">ISO/IEC 42001 AI Management System</a> best practices
+          </span>
+        </div>
+        <div className="bg-purple-500 hover:bg-purple-600 transition-colors duration-300 rounded-sm flex items-center justify-between px-5 sm:px-7 py-5 cursor-pointer group">
+          <span className="text-white" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(18px, 2.5vw, 22px)", letterSpacing: "1px" }}>
+            Start a project
+          </span>
+          <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-purple-500 group-hover:rotate-45 transition-transform duration-300 flex-shrink-0">
+            <ArrowUpRight size={16} />
+          </div>
         </div>
       </div>
     </section>

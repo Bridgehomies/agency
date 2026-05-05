@@ -148,61 +148,7 @@ export default function Home() {
         {/* Internal navigation anchors for interlinking */}
         <ServicesSection />
 
-        {/* Inline interlinks section */}
-        <section className="py-8 bg-muted/20">
-          <div className="container mx-auto px-4">
-            <h2 className="text-2xl font-bold text-center mb-6">
-              Explore Our AI ML Engineering Services & Software Solutions
-            </h2>
-            <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
-              As a trusted machine learning agency and software company, we offer comprehensive website development,
-              SaaS, web apps, AI automation, and enterprise software across all industries.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-              <Link
-                href="/webdev"
-                className="text-center p-4 rounded-lg border hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <div className="font-semibold text-sm">Website Development</div>
-                <div className="text-xs text-muted-foreground mt-1">Next.js & React</div>
-              </Link>
-              <Link
-                href="/ai-ml-development"
-                className="text-center p-4 rounded-lg border hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <div className="font-semibold text-sm">AI ML Engineering</div>
-                <div className="text-xs text-muted-foreground mt-1">Machine Learning Agency</div>
-              </Link>
-              <Link
-                href="/software"
-                className="text-center p-4 rounded-lg border hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <div className="font-semibold text-sm">Enterprise Software</div>
-                <div className="text-xs text-muted-foreground mt-1">Custom SaaS & Apps</div>
-              </Link>
-              <Link
-                href="/mobile"
-                className="text-center p-4 rounded-lg border hover:border-primary hover:bg-primary/5 transition-all"
-              >
-                <div className="font-semibold text-sm">Mobile Development</div>
-                <div className="text-xs text-muted-foreground mt-1">iOS & Android</div>
-              </Link>
-            </div>
-            {/* External link for credibility */}
-            <p className="text-center text-xs text-muted-foreground mt-6">
-              Our AI solutions follow{" "}
-              <a
-                href="https://www.iso.org/standard/81230.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-primary underline"
-              >
-                ISO/IEC 42001 AI Management System
-              </a>{" "}
-              best practices.
-            </p>
-          </div>
-        </section>
+       
 
         <WorkSection />
         <TimelineSection />
