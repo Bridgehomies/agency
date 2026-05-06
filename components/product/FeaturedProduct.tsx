@@ -1,133 +1,128 @@
 import {
-  CheckCircle,
   Calculator,
   TrendingUp,
   FileText,
-  Clock,
+  ArrowRight,
+  Lock,
+  Cloud,
+  CheckCircle,
+  Clock
 } from 'lucide-react'
 
 export default function FeaturedProduct() {
-  const features = [
-    'Live Invoicing with FBR integration',
-    'Coming Soon: Business analytics & reporting',
-    'Coming Soon: Inventory and stock tracking',
-    'Role-based access (coming soon)',
-    'Cloud-based system with offline mode (upcoming)',
-    'Automated tax compliance (live)'
-  ]
-
   return (
     <section className="py-24 bg-white" id="products">
       <div className="max-w-7xl mx-auto px-6">
-        {/* Header */}
-        <div className="text-center mb-20">
-          <div className="inline-flex items-center px-4 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium mb-4">
-            ✅ Invoicing is Live
-          </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            ERP Software with FBR Integration
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Instantly generate and submit invoices to FBR with our live smart invoicing module. 
-            More powerful ERP modules including analytics and inventory are coming soon.
-          </p>
-        </div>
-
-        {/* Grid */}
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left: Features */}
-          <div className="space-y-10">
-            {/* LIVE Feature */}
-            <div className="flex items-start space-x-4">
-              <div className="w-12 h-12 rounded-lg bg-green-100 text-green-600 flex items-center justify-center">
-                <FileText className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-1">FBR Invoicing (Live)</h3>
-                <p className="text-gray-600">
-                  Fully functional invoicing system connected with FBR Pakistan, 
-                  enabling direct submission, tax automation, and compliant reporting.
-                </p>
-              </div>
+        
+        {/* The Matrix Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 auto-rows-fr">
+          
+          {/* 1. HERO BLOCK (Spans 8 columns) */}
+          <div className="lg:col-span-8 flex flex-col justify-center bg-white p-2">
+            <div className="inline-flex items-center w-max px-4 py-1.5 bg-green-100 text-green-700 rounded-none text-sm font-bold tracking-widest uppercase mb-8 border-l-4 border-green-500">
+              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse mr-3"></span>
+              Module Status: Live
             </div>
+            
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 tracking-tighter leading-[0.9] mb-6">
+              SMART ERP. <br />
+              <span className="text-green-600">FBR INTEGRATED.</span>
+            </h2>
+            
+            <p className="text-xl text-gray-600 max-w-xl font-medium leading-relaxed mb-10">
+              Stop waiting on compliance. Generate and submit invoices to the FBR instantly, while we build the rest of your command center.
+            </p>
 
-            {/* Upcoming Features */}
-            {[{
-              icon: Calculator,
-              title: 'Smart Analytics (Coming Soon)',
-              color: 'bg-blue-100 text-blue-600',
-              description: 'Soon you’ll be able to track business performance and revenue insights with powerful dashboards.'
-            }, {
-              icon: TrendingUp,
-              title: 'Inventory & Stock (Coming Soon)',
-              color: 'bg-purple-100 text-purple-600',
-              description: 'We’re working on real-time stock tracking and inventory control features to give you full visibility.'
-            }].map(({ icon: Icon, title, color, description }, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${color}`}>
-                  <Icon className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-1">{title}</h3>
-                  <p className="text-gray-600">{description}</p>
-                </div>
-              </div>
-            ))}
-
-            {/* Feature List */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-              {features.map((feature, i) => (
-                <div key={i} className="flex items-center space-x-3">
-                  <CheckCircle className={`w-5 h-5 ${feature.includes('Live') ? 'text-green-600' : 'text-yellow-500'}`} />
-                  <span className="text-gray-700 text-sm">{feature}</span>
-                </div>
-              ))}
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap gap-4 mt-8">
-              <a href="https://www.aierpify.com" target="_blank" rel="noopener noreferrer">
-                <button className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow transition">
-                    Try Invoicing Now
+            <div>
+              <a href="https://www.aierpify.com" target="_blank" rel="noopener noreferrer" className="inline-block">
+                <button className="group flex items-center gap-4 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg rounded-none transition-all">
+                  TRY INVOICING NOW
+                  <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
                 </button>
-                </a>
-
-              
+              </a>
             </div>
           </div>
 
-          {/* Right: Dashboard Card */}
-          {/* <div className="relative">
-            <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-blue-50 p-6 shadow-md">
-              <div className="bg-white rounded-xl p-6 shadow-sm">
-                <div className="flex items-center justify-between mb-6">
-                  <h4 className="text-lg font-semibold text-gray-900">Dashboard Overview</h4>
-                  <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs">Live</span>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-blue-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-blue-600">₨2.4M</div>
-                    <div className="text-sm text-gray-600">Monthly Revenue</div>
-                  </div>
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <div className="text-2xl font-bold text-green-600">1,847</div>
-                    <div className="text-sm text-gray-600">Invoices Processed</div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between text-sm text-gray-600">
-                    <span>FBR Compliance</span>
-                    <span className="font-medium text-green-600">100%</span>
-                  </div>
-                  <div className="w-full bg-gray-200 h-2 rounded-full">
-                    <div className="bg-green-500 h-2 rounded-full w-full" />
-                  </div>
-                </div>
-              </div>
+          {/* 2. THE LIVE FEATURE BLOCK (Spans 4 columns) */}
+          <div className="lg:col-span-4 relative bg-green-50 border-4 border-green-100 p-8 rounded-tr-[3rem] rounded-bl-[3rem] overflow-hidden group hover:border-green-300 transition-colors flex flex-col justify-between min-h-[320px]">
+            {/* Background Watermark */}
+            <div className="absolute -right-6 -bottom-10 text-9xl font-black text-green-100/50 select-none transform -rotate-12 group-hover:scale-110 transition-transform duration-700">
+              FBR
             </div>
-          </div> */}
+            
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-green-100 text-green-600 rounded-none flex items-center justify-center mb-6">
+                <FileText className="w-8 h-8" />
+              </div>
+              <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">FBR Invoicing</h3>
+              <p className="text-gray-700 font-medium leading-relaxed">
+                Fully functional and natively connected with FBR Pakistan. Direct submission, tax automation, and compliant reporting—ready today.
+              </p>
+            </div>
+            
+            <div className="relative z-10 mt-8 pt-4 border-t-2 border-green-200">
+              <span className="text-green-700 font-black tracking-widest uppercase text-sm">Status: Operational</span>
+            </div>
+          </div>
+
+          {/* 3. UPCOMING MODULE: ANALYTICS (Spans 4 columns) */}
+          <div className="lg:col-span-4 bg-white border-2 border-dashed border-blue-200 p-8 rounded-tl-[3rem] rounded-br-[3rem] hover:bg-blue-50/50 hover:border-blue-400 transition-all cursor-crosshair relative">
+            <div className="absolute top-6 right-6 bg-blue-100 text-blue-600 text-xs font-bold px-3 py-1 uppercase tracking-widest flex items-center gap-2">
+              <Clock className="w-3 h-3" /> Building
+            </div>
+            <div className="w-14 h-14 bg-blue-50 text-blue-600 rounded-none flex items-center justify-center mb-6">
+              <Calculator className="w-7 h-7" />
+            </div>
+            <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">Smart Analytics</h3>
+            <p className="text-gray-600 font-medium">
+              Powerful dashboards to track business performance and revenue insights.
+            </p>
+          </div>
+
+          {/* 4. UPCOMING MODULE: INVENTORY (Spans 4 columns) */}
+          <div className="lg:col-span-4 bg-white border-2 border-dashed border-purple-200 p-8 rounded-none hover:bg-purple-50/50 hover:border-purple-400 transition-all cursor-crosshair relative">
+            <div className="absolute top-6 right-6 bg-purple-100 text-purple-600 text-xs font-bold px-3 py-1 uppercase tracking-widest flex items-center gap-2">
+              <Clock className="w-3 h-3" /> Building
+            </div>
+            <div className="w-14 h-14 bg-purple-50 text-purple-600 rounded-none flex items-center justify-center mb-6">
+              <TrendingUp className="w-7 h-7" />
+            </div>
+            <h3 className="text-2xl font-black text-gray-900 mb-3 tracking-tight">Stock & Inventory</h3>
+            <p className="text-gray-600 font-medium">
+              Real-time stock tracking and inventory control features for full asset visibility.
+            </p>
+          </div>
+
+          {/* 5. CORE INFRASTRUCTURE (Spans 4 columns) */}
+          <div className="lg:col-span-4 bg-gray-50 border border-gray-200 p-8 rounded-tr-[3rem] rounded-bl-[3rem]">
+            <h3 className="text-lg font-black text-gray-900 mb-6 uppercase tracking-widest border-b border-gray-200 pb-4">
+              Core Architecture
+            </h3>
+            <ul className="space-y-5">
+              <li className="flex items-start gap-4">
+                <CheckCircle className="w-6 h-6 text-green-600 shrink-0" />
+                <div>
+                  <div className="font-bold text-gray-900 leading-none mb-1">Automated Tax</div>
+                  <div className="text-sm text-gray-500">Live compliance</div>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 opacity-60">
+                <Lock className="w-6 h-6 text-gray-400 shrink-0" />
+                <div>
+                  <div className="font-bold text-gray-900 leading-none mb-1">Role-Based Access</div>
+                  <div className="text-sm text-gray-500">In development</div>
+                </div>
+              </li>
+              <li className="flex items-start gap-4 opacity-60">
+                <Cloud className="w-6 h-6 text-gray-400 shrink-0" />
+                <div>
+                  <div className="font-bold text-gray-900 leading-none mb-1">Cloud + Offline</div>
+                  <div className="text-sm text-gray-500">In development</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>
