@@ -12,6 +12,7 @@ const services = [
     tags: ["Next.js", "React", "Node", "APIs"],
     skills: [["React / Next", 95], ["Node / Express", 90], ["UI Engineering", 85]] as [string, number][],
     span: "lg:col-span-5", tall: false,
+    href: "/webdev"
   },
   {
     num: "02", icon: Smartphone, name: "Mobile",
@@ -19,6 +20,7 @@ const services = [
     tags: ["React Native", "Swift", "Flutter"],
     skills: [["React Native", 92], ["SwiftUI", 88], ["Flutter", 85]] as [string, number][],
     span: "lg:col-span-4", tall: false,
+    href: "/mobile"
   },
   {
     num: "03", icon: Globe, name: "UI/UX",
@@ -26,6 +28,7 @@ const services = [
     tags: ["Research", "Figma", "Systems", "Motion"],
     skills: [["User Research", 90], ["Prototyping", 95], ["Visual Design", 92]] as [string, number][],
     span: "lg:col-span-3 lg:row-span-2", tall: true,
+    href: "/ui-ux-design"
   },
   {
     num: "04", icon: Layers, name: "Software",
@@ -33,6 +36,7 @@ const services = [
     tags: ["Cloud", "Enterprise", "DB"],
     skills: [["Architecture", 90], ["Cloud", 88], ["DB Design", 85]] as [string, number][],
     span: "lg:col-span-4", tall: false,
+    href: "/software"
   },
   {
     num: "05", icon: Rocket, name: "Strategy",
@@ -40,6 +44,7 @@ const services = [
     tags: ["Consulting", "Roadmaps", "GTM"],
     skills: [["Market Analysis", 92], ["Transformation", 88], ["Growth", 90]] as [string, number][],
     span: "lg:col-span-5", tall: false,
+    href: "#contact" // Added a default routing for Strategy
   },
   {
     num: "06", icon: Sparkles, name: "AI & ML",
@@ -47,6 +52,7 @@ const services = [
     tags: ["LLMs", "Vision", "NLP", "MLOps"],
     skills: [["Machine Learning", 94], ["NLP", 90], ["Computer Vision", 88]] as [string, number][],
     span: "lg:col-span-3", tall: false,
+    href: "/ai-ml-development"
   },
 ]
 
@@ -120,7 +126,7 @@ function ServiceCard({
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-auto space-y-2.5 overflow-hidden"
+            className="mt-auto space-y-2.5 overflow-hidden flex flex-col"
           >
             {service.skills.map(([label, val], si) => (
               <div key={label} className="flex items-center gap-2.5">
@@ -134,6 +140,23 @@ function ServiceCard({
                 <span className="font-mono text-[9px] text-white/70 w-7 text-right">{val}%</span>
               </div>
             ))}
+
+            {/* Added Link Button */}
+            <motion.div 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.4 }}
+              className="pt-3"
+            >
+              <Link 
+                href={service.href} 
+                onClick={(e) => e.stopPropagation()} 
+                className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-[2px] font-mono text-[10px] uppercase tracking-widest hover:bg-white/90 transition-colors w-max"
+              >
+                <span>View {service.name} Page</span>
+                <ArrowUpRight size={14} />
+              </Link>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -162,7 +185,7 @@ export default function ServicesSection() {
             style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 7vw, 96px)", letterSpacing: "2px" }}>
             What<br />We <span className="text-purple-500">Build</span>
           </h2>
-          <div className="flex items-center gap-2 mt-4  border border-[#1f1f1f] rounded-full px-4 py-2 w-fit">
+          <div className="flex items-center gap-2 mt-4 border border-[#1f1f1f] rounded-full px-4 py-2 w-fit">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse flex-shrink-0" />
             <span className="font-mono text-[10px] sm:text-[11px] text-[#444]">6 active disciplines — tap to inspect</span>
           </div>
@@ -187,7 +210,7 @@ export default function ServicesSection() {
 
       {/* Bottom strip */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-[2px]">
-        <div className=" border border-[#151515] rounded-sm flex items-center px-5 sm:px-7 py-5">
+        <div className="border border-[#151515] rounded-sm flex items-center px-5 sm:px-7 py-5">
           <span className="font-mono text-[10px] sm:text-[11px] text-[#2a2a2a] tracking-widest uppercase">
             <Link href="https://www.iso.org/standard/81230.html" target="_blank" className="text-purple-500 underline">ISO/IEC 42001 AI Management System</Link> best practices
           </span>

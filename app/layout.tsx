@@ -4,6 +4,8 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Bebas_Neue } from "next/font/google";
+import BridgeHomiesChat from "@/components/Bridgehomieschat";
+
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
 
 export const metadata: Metadata = {
@@ -204,7 +206,7 @@ export default function RootLayout({
         </Script>
 
         {children}
-
+        {/* <BridgeHomiesChat /> */}
         <Analytics />
         <SpeedInsights />
       </body>

@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { useToast } from "@/components/ui/use-toast"
 import { Mail, MapPin, Phone, Send } from "lucide-react"
-import emailjs from "emailjs-com"
+import emailjs from "@emailjs/browser"
 
 export default function ContactSection() {
   const [isSubmitting, setIsSubmitting] = useState(false)

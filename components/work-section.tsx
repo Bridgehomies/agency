@@ -1,584 +1,806 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
-import { Button } from "@/components/ui/button";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ExternalLink, X, Sparkles, TrendingUp, Shield, Share2, Copy, Check } from "lucide-react";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Badge } from "@/components/ui/badge";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
+import { motion, useMotionValue, useSpring, AnimatePresence, useTransform } from "framer-motion";
+import { X, ArrowUpRight, ExternalLink, Sparkles, TrendingUp, Shield } from "lucide-react";
 
-const categories = ["All", "Web", "Mobile"];
+/* ─── DATA ──────────────────────────────────────────────────────────────── */
 
-const projects = [
+const PROJECTS = [
   {
-    id: 7,
-    title: "Nabeera Bareera - Ecommerce Website",
-    category: "web",
+    id: 7, index: "01",
+    title: "NABEERA\nBAREERA", titleShort: "NB",
+    subtitle: "Ecommerce — Fashion & Lifestyle",
+    category: "WEB",
     image: "/work/nb.png",
-    description: "Ecommerce platform for fashion and lifestyle products.",
-    longDescription:
-      "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
+    year: "2024",
+    color: "#7C3AED",
+    bg: "#F5F0FF",
+    longDescription: "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
     technologies: ["Next.js", "Fast API", "Supabase"],
     link: "https://www.nabeerabareera.com/",
   },
   {
-    id: 4,
-    title: "Aierpify - FBR Approved Invoicing Software",
-    category: "web",
+    id: 4, index: "02",
+    title: "AIERPIFY", titleShort: "AI",
+    subtitle: "FBR Invoicing Software",
+    category: "WEB",
     image: "/work/aierpify.png",
-    description: "Digital invoicing software for businesses.",
-    longDescription:
-      "Aierpify is a digital invoicing software designed to streamline the billing process for businesses. It offers features such as invoice creation, payment tracking, and financial reporting. The software is user-friendly and helps businesses manage their finances efficiently while ensuring compliance with FBR regulations.",
-    technologies: ["Next", "Tailwind", "Supabase"],
+    year: "2024",
+    color: "#6D28D9",
+    bg: "#EDE9FE",
+    longDescription: "Digital invoicing software designed to streamline billing for businesses. Invoice creation, payment tracking, and financial reporting—all FBR compliant.",
+    technologies: ["Next.js", "Tailwind", "Supabase"],
     link: "https://aierpify.com",
   },
   {
-    id: 1,
-    title: "Cv Jet",
-    category: "Web",
+    id: 1, index: "03",
+    title: "CV\nJET", titleShort: "CV",
+    subtitle: "Smart Resume Platform",
+    category: "WEB",
     image: "/work/cvjet.png",
-    description: "A comprehensive Cv selector solution built with Next.js.",
-    longDescription:
-      "A comprehensive CV selector solution built with Next.js, resume parsing, and job matching. The platform includes advanced filtering, search capabilities, and a responsive design for optimal user experience across all devices.",
+    year: "2023",
+    color: "#8B5CF6",
+    bg: "#F3EEFF",
+    longDescription: "Comprehensive CV selector solution with resume parsing, job matching, advanced filtering, and a responsive design for optimal cross-device experience.",
     technologies: ["Next.js"],
     link: "https://cvjet.com",
   },
   {
-    id: 2,
-    title: "Emotion Detection from Text using Machine Learning & NLP",
-    category: ["Mobile", "Web"],
+    id: 2, index: "04",
+    title: "EMOTION\nDETECT", titleShort: "ED",
+    subtitle: "ML · NLP Text Analysis",
+    category: "WEB · MOBILE",
     image: "/work/ted1.png",
-    description: " Built a powerful tool that detects human emotions",
-    longDescription:
-      "Built a powerful tool that detects human emotions (Joy, Sadness, Anger, Fear, Surprise, Neutral) from any English text input using natural language processing (NLP) and machine learning. This system helps businesses analyze customer feedback, support tickets, social media posts, or chat logs for emotional tone — improving user experience and support systems.",
-    technologies: [
-      "Python",
-      "Machine Learning",
-      "Natural Language Processing (NLP)",
-      "Streamlit",
-    ],
+    year: "2023",
+    color: "#5B21B6",
+    bg: "#EDE9FE",
+    longDescription: "Detects human emotions—Joy, Sadness, Anger, Fear, Surprise, Neutral—from English text using NLP and machine learning. Built for customer feedback analysis at scale.",
+    technologies: ["Python", "ML", "NLP", "Streamlit"],
     link: "https://text-sentiments-detector.streamlit.app/",
   },
   {
-    id: 3,
-    title: "MoveX Auto Shipping – Professional Vehicle Transport Service Website",
-    category: "Web",
+    id: 3, index: "05",
+    title: "MOVEX\nAUTO", titleShort: "MX",
+    subtitle: "Vehicle Transport Platform",
+    category: "WEB",
     image: "/work/movex.png",
-    description:
-      "A professional vehicle transport service website offering real-time tracking and booking.",
-    longDescription:
-      "MoveX Auto Shipping is a comprehensive vehicle transport service platform that allows users to book and track their vehicle shipments in real-time. The website features an intuitive interface for scheduling pickups, managing shipments, and accessing customer support. It is built with a focus on user experience and includes robust security measures to protect user data.",
-    technologies: ["React", "BootStrap", "JavaScript"],
+    year: "2023",
+    color: "#7C3AED",
+    bg: "#F5F0FF",
+    longDescription: "Professional vehicle transport service with real-time tracking, booking management, shipment oversight, and enterprise-grade data protection.",
+    technologies: ["React", "Bootstrap", "JavaScript"],
     link: "https://movexautoshipping.com",
   },
   {
-    id: 5,
-    title: "Facebook Automations",
-    category: "web",
+    id: 5, index: "06",
+    title: "FB AUTO\nMATIONS", titleShort: "FB",
+    subtitle: "Social Media Engine",
+    category: "WEB",
     image: "/work/fb.png",
-    description: "Automated Facebook posting and engagement tool.",
-    longDescription:
-      "Developed a comprehensive tool for automating Facebook posts, comments, and messages, enhancing user engagement and streamlining social media management.",
+    year: "2024",
+    color: "#9333EA",
+    bg: "#FAF5FF",
+    longDescription: "Comprehensive automation tool for Facebook posts, comments, and messages—streamlining social media management and amplifying engagement.",
     technologies: ["React", "Node.js", "Facebook API"],
     link: "https://facebook-automations.com",
   },
   {
-    id: 6,
-    title: "Onyx Fintech System",
-    category: "web",
+    id: 6, index: "07",
+    title: "ONYX\nFINTECH", titleShort: "OX",
+    subtitle: "AI Loan Matchmaking",
+    category: "WEB",
     image: "/work/fin.webp",
-    description: "AI-powered loan matchmaking platform for financial institutions.",
-    longDescription:
-      "The Onyx Fintech System represents a comprehensive and robust solution tailored for loan-finding organizations. This application streamlines the intricate processes of managing a diverse network of clients, businesses seeking loans, and lending institutions. At its core, Onyx facilitates the creation of mutually beneficial deals by employing advanced AI-powered matchmaking algorithms to intelligently connect the right borrowers with the most suitable lenders.",
+    year: "2024",
+    color: "#6D28D9",
+    bg: "#EDE9FE",
+    longDescription: "Enterprise loan-matching platform connecting borrowers with optimal lenders via AI algorithms. Manages client networks, deal tracking, and financial reporting.",
     technologies: ["React", "TypeScript", "Django", "PostgreSQL", "AI/ML", "AWS"],
     link: "https://onyxfintech.com",
     keyFeatures: [
-      {
-        icon: "sparkles",
-        title: "AI-Powered Matchmaking",
-        description: "Sophisticated algorithms analyze client profiles and requirements to predict optimal borrower-lender pairings"
-      },
-      {
-        icon: "trending",
-        title: "Deal Management Dashboard",
-        description: "Intuitive centralized platform for managing deal creation, tracking progress, and overseeing interactions"
-      },
-      {
-        icon: "shield",
-        title: "Secure Infrastructure",
-        description: "Enterprise-grade security with PostgreSQL, load balancing, and comprehensive server monitoring"
-      }
+      { icon: "sparkles", title: "AI Matchmaking", description: "Algorithms predict optimal borrower-lender pairings from profile analysis" },
+      { icon: "trending", title: "Deal Dashboard", description: "Centralized deal creation, progress tracking, and interaction oversight" },
+      { icon: "shield", title: "Secure Infra", description: "PostgreSQL + load balancing + real-time server monitoring" },
     ],
-    highlights: [
-      "Advanced Data Visualization & Analytics",
-      "Dynamic Data Input Forms",
-      "Targeted Email Campaigns",
-      "CI/CD Pipeline Integration",
-      "Real-time Server Monitoring"
-    ]
+    highlights: ["Data Visualization", "Email Campaigns", "CI/CD Pipeline", "Server Monitoring", "Dynamic Forms"],
   },
 ];
 
-interface ProjectStat {
-  label: string;
-  value: string;
-}
+type Project = typeof PROJECTS[0];
 
-interface Project {
-  id: number;
-  title: string;
-  category: string | string[];
-  image: string;
-  description: string;
-  longDescription: string;
-  technologies: string[];
-  stats?: ProjectStat[];
-  link?: string;
-  github?: string;
-  keyFeatures?: Array<{
-    icon: string;
-    title: string;
-    description: string;
-  }>;
-  highlights?: string[];
-}
+/* ─── HOOKS ──────────────────────────────────────────────────────────────── */
 
-export default function WorkSection() {
-  const [activeCategory, setActiveCategory] = useState("All");
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const ref = useRef(null);
-  const carouselRef = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const filteredProjects =
-    activeCategory === "All"
-      ? projects
-      : projects.filter((project) => {
-          if (Array.isArray(project.category)) {
-            return project.category.includes(activeCategory);
-          }
-          return project.category === activeCategory;
-        });
-
+// Utility to disable custom cursors on mobile to prevent layout and touch issues
+function useIsTouchDevice() {
+  const [isTouch, setIsTouch] = useState(true); // Default true to avoid hydration mismatch
   useEffect(() => {
-    setCurrentIndex(0);
-  }, [filteredProjects]);
-
-  const nextProject = () => {
-    setCurrentIndex((prev) => (prev + 1) % filteredProjects.length);
-  };
-
-  const prevProject = () => {
-    setCurrentIndex((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
-  };
-
-  const openProjectDetails = (project: Project) => {
-    setSelectedProject(project);
-    setIsDialogOpen(true);
-    // Update URL without page reload for sharing
-    const projectSlug = project.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    window.history.pushState({}, '', `#project-${projectSlug}`);
-  };
-
-  // Handle closing modal
-  const closeModal = () => {
-    setIsDialogOpen(false);
-    setSelectedProject(null);
-    // Remove project from URL
-    window.history.pushState({}, '', window.location.pathname);
-  };
-
-  // Check URL on mount to open project if shared link
-  useEffect(() => {
-    const hash = window.location.hash;
-    if (hash.startsWith('#project-')) {
-      const slug = hash.replace('#project-', '');
-      const project = projects.find(p => {
-        const projectSlug = p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
-        return projectSlug === slug;
-      });
-      if (project) {
-        openProjectDetails(project);
-      }
-    }
+    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
   }, []);
+  return isTouch;
+}
 
-  const getIcon = (iconName: string) => {
-    switch(iconName) {
-      case "sparkles": return <Sparkles className="h-5 w-5" />;
-      case "trending": return <TrendingUp className="h-5 w-5" />;
-      case "shield": return <Shield className="h-5 w-5" />;
-      default: return <Sparkles className="h-5 w-5" />;
-    }
+/* ─── CURSOR SPOTLIGHT ───────────────────────────────────────────────────── */
+
+function CursorSpotlight() {
+  const isTouch = useIsTouchDevice();
+  const x = useMotionValue(-400);
+  const y = useMotionValue(-400);
+  const springX = useSpring(x, { stiffness: 80, damping: 20 });
+  const springY = useSpring(y, { stiffness: 80, damping: 20 });
+
+  useEffect(() => {
+    if (isTouch) return;
+    const move = (e: MouseEvent) => { x.set(e.clientX); y.set(e.clientY); };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [x, y, isTouch]);
+
+  if (isTouch) return null;
+
+  return (
+    <motion.div
+      className="pointer-events-none fixed z-0"
+      style={{
+        width: 600, height: 600,
+        borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(124,58,237,0.05) 0%, transparent 65%)",
+        translateX: "-50%", translateY: "-50%",
+        left: springX, top: springY,
+      }}
+    />
+  );
+}
+
+/* ─── MARQUEE ─────────────────────────────────────────────────────────────── */
+
+function Marquee({ items }: { items: string[] }) {
+  const text = items.join("  ·  ") + "  ·  ";
+  return (
+    <div
+      className="overflow-hidden whitespace-nowrap select-none py-3"
+      style={{ borderTop: "1px solid rgba(124,58,237,0.12)", borderBottom: "1px solid rgba(124,58,237,0.12)" }}
+    >
+      <motion.div
+        animate={{ x: ["0%", "-50%"] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+        className="inline-block font-mono"
+        style={{ fontSize: 11, letterSpacing: "0.35em", color: "rgba(124,58,237,0.35)" }}
+      >
+        {text.repeat(8)}
+      </motion.div>
+    </div>
+  );
+}
+
+/* ─── ICON HELPER ────────────────────────────────────────────────────────── */
+
+const getIcon = (name: string) => {
+  if (name === "sparkles") return <Sparkles className="h-4 w-4" />;
+  if (name === "trending") return <TrendingUp className="h-4 w-4" />;
+  return <Shield className="h-4 w-4" />;
+};
+
+/* ─── PROJECT CARD ───────────────────────────────────────────────────────── */
+
+function ProjectCard({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) {
+  const [hovered, setHovered] = useState(false);
+  const ref = useRef<HTMLButtonElement>(null);
+  const isTouch = useIsTouchDevice();
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  const rotateX = useSpring(useTransform(mouseY, [-100, 100], [4, -4]), { stiffness: 300, damping: 30 });
+  const rotateY = useSpring(useTransform(mouseX, [-100, 100], [-4, 4]), { stiffness: 300, damping: 30 });
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isTouch) return;
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set(e.clientX - rect.left - rect.width / 2);
+    mouseY.set(e.clientY - rect.top - rect.height / 2);
   };
 
-  // Copy current URL to clipboard
-  const copyShareLink = () => {
-    const url = window.location.href;
-    navigator.clipboard.writeText(url).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+  const handleMouseLeave = () => {
+    mouseX.set(0); mouseY.set(0); setHovered(false);
   };
 
   return (
-    <section id="work" className="py-16 md:py-32 px-4 sm:px-6 lg:px-8">
-      <div className="container mx-auto">
-        <motion.div
-          ref={ref}
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-          transition={{ duration: 0.5 }}
-          className="text-center max-w-3xl mx-auto mb-16"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Work</h2>
-          <p className="text-xl text-muted-foreground">
-            Explore our portfolio of successful projects that showcase our
-            expertise and creativity.
-          </p>
-        </motion.div>
-
-        <Tabs defaultValue="All" className="w-full">
-          <div className="flex flex-wrap justify-center mb-12 gap-2">
-            <TabsList className="bg-muted/50 p-1 flex flex-wrap justify-center gap-2">
-              {categories.map((category) => (
-                <TabsTrigger
-                  key={category}
-                  value={category}
-                  onClick={() => setActiveCategory(category)}
-                  className="px-4 py-2 data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow-sm transition-all duration-300 text-sm"
-                >
-                  {category}
-                </TabsTrigger>
-              ))}
-            </TabsList>
+    <motion.button
+      ref={ref}
+      onClick={onClick}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={handleMouseLeave}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
+      style={{
+        rotateX: isTouch ? 0 : rotateX,
+        rotateY: isTouch ? 0 : rotateY,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
+      }}
+      className={`group flex flex-col w-full h-full text-left bg-transparent border-none p-0 ${isTouch ? "cursor-pointer" : "cursor-none"}`}
+    >
+      <div
+        className="relative flex flex-col w-full h-full overflow-hidden"
+        style={{
+          border: `1px solid ${hovered ? project.color + "50" : "rgba(124,58,237,0.12)"}`,
+          transition: "border-color 0.4s, box-shadow 0.4s",
+          boxShadow: hovered ? `0 0 40px ${project.color}15` : "none",
+        }}
+      >
+        {/* Image - Fixed Aspect Ratio */}
+        <div className="relative w-full shrink-0 overflow-hidden" style={{ aspectRatio: "4/3" }}>
+          <motion.img
+            src={project.image}
+            alt={project.title.replace("\n", " ")}
+            animate={{ scale: hovered ? 1.05 : 1 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-full h-full object-cover"
+          />
+          {/* Subtle index number overlay */}
+          <div
+            className="absolute top-2 right-4 leading-none font-black select-none pointer-events-none"
+            style={{
+              fontSize: "clamp(3rem, 8vw, 6rem)",
+              color: "#ffffff",
+              opacity: hovered ? 0.4 : 0.2,
+              mixBlendMode: "overlay",
+              transition: "opacity 0.4s",
+              fontFamily: "'Courier New', monospace",
+            }}
+          >
+            {project.index}
           </div>
+        </div>
 
-          <TabsContent value={activeCategory} className="mt-0">
-            {/* Featured Project Carousel */}
-            <div className="mb-16 relative overflow-hidden rounded-xl shadow-xl">
-              <div className="absolute inset-0 bg-black/50 z-10 flex items-center justify-between">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-background/20 text-white backdrop-blur-sm ml-2 sm:ml-4 hover:bg-background/40"
-                  onClick={prevProject}
-                >
-                  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-10 w-10 sm:h-12 sm:w-12 rounded-full bg-background/20 text-white backdrop-blur-sm mr-2 sm:mr-4 hover:bg-background/40"
-                  onClick={nextProject}
-                >
-                  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
-                </Button>
-              </div>
-
-              <div ref={carouselRef} className="relative aspect-[4/3] md:aspect-[21/9] overflow-hidden">
-                <AnimatePresence initial={false} mode="wait">
-                  <motion.div
-                    key={currentIndex}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.5 }}
-                    className="absolute inset-0"
-                  >
-                    <img
-                      src={filteredProjects[currentIndex]?.image || "/placeholder.svg"}
-                      alt={filteredProjects[currentIndex]?.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex flex-col justify-end p-4 sm:p-8">
-                      <motion.div
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.2 }}
-                      >
-                        <Badge className="mb-4 bg-primary hover:bg-primary">
-                          {filteredProjects[currentIndex]?.category}
-                        </Badge>
-                        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-                          {filteredProjects[currentIndex]?.title}
-                        </h3>
-                        <p className="text-white/80 mb-4 sm:mb-6 max-w-2xl text-sm sm:text-base">
-                          {filteredProjects[currentIndex]?.description}
-                        </p>
-                        <div className="flex flex-wrap gap-2 mb-4 sm:mb-6">
-                          {filteredProjects[currentIndex]?.technologies.map((tech, i) => (
-                            <Badge
-                              key={i}
-                              variant="outline"
-                              className="bg-white/10 text-white border-white/20"
-                            >
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
-                        <Button
-                          variant="outline"
-                          className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white"
-                          onClick={() => openProjectDetails(filteredProjects[currentIndex])}
-                        >
-                          View Project Details
-                          <ArrowUpRight className="ml-2 h-4 w-4" />
-                        </Button>
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-
-              {/* Carousel Indicators */}
-              <div className="absolute bottom-2 sm:bottom-4 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2">
-                {filteredProjects.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-white w-4" : "bg-white/50"}`}
-                    onClick={() => setCurrentIndex(index)}
-                  />
-                ))}
-              </div>
+        {/* Bottom info - Flex Grows to Match Heights */}
+        <div className="p-5 flex flex-col grow bg-white" style={{ background: "#FFFFFF" }}>
+          <div className="flex items-start justify-between gap-2 mb-2">
+            <div>
+              <p className="text-[10px] mb-2 font-mono uppercase" style={{ color: project.color, letterSpacing: "0.25em" }}>
+                {project.category} — {project.year}
+              </p>
+              <h3
+                className="font-black leading-tight"
+                style={{
+                  fontSize: "clamp(1.1rem, 2vw, 1.3rem)",
+                  color: "#1E0A3C",
+                  fontFamily: "'Courier New', Courier, monospace",
+                  whiteSpace: "pre-line",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                {project.title}
+              </h3>
             </div>
+            <motion.div
+              animate={{ rotate: hovered ? 45 : 0, scale: hovered ? 1.1 : 1 }}
+              transition={{ duration: 0.3 }}
+              className="flex items-center justify-center shrink-0 w-9 h-9 rounded-full"
+              style={{ border: `1px solid ${project.color}50` }}
+            >
+              <ArrowUpRight style={{ width: 16, height: 16, color: project.color }} />
+            </motion.div>
+          </div>
+          
+          <p className="text-xs leading-relaxed flex-grow" style={{ color: "rgba(30,10,60,0.6)", letterSpacing: "0.02em" }}>
+            {project.subtitle}
+          </p>
+          
+          <div className="flex flex-wrap gap-1.5 mt-4 pt-4" style={{ borderTop: "1px solid rgba(124,58,237,0.08)" }}>
+            {project.technologies.slice(0, 3).map((t) => (
+              <span
+                key={t}
+                className="text-[9px] px-2 py-1 uppercase font-mono"
+                style={{
+                  background: project.color + "10",
+                  color: project.color,
+                  letterSpacing: "0.05em",
+                  border: `1px solid ${project.color}25`,
+                }}
+              >
+                {t}
+              </span>
+            ))}
+            {project.technologies.length > 3 && (
+              <span className="text-[9px] px-2 py-1 uppercase font-mono text-gray-400 border border-gray-200">
+                +{project.technologies.length - 3}
+              </span>
+            )}
+          </div>
+        </div>
+      </div>
+    </motion.button>
+  );
+}
 
-            {/* Project Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredProjects.map((project, index) => (
-                <motion.div
-                  key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="group"
-                >
-                  <div
-                    className="relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 cursor-pointer"
-                    onClick={() => openProjectDetails(project)}
-                  >
-                    <div className="aspect-[4/3] overflow-hidden">
-                      <img
-                        src={project.image || "/placeholder.svg"}
-                        alt={project.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-4 sm:p-6">
-                      <Badge className="mb-2 w-fit bg-primary hover:bg-primary">
-                        {project.category}
-                      </Badge>
-                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2">
-                        {project.title}
-                      </h3>
-                      <p className="text-white/80 text-sm sm:text-base mb-4">
-                        {project.description}
-                      </p>
-                      <Button
-                        variant="outline"
-                        className="w-fit bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 hover:text-white"
-                      >
-                        View Details
-                        <ArrowUpRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
+/* ─── PROJECT DETAIL OVERLAY ─────────────────────────────────────────────── */
+
+function ProjectDetail({ project, onClose, projects, onSelect }: {
+  project: Project;
+  onClose: () => void;
+  projects: Project[];
+  onSelect: (p: Project) => void;
+}) {
+  const currentIdx = projects.findIndex((p) => p.id === project.id);
+  const isTouch = useIsTouchDevice();
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      if (e.key === "ArrowRight") onSelect(projects[(currentIdx + 1) % projects.length]);
+      if (e.key === "ArrowLeft") onSelect(projects[(currentIdx - 1 + projects.length) % projects.length]);
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [onClose, onSelect, projects, currentIdx]);
+
+  return (
+    <motion.div
+      key={project.id}
+      initial={{ clipPath: "inset(100% 0% 0% 0%)" }}
+      animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+      exit={{ clipPath: "inset(0% 0% 100% 0%)" }}
+      transition={{ duration: 0.5, ease: [0.76, 0, 0.24, 1] }}
+      className={`fixed inset-0 z-50 overflow-y-auto ${!isTouch ? "cursor-none" : ""}`}
+      style={{ background: "#FAFAFA" }}
+    >
+      {/* Noise texture overlay */}
+      <div
+        className="pointer-events-none fixed inset-0 z-10 opacity-[0.02]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: "200px",
+        }}
+      />
+
+      {/* Top bar */}
+      <div
+        className="sticky top-0 z-20 flex items-center justify-between px-6 md:px-12 py-5"
+        style={{ borderBottom: `1px solid ${project.color}20`, backdropFilter: "blur(10px)", background: "rgba(250,250,250,0.9)" }}
+      >
+        <div className="flex items-center gap-6">
+          <span
+            className="font-black text-sm"
+            style={{ color: project.color, fontFamily: "Courier New, monospace", letterSpacing: "0.2em" }}
+          >
+            {project.index} / {String(projects.length).padStart(2, "0")}
+          </span>
+          <span className="hidden sm:block text-xs uppercase" style={{ color: "rgba(30,10,60,0.5)", letterSpacing: "0.2em" }}>
+            {project.category}
+          </span>
+        </div>
+        <div className="flex items-center gap-2 sm:gap-3">
+          <button
+            onClick={() => onSelect(projects[(currentIdx - 1 + projects.length) % projects.length])}
+            className={`text-[10px] sm:text-xs px-3 py-1.5 transition-all ${!isTouch ? "cursor-none" : ""}`}
+            style={{ border: `1px solid ${project.color}30`, color: project.color, letterSpacing: "0.1em", background: "none" }}
+          >
+            ← PREV
+          </button>
+          <button
+            onClick={() => onSelect(projects[(currentIdx + 1) % projects.length])}
+            className={`text-[10px] sm:text-xs px-3 py-1.5 transition-all ${!isTouch ? "cursor-none" : ""}`}
+            style={{ border: `1px solid ${project.color}30`, color: project.color, letterSpacing: "0.1em", background: "none" }}
+          >
+            NEXT →
+          </button>
+          <button
+            onClick={onClose}
+            className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 transition-all ml-2 ${!isTouch ? "cursor-none" : ""}`}
+            style={{ border: `1px solid ${project.color}40`, color: project.color, background: "none" }}
+          >
+            <X className="h-4 w-4 sm:h-5 sm:w-5" />
+          </button>
+        </div>
       </div>
 
-      {/* Enhanced Project Details Modal */}
-      <Dialog open={isDialogOpen} onOpenChange={(open) => {
-        if (!open) closeModal();
-        else setIsDialogOpen(true);
-      }}>
-        <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto p-0 bg-gradient-to-b from-background to-muted/20">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3 }}
-            className="relative"
+      {/* Hero Content */}
+      <div className="relative px-6 md:px-12 pt-12 pb-8 overflow-hidden z-10">
+        <div className="absolute inset-0 flex items-center pointer-events-none select-none overflow-hidden" aria-hidden>
+          <span
+            className="font-black whitespace-nowrap leading-none"
+            style={{
+              fontSize: "clamp(8rem, 22vw, 22rem)",
+              color: project.color,
+              opacity: 0.04,
+              fontFamily: "Courier New, monospace",
+              letterSpacing: "-0.05em",
+              transform: "translateX(-2%)",
+            }}
           >
-            {/* Hero Section with Image */}
-            <div className="relative h-72 md:h-96 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-purple-600/20 z-0" />
+            {project.titleShort}
+          </span>
+        </div>
+
+        <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+          {/* Left Text Content */}
+          <div className="order-2 lg:order-1">
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-[10px] sm:text-xs mb-4 uppercase font-mono"
+              style={{ color: project.color, letterSpacing: "0.2em" }}
+            >
+              {project.year} — {project.subtitle}
+            </motion.p>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="font-black leading-tight mb-6"
+              style={{
+                fontSize: "clamp(2.5rem, 6vw, 6rem)",
+                color: "#1E0A3C",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              {project.title}
+            </motion.h2>
+
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="mb-6 origin-left w-full max-w-md"
+              style={{ height: 1, background: `linear-gradient(to right, ${project.color}, transparent)` }}
+            />
+
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.35 }}
+              className="text-sm sm:text-base leading-relaxed mb-8"
+              style={{ color: "rgba(30,10,60,0.7)", fontWeight: 400, maxWidth: "50ch" }}
+            >
+              {project.longDescription}
+            </motion.p>
+
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}>
+              <p className="text-[10px] mb-3 font-mono" style={{ color: "rgba(30,10,60,0.4)", letterSpacing: "0.2em" }}>TECH STACK</p>
+              <div className="flex flex-wrap gap-2">
+                {project.technologies.map((t, i) => (
+                  <motion.span
+                    key={t}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.4 + i * 0.04 }}
+                    className="text-[10px] sm:text-xs px-3 py-1.5 font-mono uppercase"
+                    style={{
+                      background: "white",
+                      border: `1px solid ${project.color}35`,
+                      color: project.color,
+                      letterSpacing: "0.05em",
+                    }}
+                  >
+                    {t}
+                  </motion.span>
+                ))}
+              </div>
+            </motion.div>
+          </div>
+
+          {/* Right Image Container */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6, ease: "easeOut" }}
+            className="order-1 lg:order-2 w-full"
+          >
+            <div className="relative shadow-xl overflow-hidden" style={{ border: `1px solid ${project.color}25` }}>
               <img
-                src={selectedProject?.image || "/placeholder.svg"}
-                alt={selectedProject?.title}
-                className="w-full h-full object-cover opacity-40"
+                src={project.image}
+                alt={project.title.replace("\n", " ")}
+                className="w-full h-auto object-cover block"
+                style={{ aspectRatio: "16/10" }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-              
-              {/* Floating Badge */}
-              <motion.div
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.2 }}
-                className="absolute top-6 left-6 flex gap-3"
-              >
-                <Badge className="bg-primary/90 backdrop-blur-sm text-lg px-4 py-2">
-                  {selectedProject?.category}
-                </Badge>
-                <Button
-                  size="icon"
-                  variant="secondary"
-                  className="h-10 w-10 rounded-full bg-background/90 backdrop-blur-sm hover:bg-background shadow-lg"
-                  onClick={copyShareLink}
-                >
-                  {copied ? <Check className="h-4 w-4 text-green-600" /> : <Share2 className="h-4 w-4" />}
-                </Button>
-              </motion.div>
-            </div>
-
-            {/* Content Section */}
-            <div className="p-6 md:p-10 -mt-20 relative z-10">
-              {/* Title and Description */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.3 }}
-              >
-                <DialogHeader className="mb-6">
-                  <DialogTitle className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
-                    {selectedProject?.title}
-                  </DialogTitle>
-                  <DialogDescription className="text-base md:text-lg text-muted-foreground leading-relaxed">
-                    {selectedProject?.longDescription}
-                  </DialogDescription>
-                </DialogHeader>
-              </motion.div>
-
-              {/* Key Features Section (if available) */}
-              {selectedProject?.keyFeatures && (
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4 }}
-                  className="mb-8"
-                >
-                  <h3 className="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-primary" />
-                    Key Features
-                  </h3>
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {selectedProject.keyFeatures.map((feature, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ delay: 0.5 + index * 0.1 }}
-                        className="p-5 rounded-lg bg-gradient-to-br from-primary/5 to-purple-500/5 border border-primary/10 hover:border-primary/30 transition-all duration-300 hover:shadow-lg"
-                      >
-                        <div className="flex items-start gap-3">
-                          <div className="p-2 rounded-lg bg-primary/10 text-primary">
-                            {getIcon(feature.icon)}
-                          </div>
-                          <div>
-                            <h4 className="font-semibold mb-1 text-sm">{feature.title}</h4>
-                            <p className="text-xs text-muted-foreground leading-relaxed">
-                              {feature.description}
-                            </p>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Highlights Section (if available) */}
-              {selectedProject?.highlights && (
-                <motion.div
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.6 }}
-                  className="mb-8"
-                >
-                  <h3 className="text-xl font-semibold mb-4">Additional Highlights</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    {selectedProject.highlights.map((highlight, index) => (
-                      <motion.div
-                        key={index}
-                        initial={{ x: -20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        transition={{ delay: 0.7 + index * 0.05 }}
-                        className="flex items-center gap-3 p-3 rounded-lg bg-muted/50 hover:bg-muted transition-colors"
-                      >
-                        <div className="h-2 w-2 rounded-full bg-primary" />
-                        <span className="text-sm">{highlight}</span>
-                      </motion.div>
-                    ))}
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Technologies Section */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="mb-8"
-              >
-                <h3 className="text-xl font-semibold mb-4">Technologies Used</h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedProject?.technologies.map((tech, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ delay: 0.6 + i * 0.05 }}
-                    >
-                      <Badge 
-                        variant="secondary" 
-                        className="text-sm px-4 py-2 bg-gradient-to-r from-primary/10 to-purple-500/10 hover:from-primary/20 hover:to-purple-500/20 transition-all"
-                      >
-                        {tech}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-
-              {/* Action Buttons */}
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.7 }}
-                className="flex flex-wrap gap-4 pt-6 border-t"
-              >
-                {selectedProject?.link && (
-                  <Button
-                    className="flex-1 min-w-[200px] bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-600/90 shadow-lg hover:shadow-xl transition-all"
-                    onClick={() => window.open(selectedProject.link, '_blank')}
-                  >
-                    Visit Live Site
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                )}
-                {selectedProject?.github && (
-                  <Button
-                    variant="outline"
-                    className="flex-1 min-w-[200px] border-2"
-                    onClick={() => window.open(selectedProject.github, '_blank')}
-                  >
-                    View on GitHub
-                    <ExternalLink className="ml-2 h-4 w-4" />
-                  </Button>
-                )}
-              </motion.div>
             </div>
           </motion.div>
-        </DialogContent>
-      </Dialog>
+        </div>
+      </div>
+
+      {/* Feature Grids */}
+      <div className="relative z-10 max-w-[1600px] mx-auto">
+        {"keyFeatures" in project && project.keyFeatures && (
+          <div className="px-6 md:px-12 py-10" style={{ borderTop: `1px solid ${project.color}15` }}>
+            <p className="text-[10px] mb-6 font-mono" style={{ color: "rgba(30,10,60,0.4)", letterSpacing: "0.2em" }}>KEY FEATURES</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {project.keyFeatures.map((f, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
+                  className="p-6 bg-white shadow-sm"
+                  style={{ border: `1px solid ${project.color}15` }}
+                >
+                  <div className="mb-4" style={{ color: project.color }}>{getIcon(f.icon)}</div>
+                  <p className="text-sm font-bold mb-2 font-mono uppercase" style={{ color: "#1E0A3C" }}>{f.title}</p>
+                  <p className="text-xs sm:text-sm leading-relaxed" style={{ color: "rgba(30,10,60,0.6)" }}>{f.description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {"highlights" in project && project.highlights && (
+          <div className="px-6 md:px-12 py-8" style={{ borderTop: `1px solid ${project.color}15` }}>
+            <p className="text-[10px] mb-5 font-mono" style={{ color: "rgba(30,10,60,0.4)", letterSpacing: "0.2em" }}>HIGHLIGHTS</p>
+            <div className="flex flex-wrap gap-2 sm:gap-3">
+              {project.highlights.map((h, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.6 + i * 0.05 }}
+                  className="text-[10px] sm:text-xs px-4 py-2 font-mono uppercase bg-white shadow-sm"
+                  style={{ border: `1px solid ${project.color}20`, color: project.color, letterSpacing: "0.05em" }}
+                >
+                  — {h}
+                </motion.span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {project.link && (
+          <div className="px-6 md:px-12 py-12 mb-12" style={{ borderTop: `1px solid ${project.color}15` }}>
+            <motion.a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              whileHover={!isTouch ? { scale: 1.02 } : {}}
+              whileTap={{ scale: 0.98 }}
+              className={`inline-flex items-center gap-4 px-8 py-4 font-black font-mono text-xs sm:text-sm group ${!isTouch ? "cursor-none" : ""}`}
+              style={{
+                background: project.color,
+                color: "#ffffff",
+                letterSpacing: "0.1em",
+                boxShadow: `0 10px 40px ${project.color}40`,
+              }}
+            >
+              VISIT LIVE SITE
+              <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+            </motion.a>
+          </div>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+/* ─── CUSTOM CURSOR ──────────────────────────────────────────────────────── */
+
+function CustomCursor({ activeColor }: { activeColor?: string }) {
+  const isTouch = useIsTouchDevice();
+  const x = useMotionValue(-100);
+  const y = useMotionValue(-100);
+  const springX = useSpring(x, { stiffness: 250, damping: 20 });
+  const springY = useSpring(y, { stiffness: 250, damping: 20 });
+  const lagX = useSpring(x, { stiffness: 100, damping: 25 });
+  const lagY = useSpring(y, { stiffness: 100, damping: 25 });
+
+  useEffect(() => {
+    if (isTouch) return;
+    const move = (e: MouseEvent) => { x.set(e.clientX); y.set(e.clientY); };
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
+  }, [x, y, isTouch]);
+
+  if (isTouch) return null;
+
+  return (
+    <>
+      <motion.div
+        className="pointer-events-none fixed z-[100]"
+        style={{
+          width: 8, height: 8, borderRadius: "50%",
+          background: activeColor || "#6D28D9",
+          translateX: "-50%", translateY: "-50%",
+          left: springX, top: springY,
+        }}
+      />
+      <motion.div
+        className="pointer-events-none fixed z-[99]"
+        style={{
+          width: 32, height: 32, borderRadius: "50%",
+          border: `1px solid ${activeColor || "rgba(109,40,217,0.4)"}`,
+          translateX: "-50%", translateY: "-50%",
+          left: lagX, top: lagY,
+        }}
+      />
+    </>
+  );
+}
+
+/* ─── MAIN EXPORT ────────────────────────────────────────────────────────── */
+
+export default function WorkSection() {
+  const [activeCategory, setActiveCategory] = useState("ALL");
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [cursorColor, setCursorColor] = useState<string | undefined>();
+  const isTouch = useIsTouchDevice();
+  const ref = useRef(null);
+
+  const categories = ["ALL", "WEB", "MOBILE"];
+
+  const filteredProjects = useMemo(() => {
+    if (activeCategory === "ALL") return PROJECTS;
+    return PROJECTS.filter((p) => p.category.toUpperCase().includes(activeCategory));
+  }, [activeCategory]);
+
+  const openProject = useCallback((p: Project) => {
+    setSelectedProject(p);
+    document.body.style.overflow = "hidden";
+  }, []);
+
+  const closeProject = useCallback(() => {
+    setSelectedProject(null);
+    document.body.style.overflow = "";
+  }, []);
+
+  // Keyboard navigation for categories
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if (selectedProject) return;
+      if (e.key === "ArrowRight") {
+        const idx = categories.indexOf(activeCategory);
+        setActiveCategory(categories[(idx + 1) % categories.length]);
+      } else if (e.key === "ArrowLeft") {
+        const idx = categories.indexOf(activeCategory);
+        setActiveCategory(categories[(idx - 1 + categories.length) % categories.length]);
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [activeCategory, categories, selectedProject]);
+
+  return (
+    <section
+      id="work"
+      ref={ref}
+      style={{ background: "#FAFAFA", minHeight: "100vh" }}
+      className={!isTouch ? "cursor-none" : ""}
+    >
+      <CustomCursor activeColor={cursorColor} />
+      <CursorSpotlight />
+
+      {/* ── HEADER ── */}
+      <div className="relative z-10 px-6 md:px-12 pt-20 pb-8 max-w-[1600px] mx-auto">
+        <motion.p
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-[10px] sm:text-xs mb-4 font-mono uppercase"
+          style={{ color: "rgba(109,40,217,0.5)", letterSpacing: "0.4em" }}
+        >
+          SELECTED WORK — {new Date().getFullYear()}
+        </motion.p>
+
+        {/* Headline */}
+        <div className="overflow-hidden mb-1">
+          <motion.h2
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="font-black leading-none"
+            style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "#1E0A3C" }}
+          >
+            OUR
+          </motion.h2>
+        </div>
+        <div className="overflow-hidden pl-2">
+          <motion.h2
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            className="font-black leading-none"
+            style={{
+              fontSize: "clamp(4rem, 12vw, 10rem)",
+              color: "transparent",
+              fontFamily: "Courier New, monospace",
+              letterSpacing: "-0.05em",
+              lineHeight: 0.9,
+              WebkitTextStroke: "2px rgba(109,40,217,0.3)",
+            }}
+          >
+            WORK
+          </motion.h2>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-10"
+        >
+          <p className="text-sm sm:text-base max-w-md" style={{ color: "rgba(30,10,60,0.6)", lineHeight: 1.8, fontWeight: 400 }}>
+            Crafted digital experiences from the ground up — each project a commitment to precision, performance, and scale.
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`text-[10px] sm:text-xs px-5 py-2.5 font-mono transition-all duration-300 uppercase ${!isTouch ? "cursor-none" : ""}`}
+                style={{
+                  border: `1px solid ${activeCategory === cat ? "rgba(109,40,217,0.8)" : "rgba(109,40,217,0.15)"}`,
+                  color: activeCategory === cat ? "#1E0A3C" : "rgba(30,10,60,0.4)",
+                  background: activeCategory === cat ? "rgba(109,40,217,0.05)" : "white",
+                  letterSpacing: "0.15em",
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </div>
+
+      {/* ── MARQUEE ── */}
+      <Marquee items={["NEXT.JS", "REACT", "DJANGO", "PYTHON", "SUPABASE", "TAILWIND", "TYPESCRIPT", "AWS", "NODE.JS", "POSTGRESQL"]} />
+
+      {/* ── GRID ── */}
+      <div className="relative z-10 px-6 md:px-12 py-14 max-w-[1600px] mx-auto">
+        <div className="flex items-center justify-between mb-10">
+          <div className="h-px flex-1 max-w-[100px] sm:max-w-xs" style={{ background: "rgba(109,40,217,0.1)" }} />
+          <span className="mx-4 text-[9px] sm:text-[10px] font-mono uppercase" style={{ color: "rgba(109,40,217,0.4)", letterSpacing: "0.3em" }}>
+            {String(filteredProjects.length).padStart(2, "0")} PROJECTS
+          </span>
+          <div className="h-px flex-1 max-w-[100px] sm:max-w-xs" style={{ background: "rgba(109,40,217,0.1)" }} />
+        </div>
+
+        {/* Adding items-stretch makes all divs share exact uniform height in the row */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
+          {filteredProjects.map((project, i) => (
+            <div
+              key={project.id}
+              className="flex w-full h-full"
+              onMouseEnter={() => !isTouch && setCursorColor(project.color)}
+              onMouseLeave={() => !isTouch && setCursorColor(undefined)}
+            >
+              <ProjectCard project={project} index={i} onClick={() => openProject(project)} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── BOTTOM RULE ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ delay: 0.3 }}
+        className="px-6 md:px-12 pb-16 max-w-[1600px] mx-auto"
+      >
+        <div className="flex items-center gap-4">
+          <div className="h-px flex-1" style={{ background: "rgba(109,40,217,0.1)" }} />
+          <span className="text-[8px] sm:text-[9px] font-mono uppercase text-center" style={{ color: "rgba(109,40,217,0.3)", letterSpacing: "0.3em" }}>
+            CLICK TO EXPLORE {isTouch ? "" : "— ARROW KEYS TO NAVIGATE"}
+          </span>
+          <div className="h-px flex-1" style={{ background: "rgba(109,40,217,0.1)" }} />
+        </div>
+      </motion.div>
+
+      {/* ── OVERLAY ── */}
+      <AnimatePresence>
+        {selectedProject && (
+          <ProjectDetail
+            key={selectedProject.id}
+            project={selectedProject}
+            onClose={closeProject}
+            projects={filteredProjects}
+            onSelect={(p) => setSelectedProject(p)}
+          />
+        )}
+      </AnimatePresence>
     </section>
   );
 }
