@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Code, Smartphone, Globe, Layers, Rocket, Sparkles, ArrowUpRight } from "lucide-react"
+import Link from "next/link"
 
 const services = [
   {
@@ -188,7 +189,7 @@ export default function ServicesSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-[2px]">
         <div className=" border border-[#151515] rounded-sm flex items-center px-5 sm:px-7 py-5">
           <span className="font-mono text-[10px] sm:text-[11px] text-[#2a2a2a] tracking-widest uppercase">
-           <a href="https://www.iso.org/standard/81230.html" target="_blank">ISO/IEC 42001 AI Management System</a> best practices
+            <Link href="https://www.iso.org/standard/81230.html" target="_blank" className="text-purple-500 underline">ISO/IEC 42001 AI Management System</Link> best practices
           </span>
         </div>
         <div className="bg-purple-500 hover:bg-purple-600 transition-colors duration-300 rounded-sm flex items-center justify-between px-5 sm:px-7 py-5 cursor-pointer group">

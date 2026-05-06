@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 const navLinks = [
   { num: "01", name: "Home", href: "/" },
@@ -192,12 +193,18 @@ export default function Navbar() {
                   <p className="text-[9px] tracking-[0.2em] uppercase text-black/60 mb-3 font-medium">
                     Get in touch
                   </p>
-                  <a
-                    href="mailto:info@bridgehomies.com"
-                    className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 border-b border-black/20 pb-3 block tracking-[-0.02em]"
-                  >
-                    info@bridgehomies.com
-                  </a>
+                  <div className="flex items-center gap-4 border-b border-black/20 pb-3">
+                    <a
+                      href="mailto:info@bridgehomies.com"
+                      className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em]"
+                    >
+                      info@bridgehomies.com
+                    </a>
+                    <span className="w-px h-5 bg-black/20" />
+                    <a href="https://wa.me/923429263395" target="_blank" className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em]">
+                      +92 342 9263395
+                    </a>
+                  </div>
                 </div>
 
                 {/* Socials */}

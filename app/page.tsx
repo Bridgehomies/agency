@@ -141,23 +141,17 @@ export default function Home() {
       <Toaster />
       <Navbar />
       <main>
-        {/* H1 keyword placement handled inside HeroSection — ensure it reads:
-            "Expert AI ML Engineering Services That Drive Growth" */}
         <HeroSection />
-
         {/* Internal navigation anchors for interlinking */}
         <ServicesSection />
-
-       
-
         <WorkSection />
         <TimelineSection />
         <StickyTransformSection />
-        <DiagnosticQuiz />
+        {/* <DiagnosticQuiz /> */}
         <InteractiveChecklist />
-        <BookingSystem />
+        {/* <BookingSystem /> */}
         <InteractiveMap />
-        <RealTimePoll />
+        {/* <RealTimePoll /> */}
         <TeamSection />
         <ContactSection />
       </main>

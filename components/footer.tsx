@@ -5,9 +5,9 @@ import Link from "next/link";
 
 const TICKER_ITEMS = [
   "Web Development",
-  "AI & Machine Learning",
+  "UI / UX Design",
   "Mobile Apps",
-  "UI/UX Design",
+  "AI & ML",
   "Custom Software",
   "Digital Strategy",
 ];
