@@ -14,7 +14,7 @@ module.exports = {
   exclude: ['/server-sitemap.xml'],  // Example; adjust as needed
   // Optional: Additional paths if you have more pages not auto-detected
   additionalPaths: async (config) => [
-    await config.transform(config, '/design'),
-    await config.transform(config, '/ai&ml'),
+    await config.transform(config, '/ui-ux-design'),
+    await config.transform(config, '/ai-ml-development'),
   ],
 };
