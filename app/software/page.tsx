@@ -6,7 +6,7 @@ import WorkSection from "@/components/work-section";
 import Link from "next/link";
 
 const StatsCounter: React.FC = () => {
-  const animateCounter = (id: string, endValue: number, isPercentage: boolean = false) => {
+  const animateCounter = (id: string, endValue: number, suffix: string = "") => {
     const element = document.getElementById(id);
     if (!element) return;
     let current = 0;
@@ -15,43 +15,38 @@ const StatsCounter: React.FC = () => {
       current += increment;
       if (current >= endValue) {
         clearInterval(timer);
-        element.textContent = isPercentage ? `${endValue}%` : `${endValue}+`;
+        element.textContent = `${endValue}${suffix}`;
       } else {
-        element.textContent = isPercentage ? `${current}%` : `${current}+`;
+        element.textContent = `${current}${suffix}`;
       }
     }, 30);
   };
 
   useEffect(() => {
-    animateCounter("counter-projects", 30, false);
-    animateCounter("counter-feedback", 97, true);
-    animateCounter("counter-team", 15, false);
-    animateCounter("counter-launched", 2024, false);
+    animateCounter("counter-projects", 30, "+");
+    animateCounter("counter-feedback", 97, "%");
+    animateCounter("counter-team", 15, "+");
+    animateCounter("counter-launched", 2024, "");
   }, []);
 
   return (
-    <section className="py-12 bg-gradient-to-r from-blue-50 to-purple-50">
+    <div className="py-12 border-y border-gray-200/60 bg-gray-50/50 backdrop-blur-xl relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="p-6">
-            <div id="counter-projects" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">Software Projects Delivered</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-feedback" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0%</div>
-            <div className="text-gray-600">Client Satisfaction</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-team" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">Software Developers</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-launched" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0</div>
-            <div className="text-gray-600">Launched in</div>
-          </div>
+        <div className="flex flex-wrap justify-between items-center gap-8 divide-x divide-gray-200/50">
+          {[
+            { id: "counter-projects", label: "Enterprise Projects" },
+            { id: "counter-feedback", label: "Client Retention" },
+            { id: "counter-team", label: "Software Engineers" },
+            { id: "counter-launched", label: "Founded" },
+          ].map((stat, i) => (
+            <div key={i} className={`flex-1 ${i !== 0 ? 'pl-8' : ''}`}>
+              <div id={stat.id} className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-1">0</div>
+              <div className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
@@ -62,270 +57,265 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://bridgehomies.com/software/#webpage",
       url: "https://bridgehomies.com/software",
-      name: "Custom Enterprise Software & SaaS Development | Bridge Homies Software Company",
+      name: "Premium Custom Software Development | Bridge Homies Software House",
       description:
-        "Bridge Homies is a software company delivering custom enterprise software, SaaS platforms, and web apps. Our software developer team builds maintainable, scalable solutions with AI automation.",
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Custom Software Development", item: "https://bridgehomies.com/software" },
-        ],
-      },
+        "Bridge Homies is an elite software house engineering scalable enterprise software solutions, custom software development, and AI systems. Your search for premium software houses near me ends here.",
     },
     {
       "@type": "Service",
       "@id": "https://bridgehomies.com/software/#service",
-      name: "Custom Enterprise Software Development",
+      name: "Enterprise Software Solutions & Software Engineering",
       provider: { "@id": "https://bridgehomies.com/#organization" },
       url: "https://bridgehomies.com/software",
       description:
-        "End-to-end custom enterprise software, SaaS, and web apps tailored to your business workflows. Bridge Software — built for maintainability, performance, and long-term scale.",
+        "Architecting elite custom software development and enterprise software solutions tailored to your complex workflows.",
       serviceType: "Custom Software Development",
       areaServed: "Worldwide",
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Why choose Bridge Homies as your software company?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Bridge Homies is a software company with expertise in enterprise software, SaaS, and AI automation. Our software developer team builds scalable, production-ready solutions that grow with your business.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What is bridge software development?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Bridge software development refers to our approach of building digital bridges between your business problems and intelligent software solutions — including enterprise software, SaaS, web apps, and AI automation.",
-          },
-        },
-      ],
     },
   ],
 };
 
 export default function SoftwarePage() {
   return (
-    <main className="font-sans bg-gray-50 text-gray-800">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+    <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar />
 
-      {/* Hero */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="md:flex items-center">
-            <div className="md:w-1/2 mb-12 md:mb-0">
-              {/* H1 — primary keywords */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Custom{" "}
-                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  Enterprise Software &amp; SaaS
-                </span>{" "}
-                by Bridge Software Company
+      {/* 1. EDITORIAL HERO SECTION */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex flex-col justify-center">
+        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center space-x-3 mb-8">
+                <div className="h-px w-8 bg-purple-600"></div>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Premium Software House</span>
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
+                Engineer <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
+                  The Future.
+                </span>
               </h1>
-              {/* First paragraph */}
-              <p className="text-lg text-gray-600 mb-8">
-                Bridge Homies is a software company delivering custom enterprise software, SaaS platforms,
-                web apps, and AI automation solutions. Our software developer team uses Python, Django, and
-                modern frameworks to build bridge software that solves real business problems at scale.
+            </div>
+
+            <div className="lg:col-span-4 pb-4">
+              <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
+                We provide exclusive <strong className="text-gray-900">custom software development</strong> and <strong className="text-gray-900">enterprise software solutions</strong> designed for market leaders.
               </p>
-              <div className="flex space-x-4">
-                <a href="#contact" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg transition">
-                  Start Your Project
-                </a>
-                <a href="#work" className="px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                  View Our Work
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
+                  <span className="relative z-10 flex items-center gap-2">
+                    Start Building
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </span>
                 </a>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md">
-                <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-50 z-10"></div>
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
-                {/* Image alt */}
-                <img
-                  src="https://images.unsplash.com/photo-1649877508777-1554357604eb?q=80&w=580&auto=format&fit=crop"
-                  alt="Bridge software company building enterprise software and SaaS with Python"
-                  className="rounded-2xl shadow-2xl border-8 border-blue-50 transform transition duration-500 hover:scale-105 hover:shadow-xl"
-                />
-              </div>
-            </div>
+            
           </div>
         </div>
       </section>
 
       <StatsCounter />
 
-      {/* About */}
-      <section id="about" className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            {/* H2 */}
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Enterprise Software &amp; SaaS Built by a Software Company That Ships
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
-          </div>
-          <div className="md:flex items-center">
-            <div className="md:w-1/2 mb-12 md:mb-0 md:pr-12">
-              <h3 className="text-2xl font-bold mb-6">From Code to Impact</h3>
-              <p className="text-gray-600 mb-6">
-                Bridge Homies began as a small team of software developers solving real-world problems with Python.
-                Today we're a full-service software company delivering enterprise software, SaaS, web apps, and
-                AI automation to clients worldwide. Our bridge software philosophy: understand the problem first,
-                then build the right solution.
-              </p>
-              <p className="text-gray-600 mb-6">
-                Every software developer on our team is committed to clean code, fast delivery, and long-term
-                maintainability — so your enterprise software stays valuable for years to come.
-              </p>
-            </div>
-            <div className="md:w-1/2">
-              <div className="relative">
-                <div className="absolute -top-6 -left-6 w-full h-full border-2 border-blue-200 rounded-lg"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
-                  alt="Software developer team at Bridge Homies software company"
-                  className="relative rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* FULL-WIDTH ARCHITECTURAL IMAGE BREAKER */}
+      <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
+        <img 
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
+          alt="Abstract structural architecture representing scale and enterprise software solutions" 
+          className="object-cover w-full h-full opacity-60 filter grayscale hover:scale-105 transition-transform duration-[20s] ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent"></div>
       </section>
 
-      {/* Services */}
-      <section id="services" className="py-16 md:py-24 bg-gray-50">
+      {/* 2. STAGGERED "WHAT WE BUILD" */}
+      <section id="services" className="pt-16 pb-32 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Software Developer Services — Enterprise, SaaS &amp; AI Automation
+          
+          <div className="mb-24 flex flex-col md:flex-row justify-between items-end border-b-2 border-gray-900 pb-8">
+            <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-900">
+              What <br /> We Build.
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto mt-6">
-              Our software company delivers enterprise software, SaaS, web apps, and AI automation — all
-              built for scalability, performance, and maintainability.
-            </p>
+            <div className="text-right mt-8 md:mt-0 max-w-sm">
+              <p className="text-gray-500 font-medium">Bespoke <strong className="text-gray-900">software engineering</strong> spanning across architecture, AI, and scalable SaaS infrastructures.</p>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
             {[
               {
-                title: "Custom Enterprise Software",
-                desc: "Tailored enterprise software solutions built with Python and Django to meet your specific business requirements.",
-                items: ["Scalable Architecture", "Cross-Platform Compatibility", "API Integration"],
+                num: "01",
+                title: "Enterprise Solutions",
+                desc: "High-performance enterprise software solutions tailored to handle complex logic, integrations, and massive global datasets securely.",
               },
               {
-                title: "SaaS Development",
-                desc: "End-to-end SaaS platforms designed for growth — from MVP to enterprise-grade web apps.",
-                items: ["Multi-Tenant Architecture", "Subscription Billing", "Usage Analytics"],
+                num: "02",
+                title: "Custom SaaS",
+                desc: "End-to-end custom software development. We architect multitenant platforms that scale flawlessly from day one.",
               },
               {
-                title: "AI Automation",
-                desc: "Automate repetitive tasks and streamline workflows with AI automation built into your enterprise software.",
-                items: ["Task Automation", "Data Processing Pipelines", "Intelligent Workflows"],
+                num: "03",
+                title: "AI / ML Integration",
+                desc: "Intelligent automation and predictive pipelines seamlessly integrated into your core web architecture.",
               },
               {
-                title: "Data Science & Analytics",
-                desc: "Unlock insights from your data with our software developer team's data science capabilities.",
-                items: ["Predictive Modelling", "Statistical Analysis", "Data Visualisation"],
+                num: "04",
+                title: "Web Architecture",
+                desc: "Next.js and React ecosystems built with strict PEP 8 compliance and flawless UI/UX methodologies.",
               },
               {
-                title: "API Development & Integration",
-                desc: "Build and integrate robust APIs to connect your enterprise software and streamline data exchange.",
-                items: ["RESTful APIs", "Third-Party Integrations", "Microservices Architecture"],
-              },
-              {
-                title: "Security & Maintenance",
-                desc: "Keep your enterprise software secure and up-to-date with our ongoing maintenance services.",
-                items: ["Regular Updates", "Vulnerability Assessments", "Performance Monitoring"],
-              },
-            ].map((s, i) => (
-              <div key={i} className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-                <h3 className="text-xl font-bold mb-3">{s.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm">{s.desc}</p>
-                <ul className="text-gray-600 space-y-1 text-sm">
-                  {s.items.map((item, j) => <li key={j}>✓ {item}</li>)}
-                </ul>
+                num: "05",
+                title: "Cloud Infrastructure",
+                desc: "Robust DevOps, containerization, and serverless deployments ensuring 99.99% uptime for your products.",
+              }
+            ].map((service, index) => (
+              <div key={index} className={`relative group ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+                <div className="text-7xl font-black text-gray-200 absolute -top-12 -left-6 z-0 transition-colors group-hover:text-purple-100">
+                  {service.num}
+                </div>
+                <div className="relative z-10 border-l border-gray-300 pl-6 group-hover:border-purple-600 transition-all duration-500">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">{service.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">{service.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Interlinks */}
-      <section className="py-12 bg-white">
+      {/* 3. BENTO GRID / ABOUT SECTION */}
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            More Services from Our Software Company
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/ai-ml-development" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">AI ML Engineering</div>
-              <div className="text-xs text-gray-500 mt-1">Machine Learning Agency</div>
-            </Link>
-            <Link href="/webdev" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Website Development</div>
-              <div className="text-xs text-gray-500 mt-1">Next.js &amp; React</div>
-            </Link>
-            <Link href="/mobile" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Mobile Development</div>
-              <div className="text-xs text-gray-500 mt-1">iOS &amp; Android Apps</div>
-            </Link>
-            <Link href="/products" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Our Products</div>
-              <div className="text-xs text-gray-500 mt-1">FBR ERP Software</div>
-            </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            {/* Left large bento box */}
+            <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative z-10">
+                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Agency Standard</div>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
+                  Not just another <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">software house</span>.
+                </h2>
+                <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
+                  When looking for <strong className="text-white">software houses near me</strong>, you want partners, not just typists. Bridge Homies treats code as craft. We blend uncompromising minimalist design with rigorous <strong className="text-white">software engineering</strong> to deliver digital products that dominate markets.
+                </p>
+              </div>
+              <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
+                Meet the Homies <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
+
+            {/* Right side bento box - Image Integration */}
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1649877508777-1554357604eb?q=80&w=580&auto=format&fit=crop"
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gray-900/30"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Clean Architecture</h3>
+                  <p className="text-gray-200 text-sm">PEP 8 compliance and strict ecosystems.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
-          <p className="text-center text-xs text-gray-500 mt-6">
-            Our software developer team follows{" "}
-            <a
-              href="https://peps.python.org/pep-0008/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              PEP 8 Python coding standards
-            </a>{" "}
-            to ensure clean, maintainable enterprise software.
-          </p>
         </div>
       </section>
 
       <WorkSection />
 
-      {/* FAQ */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* 4. EDITORIAL FAQ SECTION */}
+      <section className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            {/* FAQ Left Column */}
+            <div className="lg:col-span-5 sticky top-32 self-start">
+              <div className="inline-flex items-center space-x-3 mb-8">
+                <div className="h-px w-8 bg-purple-600"></div>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Inquiries</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-gray-900 mb-8">
+                Clear <br /> Context.
+              </h2>
+              <p className="text-gray-500 font-medium max-w-sm mb-12">
+                Understanding the mechanics of how we approach high-level custom software development.
+              </p>
+            </div>
+
+            {/* FAQ Right Column - Reading Grid */}
+            <div className="lg:col-span-7 flex flex-col">
+              <div className="border-t-2 border-gray-900">
+                
+                {[
+                  {
+                    q: "Why is software engineering crucial for custom enterprise solutions?",
+                    a: "Standard programming makes a feature work once. Proper software engineering ensures it operates securely and efficiently for millions of users over years. We architect scalable systems utilizing Python and Next.js to ensure absolute longevity and zero technical debt."
+                  },
+                  {
+                    q: "How do you differ from other software houses near me?",
+                    a: "Bridge Homies prioritizes complex business logic and aesthetic minimalism over basic coding. We don't just take orders; we consult, strategize, and implement enterprise software solutions that act as a definitive bridge between your operational bottlenecks and your future goals."
+                  },
+                  {
+                    q: "Do you offer ongoing maintenance post-launch?",
+                    a: "Yes. Premium software requires premium upkeep. We offer dedicated retainers ensuring your cloud infrastructure, CI/CD pipelines, and security protocols remain at the bleeding edge of industry standards."
+                  }
+                ].map((faq, i) => (
+                  <div key={i} className="py-10 border-b border-gray-200 group">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight group-hover:text-purple-600 transition-colors duration-300">
+                      {faq.q}
+                    </h3>
+                    <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
+                      {faq.a}
+                    </p>
+                  </div>
+                ))}
+
+              </div>
+            </div>
+
           </div>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="border-b border-gray-200 pb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">
-                Why choose Python for enterprise software?
-              </h3>
-              <p className="text-gray-600">
-                Python is a versatile, high-performance language ideal for enterprise software, SaaS, and AI automation.
-                Our software developer team uses Python and Django to build scalable, maintainable bridge software solutions.
-              </p>
-            </div>
-            <div className="border-b border-gray-200 pb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">
-                Does Bridge Homies build SaaS products?
-              </h3>
-              <p className="text-gray-600">
-                Yes. As a software company, Bridge Homies designs and builds SaaS platforms from scratch —
-                covering architecture, development, deployment, and ongoing maintenance.
-              </p>
-            </div>
+        </div>
+      </section>
+
+      {/* 5. MINIMALIST INTERNAL LINKS */}
+      <section className="py-24 bg-white border-y border-gray-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Discover More Capabilities</h2>
+          
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8">
+            {[
+              { label: "AI/ML Engineering", link: "/ai-ml-development" },
+              { label: "React & Next.js", link: "/webdev" },
+              { label: "Native Mobile", link: "/mobile" },
+              { label: "FBR ERP Suite", link: "/products" },
+            ].map((item, idx) => (
+              <Link key={idx} href={item.link} className="group flex items-center space-x-2 text-xl font-bold text-gray-400 hover:text-gray-900 transition-colors">
+                <span>{item.label}</span>
+                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-purple-600 text-2xl leading-none">↗</span>
+              </Link>
+            ))}
+          </div>
+          <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
+            <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase">
+              Our software developer team follows{" "}
+              <a
+                href="https://peps.python.org/pep-0008/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 border-b border-gray-900 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-all duration-300"
+              >
+                PEP 8 Python coding standards
+              </a>
+              to ensure clean, maintainable enterprise software.
+            </p>
           </div>
         </div>
       </section>

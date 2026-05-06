@@ -6,7 +6,7 @@ import WorkSection from "@/components/work-section";
 import Link from "next/link";
 
 const StatsCounter: React.FC = () => {
-  const animateCounter = (id: string, endValue: number, isPercentage: boolean = false) => {
+  const animateCounter = (id: string, endValue: number, suffix: string = "") => {
     const element = document.getElementById(id);
     if (!element) return;
     let current = 0;
@@ -15,43 +15,38 @@ const StatsCounter: React.FC = () => {
       current += increment;
       if (current >= endValue) {
         clearInterval(timer);
-        element.textContent = isPercentage ? `${endValue}%` : `${endValue}+`;
+        element.textContent = `${endValue}${suffix}`;
       } else {
-        element.textContent = isPercentage ? `${current}%` : `${current}+`;
+        element.textContent = `${current}${suffix}`;
       }
     }, 30);
   };
 
   useEffect(() => {
-    animateCounter("counter-projects", 15, false);
-    animateCounter("counter-feedback", 98, true);
-    animateCounter("counter-team", 2, false);
-    animateCounter("counter-launched", 2024, false);
+    animateCounter("counter-projects", 15, "+");
+    animateCounter("counter-feedback", 98, "%");
+    animateCounter("counter-team", 12, "+");
+    animateCounter("counter-launched", 2024, "");
   }, []);
 
   return (
-    <section className="py-12 bg-gradient-to-r from-blue-50 to-purple-50">
+    <div className="py-12 border-y border-gray-200/60 bg-gray-50/50 backdrop-blur-xl relative z-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div className="p-6">
-            <div id="counter-projects" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">AI/ML Projects Delivered</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-feedback" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0%</div>
-            <div className="text-gray-600">Client Satisfaction</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-team" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0+</div>
-            <div className="text-gray-600">AI/ML Experts</div>
-          </div>
-          <div className="p-6">
-            <div id="counter-launched" className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent mb-2">0</div>
-            <div className="text-gray-600">Launched in</div>
-          </div>
+        <div className="flex flex-wrap justify-between items-center gap-8 divide-x divide-gray-200/50">
+          {[
+            { id: "counter-projects", label: "AI Models Deployed" },
+            { id: "counter-feedback", label: "Client Satisfaction" },
+            { id: "counter-team", label: "ML Engineers" },
+            { id: "counter-launched", label: "Founded" },
+          ].map((stat, i) => (
+            <div key={i} className={`flex-1 ${i !== 0 ? 'pl-8' : ''}`}>
+              <div id={stat.id} className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-1">0</div>
+              <div className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">{stat.label}</div>
+            </div>
+          ))}
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
@@ -62,16 +57,9 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://bridgehomies.com/ai-ml-development/#webpage",
       url: "https://bridgehomies.com/ai-ml-development",
-      name: "AI ML Engineering Services — Machine Learning Agency | Bridge Homies",
+      name: "Elite AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
       description:
-        "Bridge Homies is a machine learning agency delivering production-grade AI ML engineering services — RAG pipelines, LLM integrations, intelligent automation, and AI automation for real business impact.",
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "AI ML Engineering Services", item: "https://bridgehomies.com/ai-ml-development" },
-        ],
-      },
+        "Bridge Homies is a premium machine learning agency delivering production-grade AI ML engineering services, RAG pipelines, LLM integrations, and intelligent AI automation for enterprises.",
     },
     {
       "@type": "Service",
@@ -80,275 +68,259 @@ const schema = {
       provider: { "@id": "https://bridgehomies.com/#organization" },
       url: "https://bridgehomies.com/ai-ml-development",
       description:
-        "Production-grade AI ML engineering services — RAG pipelines, LLM integrations, intelligent automation, and data-driven systems. Bridge Homies is a trusted machine learning agency built for real business impact.",
+        "Production-grade AI ML engineering services, focusing on RAG pipelines, LLM fine-tuning, and AI automation workflows built for real business impact.",
       serviceType: "AI & Machine Learning Engineering",
       areaServed: "Worldwide",
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "AI ML Engineering Services",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration & Fine-Tuning" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation Workflows" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Predictive Analytics & ML Models" } },
-        ],
-      },
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What AI ML engineering services does Bridge Homies offer?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Bridge Homies offers end-to-end AI ML engineering services including RAG pipelines, LLM integration, machine learning model deployment, predictive analytics, and AI automation for enterprise use cases.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is Bridge Homies a machine learning agency?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. Bridge Homies is a dedicated machine learning agency serving clients worldwide with expert AI ML engineering services, custom AI automation, and data-driven software solutions.",
-          },
-        },
-      ],
     },
   ],
 };
 
 export default function AiMlPage() {
   return (
-    <main className="font-sans bg-gray-50 text-gray-800">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+    <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar />
 
-      {/* Hero Section */}
-      <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="md:flex items-center">
-            <div className="md:w-1/2 mb-12 md:mb-0">
-              {/* H1 — primary keyword */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-                Expert{" "}
-                <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
-                  AI ML Engineering Services
-                </span>{" "}
-                That Drive Growth
+      {/* 1. EDITORIAL HERO SECTION */}
+      <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex flex-col justify-center">
+        <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
+            
+            <div className="lg:col-span-8">
+              <div className="inline-flex items-center space-x-3 mb-8">
+                <div className="h-px w-8 bg-purple-600"></div>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Machine Learning Agency</span>
+              </div>
+              
+              <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
+                Engineer <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
+                  Intelligence.
+                </span>
               </h1>
-              {/* First paragraph — keyword-rich */}
-              <p className="text-lg text-gray-600 mb-8">
-                Bridge Homies is a machine learning agency and AI ML engineering service provider delivering
-                production-grade solutions — from RAG pipelines and LLM integrations to intelligent AI automation
-                and data-driven enterprise software. We help businesses automate, innovate, and scale with AI.
+            </div>
+
+            <div className="lg:col-span-4 pb-4">
+              <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
+                We deliver production-grade <strong className="text-gray-900">AI ML engineering services</strong>. From advanced RAG pipelines to autonomous agents, we turn raw data into dominant market leverage.
               </p>
-              <div className="flex space-x-4">
-                <a href="#contact" className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-full hover:shadow-lg transition">
-                  Start Your AI Project
-                </a>
-                <a href="#work" className="px-6 py-3 border border-gray-300 rounded-full hover:bg-gray-100 transition">
-                  View Our Work
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
+                  <span className="relative z-10 flex items-center gap-2">
+                    Deploy AI
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </span>
                 </a>
               </div>
             </div>
-            <div className="md:w-1/2 flex justify-center">
-              <div className="relative w-full max-w-md">
-                <div className="absolute -top-10 -left-10 w-32 h-32 bg-purple-200 rounded-full opacity-50"></div>
-                <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-blue-200 rounded-full opacity-50"></div>
-                {/* Image alt — keyword */}
-                <img
-                  src="https://img.freepik.com/free-vector/hand-drawn-flat-design-rpa-illustration_23-2149277643.jpg?w=826"
-                  alt="Bridge Homies AI ML engineering services and machine learning agency solutions"
-                  className="rounded-2xl shadow-2xl border-8 border-blue-50 transform transition duration-500 hover:scale-105 hover:shadow-xl"
-                />
-              </div>
-            </div>
+            
           </div>
         </div>
       </section>
 
       <StatsCounter />
 
-      {/* About */}
-      <section id="about" className="py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            {/* H2 */}
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Your Trusted Machine Learning Agency for AI Automation
-            </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
-          </div>
-          <div className="md:flex items-center">
-            <div className="md:w-1/2 mb-12 md:mb-0 md:pr-12">
-              <h3 className="text-2xl font-bold mb-6">From Data to Intelligence</h3>
-              <p className="text-gray-600 mb-6">
-                Founded in 2024, Bridge Homies started as a passionate team of engineers focused on AI ML
-                engineering services. Today we are a full-service machine learning agency serving clients
-                worldwide — transforming raw data into actionable intelligence with AI automation and enterprise
-                software solutions.
-              </p>
-              <p className="text-gray-600 mb-6">
-                Our AI ML engineering services cover the entire lifecycle — from data engineering and model
-                training to deployment and monitoring — so your business gets lasting value from every
-                AI investment.
-              </p>
-            </div>
-            <div className="md:w-1/2">
-              <div className="relative">
-                <div className="absolute -top-6 -left-6 w-full h-full border-2 border-blue-200 rounded-lg"></div>
-                <img
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1470&q=80"
-                  alt="Machine learning agency team delivering AI ML engineering services"
-                  className="relative rounded-lg shadow-lg"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+      {/* FULL-WIDTH DATA/AI IMAGE BREAKER */}
+      <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
+        <img 
+          src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" 
+          alt="Abstract representation of neural networks and machine learning engineering" 
+          className="object-cover w-full h-full opacity-50 filter grayscale hover:scale-105 transition-transform duration-[20s] ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent"></div>
       </section>
 
-      {/* Services */}
-      <section id="services" className="py-16 md:py-24 bg-gray-50">
+      {/* 2. STAGGERED "WHAT WE BUILD" */}
+      <section id="services" className="pt-16 pb-32 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our AI ML Engineering Services
+          
+          <div className="mb-24 flex flex-col md:flex-row justify-between items-end border-b-2 border-gray-900 pb-8">
+            <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-900">
+              What <br /> We Build.
             </h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
-            <p className="text-gray-600 max-w-2xl mx-auto mt-6">
-              As a machine learning agency, we deliver AI ML engineering services, AI automation, and
-              data-driven enterprise software for businesses at every stage of growth.
-            </p>
+            <div className="text-right mt-8 md:mt-0 max-w-sm">
+              <p className="text-gray-500 font-medium">Bespoke <strong className="text-gray-900">AI ML engineering services</strong> bridging the gap between theoretical data science and live production.</p>
+            </div>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
             {[
               {
-                title: "Machine Learning Models",
-                desc: "Custom ML models designed to solve specific business challenges. Our AI ML engineering services cover predictive analytics, NLP, and image recognition.",
-                items: ["Predictive Analytics", "Natural Language Processing", "Image Recognition"],
-                color: "bg-blue-100",
+                num: "01",
+                title: "LLM & RAG Pipelines",
+                desc: "We integrate Large Language Models with Retrieval-Augmented Generation (RAG) to build context-aware, highly accurate enterprise search and chat applications.",
               },
               {
-                title: "Data Science & Analytics",
-                desc: "Transform raw data into actionable insights with our machine learning agency's data science and visualisation capabilities.",
-                items: ["Data Cleaning & Preprocessing", "Statistical Analysis", "Dashboard Development"],
-                color: "bg-purple-100",
+                num: "02",
+                title: "Predictive Analytics",
+                desc: "Harness historical data. Our custom ML models identify patterns, forecast trends, and automate decision-making processes for supply chains and finance.",
               },
               {
+                num: "03",
                 title: "AI Automation",
-                desc: "Automate repetitive tasks and optimise workflows using AI automation tools and intelligent algorithms.",
-                items: ["Process Automation", "Supply Chain Optimisation", "Resource Allocation"],
-                color: "bg-indigo-100",
+                desc: "Replace mundane workflows. We deploy intelligent agents capable of processing documents, categorizing data, and executing multi-step logic autonomously.",
               },
               {
-                title: "LLM Integration & RAG",
-                desc: "Integrate large language models and build RAG pipelines that power intelligent, context-aware applications.",
-                items: ["OpenAI & Anthropic APIs", "RAG Pipeline Development", "Fine-Tuning LLMs"],
-                color: "bg-green-100",
+                num: "04",
+                title: "Computer Vision & NLP",
+                desc: "Advanced neural networks designed to parse, understand, and extract actionable metadata from raw images, video streams, and unstructured text.",
               },
               {
-                title: "AI Security & Compliance",
-                desc: "Ensure your AI ML engineering services are secure, ethical, and compliant with industry regulations.",
-                items: ["Bias Detection", "Data Privacy", "Regulatory Compliance"],
-                color: "bg-yellow-100",
-              },
-              {
-                title: "Support & Consulting",
-                desc: "Expert guidance and ongoing support to help you implement AI ML engineering services effectively.",
-                items: ["Dedicated Support", "Technology Consulting", "Training Sessions"],
-                color: "bg-red-100",
-              },
-            ].map((s, i) => (
-              <div key={i} className="bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
-                <div className={`w-16 h-16 ${s.color} rounded-full flex items-center justify-center mb-6`}>
-                  <span className="text-2xl">🤖</span>
+                num: "05",
+                title: "Scalable MLOps",
+                desc: "Models mean nothing if they can't scale. We architect robust MLOps pipelines ensuring continuous integration, testing, and deployment of your AI systems.",
+              }
+            ].map((service, index) => (
+              <div key={index} className={`relative group ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
+                <div className="text-7xl font-black text-gray-200 absolute -top-12 -left-6 z-0 transition-colors group-hover:text-purple-100">
+                  {service.num}
                 </div>
-                <h3 className="text-xl font-bold mb-3">{s.title}</h3>
-                <p className="text-gray-600 mb-4 text-sm">{s.desc}</p>
-                <ul className="text-gray-600 space-y-1 text-sm">
-                  {s.items.map((item, j) => <li key={j}>✓ {item}</li>)}
-                </ul>
+                <div className="relative z-10 border-l border-gray-300 pl-6 group-hover:border-purple-600 transition-all duration-500">
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">{service.title}</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">{service.desc}</p>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Interlinks */}
-      <section className="py-12 bg-white">
+      {/* 3. BENTO GRID / ABOUT SECTION */}
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Explore All Our Software &amp; AI Services
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/webdev" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Website Development</div>
-              <div className="text-xs text-gray-500 mt-1">Next.js &amp; React</div>
-            </Link>
-            <Link href="/software" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Enterprise Software</div>
-              <div className="text-xs text-gray-500 mt-1">SaaS &amp; Web Apps</div>
-            </Link>
-            <Link href="/mobile" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Mobile Development</div>
-              <div className="text-xs text-gray-500 mt-1">iOS &amp; Android</div>
-            </Link>
-            <Link href="/products" className="p-4 border rounded-lg hover:border-blue-500 transition text-center">
-              <div className="font-semibold text-sm">Our Products</div>
-              <div className="text-xs text-gray-500 mt-1">FBR ERP &amp; More</div>
-            </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            {/* Left large bento box */}
+            <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="relative z-10">
+                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Data Standard</div>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
+                  Not just another <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">machine learning agency</span>.
+                </h2>
+                <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
+                  Many can run a Python script; few can deploy it securely at scale. As a premier <strong className="text-white">AI ML engineering services</strong> provider, we ensure your models are free of hallucination, built on secure architecture, and actively drive <strong className="text-white">AI automation</strong> that impacts your bottom line.
+                </p>
+              </div>
+              <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
+                Meet the Experts <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
+
+            {/* Right side bento box - Image Integration */}
+            <div className="lg:col-span-4 flex flex-col gap-6">
+              <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
+                <img 
+                  src="https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+                  alt="Minimalist data abstraction" 
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700" 
+                />
+                <div className="absolute inset-0 bg-gray-900/40"></div>
+                <div className="absolute bottom-6 left-6 right-6">
+                  <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Data Integrity</h3>
+                  <p className="text-gray-200 text-sm">Strict adherence to enterprise data security compliance.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
-          {/* External link */}
-          <p className="text-center text-xs text-gray-500 mt-6">
-            Our machine learning agency follows{" "}
-            <a
-              href="https://developers.google.com/machine-learning/guides/rules-of-ml"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline"
-            >
-              Google's Rules of Machine Learning
-            </a>{" "}
-            to build reliable AI systems.
-          </p>
         </div>
       </section>
 
       <WorkSection />
 
-      {/* FAQ */}
-      <section className="py-16 md:py-24 bg-white">
+      {/* 4. EDITORIAL FAQ SECTION */}
+      <section className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
-            <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-600 mx-auto"></div>
-          </div>
-          <div className="max-w-3xl mx-auto space-y-6">
-            <div className="border-b border-gray-200 pb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">
-                How can AI ML engineering services benefit my business?
-              </h3>
-              <p className="text-gray-600">
-                AI ML engineering services help your business by automating repetitive tasks, predicting
-                customer behaviour, optimising processes, and providing actionable insights from data.
-                As a machine learning agency, Bridge Homies enables smarter decision-making and reduces costs.
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+            
+            {/* FAQ Left Column */}
+            <div className="lg:col-span-5 sticky top-32 self-start">
+              <div className="inline-flex items-center space-x-3 mb-8">
+                <div className="h-px w-8 bg-purple-600"></div>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Inquiries</span>
+              </div>
+              <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-gray-900 mb-8">
+                Clear <br /> Context.
+              </h2>
+              <p className="text-gray-500 font-medium max-w-sm mb-12">
+                Understanding the mechanics of integrating AI automation and LLMs into enterprise architecture.
               </p>
             </div>
-            <div className="border-b border-gray-200 pb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-3">
-                What industries do your AI ML engineering services serve?
-              </h3>
-              <p className="text-gray-600">
-                Our machine learning agency serves fintech, e-commerce, healthcare, logistics, and SaaS companies
-                with tailored AI automation and enterprise software solutions.
-              </p>
+
+            {/* FAQ Right Column - Reading Grid */}
+            <div className="lg:col-span-7 flex flex-col">
+              <div className="border-t-2 border-gray-900">
+                
+                {[
+                  {
+                    q: "What makes your AI ML engineering services different from standard dev shops?",
+                    a: "We don't just 'wrap' ChatGPT APIs. We are a dedicated machine learning agency that builds secure RAG pipelines, fine-tunes open-source models, and sets up robust MLOps to ensure your data remains proprietary and your inferences remain lightning fast."
+                  },
+                  {
+                    q: "How can AI automation actually impact our enterprise workflows?",
+                    a: "By replacing deterministic, rule-based systems with probabilistic intelligence. We implement AI automation to handle dynamic tasks—like context-aware customer support, unstructured invoice data extraction, and real-time inventory predictive analytics—saving thousands of manual labor hours."
+                  },
+                  {
+                    q: "What industries do you build machine learning models for?",
+                    a: "Our core expertise spans Fintech, Healthcare, Logistics, and SaaS. Whether it is algorithmic trading models, patient data analysis, or supply chain route optimization, our engineering principles remain universally robust."
+                  }
+                ].map((faq, i) => (
+                  <div key={i} className="py-10 border-b border-gray-200 group">
+                    <h3 className="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight group-hover:text-purple-600 transition-colors duration-300">
+                      {faq.q}
+                    </h3>
+                    <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
+                      {faq.a}
+                    </p>
+                  </div>
+                ))}
+
+              </div>
             </div>
+
           </div>
+        </div>
+      </section>
+
+      {/* 5. MINIMALIST INTERNAL LINKS & EXTERNAL CITATION */}
+      <section className="py-24 bg-white border-y border-gray-200/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Discover Core Engineering</h2>
+          
+          <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
+            {[
+              { label: "Enterprise Software", link: "/software" },
+              { label: "React & Next.js", link: "/webdev" },
+              { label: "Native Mobile", link: "/mobile" },
+              { label: "FBR ERP Suite", link: "/products" },
+            ].map((item, idx) => (
+              <Link key={idx} href={item.link} className="group flex items-center space-x-2 text-xl font-bold text-gray-400 hover:text-gray-900 transition-colors">
+                <span>{item.label}</span>
+                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-purple-600 text-2xl leading-none">↗</span>
+              </Link>
+            ))}
+          </div>
+
+          {/* Re-integrated External Link with Premium Styling */}
+          <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
+            <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase">
+              Our machine learning agency strictly adheres to{" "}
+              <a
+                href="https://developers.google.com/machine-learning/guides/rules-of-ml"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-900 border-b border-gray-900 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-all duration-300"
+              >
+                Google's Rules of Machine Learning
+              </a>
+              {" "}to build reliable systems.
+            </p>
+          </div>
+
         </div>
       </section>
 
