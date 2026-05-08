@@ -13,7 +13,7 @@ export function Toaster() {
         <ToastPrimitive.Root key={id} {...props}>
           <ToastPrimitive.Title>{title}</ToastPrimitive.Title>
           <ToastPrimitive.Description>{description}</ToastPrimitive.Description>
-          {action && <ToastPrimitive.Action altText="Dismiss">{action}</ToastPrimitive.Action>}
+          {action && <ToastPrimitive.Action altText="Dismiss" asChild>{action}</ToastPrimitive.Action>}
           <ToastPrimitive.Close />
         </ToastPrimitive.Root>
       ))}

@@ -145,7 +145,7 @@ export default function Home() {
         {/* Internal navigation anchors for interlinking */}
         <ServicesSection />
         <WorkSection />
-        <TimelineSection />
+        {/* <TimelineSection /> */}
         <StickyTransformSection />
         {/* <DiagnosticQuiz /> */}
         <InteractiveChecklist />
