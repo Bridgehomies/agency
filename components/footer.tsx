@@ -19,6 +19,7 @@ const NAV_LEFT = [
   { label: "Products", href: "/products" },
   { label: "Blog", href: "/blog" },
   { label: "Submit Blog", href: "/blog/submit" },
+  { label: "Testimonials", href: "/testimonials" },
 ];
 
 const NAV_RIGHT = [

@@ -14,6 +14,8 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Toaster } from "@/components/ui/toaster"
 import StickyTransformSection from "@/components/sticky-transform-section"
+import TestimonialsSection from "@/components/testimonials-section";
+
 import Link from "next/link"
 
 export const metadata: Metadata = {
@@ -148,6 +150,7 @@ export default function Home() {
         {/* <TimelineSection /> */}
         <StickyTransformSection />
         {/* <DiagnosticQuiz /> */}
+        <TestimonialsSection />
         <InteractiveChecklist />
         {/* <BookingSystem /> */}
         <InteractiveMap />

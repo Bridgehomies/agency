@@ -12,6 +12,7 @@ const navLinks = [
   { num: "04", name: "Team", href: "#team" },
   { num: "05", name: "Products", href: "/products" },
   { num: "06", name: "Blog", href: "/blog" },
+  { num: "07", name: "Testimonials", href: "/testimonials" },
 ];
 
 const socials = [
