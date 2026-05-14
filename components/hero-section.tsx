@@ -463,7 +463,7 @@ export default function HeroSectionSpatial() {
     <section
       id="home"
       ref={containerRef}
-      className="relative min-h-[120vh] flex items-center justify-center overflow-hidden bg-background [perspective:1000px]"
+      className="relative min-h-screen lg:min-h-[120vh] flex items-center justify-center overflow-hidden bg-background [perspective:1000px]"
     >
       <ParallaxBackground speed={0.05} className="absolute inset-0 -z-30">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
@@ -480,8 +480,7 @@ export default function HeroSectionSpatial() {
         </h1>
       </motion.div>
 
-      <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-20">
-        
+      <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-8 sm:mt-16 lg:mt-20">  
         {/* HEADER BADGE */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
