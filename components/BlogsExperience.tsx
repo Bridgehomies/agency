@@ -54,22 +54,44 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
 
         <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-28">
           <p className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-[#8a7a65]">
-            Bridge Homies · Editorial
+            Bridge Homies · Write for Us
           </p>
 
           <h1
             className="max-w-2xl font-serif text-5xl font-normal leading-[1.08] text-[#111] md:text-6xl"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            Writing that ranks,{" "}
-            <em className="italic text-[#6b5b3e]">answers,</em>{" "}
-            and converts.
+            Share your expertise.{" "}
+            <em className="italic text-[#6b5b3e]">Earn backlinks.</em>{" "}
+            Get published.
           </h1>
 
           <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-[#5a5040]">
-            Practical articles on AI, software, automation, and digital growth
-            built for humans and search engines alike.
+            We publish technical guest posts from developers, architects, and founders —
+            on AI, SaaS, automation, eCommerce, and custom software. Every accepted
+            article earns you up to 3 dofollow backlinks and a permanent author profile.
           </p>
+
+          {/* Trust badges */}
+          <div className="mt-6 flex flex-wrap gap-2">
+            {[
+              "Free to submit",
+              "3 dofollow backlinks",
+              "Permanent author profile",
+              "800+ word minimum",
+              "Editorial review in 3–5 days",
+            ].map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center gap-1.5 rounded-full border border-violet-300 bg-white px-3 py-1 text-[11px] font-semibold text-[#5a3fa0]"
+              >
+                <svg className="h-3 w-3 text-violet-500" viewBox="0 0 12 12" fill="currentColor">
+                  <path d="M10 3L5 9 2 6" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                {tag}
+              </span>
+            ))}
+          </div>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <Link
@@ -77,12 +99,56 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               className="inline-flex items-center gap-2 rounded-full bg-[#111] px-6 py-3 text-sm font-medium text-[#f5f0e8] transition hover:bg-[#2a2520]"
             >
               <PenLine className="h-4 w-4" />
-              Open writing portal
+              Submit a guest post
             </Link>
-
+            <a
+              href="#guidelines"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#5a3fa0] transition hover:text-[#3d2a78]"
+            >
+              View guidelines
+              <ArrowRight className="h-3.5 w-3.5" />
+            </a>
           </div>
         </div>
       </section>
+
+      {/* ── WRITE FOR US CALLOUT STRIP — DARK ── */}
+      <div id="guidelines" className="bg-[#131121] border-b border-[#1e1e2e]">
+        <div className="mx-auto max-w-6xl px-6 py-10 grid gap-6 md:grid-cols-2">
+          <div>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-violet-400">We publish</p>
+            <ul className="space-y-2">
+              {[
+                "Technical how-tos and architecture breakdowns",
+                "Case studies with real metrics and outcomes",
+                "Tool or stack comparisons backed by experience",
+                "Opinion pieces grounded in hands-on work",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2 text-[13px] text-[#ccc] leading-relaxed">
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-violet-400 shrink-0" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-red-400">We don't publish</p>
+            <ul className="space-y-2">
+              {[
+                "Generic explainers with no original depth",
+                "Promotional copy or press releases",
+                "AI-generated filler without genuine insight",
+                "Articles under 800 words",
+              ].map((t) => (
+                <li key={t} className="flex items-start gap-2 text-[13px] text-[#888] leading-relaxed">
+                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-500/60 shrink-0" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
 
       {/* ── SEARCH + FILTER — DARK ── */}
       <div className="mx-auto max-w-6xl px-6 pt-10">
@@ -114,8 +180,29 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </div>
       </div>
 
+      {/* ── WRITE FOR US CTA BANNER ── */}
+      <div className="mx-auto max-w-6xl px-6 pt-8 pb-2">
+        <Link
+          href="/blog/submit"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-violet-900/60 bg-[#0e0a1a] px-6 py-4 transition hover:border-violet-700/80 hover:bg-[#130d22]"
+        >
+          <div className="flex items-center gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-900/60">
+              <PenLine className="h-4 w-4 text-violet-300" />
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us — Submit a Guest Post</p>
+              <p className="text-[12px] text-[#666]">Share your expertise · earn 3 dofollow backlinks · get a permanent author profile</p>
+            </div>
+          </div>
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-violet-800/60 px-4 py-1.5 text-xs font-semibold text-violet-200 transition group-hover:bg-violet-700/70">
+            Start writing <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+          </span>
+        </Link>
+      </div>
+
       {/* ── GRID — DARK ── */}
-      <section className="mx-auto max-w-6xl px-6 py-12 pb-24">
+      <section className="mx-auto max-w-6xl px-6 py-10 pb-24">
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-[#2e2e2e] bg-[#141414] px-8 py-24 text-center">
             <p
@@ -127,6 +214,13 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             <p className="mt-3 text-sm text-[#555]">
               Adjust the category or search query to find a post.
             </p>
+            <Link
+              href="/blog/submit"
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-violet-900/60 border border-violet-700/60 px-5 py-2.5 text-sm font-medium text-violet-200 transition hover:bg-violet-800/70"
+            >
+              <PenLine className="h-4 w-4" />
+              Be the first to write about this
+            </Link>
           </div>
         ) : (
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -201,6 +295,36 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             })}
           </div>
         )}
+        {/* ── BOTTOM WRITE FOR US CALLOUT ── */}
+        <div className="mt-14 rounded-2xl border border-[#1e1e2e] bg-gradient-to-br from-violet-100 to-white/80 px-8 py-10 text-center">
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">
+            Write for Us
+          </p>
+          <h2
+            className="mx-auto max-w-md font-serif text-2xl font-normal text-black/80"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Got something worth reading? <em className="italic text-violet-300">Publish it here.</em>
+          </h2>
+          <p className="mx-auto mt-3 max-w-sm text-[13px] leading-relaxed text-[#666]">
+            Join our contributors. Submit a guest post and earn up to 3 dofollow backlinks plus a permanent author profile page.
+          </p>
+          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/blog/submit"
+              className="inline-flex items-center gap-2 rounded-full bg-violet-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-600"
+            >
+              <PenLine className="h-4 w-4" />
+              Submit a guest post — it's free
+            </Link>
+            <a
+              href="#guidelines"
+              className="inline-flex items-center gap-1.5 text-sm text-[#555] transition hover:text-[#999]"
+            >
+              View guidelines <ArrowRight className="h-3.5 w-3.5" />
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   );
