@@ -266,11 +266,11 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
               <h3
                 className="font-black leading-tight"
                 style={{
-                  fontSize: "clamp(1.1rem, 2vw, 1.3rem)",
+                  fontSize: "clamp(1.1rem, 2vw, 1.5rem)",
                   color: "#1E0A3C",
-                  fontFamily: "'Courier New', Courier, monospace",
+                  fontFamily: "'Bebas Neue', sans-serif",
                   whiteSpace: "pre-line",
-                  letterSpacing: "-0.02em",
+                  letterSpacing: "1px",
                 }}
               >
                 {project.title}
@@ -407,8 +407,8 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
               fontSize: "clamp(8rem, 22vw, 22rem)",
               color: project.color,
               opacity: 0.04,
-              fontFamily: "Courier New, monospace",
-              letterSpacing: "-0.05em",
+              fontFamily: "'Bebas Neue', sans-serif",
+              letterSpacing: "1px",
               transform: "translateX(-2%)",
             }}
           >
@@ -436,7 +436,8 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
               style={{
                 fontSize: "clamp(2.5rem, 6vw, 6rem)",
                 color: "#1E0A3C",
-                letterSpacing: "-0.02em",
+                fontFamily: "'Bebas Neue', sans-serif",
+                letterSpacing: "1px",
               }}
             >
               {project.title}
@@ -691,7 +692,7 @@ export default function WorkSection() {
             animate={{ y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="font-black leading-none"
-            style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "#1E0A3C" }}
+            style={{ fontSize: "clamp(4rem, 12vw, 10rem)", color: "#1E0A3C", fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
           >
             OUR
           </motion.h2>
@@ -705,8 +706,8 @@ export default function WorkSection() {
             style={{
               fontSize: "clamp(4rem, 12vw, 10rem)",
               color: "transparent",
-              fontFamily: "Courier New, monospace",
-              letterSpacing: "-0.05em",
+              fontFamily: "'Bebas Neue', sans-serif",
+              letterSpacing: "-0.02em",
               lineHeight: 0.9,
               WebkitTextStroke: "2px rgba(109,40,217,0.3)",
             }}

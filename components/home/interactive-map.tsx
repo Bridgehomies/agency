@@ -116,7 +116,7 @@ export default function InteractiveMap() {
             </div>
             <h2
               className="text-5xl md:text-7xl font-black leading-none text-black/80"
-              style={{ fontFamily: "'Syne', sans-serif", letterSpacing: "-0.03em" }}
+              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
             >
               Our
               <br />
@@ -281,7 +281,7 @@ export default function InteractiveMap() {
 
       {/* Load Syne + DM Mono fonts */}
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800;900&family=DM+Mono:wght@400;500&display=swap');
+          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
       `}</style>
     </section>
   );
