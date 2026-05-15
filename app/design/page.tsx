@@ -4,7 +4,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { FaPhoneAlt } from "react-icons/fa";
 import { IoMdMail } from "react-icons/io";
-import WorkSection from '@/components/work-section';
+import WorkSection from '@/components/home/work-section';
 import Form from '@/components/form/form';
 import VideoGallery from '@/components/video-gallery';
 import FaqAccordion from "@/components/FaqAccordion";
@@ -230,7 +230,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-      
+
             {/* Service 2 */}
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center mb-6">
@@ -252,7 +252,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-      
+
             {/* Service 3 */}
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mb-6">
@@ -274,7 +274,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-      
+
             {/* Service 4 */}
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
@@ -296,7 +296,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-      
+
             {/* Service 5 */}
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mb-6">
@@ -318,7 +318,7 @@ export default function HomePage() {
                 </li>
               </ul>
             </div>
-      
+
             {/* Service 6 */}
             <div className="service-card bg-white p-8 rounded-xl shadow-md hover:shadow-xl transition">
               <div className="service-icon w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
@@ -345,9 +345,9 @@ export default function HomePage() {
       </section>
 
       {/* Work Section */}
-      <VideoGallery/>
+      <VideoGallery />
       {/* CTA Section */}
-        {/* <Form /> */}
+      {/* <Form /> */}
       {/* FAQ Section */}
       <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -358,7 +358,7 @@ export default function HomePage() {
           <div className="max-w-3xl mx-auto">
             {/* FAQ Item */}
             <FaqAccordion />
-            
+
           </div>
         </div>
       </section>

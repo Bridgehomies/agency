@@ -403,8 +403,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Sparkles, Activity, ArrowRight, Fingerprint, Cpu } from "lucide-react";
 
 // Assuming these remain for ambient background effects
-import ParallaxBackground from "./parallax-background";
-import FloatingElements from "./floating-elements";
+import ParallaxBackground from "../parallax-background";
+import FloatingElements from "../floating-elements";
 
 export default function HeroSectionSpatial() {
   const { toast } = useToast();
@@ -436,7 +436,7 @@ export default function HeroSectionSpatial() {
     const height = rect.height;
     const mouseXPos = e.clientX - rect.left;
     const mouseYPos = e.clientY - rect.top;
-    
+
     // Calculate normalized position (-0.5 to 0.5)
     mouseX.set(mouseXPos / width - 0.5);
     mouseY.set(mouseYPos / height - 0.5);
@@ -471,7 +471,7 @@ export default function HeroSectionSpatial() {
       <FloatingElements />
 
       {/* BACKGROUND TYPOGRAPHY LAYER (Moves down on scroll) */}
-      <motion.div 
+      <motion.div
         className="absolute w-full text-center pointer-events-none -z-10"
         style={{ y: textY, opacity, willChange: "transform, opacity" }}
       >
@@ -480,7 +480,7 @@ export default function HeroSectionSpatial() {
         </h1>
       </motion.div>
 
-      <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-8 sm:mt-16 lg:mt-20">  
+      <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-8 sm:mt-16 lg:mt-20">
         {/* HEADER BADGE */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -515,7 +515,7 @@ export default function HeroSectionSpatial() {
           </div>
 
           {/* FLOATING GLASS STAT 1 (Z-axis offset) */}
-          <motion.div 
+          <motion.div
             className="absolute -left-6 md:-left-12 top-1/4 p-4 md:p-6 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-2xl shadow-2xl z-20"
             style={{ transform: "translateZ(50px)" }}
           >
@@ -525,7 +525,7 @@ export default function HeroSectionSpatial() {
           </motion.div>
 
           {/* FLOATING GLASS STAT 2 (Z-axis offset) */}
-          <motion.div 
+          <motion.div
             className="absolute -right-6 md:-right-12 bottom-1/4 p-4 md:p-6 bg-primary/90 text-primary-foreground backdrop-blur-2xl border border-primary-foreground/20 rounded-2xl shadow-2xl shadow-primary/30 z-20"
             style={{ transform: "translateZ(80px)" }}
           >
@@ -537,15 +537,15 @@ export default function HeroSectionSpatial() {
           {/* CUSTOM CURSOR FOLLOWER */}
           <motion.div
             className="absolute top-0 left-0 w-24 h-24 bg-primary/20 rounded-full blur-xl pointer-events-none z-30 mix-blend-screen"
-            style={{ 
-              x: useTransform(mouseX, [-0.5, 0.5], [-100, 100]), 
-              y: useTransform(mouseY, [-0.5, 0.5], [-100, 100]) 
+            style={{
+              x: useTransform(mouseX, [-0.5, 0.5], [-100, 100]),
+              y: useTransform(mouseY, [-0.5, 0.5], [-100, 100])
             }}
           />
         </motion.div>
 
         {/* BOTTOM CONTENT (Moves up on scroll) */}
-        <motion.div 
+        <motion.div
           className="mt-16 text-center max-w-2xl z-20"
           style={{ y: statsY, willChange: "transform" }}
         >

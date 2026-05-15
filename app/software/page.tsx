@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import WorkSection from "@/components/work-section";
+import WorkSection from "@/components/home/work-section";
 import Link from "next/link";
 
 const StatsCounter: React.FC = () => {
@@ -84,16 +84,16 @@ export default function SoftwarePage() {
       {/* 1. EDITORIAL HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex flex-col justify-center">
         <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            
+
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
                 <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Premium Software House</span>
               </div>
-              
+
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
                 Engineer <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
@@ -106,17 +106,17 @@ export default function SoftwarePage() {
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
                 We provide exclusive <strong className="text-gray-900">custom software development</strong> and <strong className="text-gray-900">enterprise software solutions</strong> designed for market leaders.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
                   <span className="relative z-10 flex items-center gap-2">
                     Start Building
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                   </span>
                 </a>
               </div>
             </div>
-            
+
           </div>
         </div>
       </section>
@@ -125,9 +125,9 @@ export default function SoftwarePage() {
 
       {/* FULL-WIDTH ARCHITECTURAL IMAGE BREAKER */}
       <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
-        <img 
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
-          alt="Abstract structural architecture representing scale and enterprise software solutions" 
+        <img
+          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
+          alt="Abstract structural architecture representing scale and enterprise software solutions"
           className="object-cover w-full h-full opacity-60 filter grayscale hover:scale-105 transition-transform duration-[20s] ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent"></div>
@@ -136,7 +136,7 @@ export default function SoftwarePage() {
       {/* 2. STAGGERED "WHAT WE BUILD" */}
       <section id="services" className="pt-16 pb-32 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="mb-24 flex flex-col md:flex-row justify-between items-end border-b-2 border-gray-900 pb-8">
             <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-900">
               What <br /> We Build.
@@ -192,30 +192,30 @@ export default function SoftwarePage() {
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
+
             {/* Left large bento box */}
             <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10">
                 <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Agency Standard</div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Not just another <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">software house</span>.
+                  Not just another <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">software house</span>.
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
                   When looking for <strong className="text-white">software houses near me</strong>, you want partners, not just typists. Bridge Homies treats code as craft. We blend uncompromising minimalist design with rigorous <strong className="text-white">software engineering</strong> to deliver digital products that dominate markets.
                 </p>
               </div>
               <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
-                Meet the Homies <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                Meet the Homies <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
             </div>
 
             {/* Right side bento box - Image Integration */}
             <div className="lg:col-span-4 flex flex-col gap-6">
               <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
-                <img 
+                <img
                   src="https://images.unsplash.com/photo-1649877508777-1554357604eb?q=80&w=580&auto=format&fit=crop"
-                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700" 
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gray-900/30"></div>
                 <div className="absolute bottom-6 left-6 right-6">
@@ -235,7 +235,7 @@ export default function SoftwarePage() {
       <section className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
+
             {/* FAQ Left Column */}
             <div className="lg:col-span-5 sticky top-32 self-start">
               <div className="inline-flex items-center space-x-3 mb-8">
@@ -253,7 +253,7 @@ export default function SoftwarePage() {
             {/* FAQ Right Column - Reading Grid */}
             <div className="lg:col-span-7 flex flex-col">
               <div className="border-t-2 border-gray-900">
-                
+
                 {[
                   {
                     q: "Why is software engineering crucial for custom enterprise solutions?",
@@ -289,7 +289,7 @@ export default function SoftwarePage() {
       <section className="py-24 bg-white border-y border-gray-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Discover More Capabilities</h2>
-          
+
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
               { label: "AI/ML Engineering", link: "/ai-ml-development" },

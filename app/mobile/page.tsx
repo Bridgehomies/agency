@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import WorkSection from "@/components/work-section";
+import WorkSection from "@/components/home/work-section";
 import Link from "next/link";
 
 const StatsCounter: React.FC = () => {
@@ -104,16 +104,16 @@ export default function MobilePage() {
       {/* 1. EDITORIAL HERO SECTION */}
       <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex flex-col justify-center">
         <div className="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:4rem_4rem]"></div>
-        
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end">
-            
+
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
                 <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Mobile Engineering</span>
               </div>
-              
+
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
                 Engineer <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
@@ -126,17 +126,17 @@ export default function MobilePage() {
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
                 We are a premier <strong className="text-gray-900">software developer company</strong> building intelligent <strong className="text-gray-900">mobile apps</strong> for iOS and Android, supercharged by AI automation and machine learning.
               </p>
-              
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
                   <span className="relative z-10 flex items-center gap-2">
                     Start Building
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                   </span>
                 </a>
               </div>
             </div>
-            
+
           </div>
         </div>
       </section>
@@ -145,9 +145,9 @@ export default function MobilePage() {
 
       {/* FULL-WIDTH MOBILE ARCHITECTURE IMAGE BREAKER */}
       <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
-        <img 
-          src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop" 
-          alt="Abstract mobile device interface and mobile app development" 
+        <img
+          src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=2070&auto=format&fit=crop"
+          alt="Abstract mobile device interface and mobile app development"
           className="object-cover w-full h-full opacity-60 filter grayscale hover:scale-105 transition-transform duration-[20s] ease-out"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent"></div>
@@ -156,7 +156,7 @@ export default function MobilePage() {
       {/* 2. STAGGERED "WHAT WE BUILD" */}
       <section id="services" className="pt-16 pb-32 bg-gray-50 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          
+
           <div className="mb-24 flex flex-col md:flex-row justify-between items-end border-b-2 border-gray-900 pb-8">
             <h2 className="text-6xl md:text-8xl font-black uppercase tracking-tighter leading-none text-gray-900">
               What <br /> We Build.
@@ -212,31 +212,31 @@ export default function MobilePage() {
       <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            
+
             {/* Left large bento box */}
             <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10">
                 <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Mobile Standard</div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Intelligent Apps by a <br/> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">Software Developer Company</span>.
+                  Intelligent Apps by a <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">Software Developer Company</span>.
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
                   Building an app is easy. Engineering a scalable mobile ecosystem that retains users is not. Bridge Homies merges elite <strong className="text-white">mobile app development</strong> with deep <strong className="text-white">machine learning</strong> capabilities, deploying products that actively learn, adapt, and drive your business forward.
                 </p>
               </div>
               <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
-                Meet the Engineers <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                Meet the Engineers <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
             </div>
 
             {/* Right side bento box - Image Integration */}
             <div className="lg:col-span-4 flex flex-col gap-6">
               <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
-                <img 
-                  src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=800&auto=format&fit=crop" 
-                  alt="Minimalist mobile device rendering" 
-                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700" 
+                <img
+                  src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=800&auto=format&fit=crop"
+                  alt="Minimalist mobile device rendering"
+                  className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gray-900/40"></div>
                 <div className="absolute bottom-6 left-6 right-6">
@@ -256,7 +256,7 @@ export default function MobilePage() {
       <section className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-            
+
             {/* FAQ Left Column */}
             <div className="lg:col-span-5 sticky top-32 self-start">
               <div className="inline-flex items-center space-x-3 mb-8">
@@ -274,7 +274,7 @@ export default function MobilePage() {
             {/* FAQ Right Column - Reading Grid */}
             <div className="lg:col-span-7 flex flex-col">
               <div className="border-t-2 border-gray-900">
-                
+
                 {[
                   {
                     q: "Why does my business need a mobile app?",
@@ -310,7 +310,7 @@ export default function MobilePage() {
       <section className="py-24 bg-white border-y border-gray-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Explore Ecosystem</h2>
-          
+
           <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
             {[
               { label: "Website Development", link: "/webdev" },
