@@ -53,7 +53,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-violet-600" />
 
         <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-28">
-          <p className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-[#8a7a65]">
+          <p className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-purple-400">
             Bridge Homies · Write for Us
           </p>
 
@@ -62,7 +62,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
             Share your expertise.{" "}
-            <em className="italic text-[#6b5b3e]">Earn backlinks.</em>{" "}
+            <em className="italic text-purple-600">Earn backlinks.</em>{" "}
             Get published.
           </h1>
 

@@ -112,8 +112,45 @@ const jsonLd = {
     },
     {
       "@type": "FAQPage",
-      "mainEntity": [/* keep as-is */],
-    },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What topics can I write about?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text":
+              "You can write about web development, SaaS, AI, machine learning, automation, custom software, admin dashboards, APIs, startups, DevOps, and related technology topics.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Do you provide dofollow backlinks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text":
+              "Yes. Approved guest posts can include relevant dofollow backlinks to the author's website or product.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "How long does approval take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text":
+              "Most submissions are reviewed within a few business days depending on editorial workload and content quality.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Can I submit AI-related content?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text":
+              "Yes. We accept high-quality articles about AI engineering, automation, machine learning, LLMs, and AI tools.",
+          },
+        },
+      ],
+    }
   ],
 };
 
