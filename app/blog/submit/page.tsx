@@ -112,6 +112,7 @@ const jsonLd = {
     },
     {
       "@type": "FAQPage",
+      "@id": "https://bridgehomies.com/blog/submit#faq",
       "mainEntity": [
         {
           "@type": "Question",
