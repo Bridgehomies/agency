@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition, useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, FileText, Pencil, Save, Trash2 } from "lucide-react";
+import { ArrowRight, FileText, Pencil, Save, Trash2, Image as ImageIcon, Link2 } from "lucide-react";
 import { notifyIndexNow } from '@/lib/indexnow';
 
 const ADMIN_ENDPOINT =
@@ -30,6 +30,7 @@ type PortalPost = {
 };
 
 type ContentFormat = "markdown" | "json";
+type CoverImageMode = "url" | "file";
 
 const markdownTemplate = `## Start with a strong search-intent heading
 
@@ -84,6 +85,9 @@ const initialForm = {
   category: "Insights",
   tags: "SEO, AEO, Content Marketing",
   coverImage: "",
+  coverImageFile: null as File | null,
+  coverImagePreview: "",
+  coverImageMode: "url" as CoverImageMode,
   seoTitle: "",
   seoDescription: "",
   faqText:
@@ -160,9 +164,7 @@ function JsonPreview({ content }: { content: string }) {
 
           if (type === "heading") {
             const level = Math.min(6, Math.max(1, Number(block.level || 2)));
-            // FIX: Cast to any or React.ElementType to satisfy the JSX parser
-            const Tag = `h${level}` as any; 
-            
+            const Tag = `h${level}` as any;
             return (
               <Tag key={index} className="font-serif text-2xl font-bold text-slate-950">
                 {String(block.text || "")}
@@ -253,6 +255,152 @@ function MarkdownPreview({ content }: { content: string }) {
   );
 }
 
+// ─── Cover Image Input ──────────────────────────────────────────────────────
+
+function CoverImageInput({
+  mode,
+  urlValue,
+  filePreview,
+  fileName,
+  onModeChange,
+  onUrlChange,
+  onFileChange,
+  onFileClear,
+}: {
+  mode: CoverImageMode;
+  urlValue: string;
+  filePreview: string;
+  fileName: string;
+  onModeChange: (m: CoverImageMode) => void;
+  onUrlChange: (v: string) => void;
+  onFileChange: (file: File) => void;
+  onFileClear: () => void;
+}) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleFile(file: File | null) {
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      alert("Please upload an image file (JPG, PNG, WebP).");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Image must be under 5 MB.");
+      return;
+    }
+    onFileChange(file);
+  }
+
+  return (
+    <div>
+      {/* Mode toggle */}
+      <div className="mb-3 inline-flex rounded-xl border border-black/10 bg-[#f0ebe0] p-1">
+        <button
+          type="button"
+          onClick={() => onModeChange("url")}
+          className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold transition ${mode === "url"
+              ? "bg-white text-slate-900 shadow-sm"
+              : "text-slate-500 hover:text-slate-700"
+            }`}
+        >
+          <Link2 className="h-3 w-3" />
+          URL
+        </button>
+        <button
+          type="button"
+          onClick={() => onModeChange("file")}
+          className={`inline-flex items-center gap-1.5 rounded-lg px-4 py-2 text-xs font-semibold transition ${mode === "file"
+              ? "bg-white text-slate-900 shadow-sm"
+              : "text-slate-500 hover:text-slate-700"
+            }`}
+        >
+          <ImageIcon className="h-3 w-3" />
+          Upload
+        </button>
+      </div>
+
+      {/* URL input */}
+      {mode === "url" && (
+        <input
+          value={urlValue}
+          onChange={(e) => onUrlChange(e.target.value)}
+          className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
+          placeholder="https://..."
+        />
+      )}
+
+      {/* File upload */}
+      {mode === "file" && (
+        <>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/*"
+            className="hidden"
+            onChange={(e) => handleFile(e.target.files?.[0] ?? null)}
+          />
+          {filePreview ? (
+            <div className="relative overflow-hidden rounded-2xl border border-black/10">
+              <img
+                src={filePreview}
+                alt="Cover preview"
+                className="h-48 w-full object-cover"
+              />
+              <div className="absolute inset-0 flex items-end gap-2 bg-gradient-to-t from-black/60 to-transparent p-4">
+                <span className="rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                  {fileName}
+                </span>
+                <button
+                  type="button"
+                  onClick={onFileClear}
+                  className="rounded-full bg-red-600 px-3 py-1 text-xs font-semibold text-white transition hover:bg-red-700"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div
+              onClick={() => fileInputRef.current?.click()}
+              onDragOver={(e) => {
+                e.preventDefault();
+                (e.currentTarget as HTMLElement).style.borderColor = "#d97706";
+                (e.currentTarget as HTMLElement).style.background = "#fdf8ec";
+              }}
+              onDragLeave={(e) => {
+                (e.currentTarget as HTMLElement).style.borderColor = "";
+                (e.currentTarget as HTMLElement).style.background = "";
+              }}
+              onDrop={(e) => {
+                e.preventDefault();
+                (e.currentTarget as HTMLElement).style.borderColor = "";
+                (e.currentTarget as HTMLElement).style.background = "";
+                handleFile(e.dataTransfer.files?.[0] ?? null);
+              }}
+              className="flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-black/12 bg-[#faf7f2] px-6 py-10 text-center transition hover:border-amber-600 hover:bg-amber-50/40"
+            >
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100">
+                <ImageIcon className="h-5 w-5 text-amber-700" />
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-slate-700">
+                  Drop image here or{" "}
+                  <span className="text-amber-700 underline">browse</span>
+                </p>
+                <p className="mt-1 text-xs text-slate-400">
+                  JPG, PNG, WebP · max 5 MB · recommended 1200×630
+                </p>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── Main Component ─────────────────────────────────────────────────────────
+
 export default function BlogWriterPortal() {
   const [form, setForm] = useState(initialForm);
   const [posts, setPosts] = useState<PortalPost[]>([]);
@@ -294,6 +442,9 @@ export default function BlogWriterPortal() {
       category: post.category,
       tags: post.tags.join(", "),
       coverImage: post.coverImage,
+      coverImageFile: null,
+      coverImagePreview: "",
+      coverImageMode: "url",
       seoTitle: post.seoTitle,
       seoDescription: post.seoDescription,
       faqText: toFaqText(post.faq),
@@ -328,9 +479,23 @@ export default function BlogWriterPortal() {
       setStatus(`Deleted /blog/${slug}`);
       await loadPosts();
       if (result.slug) {
-        await notifyIndexNow(result.slug);   // Notify even on delete
+        await notifyIndexNow(result.slug);
       }
     });
+  }
+
+  function handleCoverFileChange(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      update("coverImagePreview", e.target?.result as string);
+      update("coverImageFile", file);
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleCoverFileClear() {
+    update("coverImageFile", null);
+    update("coverImagePreview", "");
   }
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -339,6 +504,20 @@ export default function BlogWriterPortal() {
 
     startTransition(async () => {
       const slug = form.slug ? slugify(form.slug) : slugify(form.title);
+
+      // Resolve the final coverImage value
+      let resolvedCoverImage = form.coverImage;
+
+      if (form.coverImageMode === "file" && form.coverImageFile) {
+        // Convert to base64 and pass inline — no separate upload endpoint needed
+        resolvedCoverImage = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (e) => resolve(e.target?.result as string);
+          reader.onerror = () => reject(new Error("File read failed"));
+          reader.readAsDataURL(form.coverImageFile!);
+        });
+      }
+
       const response = await fetch(`${ADMIN_ENDPOINT}/save`, {
         method: "POST",
         headers: {
@@ -356,7 +535,7 @@ export default function BlogWriterPortal() {
             .split(",")
             .map((tag) => tag.trim())
             .filter(Boolean),
-          coverImage: form.coverImage,
+          coverImage: resolvedCoverImage,
           seoTitle: form.seoTitle || form.title,
           seoDescription: form.seoDescription || form.excerpt,
           published: form.published,
@@ -513,15 +692,20 @@ export default function BlogWriterPortal() {
                 />
               </label>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Cover image URL</span>
-                <input
-                  value={form.coverImage}
-                  onChange={(event) => update("coverImage", event.target.value)}
-                  className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
-                  placeholder="https://..."
+              {/* ── Cover Image (URL or Upload) ── */}
+              <div className="md:col-span-2">
+                <span className="mb-2 block text-sm font-semibold text-slate-700">Cover image</span>
+                <CoverImageInput
+                  mode={form.coverImageMode}
+                  urlValue={form.coverImage}
+                  filePreview={form.coverImagePreview}
+                  fileName={form.coverImageFile?.name ?? ""}
+                  onModeChange={(m) => update("coverImageMode", m)}
+                  onUrlChange={(v) => update("coverImage", v)}
+                  onFileChange={handleCoverFileChange}
+                  onFileClear={handleCoverFileClear}
                 />
-              </label>
+              </div>
 
               <label>
                 <span className="mb-2 block text-sm font-semibold text-slate-700">SEO title</span>
