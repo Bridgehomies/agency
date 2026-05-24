@@ -141,10 +141,19 @@ function extractJsonBlocks(value: unknown): Record<string, unknown>[] {
   return [];
 }
 
+// ─── Bonus: Improved preview text rendering with list markers ──────────────
+
 function renderPreviewText(content: string) {
   return content
     .split("\n")
-    .map((line) => line.replace(/^#{1,6}\s*/, "").replace(/^[-*]\s*/, "").trim())
+    .map((line) => {
+      const trimmed = line.trim();
+      // Preserve list markers for preview display
+      if (/^[-*+]\s/.test(trimmed)) {
+        return `• ${trimmed.replace(/^[-*+]\s*/, "")}`;
+      }
+      return trimmed.replace(/^#{1,6}\s*/, "").trim();
+    })
     .filter(Boolean);
 }
 
@@ -183,13 +192,27 @@ function JsonPreview({ content }: { content: string }) {
           if (type === "list") {
             const items = Array.isArray(block.items) ? block.items : [];
             const ordered = Boolean(block.ordered);
-            const ListTag = (ordered ? "ol" : "ul") as any;
+            
+            const listClasses = "space-y-2 pl-5 text-sm leading-7 text-slate-700";
+            const orderedClasses = ordered ? "list-decimal" : "list-disc";
+            
+            // ─── Fix: Use explicit native tags instead of dynamic component ───
+            if (ordered) {
+              return (
+                <ol key={index} className={`${listClasses} ${orderedClasses}`}>
+                  {items.map((item, itemIndex) => (
+                    <li key={itemIndex}>{String(item)}</li>
+                  ))}
+                </ol>
+              );
+            }
+            
             return (
-              <ListTag key={index} className="space-y-2 pl-5 text-sm leading-7 text-slate-700 list-disc">
+              <ul key={index} className={`${listClasses} ${orderedClasses}`}>
                 {items.map((item, itemIndex) => (
                   <li key={itemIndex}>{String(item)}</li>
                 ))}
-              </ListTag>
+              </ul>
             );
           }
 
@@ -322,10 +345,12 @@ function CoverImageInput({
       {/* URL input */}
       {mode === "url" && (
         <input
+          id="cover-image-url"
           value={urlValue}
           onChange={(e) => onUrlChange(e.target.value)}
           className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
           placeholder="https://..."
+          aria-label="Cover image URL"
         />
       )}
 
@@ -334,6 +359,7 @@ function CoverImageInput({
         <>
           <input
             ref={fileInputRef}
+            id="cover-image-file"
             type="file"
             accept="image/*"
             className="hidden"
@@ -378,6 +404,15 @@ function CoverImageInput({
                 handleFile(e.dataTransfer.files?.[0] ?? null);
               }}
               className="flex cursor-pointer flex-col items-center gap-3 rounded-2xl border-2 border-dashed border-black/12 bg-[#faf7f2] px-6 py-10 text-center transition hover:border-amber-600 hover:bg-amber-50/40"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  fileInputRef.current?.click();
+                }
+              }}
+              aria-label="Upload cover image"
             >
               <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-100">
                 <ImageIcon className="h-5 w-5 text-amber-700" />
@@ -599,50 +634,72 @@ export default function BlogWriterPortal() {
             className="rounded-[2rem] border border-black/10 bg-white p-8 shadow-[0_24px_80px_-50px_rgba(17,17,17,0.45)]"
           >
             <div className="grid gap-5 md:grid-cols-2">
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Article title</span>
+              {/* Article Title */}
+              <div className="md:col-span-2">
+                <label htmlFor="article-title" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Article title
+                </label>
                 <input
+                  id="article-title"
                   value={form.title}
                   onChange={(event) => update("title", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="How AI automation reduces support response time"
                   required
+                  aria-required="true"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Slug</span>
+              {/* Slug */}
+              <div>
+                <label htmlFor="article-slug" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Slug
+                </label>
                 <input
+                  id="article-slug"
                   value={form.slug}
                   onChange={(event) => update("slug", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="auto-generated-from-title"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Category</span>
+              {/* Category */}
+              <div>
+                <label htmlFor="article-category" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Category
+                </label>
                 <input
+                  id="article-category"
                   value={form.category}
                   onChange={(event) => update("category", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                 />
-              </label>
+              </div>
 
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Excerpt</span>
+              {/* Excerpt */}
+              <div className="md:col-span-2">
+                <label htmlFor="article-excerpt" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Excerpt
+                </label>
                 <textarea
+                  id="article-excerpt"
                   value={form.excerpt}
                   onChange={(event) => update("excerpt", event.target.value)}
                   className="min-h-28 w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="A concise summary for cards, search snippets, and social previews."
                   required
+                  aria-required="true"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Content format</span>
+              {/* Content format - FIXED */}
+              <div>
+                <label htmlFor="content-format-select" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Content format
+                </label>
                 <select
+                  id="content-format-select"
                   value={form.contentFormat}
                   onChange={(event) => {
                     const nextFormat = event.target.value as ContentFormat;
@@ -658,43 +715,61 @@ export default function BlogWriterPortal() {
                     }
                   }}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
+                  aria-describedby="content-format-hint"
                 >
                   <option value="markdown">Markdown / MDX</option>
                   <option value="json">JSON blocks</option>
                 </select>
-              </label>
+                <span id="content-format-hint" className="sr-only">
+                  Choose between writing in Markdown/MDX or structured JSON blocks
+                </span>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Author</span>
+              {/* Author */}
+              <div>
+                <label htmlFor="article-author" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Author
+                </label>
                 <input
+                  id="article-author"
                   value={form.author}
                   onChange={(event) => update("author", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Author role</span>
+              {/* Author role */}
+              <div>
+                <label htmlFor="article-author-role" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Author role
+                </label>
                 <input
+                  id="article-author-role"
                   value={form.authorRole}
                   onChange={(event) => update("authorRole", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Tags</span>
+              {/* Tags */}
+              <div>
+                <label htmlFor="article-tags" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Tags
+                </label>
                 <input
+                  id="article-tags"
                   value={form.tags}
                   onChange={(event) => update("tags", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="SEO, AEO, AI, SaaS"
                 />
-              </label>
+              </div>
 
-              {/* ── Cover Image (URL or Upload) ── */}
+              {/* Cover Image */}
               <div className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Cover image</span>
+                <span id="cover-image-label" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Cover image
+                </span>
                 <CoverImageInput
                   mode={form.coverImageMode}
                   urlValue={form.coverImage}
@@ -705,55 +780,76 @@ export default function BlogWriterPortal() {
                   onFileChange={handleCoverFileChange}
                   onFileClear={handleCoverFileClear}
                 />
+                <span id="cover-image-hint" className="sr-only">
+                  Provide a cover image via URL or file upload
+                </span>
               </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">SEO title</span>
+              {/* SEO title */}
+              <div>
+                <label htmlFor="seo-title" className="mb-2 block text-sm font-semibold text-slate-700">
+                  SEO title
+                </label>
                 <input
+                  id="seo-title"
                   value={form.seoTitle}
                   onChange={(event) => update("seoTitle", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="Optional; defaults to article title"
                 />
-              </label>
+              </div>
 
-              <label>
-                <span className="mb-2 block text-sm font-semibold text-slate-700">SEO description</span>
+              {/* SEO description */}
+              <div>
+                <label htmlFor="seo-description" className="mb-2 block text-sm font-semibold text-slate-700">
+                  SEO description
+                </label>
                 <input
+                  id="seo-description"
                   value={form.seoDescription}
                   onChange={(event) => update("seoDescription", event.target.value)}
                   className="w-full rounded-2xl border border-black/10 bg-[#faf7f2] px-4 py-3 outline-none focus:border-amber-600"
                   placeholder="Optional; defaults to excerpt"
                 />
-              </label>
+              </div>
 
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">FAQ schema lines</span>
+              {/* FAQ schema */}
+              <div className="md:col-span-2">
+                <label htmlFor="faq-schema" className="mb-2 block text-sm font-semibold text-slate-700">
+                  FAQ schema lines
+                </label>
                 <textarea
+                  id="faq-schema"
                   value={form.faqText}
                   onChange={(event) => update("faqText", event.target.value)}
                   className="min-h-32 w-full rounded-[1.5rem] border border-black/10 bg-[#faf7f2] px-4 py-4 text-sm leading-7 outline-none focus:border-amber-600"
                 />
-                <p className="mt-2 text-xs leading-6 text-slate-500">
-                  One FAQ per line using `Question::Answer`.
+                <p id="faq-hint" className="mt-2 text-xs leading-6 text-slate-500">
+                  One FAQ per line using <code className="bg-slate-200 px-1 rounded">Question::Answer</code>.
                 </p>
-              </label>
+              </div>
 
-              <label className="md:col-span-2">
-                <span className="mb-2 block text-sm font-semibold text-slate-700">Article body</span>
+              {/* Article body */}
+              <div className="md:col-span-2">
+                <label htmlFor="article-body" className="mb-2 block text-sm font-semibold text-slate-700">
+                  Article body
+                </label>
                 <textarea
+                  id="article-body"
                   value={form.content}
                   onChange={(event) => update("content", event.target.value)}
                   className="min-h-[24rem] w-full rounded-[1.5rem] border border-black/10 bg-[#faf7f2] px-4 py-4 font-mono text-sm leading-7 outline-none focus:border-amber-600"
                   required
+                  aria-required="true"
                 />
-                <p className="mt-2 text-xs leading-6 text-slate-500">
+                <p id="body-hint" className="mt-2 text-xs leading-6 text-slate-500">
                   {form.contentFormat === "json"
                     ? "Use JSON blocks. Supported JSON can be an array of blocks or an object with `blocks`, `content`, or `body`."
                     : "Use Markdown or MDX. Switch to JSON blocks if the writer wants to submit structured content."}
                 </p>
-              </label>
+              </div>
 
+              {/* Live Preview */}
               <div className="md:col-span-2 rounded-[1.5rem] border border-black/10 bg-[#faf7f2] p-6">
                 <div className="flex items-center justify-between gap-3 border-b border-black/10 pb-4">
                   <div>
@@ -782,15 +878,24 @@ export default function BlogWriterPortal() {
                 </div>
               </div>
 
-              <label className="inline-flex items-center gap-3 text-sm font-medium text-slate-700">
+              {/* Publish checkbox - already fixed */}
+              <div className="md:col-span-2 inline-flex items-center gap-3">
                 <input
+                  id="publish-checkbox"
                   type="checkbox"
                   checked={form.published}
                   onChange={(event) => update("published", event.target.checked)}
                   className="h-4 w-4 rounded border-black/20"
+                  aria-describedby="publish-hint"
                 />
-                Publish immediately
-              </label>
+                <label 
+                  htmlFor="publish-checkbox" 
+                  className="text-sm font-medium text-slate-700 cursor-pointer"
+                >
+                  Publish immediately
+                </label>
+              </div>
+              <span id="publish-hint" className="sr-only">Check to publish this article immediately upon saving</span>
             </div>
 
             <div className="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-black/10 pt-6">
