@@ -2,13 +2,9 @@
   "name": "bridgehomies",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.28.0",
-  "engines": {
-    "node": "22.x"
-  },
   "scripts": {
     "dev": "node admin-server.mjs & next dev",
-    "build": "next build --webpack",
+    "build": "next build && pnpm indexnow:all",
     "postbuild": "next-sitemap",
     "start": "next start",
     "lint": "next lint",

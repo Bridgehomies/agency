@@ -1,3 +1,4 @@
+// File: app/api/blog/submissions/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { readFile, writeFile, mkdir } from "fs/promises";
 import path from "path";
