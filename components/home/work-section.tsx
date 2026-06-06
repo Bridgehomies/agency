@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence, useTransform } from "framer-motion";
 import { X, ArrowUpRight, ExternalLink, Sparkles, TrendingUp, Shield } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 /* ─── DATA ──────────────────────────────────────────────────────────────── */
 
@@ -388,13 +389,13 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
           >
             NEXT →
           </button>
-          <button
+          <Button
             onClick={onClose}
             className={`flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 transition-all ml-2 ${!isTouch ? "cursor-none" : ""}`}
             style={{ border: `1px solid ${project.color}40`, color: project.color, background: "none" }}
           >
             <X className="h-4 w-4 sm:h-5 sm:w-5" />
-          </button>
+          </Button>
         </div>
       </div>
 
