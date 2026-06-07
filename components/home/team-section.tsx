@@ -23,12 +23,12 @@ const team: TeamMember[] = [
   {
     name: "Muhammad Bin Asif",
     role: "Founder & Director",
-    image: "/team/bini.jpg",
+    image: "/team/bini.png",
     bio: "Visionary leader with a passion for technology and innovation, dedicated to driving the company's mission forward.",
     social: {
       linkedin: "https://www.linkedin.com/in/mbinasif/",
       github: "https://github.com/MBinAsif",
-      twitter: "", // Added missing property
+      twitter: "https://x.com/Uncle_Roaster", 
     },
   },
   {
