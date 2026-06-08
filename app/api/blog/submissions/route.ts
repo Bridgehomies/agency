@@ -1,51 +1,12 @@
 // File: app/api/blog/submissions/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { sendApprovalEmail, sendRejectionEmail } from "@/lib/email";
-
-// ─── Re-use the same type as the submit route ─────────────────────────────────
-
-type GuestSubmission = {
-  id: string;
-  submittedAt: string;
-  status: "pending" | "approved" | "rejected";
-  name: string;
-  email: string;
-  phone: string;
-  occupation: string;
-  bio: string;
-  backlinks: { label: string; url: string }[];
-  title: string;
-  slug: string;
-  category: string;
-  excerpt: string;
-  tags: string[];
-  content: string;
-  faqText: string;
-  coverImagePath: string;
-  adminNotes?: string;
-};
-
-const SUBMISSIONS_PATH = path.join(process.cwd(), "data", "submissions.json");
-
-async function readAll(): Promise<GuestSubmission[]> {
-  try {
-    const raw = await readFile(SUBMISSIONS_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-async function saveAll(submissions: GuestSubmission[]) {
-  await mkdir(path.dirname(SUBMISSIONS_PATH), { recursive: true });
-  await writeFile(SUBMISSIONS_PATH, JSON.stringify(submissions, null, 2), "utf-8");
-}
+import { readSubmissions, writeSubmissions } from "@/app/api/blog/submit/route";
+import type { GuestSubmission } from "@/app/api/blog/submit/route";
 
 // ─── GET /api/blog/submissions  →  list all ───────────────────────────────────
 export async function GET() {
-  const all = await readAll();
+  const all = await readSubmissions();
   return NextResponse.json({ submissions: all });
 }
 
@@ -63,7 +24,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
-    const all = await readAll();
+    const all = await readSubmissions();
     const index = all.findIndex((s) => s.id === id);
     if (index === -1) {
       return NextResponse.json({ error: "Submission not found." }, { status: 404 });
@@ -73,11 +34,8 @@ export async function PATCH(req: NextRequest) {
     submission.status = action === "approve" ? "approved" : "rejected";
     if (adminNotes) submission.adminNotes = adminNotes;
 
-    // ── If approving: publish to blog (write into content/blogs via the
-    //    existing admin writer service, or write file directly) ────────────
     if (action === "approve") {
-      const ADMIN_ENDPOINT =
-        process.env.BLOG_ADMIN_URL || "http://localhost:3001";
+      const ADMIN_ENDPOINT = process.env.BLOG_ADMIN_URL || "http://localhost:3001";
 
       const parsedFaq = submission.faqText
         .split("\n")
@@ -89,34 +47,53 @@ export async function PATCH(req: NextRequest) {
         })
         .filter((item) => item.question && item.answer);
 
-      await fetch(`${ADMIN_ENDPOINT}/save`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          id: submission.id,
-          slug: submission.slug,
-          title: submission.title,
-          excerpt: submission.excerpt,
-          author: submission.name,
-          authorRole: submission.occupation,
-          category: submission.category,
-          tags: submission.tags,
-          coverImage: submission.coverImagePath,
-          seoTitle: submission.title,
-          seoDescription: submission.excerpt,
-          published: true,
-          content: submission.content,
-          faq: parsedFaq,
-        }),
-      });
+      // ── Publish to blog writer service (non-fatal if offline) ────────────
+      try {
+        const res = await fetch(`${ADMIN_ENDPOINT}/save`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id:             submission.id,
+            slug:           submission.slug,
+            title:          submission.title,
+            excerpt:        submission.excerpt,
+            author:         submission.name,
+            authorRole:     submission.occupation,
+            category:       submission.category,
+            tags:           submission.tags,
+            coverImage:     submission.coverImagePath,
+            seoTitle:       submission.title,
+            seoDescription: submission.excerpt,
+            published:      true,
+            content:        submission.content,
+            faq:            parsedFaq,
+          }),
+        });
+        if (!res.ok) {
+          const body = await res.text();
+          console.error("[blog/submissions] writer service error:", res.status, body);
+        }
+      } catch (writerErr) {
+        console.error("[blog/submissions] writer service unreachable:", writerErr);
+      }
 
-      await sendApprovalEmail(submission);
+      // ── Send approval email (non-fatal) ───────────────────────────────────
+      try {
+        await sendApprovalEmail(submission);
+      } catch (emailErr) {
+        console.error("[blog/submissions] approval email failed:", emailErr);
+      }
     } else {
-      await sendRejectionEmail(submission, adminNotes);
+      // ── Send rejection email (non-fatal) ──────────────────────────────────
+      try {
+        await sendRejectionEmail(submission, adminNotes);
+      } catch (emailErr) {
+        console.error("[blog/submissions] rejection email failed:", emailErr);
+      }
     }
 
     all[index] = submission;
-    await saveAll(all);
+    await writeSubmissions(all);
 
     return NextResponse.json({ success: true, submission });
   } catch (err) {

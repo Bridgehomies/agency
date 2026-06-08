@@ -78,7 +78,7 @@ const NICHES = [
   { label: "Lead Gen & Outreach", desc: "Growth tooling for the software industry" },
 ];
 
-// Guest post guidelines — rendered as semantic <ul> for crawlers
+// Guest post guidelines rendered as semantic <ul> for crawlers
 const WE_PUBLISH = [
   "Technical how-tos and architecture breakdowns",
   "Case studies with real metrics and outcomes",
@@ -92,11 +92,11 @@ const WE_DONT = [
   "Articles under 800 words",
 ];
 
-// FAQ data — rendered as semantic <dl> for crawlers (mirrors JSON-LD)
+// FAQ data rendered as semantic <dl> for crawlers (mirrors JSON-LD)
 const FAQ_ITEMS = [
   {
     q: "Is it free to write for Bridge Homies?",
-    a: "Yes — submitting a guest post is completely free. No fees, ever.",
+    a: "Yes submitting a guest post is completely free. No fees, ever.",
   },
   {
     q: "Do I get a dofollow backlink?",
@@ -116,7 +116,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Will I get an author profile?",
-    a: "Yes — every published contributor gets a permanent author profile page with their bio and backlinks.",
+    a: "Yes every published contributor gets a permanent author profile page with their bio and backlinks.",
   },
 ];
 
@@ -419,7 +419,7 @@ function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v
     <div style={{ display: "grid", gap: "20px", gridTemplateColumns: "1fr 1fr" }}>
       <div style={{ gridColumn: "1/-1" }}>
         <div className="bh-notice bh-notice-gold">
-          <strong style={{ fontWeight: 700 }}>Step 1 of 4 — Tell us about yourself</strong> — Our editorial team reviews every submission personally. A complete profile with a real bio and role increases your chances of acceptance significantly.
+          <strong style={{ fontWeight: 700 }}>Step 1 of 4 Tell us about yourself</strong> Our editorial team reviews every submission personally. A complete profile with a real bio and role increases your chances of acceptance significantly.
         </div>
       </div>
       <Field label="Full Name" required>
@@ -440,7 +440,7 @@ function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <input type="email" className={inputCls} style={{ paddingLeft: 36 }} placeholder="jane@example.com" value={form.email} onChange={(e) => update("email", e.target.value)} required />
         </div>
       </Field>
-      <Field label="Phone Number" hint="Optional — only for editorial follow-ups.">
+      <Field label="Phone Number" hint="Optional only for editorial follow-ups.">
         <div className="phone-wrap">
           <PhoneInput country="pk" value={form.phone} onChange={(v) => update("phone", v)} enableSearch searchPlaceholder="Search country…" inputProps={{ name: "phone", autoComplete: "tel" }} />
         </div>
@@ -464,11 +464,11 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div className="bh-notice bh-notice-gold">
-        <strong style={{ fontWeight: 700 }}>Your 3 dofollow backlinks</strong> — These appear in your permanent author profile on every article you publish here. For the highest SEO value, also weave them naturally into your article body in Step 3.
+        <strong style={{ fontWeight: 700 }}>Your 3 dofollow backlinks</strong> These appear in your permanent author profile on every article you publish here. For the highest SEO value, also weave them naturally into your article body in Step 3.
       </div>
       {form.backlinks.map((bl, i) => (
         <div key={i} className="bh-card">
-          <p className="bh-section-label">Link {i + 1}{i === 0 ? " — recommended" : " — optional"}</p>
+          <p className="bh-section-label">Link {i + 1}{i === 0 ? " recommended" : " optional"}</p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
             <Field label="Display Label">
               <input className={inputCls} placeholder={["My Website", "LinkedIn Profile", "Portfolio"][i]} value={bl.label} onChange={(e) => updateLink(i, "label", e.target.value)} />
@@ -484,7 +484,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
       ))}
       {filled.length > 0 && (
         <div className="bh-notice bh-notice-blue">
-          <strong style={{ fontWeight: 700 }}>Heads-up for Step 3:</strong> You have {filled.length} backlink{filled.length > 1 ? "s" : ""} queued. Contextual, in-body links rank significantly higher than footer or bio links — weave them into your article naturally.
+          <strong style={{ fontWeight: 700 }}>Heads-up for Step 3:</strong> You have {filled.length} backlink{filled.length > 1 ? "s" : ""} queued. Contextual, in-body links rank significantly higher than footer or bio links weave them into your article naturally.
         </div>
       )}
     </div>
@@ -512,7 +512,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <Link2 size={15} style={{ marginTop: 2, flexShrink: 0 }} />
           <div>
             <strong style={{ fontWeight: 700 }}>Include your backlinks in the article body</strong><br />
-            <span style={{ fontSize: 12 }}>{filled.map(bl => bl.label || bl.url).join(", ")} — embed these contextually for maximum SEO value.</span>
+            <span style={{ fontSize: 12 }}>{filled.map(bl => bl.label || bl.url).join(", ")} embed these contextually for maximum SEO value.</span>
           </div>
         </div>
       )}
@@ -523,7 +523,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           </Field>
         </div>
         <Field label="Category" required>
-          <select className={inputCls} value={form.category} onChange={(e) => update("category", e.target.value)}>
+          <select className={inputCls} aria-label="Category" value={form.category} onChange={(e) => update("category", e.target.value)}>
             {CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
           </select>
         </Field>
@@ -539,7 +539,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "'DM Sans',sans-serif" }}>
             Featured Image <span style={{ color: "#c9a84c" }}>*</span>
           </span>
-          <input ref={fileInputRef} type="file" accept="image/*" style={{ display: "none" }} onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
+          <input ref={fileInputRef} type="file" accept="image/*" style={{ display: "none" }} aria-label="Upload featured image" tabIndex={-1} onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
           {form.coverImagePreview ? (
             <div style={{ position: "relative", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(0,0,0,0.10)" }}>
               <img src={form.coverImagePreview} alt="Cover preview" style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }} />
@@ -576,7 +576,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           </p>
         </div>
         <div style={{ gridColumn: "1/-1" }}>
-          <Field label="FAQ Pairs" hint={<span>Optional — boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>Question::Answer</code></span>}>
+          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>Question::Answer</code></span>}>
             <textarea className={textareaCls} style={{ minHeight: 100 }} placeholder={"What is a custom web app?::A custom web app is tailored specifically to your business needs.\nHow long does a dashboard take?::Most take 4–12 weeks depending on complexity."} value={form.faqText} onChange={(e) => update("faqText", e.target.value)} />
           </Field>
         </div>
@@ -779,7 +779,7 @@ export default function BlogSubmitPortal() {
         <header style={{ marginBottom: 64 }}>
           {/* SEO: exact-match keyword in prominent position before H1 */}
           <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "purple", marginBottom: 14, fontFamily: "'DM Sans',sans-serif" }}>
-            Write for Us — Guest Post Submission Portal
+            Write for Us Guest Post Submission Portal
           </p>
 
           {/*
@@ -787,15 +787,15 @@ export default function BlogSubmitPortal() {
             This is the primary ranking signal on-page.
           */}
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 800, color: "#111", lineHeight: 1.12, margin: "0 0 20px", maxWidth: 620 }}>
-            Write for Us —<br />Publish on Bridge Homies
+            Write for Us<br />Publish on Bridge Homies
           </h1>
 
           <p style={{ fontSize: 14.5, lineHeight: 1.85, color: "#666", maxWidth: 560, margin: "0 0 12px" }}>
             We publish guest posts from developers, architects, product managers, and founders who build real software for real businesses.
-            Submit an article and reach thousands of readers — plus earn up to <strong style={{ color: "#555" }}>3 dofollow backlinks</strong> and a <strong style={{ color: "#555" }}>permanent author profile</strong>, free.
+            Submit an article and reach thousands of readers plus earn up to <strong style={{ color: "#555" }}>3 dofollow backlinks</strong> and a <strong style={{ color: "#555" }}>permanent author profile</strong>, free.
           </p>
           <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#888", maxWidth: 560, margin: "0 0 36px" }}>
-            We cover <strong style={{ color: "#555" }}>custom web apps</strong>, <strong style={{ color: "#555" }}>admin dashboards</strong>, <strong style={{ color: "#555" }}>automation tools</strong>, <strong style={{ color: "#555" }}>AI integrations</strong>, <strong style={{ color: "#555" }}>SaaS platforms</strong>, <strong style={{ color: "#555" }}>eCommerce systems</strong>, and software built for growing businesses — everything beyond what WordPress handles.
+            We cover <strong style={{ color: "#555" }}>custom web apps</strong>, <strong style={{ color: "#555" }}>admin dashboards</strong>, <strong style={{ color: "#555" }}>automation tools</strong>, <strong style={{ color: "#555" }}>AI integrations</strong>, <strong style={{ color: "#555" }}>SaaS platforms</strong>, <strong style={{ color: "#555" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
           </p>
 
           {/* Niche grid */}
@@ -837,7 +837,7 @@ export default function BlogSubmitPortal() {
                 Step {step} of 4
               </p>
               {/*
-                H2 inside the form — secondary heading, not competing with H1.
+                H2 inside the form secondary heading, not competing with H1.
                 Uses "write for us" adjacent copy at step 3 naturally.
               */}
               <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.85rem", fontWeight: 700, color: "#111", margin: 0 }}>
@@ -879,10 +879,10 @@ export default function BlogSubmitPortal() {
         {/* ── Guest post guidelines (semantic, crawlable) ── */}
         <section aria-labelledby="guidelines-heading" style={{ marginTop: 32, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
           <h2 id="guidelines-heading" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 10px" }}>
-            Guest Post Guidelines — Who Should Write for Us?
+            Guest Post Guidelines Who Should Write for Us?
           </h2>
           <p style={{ fontSize: 13, lineHeight: 1.8, color: "#666", margin: "0 0 20px" }}>
-            We welcome practitioners — developers, architects, product managers, and founders — who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 800 words.
+            We welcome practitioners developers, architects, product managers, and founders who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 800 words.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
@@ -907,7 +907,7 @@ export default function BlogSubmitPortal() {
         {/* ── FAQ section (semantic <dl>, mirrors JSON-LD FAQPage) ── */}
         <section aria-labelledby="faq-heading" style={{ marginTop: 24, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
           <h2 id="faq-heading" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 20px" }}>
-            Frequently Asked Questions — Write for Us
+            Frequently Asked Questions Write for Us
           </h2>
           <dl style={{ margin: 0 }}>
             {FAQ_ITEMS.map(({ q, a }, i) => (

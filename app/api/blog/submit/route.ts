@@ -1,7 +1,7 @@
 // File: app/api/blog/submit/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { writeFile, mkdir, readFile, access } from "fs/promises";
-import path from "path";
+import { put } from "@vercel/blob";
+import { kv } from "@vercel/kv";
 import { sendSubmissionNotification } from "@/lib/email";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -10,14 +10,12 @@ export type GuestSubmission = {
   id: string;
   submittedAt: string;
   status: "pending" | "approved" | "rejected";
-  // Author info
   name: string;
   email: string;
   phone: string;
   occupation: string;
   bio: string;
   backlinks: { label: string; url: string }[];
-  // Article
   title: string;
   slug: string;
   category: string;
@@ -25,9 +23,11 @@ export type GuestSubmission = {
   tags: string[];
   content: string;
   faqText: string;
-  coverImagePath: string; // relative to /public
+  coverImagePath: string;
   adminNotes?: string;
 };
+
+const KV_KEY = "blog:submissions";
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -41,22 +41,17 @@ function slugify(text: string) {
     .slice(0, 80);
 }
 
-async function readSubmissions(): Promise<GuestSubmission[]> {
-  const filePath = path.join(process.cwd(), "data", "submissions.json");
+export async function readSubmissions(): Promise<GuestSubmission[]> {
   try {
-    await access(filePath);
-    const raw = await readFile(filePath, "utf-8");
-    return JSON.parse(raw);
+    const data = await kv.get<GuestSubmission[]>(KV_KEY);
+    return data ?? [];
   } catch {
     return [];
   }
 }
 
-async function writeSubmissions(submissions: GuestSubmission[]) {
-  const dir = path.join(process.cwd(), "data");
-  await mkdir(dir, { recursive: true });
-  const filePath = path.join(dir, "submissions.json");
-  await writeFile(filePath, JSON.stringify(submissions, null, 2), "utf-8");
+export async function writeSubmissions(submissions: GuestSubmission[]) {
+  await kv.set(KV_KEY, submissions);
 }
 
 // ─── POST /api/blog/submit ────────────────────────────────────────────────────
@@ -65,36 +60,37 @@ export async function POST(req: NextRequest) {
   try {
     const formData = await req.formData();
 
-    const name = formData.get("name")?.toString() ?? "";
-    const email = formData.get("email")?.toString() ?? "";
-    const phone = formData.get("phone")?.toString() ?? "";
-    const occupation = formData.get("occupation")?.toString() ?? "";
-    const bio = formData.get("bio")?.toString() ?? "";
+    const name        = formData.get("name")?.toString() ?? "";
+    const email       = formData.get("email")?.toString() ?? "";
+    const phone       = formData.get("phone")?.toString() ?? "";
+    const occupation  = formData.get("occupation")?.toString() ?? "";
+    const bio         = formData.get("bio")?.toString() ?? "";
     const backlinksRaw = formData.get("backlinks")?.toString() ?? "[]";
-    const title = formData.get("title")?.toString() ?? "";
-    const category = formData.get("category")?.toString() ?? "";
-    const excerpt = formData.get("excerpt")?.toString() ?? "";
-    const tags = formData.get("tags")?.toString() ?? "";
-    const content = formData.get("content")?.toString() ?? "";
-    const faqText = formData.get("faqText")?.toString() ?? "";
-    const imageFile = formData.get("coverImage") as File | null;
+    const title       = formData.get("title")?.toString() ?? "";
+    const category    = formData.get("category")?.toString() ?? "";
+    const excerpt     = formData.get("excerpt")?.toString() ?? "";
+    const tags        = formData.get("tags")?.toString() ?? "";
+    const content     = formData.get("content")?.toString() ?? "";
+    const faqText     = formData.get("faqText")?.toString() ?? "";
+    const imageFile   = formData.get("coverImage") as File | null;
 
-    // Basic validation
     if (!name || !email || !title || !excerpt || !content) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
 
-    // ── Save cover image to /public/uploads/submissions/ ──────────────────
+    // ── Upload cover image to Vercel Blob ─────────────────────────────────
     let coverImagePath = "";
     if (imageFile && imageFile.size > 0) {
-      const uploadDir = path.join(process.cwd(), "public", "uploads", "submissions");
-      await mkdir(uploadDir, { recursive: true });
+      const ext      = imageFile.name.split(".").pop() ?? "jpg";
+      const safeName = `submissions/${slugify(title)}-${Date.now()}.${ext}`;
+      const buffer   = Buffer.from(await imageFile.arrayBuffer());
 
-      const ext = imageFile.name.split(".").pop() ?? "jpg";
-      const safeName = `${slugify(title)}-${Date.now()}.${ext}`;
-      const buffer = Buffer.from(await imageFile.arrayBuffer());
-      await writeFile(path.join(uploadDir, safeName), buffer);
-      coverImagePath = `/uploads/submissions/${safeName}`;
+      const blob = await put(safeName, buffer, {
+        access: "public",
+        contentType: imageFile.type || `image/${ext}`,
+      });
+
+      coverImagePath = blob.url;
     }
 
     // ── Build submission record ────────────────────────────────────────────
@@ -119,13 +115,17 @@ export async function POST(req: NextRequest) {
       coverImagePath,
     };
 
-    // ── Persist to data/submissions.json ──────────────────────────────────
+    // ── Persist to Vercel KV ──────────────────────────────────────────────
     const existing = await readSubmissions();
     existing.push(submission);
     await writeSubmissions(existing);
 
-    // ── Notify admin via email ────────────────────────────────────────────
-    await sendSubmissionNotification(submission);
+    // ── Notify admin via email (non-fatal) ────────────────────────────────
+    try {
+      await sendSubmissionNotification(submission);
+    } catch (emailErr) {
+      console.error("[blog/submit] email notification failed:", emailErr);
+    }
 
     return NextResponse.json({ success: true, id });
   } catch (err) {
