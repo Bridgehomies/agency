@@ -5,16 +5,16 @@ import BlogsExperience from "@/components/BlogsExperience";
 import { getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
 
 export const metadata: Metadata = {
-  title: "Blog",
+  title: "Blog | SaaS, Web Dev, AI & Automation Insights — Bridge Homies",
   description:
-    "Bridge Homies editorial archive for AI, software development, automation, SEO, and digital growth insights.",
+    "The Bridge Homies editorial archive. In-depth articles on SaaS development, custom web apps, AI integrations, automation, and software engineering for founders and developers.",
   alternates: {
     canonical: "https://bridgehomies.com/blog",
   },
   openGraph: {
-    title: "Bridge Homies Blog",
+    title: "Bridge Homies Blog | SaaS, Web Dev & AI Insights",
     description:
-      "A searchable archive of articles on AI, engineering, automation, SEO, and growth.",
+      "A searchable archive of practical articles on SaaS, AI engineering, automation, web development, and software growth. Written for builders and founders.",
     url: "https://bridgehomies.com/blog",
     type: "website",
   },
