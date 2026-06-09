@@ -8,7 +8,7 @@ import rehypeHighlight from "rehype-highlight";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ArticleViewClient from "@/components/ArticleViewClient";
-import { getAllBlogs, getBlogBySlug } from "@/lib/blog";
+import { getAllBlogs, getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
 
 function escapeInline(value: string) {
   return value.replace(/\n/g, " ").trim();
@@ -36,50 +36,28 @@ function renderJsonBlock(block: Record<string, unknown>) {
     const level = Math.min(6, Math.max(1, Number(block.level || 2)));
     return `${"#".repeat(level)} ${escapeInline(String(block.text || ""))}`;
   }
-
-  if (type === "paragraph") {
-    return String(block.text || "");
-  }
-
+  if (type === "paragraph") return String(block.text || "");
   if (type === "list") {
     const ordered = Boolean(block.ordered);
     return toStringArray(block.items)
       .map((item, index) => `${ordered ? `${index + 1}.` : "-"} ${escapeInline(item)}`)
       .join("\n");
   }
-
-  if (type === "quote") {
-    return `> ${String(block.text || "").split("\n").join("\n> ")}`;
-  }
-
-  if (type === "code") {
-    return `\`\`\`${String(block.language || "")}\n${String(block.code || "")}\n\`\`\``;
-  }
-
-  if (type === "html") {
-    return String(block.html || "");
-  }
-
-  if (type === "markdown") {
-    return String(block.value || "");
-  }
-
+  if (type === "quote") return `> ${String(block.text || "").split("\n").join("\n> ")}`;
+  if (type === "code") return `\`\`\`${String(block.language || "")}\n${String(block.code || "")}\n\`\`\``;
+  if (type === "html") return String(block.html || "");
+  if (type === "markdown") return String(block.value || "");
   return typeof block.text === "string" ? block.text : "";
 }
 
 function normalizeBlogContent(raw: string) {
   const source = raw.trim();
   if (!source) return "";
-
-  if (!(source.startsWith("{") || source.startsWith("["))) {
-    return raw;
-  }
-
+  if (!(source.startsWith("{") || source.startsWith("["))) return raw;
   try {
     const parsed = JSON.parse(source);
     const blocks = extractBlocks(parsed);
     if (blocks.length === 0) return raw;
-
     return blocks
       .map((block) => renderJsonBlock((block || {}) as Record<string, unknown>))
       .filter(Boolean)
@@ -89,21 +67,36 @@ function normalizeBlogContent(raw: string) {
   }
 }
 
+// ─── Static params: MDX files + approved KV submissions ───────────────────────
+
 export async function generateStaticParams() {
-  return getAllBlogs().map((blog) => ({
-    slug: blog.slug,
-  }));
+  const [mdxSlugs, kvPosts] = await Promise.all([
+    Promise.resolve(getAllBlogs().map((blog) => ({ slug: blog.slug }))),
+    // getPublishedBlogs() returns merged MDX + KV — dedupe by slug
+    import("@/lib/blog").then((m) =>
+      m.getPublishedBlogs().then((posts) => posts.map((p) => ({ slug: p.slug })))
+    ),
+  ]);
+
+  const seen = new Set<string>();
+  return [...mdxSlugs, ...kvPosts].filter(({ slug }) => {
+    if (seen.has(slug)) return false;
+    seen.add(slug);
+    return true;
+  });
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+// ─── Metadata ─────────────────────────────────────────────────────────────────
 
-  if (!blog) {
-    return {
-      title: "Post Not Found | Bridge Homies",
-    };
-  }
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const blog = await getPublishedBlogByIdentifier(slug);
+
+  if (!blog) return { title: "Post Not Found | Bridge Homies" };
 
   const siteUrl = "https://bridgehomies.com";
   const url = `${siteUrl}/blog/${blog.slug}`;
@@ -122,14 +115,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       publishedTime: blog.date,
       authors: [blog.author],
       tags: blog.tags,
-      images: blog.coverImage
-        ? [
-            {
-              url: blog.coverImage,
-              alt: title,
-            },
-          ]
-        : undefined,
+      images: blog.coverImage ? [{ url: blog.coverImage, alt: title }] : undefined,
     },
     twitter: {
       card: "summary_large_image",
@@ -137,22 +123,44 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       description,
       images: blog.coverImage ? [blog.coverImage] : undefined,
     },
-    alternates: {
-      canonical: url,
-    },
+    alternates: { canonical: url },
   };
 }
 
-export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const blog = getBlogBySlug(slug);
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
-  if (!blog) {
-    notFound();
-  }
+export default async function BlogPostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+
+  // getPublishedBlogByIdentifier checks KV first, then MDX
+  const blog = await getPublishedBlogByIdentifier(slug);
+
+  if (!blog) notFound();
+
+  // Guest submissions store HTML from the rich editor.
+  // MDX files store markdown. normalizeBlogContent handles both.
+  const rawContent = normalizeBlogContent(blog.content);
+
+  // If the content looks like HTML (from the rich editor), sanitize it so
+  // compileMDX doesn't choke on unclosed HTML void tags.
+  const isHtml =
+    rawContent.trim().startsWith("<") ||
+    /<(p|h[1-6]|ul|ol|li|blockquote|pre|strong|em|a)\b/i.test(rawContent);
+
+  const mdxSource = isHtml
+    ? rawContent
+      // Convert unclosed HTML void elements to JSX-compliant self-closing tags
+      .replace(/<br\s*>/gi, "<br />")
+      .replace(/<hr\s*>/gi, "<hr />")
+      .replace(/<img([^>]+[^\/])>/gi, "<img$1 />") 
+    : rawContent;
 
   const { content } = await compileMDX({
-    source: normalizeBlogContent(blog.content),
+    source: mdxSource,
     options: {
       mdxOptions: {
         remarkPlugins: [remarkGfm],
@@ -161,12 +169,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           [rehypeAutolinkHeadings, { behavior: "append" }],
           rehypeHighlight,
         ],
+        format: isHtml ? "mdx" : "mdx",
       },
     },
   });
 
-  const relatedPosts = getAllBlogs()
-    .filter((post) => post.published && post.slug !== blog.slug && post.tags.some((tag) => blog.tags.includes(tag)))
+  // Related posts: merge MDX + KV, filter by shared tags
+  const allPosts = await getPublishedBlogs();
+  const relatedPosts = allPosts
+    .filter(
+      (post) =>
+        post.slug !== blog.slug &&
+        post.tags.some((tag) => blog.tags.includes(tag))
+    )
     .slice(0, 2);
 
   const articleJsonLd = {
@@ -199,17 +214,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const faqJsonLd =
     blog.faq && blog.faq.length > 0
       ? {
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: blog.faq.map((item) => ({
-            "@type": "Question",
-            name: item.question,
-            acceptedAnswer: {
-              "@type": "Answer",
-              text: item.answer,
-            },
-          })),
-        }
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: blog.faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
       : null;
 
   return (
@@ -219,14 +231,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
-      {faqJsonLd ? (
+      {faqJsonLd && (
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
-      ) : null}
+      )}
       <ArticleViewClient post={blog} relatedPosts={relatedPosts} content={content} />
       <Footer />
     </>
   );
-}
+} 
