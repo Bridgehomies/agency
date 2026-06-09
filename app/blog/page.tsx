@@ -5,15 +5,11 @@ import Script from "next/script";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import BlogsExperience from "@/components/BlogsExperience";
-import { getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
+import { getPublishedBlogs } from "@/lib/blog";
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  // FIX 1: No "— Bridge Homies" suffix here — your root layout.tsx
-  // template appends it. Previously this would render as
-  // "Blog | SaaS... — Bridge Homies | Bridge Homies" if template is active.
-  // If you do NOT have a title template in layout.tsx, restore the suffix.
   title: "SaaS, Web Dev & AI Engineering Blog — Bridge Homies",
   description:
     "In-depth articles on SaaS development, custom web apps, AI integrations, automation, and software engineering. Written by practitioners for founders and developers.",
@@ -94,9 +90,6 @@ function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date
             { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://bridgehomies.com/blog" },
           ],
         },
-        // FIX 2: Surface the article list to Googlebot via structured data.
-        // Even if the grid is client-rendered, the schema gives Google
-        // a deterministic signal about what this page contains.
         "hasPart": posts.slice(0, 12).map((post) => ({
           "@type": "Article",
           "url": `https://bridgehomies.com/blog/${post.slug}`,
@@ -111,15 +104,11 @@ function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date
 
 // ─── Page ────────────────────────────────────────────────────────────────────
 
-export default function BlogPage() {
-  const posts = getPublishedBlogs()
-    .map((post) => getPublishedBlogByIdentifier(post.slug))
-    .filter((post): post is NonNullable<typeof post> => Boolean(post));
+export default async function BlogPage() {
+  const posts = await getPublishedBlogs();
 
   return (
     <>
-      {/* FIX 3: JSON-LD injected server-side, before the client component hydrates.
-          Googlebot sees this on first render regardless of JS execution. */}
       <Script
         id="blog-index-schema"
         type="application/ld+json"
@@ -129,15 +118,6 @@ export default function BlogPage() {
 
       <Navbar />
 
-      {/* FIX 4: posts is passed as a prop from this Server Component,
-          which means Next.js serialises the array into the HTML payload.
-          BlogsExperience receives fully-populated posts on first render —
-          Googlebot does NOT need to execute any fetch to see the content.
-          
-          If posts.length === 0 here, your CMS/MDX source isn't being read
-          at build time. Check that getPublishedBlogs() works without a
-          runtime fetch (file-system reads are fine; API calls are not
-          unless you're using SSR with proper caching). */}
       <BlogsExperience posts={posts} />
 
       <Footer />
