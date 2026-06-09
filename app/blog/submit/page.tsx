@@ -1,3 +1,5 @@
+// app/blog/submit/page.tsx
+
 import type { Metadata } from "next";
 import Script from "next/script";
 import Navbar from "@/components/navbar";
@@ -5,9 +7,12 @@ import Footer from "@/components/footer";
 import BlogSubmitPortal from "@/components/BlogSubmitPortal";
 
 // ─── Metadata ────────────────────────────────────────────────────────────────
+// FIX: removed "— Bridge Homies" from every title string.
+// Your root layout.tsx template appends it automatically.
+// Old title rendered as: "Write for Us | ... — Bridge Homies | Bridge Homies"
 
 export const metadata: Metadata = {
-  title: "Write for Us | SaaS, Web Dev & AI Guest Posts — Bridge Homies",
+  title: "Write for Us | SaaS, Web Dev & AI Guest Posts",
   description:
     "Write for us at Bridge Homies. We accept guest posts on SaaS, web development, AI, and software automation. Earn dofollow backlinks and a permanent author profile published in front of thousands of developers and founders.",
   authors: [{ name: "Bridge Homies Editorial Team" }],
@@ -29,7 +34,7 @@ export const metadata: Metadata = {
     canonical: "https://bridgehomies.com/blog/submit",
   },
   openGraph: {
-    title: "Write for Us | SaaS & Web Dev Guest Post — Bridge Homies",
+    title: "Write for Us | SaaS & Web Dev Guest Post",
     description:
       "Submit a guest post on SaaS, web development, AI integrations, or software automation. Write for us and earn dofollow backlinks plus a permanent author profile on Bridge Homies.",
     url: "https://bridgehomies.com/blog/submit",
@@ -47,7 +52,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Write for Us | SaaS & Web Dev Guest Post — Bridge Homies",
+    title: "Write for Us | SaaS & Web Dev Guest Post",
     description:
       "Write for us on SaaS, web development, AI, or automation. Earn dofollow backlinks and reach thousands of developers and founders.",
     images: ["https://bridgehomies.com/og/write-for-us.jpg"],
@@ -56,7 +61,9 @@ export const metadata: Metadata = {
   },
 };
 
-// ─── JSON-LD Structured Data ─────────────────────────────────────────────────
+// ─── JSON-LD ──────────────────────────────────────────────────────────────────
+// FAQPage entries mirror the FAQ_ITEMS array in BlogSubmitPortal.tsx exactly.
+// Keep these in sync if you add or edit FAQ items in the component.
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -67,7 +74,7 @@ const jsonLd = {
       "url": "https://bridgehomies.com/blog/submit",
       "name": "Write for Us | SaaS, Web Dev & AI Guest Post — Bridge Homies",
       "description":
-        "Bridge Homies accepts guest posts and contributed articles on SaaS products, web development, AI engineering, software automation, and startup growth. Write for us to earn dofollow backlinks and reach a developer and founder audience.",
+        "Bridge Homies accepts guest posts on SaaS, web development, AI engineering, software automation, and startup growth. Write for us to earn dofollow backlinks and reach a developer and founder audience.",
       "inLanguage": "en-US",
       "isPartOf": {
         "@type": "WebSite",
@@ -106,11 +113,34 @@ const jsonLd = {
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Can I write for you about SaaS products or SaaS development?",
+          "name": "Is it free to write for Bridge Homies?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text":
-              "Yes — SaaS is one of our primary topic areas. We accept guest posts covering SaaS architecture, SaaS onboarding, pricing strategies, SaaS growth, churn reduction, and building SaaS products with modern stacks. If you have real experience shipping or growing a SaaS product, we want to hear from you.",
+            "text": "Yes, submitting a guest post is completely free. No fees, ever.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "Do I get a dofollow backlink?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every accepted article includes up to 3 dofollow backlinks in your author profile, plus natural in-body links.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "What is the minimum word count?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "800 words minimum. We recommend 1,200–2,500 words for best editorial and SEO performance.",
+          },
+        },
+        {
+          "@type": "Question",
+          "name": "How long does review take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Our editorial team responds within 3–5 business days.",
           },
         },
         {
@@ -118,26 +148,15 @@ const jsonLd = {
           "name": "What topics can I write about?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text":
-              "We accept guest posts on SaaS, web development, AI and machine learning engineering, automation, custom software development, admin dashboards, APIs, DevOps, startup product strategy, and related technology topics. Practical, experience-backed articles perform best on our platform.",
+            "text": "Custom web apps, admin dashboards, SaaS, AI/ML integrations, automation, eCommerce, billing systems, lead generation, SEO, and software case studies.",
           },
         },
         {
           "@type": "Question",
-          "name": "Do you provide dofollow backlinks for guest posts?",
+          "name": "Will I get an author profile?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text":
-              "Yes. Approved guest posts can include relevant dofollow backlinks to the author's website, SaaS product, or portfolio. Links must be contextually relevant and editorially appropriate.",
-          },
-        },
-        {
-          "@type": "Question",
-          "name": "How long does the review process take?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text":
-              "Most submissions are reviewed within a few business days depending on editorial workload and content quality. SaaS and AI articles with strong practical depth are typically prioritized.",
+            "text": "Yes, every published contributor gets a permanent author profile page with their bio and backlinks.",
           },
         },
         {
@@ -145,8 +164,7 @@ const jsonLd = {
           "name": "Can I submit an article about my SaaS startup or product?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text":
-              "Yes, as long as the article delivers genuine value to readers rather than reading as a press release or advertisement. We accept case studies, technical breakdowns, and growth stories from SaaS founders — the content must be informative first.",
+            "text": "Yes, as long as the article delivers genuine value rather than reading as a press release. Case studies, technical breakdowns, and growth stories from SaaS founders are welcome — the content must be informative first.",
           },
         },
         {
@@ -154,8 +172,7 @@ const jsonLd = {
           "name": "Can I submit AI or machine learning content?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text":
-              "Yes. We accept high-quality articles about AI engineering, LLMs, automation workflows, machine learning integration in products, and AI-powered SaaS applications.",
+            "text": "Yes. We accept high-quality articles about AI engineering, LLMs, automation workflows, machine learning integration in products, and AI-powered SaaS applications.",
           },
         },
       ],
@@ -163,7 +180,7 @@ const jsonLd = {
   ],
 };
 
-// ─── Page ────────────────────────────────────────────────────────────────────
+// ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function WriteForUsPage() {
   return (

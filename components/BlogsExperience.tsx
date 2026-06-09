@@ -47,7 +47,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
   return (
     <div className="min-h-screen bg-[#080C01] text-[#f0ece4]">
 
-      {/* ── HERO — LIGHT ── */}
+      {/* ── HERO  LIGHT ── */}
       <section className="relative pt-20 overflow-hidden bg-[#f7f3fe] text-[#111]">
         {/* Decorative circle */}
         <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-violet-600" />
@@ -67,7 +67,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           </h1>
 
           <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-[#5a5040]">
-            We publish technical guest posts from developers, architects, and founders —
+            We publish technical guest posts from developers, architects, and founders 
             on AI, SaaS, automation, eCommerce, and custom software. Every accepted
             article earns you up to 3 dofollow backlinks and a permanent author profile.
           </p>
@@ -112,7 +112,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </div>
       </section>
 
-      {/* ── WRITE FOR US CALLOUT STRIP — DARK ── */}
+      {/* ── WRITE FOR US CALLOUT STRIP  DARK ── */}
       <div id="guidelines" className="bg-[#131121] border-b border-[#1e1e2e]">
         <div className="mx-auto max-w-6xl px-6 py-10 grid gap-6 md:grid-cols-2">
           <div>
@@ -150,7 +150,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </div>
       </div>
 
-      {/* ── SEARCH + FILTER — DARK ── */}
+      {/* ── SEARCH + FILTER  DARK ── */}
       <div className="mx-auto max-w-6xl px-6 pt-10">
         {/* Search */}
         <label className="relative block max-w-md">
@@ -191,7 +191,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               <PenLine className="h-4 w-4 text-violet-300" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us — Submit a Guest Post</p>
+              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us  Submit a Guest Post</p>
               <p className="text-[12px] text-[#666]">Share your expertise · earn 3 dofollow backlinks · get a permanent author profile</p>
             </div>
           </div>
@@ -201,7 +201,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </Link>
       </div>
 
-      {/* ── GRID — DARK ── */}
+      {/* ── GRID  DARK ── */}
       <section className="mx-auto max-w-6xl px-6 py-10 pb-24">
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-[#2e2e2e] bg-[#141414] px-8 py-24 text-center">
@@ -315,7 +315,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               className="inline-flex items-center gap-2 rounded-full bg-violet-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-600"
             >
               <PenLine className="h-4 w-4" />
-              Submit a guest post — it's free
+              Submit a guest post  it's free
             </Link>
             <a
               href="#guidelines"
