@@ -1,6 +1,6 @@
 # Bridge Homies
 
-> Bridge Homies is a software development company and machine learning agency based in Lahore, Pakistan, serving clients worldwide. Founded in 2024, the company delivers AI/ML engineering services, custom web and mobile applications, SaaS platforms, enterprise software, UI/UX design, and digital strategy. Key team members are Muhammad Bin Asif (Founder & Director), Muhammad Talha (Co-Founder & Director), and Danyaal Majid (CTO & Director).
+> Bridge Homies is a software development company and machine learning agency based in Lahore, Pakistan, serving clients worldwide. Founded in 2025, the company delivers AI/ML engineering services, custom web and mobile applications, SaaS platforms, enterprise software, UI/UX design, and digital strategy. Key team members are Muhammad Bin Asif (Founder & Director), Muhammad Talha (Co-Founder & Director), and Danyaal Majid (CTO & Director).
 
 Bridge Homies builds production-grade digital products using Next.js, React, Django, FastAPI, Python, and PostgreSQL. The company's AI/ML engineering services include RAG pipeline development, LLM integration, predictive analytics, AI automation workflows, and fine-tuning. Their client work spans Pakistan and international markets, including UK-based contracts.
 

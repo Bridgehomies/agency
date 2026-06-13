@@ -25,7 +25,7 @@ export const StatsCounter: React.FC = () => {
     animateCounter("counter-projects", 30, "+");
     animateCounter("counter-feedback", 97, "%");
     animateCounter("counter-team", 3, "+");
-    animateCounter("counter-launched", 2024, "");
+    animateCounter("counter-launched", 2025, "");
   }, []);
 
   return (

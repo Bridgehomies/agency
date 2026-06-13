@@ -14,7 +14,7 @@ const PROJECTS = [
     subtitle: "Ecommerce — Fashion & Lifestyle",
     category: "WEB",
     image: "/work/nb.png",
-    year: "2024",
+    year: "2025",
     color: "#7C3AED",
     bg: "#F5F0FF",
     longDescription: "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
@@ -27,7 +27,7 @@ const PROJECTS = [
     subtitle: "FBR Invoicing Software",
     category: "WEB",
     image: "/work/aierpify.png",
-    year: "2024",
+    year: "2025",
     color: "#6D28D9",
     bg: "#EDE9FE",
     longDescription: "Digital invoicing software designed to streamline billing for businesses. Invoice creation, payment tracking, and financial reporting—all FBR compliant.",
@@ -79,7 +79,7 @@ const PROJECTS = [
     subtitle: "Social Media Engine",
     category: "WEB",
     image: "/work/fb.png",
-    year: "2024",
+    year: "2025",
     color: "#9333EA",
     bg: "#FAF5FF",
     longDescription: "Comprehensive automation tool for Facebook posts, comments, and messages—streamlining social media management and amplifying engagement.",
@@ -92,7 +92,7 @@ const PROJECTS = [
     subtitle: "AI Loan Matchmaking",
     category: "WEB",
     image: "/work/fin.webp",
-    year: "2024",
+    year: "2025",
     color: "#6D28D9",
     bg: "#EDE9FE",
     longDescription: "Enterprise loan-matching platform connecting borrowers with optimal lenders via AI algorithms. Manages client networks, deal tracking, and financial reporting.",
@@ -805,4 +805,4 @@ export default function WorkSection() {
       </AnimatePresence>
     </section>
   );
-}
+} 

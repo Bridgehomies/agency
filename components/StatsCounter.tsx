@@ -5,9 +5,9 @@ import { useEffect } from "react";
 // KEYWORD: "ml model engineering services" — "ML Models Engineered" stat label
 const STATS = [
   { id: "counter-projects", label: "ML Models Engineered", end: 15, suffix: "+" },
-  { id: "counter-feedback", label: "Client Satisfaction",  end: 98, suffix: "%" },
-  { id: "counter-team",     label: "ML Engineers",         end: 12, suffix: "+" },
-  { id: "counter-launched", label: "Founded",              end: 2024, suffix: "" },
+  { id: "counter-feedback", label: "Client Satisfaction", end: 98, suffix: "%" },
+  { id: "counter-team", label: "ML Engineers", end: 12, suffix: "+" },
+  { id: "counter-launched", label: "Founded", end: 2025, suffix: "" },
 ] as const;
 
 function animateCounter(
@@ -59,4 +59,4 @@ export default function StatsCounter() {
       </div>
     </div>
   );
-}
+} 

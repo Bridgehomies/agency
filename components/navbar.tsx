@@ -177,7 +177,7 @@ export default function Navbar() {
                   Bridge Homies Studio
                 </span>
                 <span className="text-[10px] tracking-[0.1em] uppercase text-black/50">
-                  Lahore, Pakistan — Est. 2024
+                  Lahore, Pakistan — Est. 2025
                 </span>
               </motion.div>
             </div>
@@ -251,4 +251,4 @@ export default function Navbar() {
       </AnimatePresence>
     </>
   );
-}
+} 

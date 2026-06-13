@@ -151,7 +151,7 @@ export default function Footer() {
             </div>
           </div>
           <p className="mt-6 text-[11px] text-white/18 font-mono tracking-[0.5px]">
-            Lahore, Pakistan — Since 2024
+            Lahore, Pakistan — Since 2025
           </p>
         </div>
 
@@ -237,4 +237,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-}
+} 

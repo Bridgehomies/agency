@@ -246,7 +246,7 @@
 //             <span className="text-gray-300">—</span>
 //             <span>Lahore, PK</span>
 //             <span className="text-gray-300">—</span>
-//             <span className="text-green-600">Est. 2024</span>
+//             <span className="text-green-600">Est. 2025</span>
 //           </div>
 //           <div className="flex-1 h-px bg-gray-200" />
 //           <div className="font-mono text-[10px] text-gray-400">v2.0.0</div>
@@ -565,4 +565,4 @@ export default function HeroSectionSpatial() {
       </div>
     </section>
   );
-}
+} 

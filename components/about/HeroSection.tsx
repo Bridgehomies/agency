@@ -20,7 +20,7 @@ export default function HeroSection() {
             <div className="bg-white rounded-full w-3/4 h-3/4 flex items-center justify-center shadow-xl hover-scale">
               <div className="text-center p-6">
                 <span className="text-4xl md:text-5xl font-playfair font-bold text-blue-600">Since</span>
-                <span className="block text-6xl md:text-7xl font-playfair font-bold text-purple-600">2024</span>
+                <span className="block text-6xl md:text-7xl font-playfair font-bold text-purple-600">2025</span>
               </div>
             </div>
           </div>
@@ -28,4 +28,4 @@ export default function HeroSection() {
       </div>
     </section>
   );
-}
+} 

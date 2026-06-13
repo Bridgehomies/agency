@@ -142,7 +142,7 @@ const schema = {
       "@id": "https://bridgehomies.com/#organization",
       name: "Bridge Homies",
       url: "https://bridgehomies.com",
-      foundingDate: "2024",
+      foundingDate: "2025",
       description:
         "Bridge Homies is a software development and AI/ML engineering agency based in Lahore, Pakistan, delivering production-ready ML model engineering services and custom AI systems for enterprise clients worldwide.",
       address: {
@@ -481,7 +481,7 @@ export default function AiMlPage() {
               <p className="text-gray-500 font-medium">
                 Bespoke{" "}
                 <strong className="text-gray-900">custom ML engineering services</strong>{" "}
-                 from{" "}
+                from{" "}
                 <strong className="text-gray-900">RAG pipeline development</strong>{" "}
                 to full{" "}
                 <strong className="text-gray-900">machine learning model deployment</strong>{" "}
@@ -535,7 +535,7 @@ export default function AiMlPage() {
                   Many can run a Python script; few can deploy it securely at scale.
                   As an{" "}
                   <strong className="text-white">AI ML development company</strong>{" "}
-                  founded in Lahore in 2024, we deliver{" "}
+                  founded in Lahore in 2025, we deliver{" "}
                   <strong className="text-white">production-ready ML engineering services</strong>{" "}
                   to enterprise clients worldwide. Our{" "}
                   <strong className="text-white">engineering services for AI and ML integration</strong>{" "}
@@ -715,4 +715,4 @@ export default function AiMlPage() {
       <Footer />
     </main>
   );
-}
+} 

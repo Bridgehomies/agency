@@ -26,7 +26,7 @@ const StatsCounter: React.FC = () => {
     animateCounter("counter-projects", 15, "+");
     animateCounter("counter-feedback", 97, "%");
     animateCounter("counter-team", 12, "+");
-    animateCounter("counter-launched", 2024, "");
+    animateCounter("counter-launched", 2025, "");
   }, []);
 
   return (
@@ -347,4 +347,4 @@ export default function MobilePage() {
       <Footer />
     </main>
   );
-}
+} 

@@ -12,7 +12,7 @@ const allBlogs = [
     excerpt: "Discover how AI is revolutionizing the way we build modern web applications and what it means for developers",
     author: "Alex Rivera",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Alex",
-    date: "2024-11-18",
+    date: "2025-11-18",
     readTime: "8 min",
     category: "AI & Development",
     tags: ["AI", "Web Development", "Future Tech"],
@@ -87,7 +87,7 @@ const allBlogs = [
     excerpt: "Master advanced optimization techniques to make your Next.js applications lightning fast",
     author: "Sarah Chen",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    date: "2024-11-15",
+    date: "2025-11-15",
     readTime: "12 min",
     category: "Performance",
     tags: ["Next.js", "Performance", "Optimization"],
@@ -102,7 +102,7 @@ const allBlogs = [
     excerpt: "Learn how to create and maintain design systems that grow with your organization",
     author: "Marcus Johnson",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-    date: "2024-11-12",
+    date: "2025-11-12",
     readTime: "10 min",
     category: "Design",
     tags: ["Design Systems", "UI/UX", "Scalability"],
@@ -117,7 +117,7 @@ const allBlogs = [
     excerpt: "Advanced TypeScript patterns and techniques for building robust applications",
     author: "Emma Wilson",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emma",
-    date: "2024-11-10",
+    date: "2025-11-10",
     readTime: "15 min",
     category: "Development",
     tags: ["TypeScript", "Patterns", "Best Practices"],
@@ -128,11 +128,11 @@ const allBlogs = [
   {
     id: 5,
     slug: "serverless-architecture-guide",
-    title: "Serverless Architecture: Complete Guide for 2024",
+    title: "Serverless Architecture: Complete Guide for 2025",
     excerpt: "Everything you need to know about building serverless applications in the modern era",
     author: "David Park",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-    date: "2024-11-08",
+    date: "2025-11-08",
     readTime: "14 min",
     category: "Architecture",
     tags: ["Serverless", "Cloud", "Architecture"],
@@ -147,7 +147,7 @@ const allBlogs = [
     excerpt: "Essential security practices every API developer needs to implement today",
     author: "Nina Patel",
     authorImage: "https://api.dicebear.com/7.x/avataaars/svg?seed=Nina",
-    date: "2024-11-05",
+    date: "2025-11-05",
     readTime: "11 min",
     category: "Security",
     tags: ["Security", "API", "Best Practices"],
@@ -175,14 +175,14 @@ export default function BlogSystem() {
   const filteredBlogs = allBlogs.filter(blog => {
     const matchesCategory = selectedCategory === 'All' || blog.category === selectedCategory;
     const matchesSearch = blog.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
+      blog.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
   const featuredBlogs = allBlogs.filter(blog => blog.featured);
   const relatedBlogs = allBlogs
     .filter(blog => blog.id !== selectedBlog.id && 
-            blog.tags.some(tag => selectedBlog.tags.includes(tag)))
+      blog.tags.some(tag => selectedBlog.tags.includes(tag)))
     .slice(0, 3);
 
   if (view === 'single') {
@@ -256,7 +256,7 @@ export default function BlogSystem() {
               prose-blockquote:border-l-4 prose-blockquote:border-purple-500 prose-blockquote:bg-purple-50 prose-blockquote:p-6 prose-blockquote:rounded-r-xl prose-blockquote:shadow-sm
               prose-code:bg-purple-50 prose-code:text-purple-700 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:border prose-code:border-purple-200 prose-code:font-semibold
               prose-pre:bg-gray-50 prose-pre:p-6 prose-pre:rounded-2xl prose-pre:border-2 prose-pre:border-gray-200 prose-pre:shadow-inner"
-              dangerouslySetInnerHTML={{ __html: selectedBlog.content ?? '' }}          />
+            dangerouslySetInnerHTML={{ __html: selectedBlog.content ?? '' }} />
 
           <div className="flex flex-wrap gap-2 mt-16 pt-8 border-t-2 border-purple-100">
             {selectedBlog.tags.map((tag, index) => (
@@ -314,7 +314,7 @@ export default function BlogSystem() {
                 {relatedBlogs.map((blog) => (
                   <div 
                     key={blog.id}
-                    onClick={() => {setSelectedBlog(blog); window.scrollTo(0, 0);}}
+                    onClick={() => { setSelectedBlog(blog); window.scrollTo(0, 0); }}
                     className="group bg-white border-2 border-gray-200 rounded-2xl overflow-hidden hover:border-purple-400 hover:shadow-xl transition-all cursor-pointer"
                   >
                     <div className="relative h-48 overflow-hidden">
@@ -400,11 +400,10 @@ export default function BlogSystem() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  selectedCategory === cat
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${selectedCategory === cat
                     ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white shadow-lg shadow-purple-500/20'
                     : 'bg-gray-900/80 border border-gray-800 text-gray-400 hover:border-purple-600 hover:bg-gray-800/50'
-                }`}
+                  }`}
               >
                 {cat}
               </button>
@@ -423,7 +422,7 @@ export default function BlogSystem() {
           {featuredBlogs.map((blog) => (
             <div 
               key={blog.id}
-              onClick={() => {setSelectedBlog(blog); setView('single'); window.scrollTo(0, 0);}}
+              onClick={() => { setSelectedBlog(blog); setView('single'); window.scrollTo(0, 0); }}
               className="group relative bg-gradient-to-b from-gray-900/50 to-gray-950 border border-gray-800 rounded-2xl overflow-hidden hover:border-purple-600 transition-all cursor-pointer hover:shadow-xl hover:shadow-purple-500/10"
             >
               <div className="relative h-64 overflow-hidden">
@@ -477,7 +476,7 @@ export default function BlogSystem() {
           {filteredBlogs.map((blog) => (
             <div 
               key={blog.id}
-              onClick={() => {setSelectedBlog(blog); setView('single'); window.scrollTo(0, 0);}}
+              onClick={() => { setSelectedBlog(blog); setView('single'); window.scrollTo(0, 0); }}
               className="group bg-gradient-to-b from-gray-900/50 to-gray-950 border border-gray-800 rounded-xl overflow-hidden hover:border-purple-600 transition-all cursor-pointer hover:shadow-lg hover:shadow-purple-500/10"
             >
               <div className="relative h-48 overflow-hidden">
@@ -537,4 +536,4 @@ export default function BlogSystem() {
       </div>
     </div>
   );
-}
+} 

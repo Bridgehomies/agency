@@ -415,7 +415,7 @@ export default function DesignPage() {
                   </span>
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-6">
-                  Founded in 2024, Bridge Homies started as a Python development shop and evolved
+                  Founded in 2025, Bridge Homies started as a Python development shop and evolved
                   into a full-service{" "}
                   <strong className="text-white">creative design and video editing agency</strong>.
                   Today we serve startups, e-commerce brands, and enterprise companies looking for
@@ -658,9 +658,9 @@ export default function DesignPage() {
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
               { label: "Software Engineering", link: "/software" },
-              { label: "AI/ML Development",    link: "/ai-ml-development" },
-              { label: "React & Next.js",      link: "/webdev" },
-              { label: "Native Mobile",        link: "/mobile" },
+              { label: "AI/ML Development", link: "/ai-ml-development" },
+              { label: "React & Next.js", link: "/webdev" },
+              { label: "Native Mobile", link: "/mobile" },
             ].map((item, idx) => (
               <Link
                 key={idx}
@@ -680,4 +680,4 @@ export default function DesignPage() {
       <Footer />
     </main>
   );
-}
+} 

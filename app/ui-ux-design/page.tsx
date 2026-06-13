@@ -26,7 +26,7 @@ const StatsCounter: React.FC = () => {
     animateCounter("counter-projects", 20, "+");
     animateCounter("counter-feedback", 98, "%");
     animateCounter("counter-team", 15, "+");
-    animateCounter("counter-launched", 2024, "");
+    animateCounter("counter-launched", 2025, "");
   }, []);
 
   return (
@@ -346,4 +346,4 @@ export default function UiUxPage() {
       <Footer />
     </main>
   );
-}
+} 
