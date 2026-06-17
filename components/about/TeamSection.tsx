@@ -17,7 +17,7 @@ export default function TeamSection() {
         <div className="bg-white p-8 rounded-xl shadow-lg hover-scale transition-all duration-300 border-t-4 border-blue-500 group hover:bg-gradient-to-b hover:from-blue-50 hover:to-white">
           <div className="w-24 h-24 rounded-full bg-blue-100 mb-6 mx-auto flex items-center justify-center text-blue-600 text-3xl font-bold transition-all duration-300 group-hover:bg-blue-600 group-hover:text-white">
             <img
-              src="/team/bini.jpg"
+              src="/team/bini.png"
               alt="MBA"
               className="w-full h-full rounded-full object-cover"
             />

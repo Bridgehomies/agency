@@ -22,8 +22,9 @@ export default function AboutPage() {
         <StorySection />
         <TeamSection />
         <ValuesSection />
-        <Footer />
+        
       </main>
+      <Footer />
     </>
   );
-}
+} 
