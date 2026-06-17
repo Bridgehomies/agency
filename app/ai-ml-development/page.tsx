@@ -57,9 +57,8 @@ export const metadata: Metadata = {
     "machine learning development",
     "generative AI services",
   ],
-  alternates: {
-    canonical: "https://bridgehomies.com/ai-ml-development",
-  },
+  alternates: { canonical: "/ai-ml-development" },
+  
   openGraph: {
     type: "website",
     url: "https://bridgehomies.com/ai-ml-development",

@@ -4,47 +4,28 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { Bebas_Neue } from "next/font/google";
-import BridgeHomiesChat from "@/components/Bridgehomieschat";
+import { SITE_URL } from "@/lib/config";
 
 const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bridgehomies.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
     template: "%s | Bridge Homies",
   },
   description:
-    "Bridge Homies is a top-rated machine learning agency and ai ml engineering service providers. We deliver expert ai/ml engineering services, custom software, SaaS platforms, and AI automation to help businesses scale globally.",
+    "Bridge Homies is a machine learning agency and AI/ML engineering service provider based in Lahore, Pakistan. We build RAG pipelines, LLM integrations, custom software, and SaaS platforms.",
   alternates: {
-    canonical: "https://bridgehomies.com",
+    canonical: "/", // ponytail: relative — metadataBase resolves to www.bridgehomies.com/
   },
-  keywords: [
-    "ai ml engineering services",
-    "ai ml engineering service providers",
-    "ai/ml engineering services",
-    "machine learning agency",
-    "engenies",
-    "Bridge Homies",
-    "software agency",
-    "AI solutions",
-    "SaaS development",
-    "web development",
-    "mobile app development",
-    "AI automation",
-    "RAG pipelines",
-    "LLM development",
-    "Next.js developers",
-    "Django developers",
-    "Pakistan software company",
-    "Lahore software agency",
-  ],
-  authors: [{ name: "Bridge Homies", url: "https://bridgehomies.com" }],
+  // ponytail: keywords removed — Next.js renders this as <meta name="keywords">, same stuffing issue
+  authors: [{ name: "Bridge Homies", url: SITE_URL }],
   openGraph: {
     title: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
     description:
-      "Bridge Homies — expert ai ml engineering service providers offering ai/ml engineering services, custom software, and AI automation for businesses worldwide.",
-    url: "https://bridgehomies.com",
+      "AI/ML engineering, RAG pipelines, LLM integration, custom software, and SaaS — built by Bridge Homies, Lahore.",
+    url: "/",
     siteName: "Bridge Homies",
     images: [
       {
@@ -61,7 +42,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
     description:
-      "Top ai ml engineering service providers. Expert machine learning agency delivering ai/ml engineering services globally.",
+      "AI/ML engineering agency in Lahore — RAG pipelines, LLM integration, custom software, SaaS.",
     images: ["/og-image.png"],
   },
   robots: {
@@ -82,8 +63,6 @@ export const metadata: Metadata = {
   },
 };
 
-// Keep your imports and `metadata` export exactly as they are up here!
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -92,7 +71,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* Inline server-rendered schema — placed in body, perfectly readable by crawlers */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -101,12 +79,12 @@ export default function RootLayout({
               "@graph": [
                 {
                   "@type": "Organization",
-                  "@id": "https://bridgehomies.com/#organization",
+                  "@id": `${SITE_URL}/#organization`,
                   name: "Bridge Homies",
-                  url: "https://bridgehomies.com",
+                  url: SITE_URL,
                   logo: {
                     "@type": "ImageObject",
-                    url: "https://bridgehomies.com/Favicon.png",
+                    url: `${SITE_URL}/Favicon.png`,
                   },
                   contactPoint: {
                     "@type": "ContactPoint",
@@ -115,74 +93,53 @@ export default function RootLayout({
                     availableLanguage: "English",
                   },
                   sameAs: [
-                    "https://www.linkedin.com/company/bridgehomies",
+                    "https://www.linkedin.com/company/bridge-homies",
+                    "https://github.com/Bridgehomies",
+                    "https://www.instagram.com/bridgehomies/",
+                    "https://x.com/BridgeHomies",
                   ],
                 },
                 {
                   "@type": "WebSite",
-                  "@id": "https://bridgehomies.com/#website",
+                  "@id": `${SITE_URL}/#website`,
                   name: "Bridge Homies",
-                  url: "https://bridgehomies.com",
+                  url: SITE_URL,
                   publisher: {
-                    "@id": "https://bridgehomies.com/#organization",
+                    "@id": `${SITE_URL}/#organization`,
                   },
                 },
                 {
                   "@type": "ProfessionalService",
-                  "@id": "https://bridgehomies.com/#service",
+                  "@id": `${SITE_URL}/#service`,
                   name: "Bridge Homies",
-                  url: "https://bridgehomies.com",
-                  image: "https://bridgehomies.com/og-image.png",
+                  url: SITE_URL,
+                  image: `${SITE_URL}/og-image.png`,
                   description:
-                    "Leading machine learning agency and ai ml engineering service providers. We offer expert ai/ml engineering services, AI-powered software development, SaaS, web & mobile apps for businesses worldwide.",
+                    "AI/ML engineering agency in Lahore, Pakistan — RAG pipelines, LLM integration, MLOps, custom software, and SaaS development.",
                   priceRange: "$$",
                   address: {
                     "@type": "PostalAddress",
+                    streetAddress: "167/A Block G1, Johar Town",
                     addressLocality: "Lahore",
                     addressRegion: "Punjab",
+                    postalCode: "54782",
                     addressCountry: "PK",
                   },
+                  telephone: "+92-342-9263395",
+                  email: "info@bridgehomies.com",
                   areaServed: "Worldwide",
                   hasOfferCatalog: {
                     "@type": "OfferCatalog",
-                    name: "Software Development Services",
+                    name: "Services",
                     itemListElement: [
-                      {
-                        "@type": "Offer",
-                        itemOffered: {
-                          "@type": "Service",
-                          name: "AI ML Engineering Services",
-                          description: "Expert ai/ml engineering services from a trusted machine learning agency and ai ml engineering service providers.",
-                        },
-                      },
-                      {
-                        "@type": "Offer",
-                        itemOffered: {
-                          "@type": "Service",
-                          name: "Web Application Development",
-                        },
-                      },
-                      {
-                        "@type": "Offer",
-                        itemOffered: {
-                          "@type": "Service",
-                          name: "Mobile App Development",
-                        },
-                      },
-                      {
-                        "@type": "Offer",
-                        itemOffered: {
-                          "@type": "Service",
-                          name: "SaaS Product Development",
-                        },
-                      },
-                      {
-                        "@type": "Offer",
-                        itemOffered: {
-                          "@type": "Service",
-                          name: "UI/UX Design",
-                        },
-                      },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "ML Model Engineering" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Application Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Product Development" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "UI/UX Design" } },
                     ],
                   },
                 },
@@ -191,7 +148,6 @@ export default function RootLayout({
           }}
         />
 
-        {/* Google Analytics — load async, non-blocking */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32"
           strategy="afterInteractive"
@@ -206,10 +162,9 @@ export default function RootLayout({
         </Script>
 
         {children}
-        {/* <BridgeHomiesChat /> */}
         <Analytics />
         <SpeedInsights />
       </body>
     </html>
   );
-}
+} 

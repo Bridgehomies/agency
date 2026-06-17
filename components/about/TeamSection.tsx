@@ -27,7 +27,7 @@ export default function TeamSection() {
           </h3>
           <p className="text-purple-600 text-center mb-4">Founder & Director</p>
           <p className="text-gray-600 text-center mb-4">
-            Visionary leader with 15+ years in digital transformation and
+            Visionary leader with 2+ years in digital transformation and
             strategic innovation.
           </p>
           <div className="flex justify-center gap-4">

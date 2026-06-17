@@ -2,34 +2,28 @@ import type { Metadata } from "next"
 import HeroSection from "@/components/home/hero-section"
 import ServicesSection from "@/components/home/services-section"
 import WorkSection from "@/components/home/work-section"
-import TimelineSection from "@/components/timeline-section"
-import DiagnosticQuiz from "@/components/diagnostic-quiz"
 import InteractiveChecklist from "@/components/home/interactive-checklist"
-import BookingSystem from "@/components/booking-system"
 import InteractiveMap from "@/components/home/interactive-map"
-import RealTimePoll from "@/components/real-time-poll"
 import TeamSection from "@/components/home/team-section"
 import ContactSection from "@/components/home/contact-section"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { Toaster } from "@/components/ui/toaster"
 import StickyTransformSection from "@/components/home/sticky-transform-section"
-import TestimonialsSection from "@/components/home/testimonials-section";
-
-import Link from "next/link"
+import TestimonialsSection from "@/components/home/testimonials-section"
 
 export const metadata: Metadata = {
   title: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
   description:
     "Bridge Homies is a leading machine learning agency and top AI ML engineering service provider. We deliver expert website development, SaaS, web apps, AI automation, and enterprise software to help businesses scale globally.",
   alternates: {
-    canonical: "https://bridgehomies.com",
+    canonical: "/", // resolves to https://www.bridgehomies.com via metadataBase
   },
   openGraph: {
     title: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
     description:
       "Top AI ML engineering service providers delivering expert machine learning agency services, website development, SaaS, and AI automation for enterprise software worldwide.",
-    url: "https://bridgehomies.com",
+    url: "/",
     type: "website",
     images: [
       {
@@ -49,55 +43,23 @@ export const metadata: Metadata = {
   },
 }
 
+// ponytail: WebPage only — ProfessionalService/Organization live in layout.tsx, no duplication
 const homeSchema = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://bridgehomies.com/#webpage",
-      url: "https://bridgehomies.com",
+      "@id": "https://www.bridgehomies.com/#webpage",
+      url: "https://www.bridgehomies.com",
       name: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
       description:
-        "Bridge Homies is a software company and machine learning agency delivering AI ML engineering services, website development, SaaS, web apps, AI automation, and enterprise software.",
-      isPartOf: { "@id": "https://bridgehomies.com/#website" },
-      about: { "@id": "https://bridgehomies.com/#organization" },
+        "Bridge Homies is a machine learning agency delivering AI ML engineering services, RAG pipelines, LLM integration, SaaS, and enterprise software.",
+      isPartOf: { "@id": "https://www.bridgehomies.com/#website" },
+      about: { "@id": "https://www.bridgehomies.com/#organization" },
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-        ],
-      },
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://bridgehomies.com/#organization",
-      name: "Bridge Homies",
-      url: "https://bridgehomies.com",
-      logo: "https://bridgehomies.com/Favicon.png",
-      image: "https://bridgehomies.com/og-image.png",
-      description:
-        "Bridge Homies is a software developer company and machine learning agency specialising in AI ML engineering services, website development, SaaS, web apps, AI automation, and enterprise software.",
-      priceRange: "$$",
-      address: {
-        "@type": "PostalAddress",
-        streetAddress: "167-A, Block G-1, Phase-1, Johar Town",
-        addressLocality: "Lahore",
-        addressRegion: "Punjab",
-        addressCountry: "PK",
-      },
-      areaServed: "Worldwide",
-      sameAs: ["https://www.linkedin.com/company/bridgehomies"],
-      hasOfferCatalog: {
-        "@type": "OfferCatalog",
-        name: "AI ML Engineering & Software Development Services",
-        itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI ML Engineering Services" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Website Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Apps Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Enterprise Software" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Machine Learning Agency Services" } },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
         ],
       },
     },
@@ -117,7 +79,7 @@ const homeSchema = {
           name: "Is Bridge Homies a machine learning agency?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes, Bridge Homies is a dedicated machine learning agency and software company based in Lahore, Pakistan. We serve clients worldwide with expert AI ML engineering services, website development, SaaS, and enterprise software.",
+            text: "Yes, Bridge Homies is a dedicated machine learning agency based in Lahore, Pakistan. We serve clients worldwide with AI ML engineering services, website development, SaaS, and enterprise software.",
           },
         },
         {
@@ -144,17 +106,12 @@ export default function Home() {
       <Navbar />
       <main>
         <HeroSection />
-        {/* Internal navigation anchors for interlinking */}
         <ServicesSection />
         <WorkSection />
-        {/* <TimelineSection /> */}
         <StickyTransformSection />
-        {/* <DiagnosticQuiz /> */}
         <TestimonialsSection />
         <InteractiveChecklist />
-        {/* <BookingSystem /> */}
         <InteractiveMap />
-        {/* <RealTimePoll /> */}
         <TeamSection />
         <ContactSection />
       </main>
