@@ -39,16 +39,16 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
   }, [category, posts, query]);
 
   return (
-    <div className="min-h-screen bg-[#080C01] text-[#f0ece4]">
+    <div className="min-h-screen bg-secondary text-[#f0ece4]">
 
       {/* ── SEARCH + FILTER ── */}
       <div className="mx-auto max-w-6xl px-6 pt-32 pb-2">
         <h1
-          className="font-serif text-5xl font-normal leading-[1.08] text-[#f0ece4] md:text-6xl mb-10"
+          className="font-serif text-5xl font-normal leading-[1.08] text-black md:text-6xl mb-10"
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           AI Engineering &{" "}
-          <em className="italic text-purple-400">SaaS Development</em>{" "}
+          <h1><em className="italic text-purple-400">SaaS Development</em>{" "}</h1>
           Blog
         </h1>
 
@@ -58,7 +58,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Search by title, topic, or tag"
-            className="w-full rounded-full border border-[#2e2e2e] bg-[#1a1a1a] py-3 pl-11 pr-5 text-sm text-[#f0ece4] outline-none placeholder:text-[#555] focus:border-[#c5b89e]"
+            className="w-full rounded-full border border-[#2e2e2e] bg-gray-100 py-3 pl-11 pr-5 text-sm text-[#f0ece4] outline-none placeholder:text-[#555] focus:border-[#c5b89e]"
           />
         </label>
 
@@ -70,7 +70,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                 category === item
                   ? "bg-[#f5f0e8] text-[#111]"
-                  : "border border-[#2e2e2e] bg-[#1a1a1a] text-[#666] hover:text-[#f0ece4]"
+                  : "border border-[#2e2e2e] bg-gray-100 text-[#666] hover:text-[#f0ece4]"
               }`}
             >
               {item}
@@ -83,18 +83,18 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
       <div className="mx-auto max-w-6xl px-6 pt-8 pb-2">
         <Link
           href="/blog/submit"
-          className="group flex items-center justify-between gap-4 rounded-2xl border border-violet-900/60 bg-[#0e0a1a] px-6 py-4 transition hover:border-violet-700/80 hover:bg-[#130d22]"
+          className="group flex items-center justify-between gap-4 rounded-2xl border border-violet-900/60 bg-gray-100 px-6 py-4 transition hover:border-violet-700/80 hover:bg-gray-200"
         >
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-full bg-violet-900/60">
-              <PenLine className="h-4 w-4 text-violet-300" />
+              <PenLine className="h-4 w-4 text-violet-100" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us — Submit a Guest Post</p>
+              <p className="text-sm font-semibold text-black">Write for Us — Submit a Guest Post</p>
               <p className="text-[12px] text-[#666]">Share your expertise · earn 3 dofollow backlinks · get a permanent author profile</p>
             </div>
           </div>
-          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-violet-800/60 px-4 py-1.5 text-xs font-semibold text-violet-200 transition group-hover:bg-violet-700/70">
+          <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-violet-800/60 px-4 py-1.5 text-xs font-semibold text-violet-100 transition group-hover:bg-violet-700/70">
             Start writing <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
           </span>
         </Link>
@@ -140,16 +140,16 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                     )}
                   </div>
                   <div className="flex flex-1 flex-col p-5">
-                    <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[#555]">{formatDate(post.date)}</p>
+                    <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-violet-100">{formatDate(post.date)}</p>
                     <h2
-                      className={`font-serif font-normal leading-snug text-[#f0ece4] ${featured ? "text-[1.6rem]" : "text-xl"}`}
+                      className={`font-serif font-normal leading-snug text-purple-100 ${featured ? "text-[1.6rem]" : "text-xl"}`}
                       style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >
                       {post.title}
                     </h2>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-[#666]">{post.excerpt}</p>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-400">{post.excerpt}</p>
                     <div className="mt-5 flex items-center justify-between border-t border-[#1e1e1e] pt-4">
-                      <div className="flex items-center gap-4 text-xs text-[#444]">
+                      <div className="flex items-center gap-4 text-xs text-violet-100">
                         <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
                         <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
                       </div>
