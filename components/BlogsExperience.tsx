@@ -12,14 +12,8 @@ function formatViews(n: number): string {
 function formatDate(iso: string): string {
   if (!iso) return "";
   try {
-    return new Date(iso).toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return iso;
-  }
+    return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
+  } catch { return iso; }
 }
 
 export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
@@ -47,112 +41,17 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
   return (
     <div className="min-h-screen bg-[#080C01] text-[#f0ece4]">
 
-      {/* ── HERO  LIGHT ── */}
-      <section className="relative pt-20 overflow-hidden bg-[#f7f3fe] text-[#111]">
-        {/* Decorative circle */}
-        <div className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full bg-violet-600" />
+      {/* ── SEARCH + FILTER ── */}
+      <div className="mx-auto max-w-6xl px-6 pt-32 pb-2">
+        <h1
+          className="font-serif text-5xl font-normal leading-[1.08] text-[#f0ece4] md:text-6xl mb-10"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          AI Engineering &{" "}
+          <em className="italic text-purple-400">SaaS Development</em>{" "}
+          Blog
+        </h1>
 
-        <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-28">
-          <p className="mb-6 text-xs font-medium uppercase tracking-[0.24em] text-purple-400">
-            Bridge Homies · Write for Us
-          </p>
-
-          <h1
-            className="max-w-2xl font-serif text-5xl font-normal leading-[1.08] text-[#111] md:text-6xl"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Share your expertise.{" "}
-            <em className="italic text-purple-600">Earn backlinks.</em>{" "}
-            Get published.
-          </h1>
-
-          <p className="mt-6 max-w-lg text-[15px] font-light leading-relaxed text-[#5a5040]">
-            We publish technical guest posts from developers, architects, and founders 
-            on AI, SaaS, automation, eCommerce, and custom software. Every accepted
-            article earns you up to 3 dofollow backlinks and a permanent author profile.
-          </p>
-
-          {/* Trust badges */}
-          <div className="mt-6 flex flex-wrap gap-2">
-            {[
-              "Free to submit",
-              "3 dofollow backlinks",
-              "Permanent author profile",
-              "800+ word minimum",
-              "Editorial review in 3–5 days",
-            ].map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center gap-1.5 rounded-full border border-violet-300 bg-white px-3 py-1 text-[11px] font-semibold text-[#5a3fa0]"
-              >
-                <svg className="h-3 w-3 text-violet-500" viewBox="0 0 12 12" fill="currentColor">
-                  <path d="M10 3L5 9 2 6" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link
-              href="/blog/submit"
-              className="inline-flex items-center gap-2 rounded-full bg-[#111] px-6 py-3 text-sm font-medium text-[#f5f0e8] transition hover:bg-[#2a2520]"
-            >
-              <PenLine className="h-4 w-4" />
-              Submit a guest post
-            </Link>
-            <a
-              href="#guidelines"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[#5a3fa0] transition hover:text-[#3d2a78]"
-            >
-              View guidelines
-              <ArrowRight className="h-3.5 w-3.5" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WRITE FOR US CALLOUT STRIP  DARK ── */}
-      <div id="guidelines" className="bg-[#131121] border-b border-[#1e1e2e]">
-        <div className="mx-auto max-w-6xl px-6 py-10 grid gap-6 md:grid-cols-2">
-          <div>
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-violet-400">We publish</p>
-            <ul className="space-y-2">
-              {[
-                "Technical how-tos and architecture breakdowns",
-                "Case studies with real metrics and outcomes",
-                "Tool or stack comparisons backed by experience",
-                "Opinion pieces grounded in hands-on work",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2 text-[13px] text-[#ccc] leading-relaxed">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-violet-400 shrink-0" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.2em] text-red-400">We don't publish</p>
-            <ul className="space-y-2">
-              {[
-                "Generic explainers with no original depth",
-                "Promotional copy or press releases",
-                "AI-generated filler without genuine insight",
-                "Articles under 800 words",
-              ].map((t) => (
-                <li key={t} className="flex items-start gap-2 text-[13px] text-[#888] leading-relaxed">
-                  <span className="mt-1 h-1.5 w-1.5 rounded-full bg-red-500/60 shrink-0" />
-                  {t}
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      {/* ── SEARCH + FILTER  DARK ── */}
-      <div className="mx-auto max-w-6xl px-6 pt-10">
-        {/* Search */}
         <label className="relative block max-w-md">
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#555]" />
           <input
@@ -163,16 +62,16 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           />
         </label>
 
-        {/* Category pills */}
         <div className="mt-5 flex flex-wrap gap-2 border-b border-[#1e1e1e] pb-8">
           {categories.map((item) => (
             <button
               key={item}
               onClick={() => setCategory(item)}
-              className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${category === item
-                ? "bg-[#f5f0e8] text-[#111]"
-                : "border border-[#2e2e2e] bg-[#1a1a1a] text-[#666] hover:text-[#f0ece4]"
-                }`}
+              className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
+                category === item
+                  ? "bg-[#f5f0e8] text-[#111]"
+                  : "border border-[#2e2e2e] bg-[#1a1a1a] text-[#666] hover:text-[#f0ece4]"
+              }`}
             >
               {item}
             </button>
@@ -180,7 +79,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </div>
       </div>
 
-      {/* ── WRITE FOR US CTA BANNER ── */}
+      {/* ── WRITE FOR US BANNER (mid-page, not hero) ── */}
       <div className="mx-auto max-w-6xl px-6 pt-8 pb-2">
         <Link
           href="/blog/submit"
@@ -191,7 +90,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               <PenLine className="h-4 w-4 text-violet-300" />
             </div>
             <div>
-              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us  Submit a Guest Post</p>
+              <p className="text-sm font-semibold text-[#f0ece4]">Write for Us — Submit a Guest Post</p>
               <p className="text-[12px] text-[#666]">Share your expertise · earn 3 dofollow backlinks · get a permanent author profile</p>
             </div>
           </div>
@@ -201,19 +100,14 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </Link>
       </div>
 
-      {/* ── GRID  DARK ── */}
+      {/* ── POST GRID ── */}
       <section className="mx-auto max-w-6xl px-6 py-10 pb-24">
         {filteredPosts.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-[#2e2e2e] bg-[#141414] px-8 py-24 text-center">
-            <p
-              className="font-serif text-3xl text-[#f0ece4]"
-              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-            >
+            <p className="font-serif text-3xl text-[#f0ece4]" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
               No matching articles
             </p>
-            <p className="mt-3 text-sm text-[#555]">
-              Adjust the category or search query to find a post.
-            </p>
+            <p className="mt-3 text-sm text-[#555]">Adjust the category or search query to find a post.</p>
             <Link
               href="/blog/submit"
               className="mt-8 inline-flex items-center gap-2 rounded-full bg-violet-900/60 border border-violet-700/60 px-5 py-2.5 text-sm font-medium text-violet-200 transition hover:bg-violet-800/70"
@@ -226,25 +120,15 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
             {filteredPosts.map((post, index) => {
               const featured = index === 0 && category === "All" && !query;
-
               return (
                 <Link
                   key={post.slug}
                   href={`/blog/${post.slug}`}
-                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#222] bg-[#141414] transition hover:border-[#3a3530] ${featured ? "md:col-span-2 xl:col-span-2" : ""
-                    }`}
+                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#222] bg-[#141414] transition hover:border-[#3a3530] ${featured ? "md:col-span-2 xl:col-span-2" : ""}`}
                 >
-                  {/* Image */}
-                  <div
-                    className={`relative overflow-hidden bg-[#1e1c19] ${featured ? "h-60" : "h-48"
-                      }`}
-                  >
+                  <div className={`relative overflow-hidden bg-[#1e1c19] ${featured ? "h-60" : "h-48"}`}>
                     {post.coverImage ? (
-                      <img
-                        src={post.coverImage}
-                        alt={post.title}
-                        className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105"
-                      />
+                      <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105" />
                     ) : (
                       <div className="h-full w-full bg-gradient-to-br from-[#1e1c19] to-[#2a2520]" />
                     )}
@@ -255,38 +139,22 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                       </span>
                     )}
                   </div>
-
-                  {/* Body */}
                   <div className="flex flex-1 flex-col p-5">
-                    <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[#555]">
-                      {formatDate(post.date)}
-                    </p>
+                    <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-[#555]">{formatDate(post.date)}</p>
                     <h2
-                      className={`font-serif font-normal leading-snug text-[#f0ece4] ${featured ? "text-[1.6rem]" : "text-xl"
-                        }`}
+                      className={`font-serif font-normal leading-snug text-[#f0ece4] ${featured ? "text-[1.6rem]" : "text-xl"}`}
                       style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >
                       {post.title}
                     </h2>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-[#666]">
-                      {post.excerpt}
-                    </p>
-
-                    {/* Footer */}
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-[#666]">{post.excerpt}</p>
                     <div className="mt-5 flex items-center justify-between border-t border-[#1e1e1e] pt-4">
                       <div className="flex items-center gap-4 text-xs text-[#444]">
-                        <span className="flex items-center gap-1.5">
-                          <Clock className="h-3.5 w-3.5" />
-                          {post.readTime}
-                        </span>
-                        <span className="flex items-center gap-1.5">
-                          <Eye className="h-3.5 w-3.5" />
-                          {formatViews(post.views)}
-                        </span>
+                        <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
+                        <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
                       </div>
                       <span className="flex items-center gap-1.5 text-xs font-medium text-[#f7f3fe] transition group-hover:text-[#DCCBFB]">
-                        Read
-                        <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+                        Read <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
                       </span>
                     </div>
                   </div>
@@ -295,34 +163,21 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             })}
           </div>
         )}
+
         {/* ── BOTTOM WRITE FOR US CALLOUT ── */}
         <div className="mt-14 rounded-2xl border border-[#1e1e2e] bg-gradient-to-br from-violet-100 to-white/80 px-8 py-10 text-center">
-          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">
-            Write for Us
-          </p>
-          <h2
-            className="mx-auto max-w-md font-serif text-2xl font-normal text-black/80"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
+          <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.24em] text-violet-400">Write for Us</p>
+          <h2 className="mx-auto max-w-md font-serif text-2xl font-normal text-black/80" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
             Got something worth reading? <em className="italic text-violet-300">Publish it here.</em>
           </h2>
           <p className="mx-auto mt-3 max-w-sm text-[13px] leading-relaxed text-[#666]">
-            Join our contributors. Submit a guest post and earn up to 3 dofollow backlinks plus a permanent author profile page.
+            Submit a guest post and earn up to 3 dofollow backlinks plus a permanent author profile page.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/blog/submit"
-              className="inline-flex items-center gap-2 rounded-full bg-violet-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-600"
-            >
+            <Link href="/blog/submit" className="inline-flex items-center gap-2 rounded-full bg-violet-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-600">
               <PenLine className="h-4 w-4" />
-              Submit a guest post  it's free
+              Submit a guest post — it's free
             </Link>
-            <a
-              href="#guidelines"
-              className="inline-flex items-center gap-1.5 text-sm text-[#555] transition hover:text-[#999]"
-            >
-              View guidelines <ArrowRight className="h-3.5 w-3.5" />
-            </a>
           </div>
         </div>
       </section>

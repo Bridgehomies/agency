@@ -9,92 +9,40 @@ import WorkSection from "@/components/home/work-section";
 import StatsCounter from "@/components/StatsCounter";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
+
 export const metadata: Metadata = {
-
-  title: "RAG Pipeline Development & LLM Integration Services | Bridge Homies",
-
-  // [SEO-CLUSTER] Description now contains all 4 cluster terms as natural phrases
+  title: "RAG Pipeline Development & LLM Integration Services",
   description:
     "RAG pipeline development services, LLM integration services, AI automation for business, and MLOps services — production-ready ML engineering by Bridge Homies, Lahore, worldwide.",
-  keywords: [
-    // ── Cluster primaries (new targets)
-    "RAG pipeline development services",
-    "LLM integration services",
-    "AI automation for business",
-    "MLOps services",
-    // Primary  top GSC queries
-    "ml model engineering services",
-    "ml engineering services",
-    "machine learning engineering services",
-    "ai ml engineering services",
-    "ai/ml engineering services",
-    "ai pipeline engineering services",
-    "engineering services for ai and ml integration",
-    "ai ml engineering service providers",
-    "ai and machine learning services for engineering automation",
-    // Winnable long-tail additions
-    "production-ready ML engineering services",
-    "custom machine learning model engineering",
-    "custom machine learning model engineering Lahore",
-    "ai ml development company in Pakistan",
-    "machine learning model deployment",
-    "ML model architecture",
-    "ML model architecture design",
-    // Secondary / supporting
-    "AI ML services",
-    "AI ML engineering",
-    "machine learning agency",
-    "AI automation",
-    "LLM integration",
-    "RAG pipeline",
-    "MLOps",
-    "AI engineering services",
-    "predictive analytics",
-    "computer vision",
-    "NLP services",
-    "enterprise AI",
-    "AI development company",
-    "machine learning development",
-    "generative AI services",
-  ],
-  alternates: { canonical: "/ai-ml-development" },
   
+  alternates: { canonical: "/ai-ml-development" },
   openGraph: {
     type: "website",
-    url: "https://bridgehomies.com/ai-ml-development",
-    // [SEO-CLUSTER] OG title leads with cluster terms
-    title:
-      "RAG Pipeline Development & LLM Integration Services | Bridge Homies",
+    url: "/ai-ml-development", // ← was "https://bridgehomies.com/ai-ml-development"
+    title: "RAG Pipeline Development & LLM Integration Services | Bridge Homies",
     description:
       "RAG pipeline development services, LLM integration services, AI automation for business, and MLOps services — production-ready ML engineering by Bridge Homies.",
     siteName: "Bridge Homies",
     images: [
       {
-        url: "https://bridgehomies.com/og-ai-ml.jpg",
+        url: "/og-ai-ml.jpg", // ← was absolute URL, now relative via metadataBase
         width: 1200,
         height: 630,
-        alt: "Bridge Homies  RAG Pipeline Development & LLM Integration Services",
+        alt: "Bridge Homies RAG Pipeline Development & LLM Integration Services",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title:
-      "RAG Pipeline Development & LLM Integration Services | Bridge Homies",
+    title: "RAG Pipeline Development & LLM Integration Services | Bridge Homies",
     description:
-      "RAG pipeline development, LLM integration services, AI automation for business, and MLOps  built for production. Bridge Homies.",
-    images: ["https://bridgehomies.com/og-ai-ml.jpg"],
+      "RAG pipeline development, LLM integration services, AI automation for business, and MLOps — built for production. Bridge Homies.",
+    images: ["/og-ai-ml.jpg"],
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-snippet": -1,
-      "max-image-preview": "large",
-      "max-video-preview": -1,
-    },
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large", "max-video-preview": -1 },
   },
 };
 

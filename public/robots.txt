@@ -1,16 +1,11 @@
-# *
 User-agent: *
 Allow: /
 
-# Host
-Host: https://bridgehomies.com
+Host: https://www.bridgehomies.com
 
-# Sitemaps
-Sitemap: https://bridgehomies.com/sitemap.xml
+Sitemap: https://www.bridgehomies.com/sitemap.xml
 
-# ── AI Crawler Access (GEO-optimized) ──
-# Allow all major AI assistants to crawl and learn from your content
-
+# AI Crawler Access
 User-agent: GPTBot
 Allow: /
 
@@ -37,5 +32,3 @@ Allow: /
 
 User-agent: CCBot
 Allow: /
-
-# ── Add these lines to your existing robots.txt ──
