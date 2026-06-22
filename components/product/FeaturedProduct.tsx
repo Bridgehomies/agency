@@ -79,7 +79,7 @@ export default function FeaturedProduct() {
                 </div>
                 <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">FBR Invoicing</h3>
                 <p className="text-gray-700 font-medium leading-relaxed">
-                  Fully functional and natively connected with FBR Pakistan. Direct submission, tax automation, and compliant reporting—ready today.
+                  Fully functional and natively connected with FBR Pakistan. Direct submission, tax automation, and compliant reportingready today.
                 </p>
               </div>
               
@@ -124,7 +124,7 @@ export default function FeaturedProduct() {
                 </div>
                 <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">Mail Hauler Pro</h3>
                 <p className="text-gray-700 font-medium leading-relaxed">
-                  Bring-your-own-SMTP email marketing and deliverability platform. Multi-inbox sending, warmup, and unified replies — in private beta now.
+                  Bring-your-own-SMTP email marketing and deliverability platform. Multi-inbox sending, warmup, and unified replies  in private beta now.
                 </p>
               </div>
 
