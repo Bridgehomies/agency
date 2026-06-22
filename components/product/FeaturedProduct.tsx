@@ -79,7 +79,7 @@ export default function FeaturedProduct() {
                 </div>
                 <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">FBR Invoicing</h3>
                 <p className="text-gray-700 font-medium leading-relaxed">
-                  Fully functional and natively connected with FBR Pakistan. Direct submission, tax automation, and compliant reportingready today.
+                  Fully functional and natively connected with FBR Pakistan. Direct submission, tax automation, and compliant reporting ready today.
                 </p>
               </div>
               
