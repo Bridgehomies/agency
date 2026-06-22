@@ -52,7 +52,7 @@ export default function Features() {
         {/* Section Header */}
         <div className="text-center mb-20">
           <h2 className="text-4xl font-extrabold text-gray-900 mb-4">
-            Why Choose TechFlow?
+            Why Choose BRIDGE HOMIES?
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
             Our solutions are built with the latest technology and best practices to ensure your business stays ahead of the competition.
