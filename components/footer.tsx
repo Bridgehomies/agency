@@ -27,7 +27,7 @@ const NAV_RIGHT = [
   { label: "Mobile Dev", href: "/mobile" },
   { label: "UI/UX", href: "/ui-ux-design" },
   { label: "Software", href: "/software" },
-  { label: "AI & ML", href: "/ai-ml-development" },
+  { label: "AI & ML engineering services", href: "/ai-ml-development" },
   { label: "Design", href: "/design" },
 ];
 

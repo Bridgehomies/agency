@@ -41,7 +41,7 @@ const TERMINAL_LINES = [
 // ─── Nav links from sitemap ────────────────────────────────────────────────
 const NAV_LINKS = [
   { label: "Home",        href: "/" },
-  { label: "AI/ML",       href: "/ai-ml-development" },
+  { label: "Machine Learning Engineering Services",       href: "/ai-ml-development" },
   { label: "Web Dev",     href: "/webdev" },
   { label: "Mobile",      href: "/mobile" },
   { label: "Software",    href: "/software" },
@@ -467,7 +467,7 @@ export default function NotFound() {
                 ← Return Home
               </Link>
               <Link href="/ai-ml-development" className="nf-btn-ghost">
-                Explore AI/ML ↗
+                Explore Machine Learning Engineering Services ↗
               </Link>
             </div>
           </div>

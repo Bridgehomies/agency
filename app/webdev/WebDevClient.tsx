@@ -301,7 +301,7 @@ export default function WebDevClient() {
 
           <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
             {[
-              { label: "AI/ML Engineering", link: "/ai-ml-development" },
+              { label: "Machine Learning Engineering Services", link: "/ai-ml-development" },
               { label: "Enterprise Software", link: "/software" },
               { label: "Mobile Development", link: "/mobile" },
               { label: "UI/UX Design", link: "/ui-ux-design" },

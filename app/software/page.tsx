@@ -292,7 +292,7 @@ export default function SoftwarePage() {
 
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
-              { label: "AI/ML Engineering", link: "/ai-ml-development" },
+              { label: "AI/ML engineering services", link: "/ai-ml-development" },
               { label: "React & Next.js", link: "/webdev" },
               { label: "Native Mobile", link: "/mobile" },
               { label: "FBR ERP Suite", link: "/products" },
