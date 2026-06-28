@@ -22,7 +22,6 @@ import {
   Trash2,
   RefreshCw,
   LogOut,
-  LayoutDashboard,
 } from "lucide-react";
 
 // ─────────────────────────────────────────────
@@ -142,9 +141,11 @@ function FilterTabs({
 function SubmissionCard({
   sub,
   onAction,
+  onDelete,
 }: {
   sub: GuestSubmission;
   onAction: (id: string, action: "approve" | "reject", notes?: string) => void;
+  onDelete?: (id: string, password: string) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [notes, setNotes] = useState(sub.adminNotes || "");
@@ -295,6 +296,21 @@ function SubmissionCard({
               <strong>Admin note:</strong> {sub.adminNotes}
             </div>
           )}
+          {sub.status === "approved" && onDelete && (
+            <div className="flex justify-end border-t border-black/8 pt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  const entered = window.prompt("Re-enter admin password to delete this post:");
+                  if (entered !== null) onDelete(sub.id, entered);
+                }}
+                className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-5 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+                Delete post
+              </button>
+            </div>
+          )}
         </div>
       )}
     </div>
@@ -343,6 +359,23 @@ function SubmissionsPanel() {
     }
   }
 
+  async function handleDelete(id: string, password: string) {
+    setStatus("");
+    try {
+      const res = await fetch("/api/blog/submissions", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, adminPassword: password }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setStatus(data.error || "Delete failed."); return; }
+      setStatus("🗑️ Post deleted.");
+      await load();
+    } catch {
+      setStatus("Network error.");
+    }
+  }
+
   const counts = useMemo(() => ({
     all: submissions.length,
     pending: submissions.filter((s) => s.status === "pending").length,
@@ -374,7 +407,7 @@ function SubmissionsPanel() {
       ) : (
         <div className="space-y-4">
           {filtered.map((sub) => (
-            <SubmissionCard key={sub.id} sub={sub} onAction={handleAction} />
+            <SubmissionCard key={sub.id} sub={sub} onAction={handleAction} onDelete={handleDelete} />
           ))}
         </div>
       )}

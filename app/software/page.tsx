@@ -75,6 +75,11 @@ const schema = {
   ],
 };
 
+export const metadata = {
+  title: "Custom Software Development Services | Bridge Homies",
+  description: "Enterprise software, SaaS platforms, and AI integration built by Bridge Homies a software house in Lahore delivering scalable custom solutions.",
+};
+
 export default function SoftwarePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">

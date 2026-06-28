@@ -7,8 +7,8 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "About Bridge Homies — AI/ML Engineering Team in Lahore, Pakistan",
-  description: "Meet the team behind Bridge Homies — an AI/ML engineering agency founded in Lahore in 2025 by Muhammad Bin Asif and Muhammad Talha.",
+  title: "About Bridge Homies AI/ML Engineering Team in Lahore, Pakistan",
+  description: "Meet the team behind Bridge Homies an AI/ML engineering agency founded in Lahore in 2025 by Muhammad Bin Asif and Muhammad Talha.",
   alternates: { canonical: "/aboutus" },
   openGraph: { url: "/aboutus", type: "website" },
 };

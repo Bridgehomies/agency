@@ -48,7 +48,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
           AI Engineering &{" "}
-          <h1><em className="italic text-purple-400">SaaS Development</em>{" "}</h1>
+          <em className="italic text-purple-400">SaaS Development</em>{" "}
           Blog
         </h1>
 

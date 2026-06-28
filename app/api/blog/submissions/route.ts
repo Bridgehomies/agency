@@ -101,3 +101,23 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Internal server error." }, { status: 500 });
   }
 }
+
+// ─── DELETE /api/blog/submissions  →  delete an approved post ────────────────
+export async function DELETE(req: NextRequest) {
+  const { id, adminPassword } = await req.json();
+
+  if (adminPassword !== process.env.ADMIN_SECRET_KEY) {
+    return NextResponse.json({ error: "Invalid password." }, { status: 401 });
+  }
+
+  const all = await readSubmissions();
+  const index = all.findIndex((s) => s.id === id);
+  if (index === -1) {
+    return NextResponse.json({ error: "Submission not found." }, { status: 404 });
+  }
+
+  all.splice(index, 1);
+  await writeSubmissions(all);
+
+  return NextResponse.json({ success: true });
+}
