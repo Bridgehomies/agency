@@ -1,7 +1,7 @@
 // src/app/admin/page.tsx
 "use client";
 
-import { useEffect, useState, useTransition, useCallback, useMemo } from "react";
+import { useEffect, useState, useTransition, useCallback, useMemo, JSX } from "react";
 import {
   CheckCircle,
   XCircle,
@@ -23,6 +23,12 @@ import {
   RefreshCw,
   LogOut,
 } from "lucide-react";
+
+// ─────────────────────────────────────────────
+// Constants
+// ─────────────────────────────────────────────
+
+const ADMIN_KEY_SESSION = "admin_key";
 
 // ─────────────────────────────────────────────
 // Types
@@ -123,7 +129,7 @@ function FilterTabs({
           {f.charAt(0).toUpperCase() + f.slice(1)}{" "}
           <span
             className={`ml-1 rounded-full px-1.5 py-0.5 text-xs ${
-              filter === f ? "bg-white/20 text-white" : "bg-black/8 text-slate-600"
+              filter === f ? "bg-white/20 text-white" : "bg-black/10 text-slate-600"
             }`}
           >
             {counts[f]}
@@ -135,15 +141,117 @@ function FilterTabs({
 }
 
 // ─────────────────────────────────────────────
+// ArticlePreview
+// ─────────────────────────────────────────────
+
+function ArticlePreview({ content }: { content: string }) {
+  const isJson = content.trim().startsWith("{") || content.trim().startsWith("[");
+
+  if (isJson) {
+    try {
+      const parsed = JSON.parse(content);
+      const blocks: Record<string, unknown>[] = Array.isArray(parsed)
+        ? parsed
+        : (parsed.blocks ?? parsed.content ?? parsed.body ?? []);
+
+      return (
+        <div className="space-y-4 text-sm leading-7 text-slate-700">
+          {blocks.map((b, i) => {
+            const t = String(b.type ?? "paragraph");
+            const blockKey = `block-${i}`;
+
+            if (t === "heading") {
+              const Tag = `h${Math.min(6, Number(b.level ?? 2))}` as keyof JSX.IntrinsicElements;
+              return <Tag key={blockKey} className="font-bold text-slate-900 text-base">{String(b.text ?? "")}</Tag>;
+            }
+            if (t === "list") {
+              const items = Array.isArray(b.items) ? b.items : [];
+              return (
+                <ul key={blockKey} className="list-disc pl-5 space-y-1">
+                  {items.map((it, j) => <li key={`item-${j}`}>{String(it)}</li>)}
+                </ul>
+              );
+            }
+            if (t === "quote") return <blockquote key={blockKey} className="border-l-4 border-amber-400 pl-4 italic text-slate-600">{String(b.text ?? "")}</blockquote>;
+            if (t === "code") return <pre key={blockKey} className="bg-[#111] text-[#f5efe5] p-3 rounded-xl text-xs overflow-x-auto"><code>{String(b.code ?? "")}</code></pre>;
+            return <p key={blockKey}>{String(b.text ?? JSON.stringify(b))}</p>;
+          })}
+        </div>
+      );
+    } catch {
+      return <p className="text-xs text-red-500">Invalid JSON</p>;
+    }
+  }
+
+  // FIX: Added h[1-6], blockquote, li to negative lookahead to prevent double-wrapping
+  const html = content
+    .replace(/^### (.+)$/gm, "<h3 class='font-semibold text-slate-800 mt-4 mb-1'>$1</h3>")
+    .replace(/^## (.+)$/gm, "<h2 class='font-bold text-slate-900 text-base mt-5 mb-1'>$1</h2>")
+    .replace(/^# (.+)$/gm, "<h1 class='font-bold text-slate-900 text-lg mt-5 mb-1'>$1</h1>")
+    .replace(/^> (.+)$/gm, "<blockquote class='border-l-4 border-amber-400 pl-4 italic text-slate-600 my-2'>$1</blockquote>")
+    .replace(/^[-*] (.+)$/gm, "<li class='ml-4 list-disc'>$1</li>")
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(/\*(.+?)\*/g, "<em>$1</em>")
+    .replace(/`(.+?)`/g, "<code class='bg-slate-100 px-1 rounded text-xs font-mono'>$1</code>")
+    .replace(/\n\n/g, "</p><p class='mb-3'>")
+    .replace(/^(?!<(?:h[1-6]|blockquote|li|p))(.+)$/gm, "<p class='mb-3'>$1</p>");
+
+  return (
+    <div
+      className="prose-sm text-slate-700 leading-7 max-h-96 overflow-y-auto"
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
+}
+
+// ─────────────────────────────────────────────
+// ArticlePreviewToggle — must be above SubmissionCard
+// ─────────────────────────────────────────────
+
+function ArticlePreviewToggle({ content }: { content: string }) {
+  const [raw, setRaw] = useState(false);
+  const words = content.split(/\s+/).filter(Boolean).length;
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-2">
+        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
+          <FileText className="h-3.5 w-3.5" />
+          Article body (~{words} words)
+        </p>
+        <button
+          type="button"
+          onClick={() => setRaw((v) => !v)}
+          className="text-xs font-semibold text-slate-500 hover:text-amber-700 transition"
+        >
+          {raw ? "Show preview" : "Show raw"}
+        </button>
+      </div>
+      {raw ? (
+        <pre className="max-h-80 overflow-y-auto rounded-xl bg-[#111] p-4 font-mono text-xs leading-6 text-[#f5efe5] whitespace-pre-wrap">
+          {content}
+        </pre>
+      ) : (
+        <div className="max-h-96 overflow-y-auto rounded-xl bg-white border border-black/10 p-5">
+          <ArticlePreview content={content} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────────
 // Submission Card
 // ─────────────────────────────────────────────
 
 function SubmissionCard({
   sub,
+  adminKey,
   onAction,
   onDelete,
 }: {
   sub: GuestSubmission;
+  adminKey: string;
   onAction: (id: string, action: "approve" | "reject", notes?: string) => void;
   onDelete?: (id: string, password: string) => void;
 }) {
@@ -156,7 +264,7 @@ function SubmissionCard({
   }
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-black/8 bg-white shadow-[0_4px_24px_-8px_rgba(17,17,17,0.1)]">
+    <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_4px_24px_-8px_rgba(17,17,17,0.1)]">
       {/* Header row */}
       <div className="flex flex-col gap-3 p-5 sm:flex-row sm:items-start sm:justify-between">
         <div className="flex-1">
@@ -204,7 +312,7 @@ function SubmissionCard({
 
       {/* Expanded detail */}
       {expanded && (
-        <div className="border-t border-black/8 bg-[#faf7f2] p-5 space-y-5">
+        <div className="border-t border-black/10 bg-[#faf7f2] p-5 space-y-5">
           {sub.coverImagePath && (
             <div>
               <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
@@ -238,19 +346,14 @@ function SubmissionCard({
               </div>
             </div>
           )}
-          <div>
-            <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
-              <FileText className="h-3.5 w-3.5" />
-              Article body (~{sub.content.split(/\s+/).filter(Boolean).length} words)
-            </p>
-            <pre className="max-h-80 overflow-y-auto rounded-xl bg-[#111] p-4 font-mono text-xs leading-6 text-[#f5efe5] whitespace-pre-wrap">
-              {sub.content}
-            </pre>
-          </div>
+
+          {/* FIX: Use ArticlePreviewToggle instead of bare ArticlePreview */}
+          <ArticlePreviewToggle content={sub.content} />
+
           {sub.faqText && (
             <div>
               <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">FAQ pairs</p>
-              <pre className="rounded-xl bg-white p-4 font-mono text-xs leading-6 text-slate-700 whitespace-pre-wrap border border-black/8">
+              <pre className="rounded-xl bg-white p-4 font-mono text-xs leading-6 text-slate-700 whitespace-pre-wrap border border-black/10">
                 {sub.faqText}
               </pre>
             </div>
@@ -270,7 +373,7 @@ function SubmissionCard({
             </div>
           )}
           {sub.status === "pending" && (
-            <div className="flex flex-wrap gap-3 border-t border-black/8 pt-4">
+            <div className="flex flex-wrap gap-3 border-t border-black/10 pt-4">
               <button
                 type="button"
                 disabled={isPending}
@@ -296,14 +399,12 @@ function SubmissionCard({
               <strong>Admin note:</strong> {sub.adminNotes}
             </div>
           )}
+          {/* FIX: Pass adminKey directly instead of re-prompting for password */}
           {sub.status === "approved" && onDelete && (
-            <div className="flex justify-end border-t border-black/8 pt-4">
+            <div className="flex justify-end border-t border-black/10 pt-4">
               <button
                 type="button"
-                onClick={() => {
-                  const entered = window.prompt("Re-enter admin password to delete this post:");
-                  if (entered !== null) onDelete(sub.id, entered);
-                }}
+                onClick={() => onDelete(sub.id, adminKey)}
                 className="inline-flex items-center gap-2 rounded-full border border-red-200 bg-red-50 px-5 py-2 text-xs font-semibold text-red-700 transition hover:bg-red-100"
               >
                 <Trash2 className="h-3.5 w-3.5" />
@@ -321,7 +422,7 @@ function SubmissionCard({
 // Submissions Panel
 // ─────────────────────────────────────────────
 
-function SubmissionsPanel() {
+function SubmissionsPanel({ adminKey }: { adminKey: string }) {
   const [submissions, setSubmissions] = useState<GuestSubmission[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<FilterTab>("pending");
@@ -391,7 +492,7 @@ function SubmissionsPanel() {
   return (
     <div>
       {status && (
-        <div className="mb-5 rounded-2xl border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-slate-700">
+        <div className="mb-5 rounded-2xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-700">
           {status}
         </div>
       )}
@@ -401,13 +502,19 @@ function SubmissionsPanel() {
           <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-black/8 bg-white p-10 text-center text-slate-500">
+        <div className="rounded-2xl border border-black/10 bg-white p-10 text-center text-slate-500">
           No {filter === "all" ? "" : filter} submissions yet.
         </div>
       ) : (
         <div className="space-y-4">
           {filtered.map((sub) => (
-            <SubmissionCard key={sub.id} sub={sub} onAction={handleAction} onDelete={handleDelete} />
+            <SubmissionCard
+              key={sub.id}
+              sub={sub}
+              adminKey={adminKey}
+              onAction={handleAction}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}
@@ -486,7 +593,7 @@ function TestimonialsPanel({ adminKey }: { adminKey: string }) {
     <div>
       <div className="mb-4 flex items-center justify-between">
         {status && (
-          <p className="rounded-2xl border border-black/8 bg-white px-5 py-3 text-sm font-semibold text-slate-700">
+          <p className="rounded-2xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-700">
             {status}
           </p>
         )}
@@ -507,13 +614,13 @@ function TestimonialsPanel({ adminKey }: { adminKey: string }) {
           <Loader2 className="h-8 w-8 animate-spin text-amber-600" />
         </div>
       ) : filtered.length === 0 ? (
-        <div className="rounded-2xl border border-black/8 bg-white p-10 text-center text-slate-500">
+        <div className="rounded-2xl border border-black/10 bg-white p-10 text-center text-slate-500">
           No {filter === "all" ? "" : filter} testimonials yet.
         </div>
       ) : (
         <div className="space-y-4">
           {filtered.map((t) => (
-            <div key={t.id} className="overflow-hidden rounded-2xl border border-black/8 bg-white shadow-[0_4px_24px_-8px_rgba(17,17,17,0.1)]">
+            <div key={t.id} className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-[0_4px_24px_-8px_rgba(17,17,17,0.1)]">
               <div className="p-5">
                 <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                   <div>
@@ -556,7 +663,7 @@ function TestimonialsPanel({ adminKey }: { adminKey: string }) {
                   </div>
                 )}
 
-                <div className="flex flex-wrap gap-2 border-t border-black/8 pt-4">
+                <div className="flex flex-wrap gap-2 border-t border-black/10 pt-4">
                   {(t.status === "pending" || t.status === "rejected") && (
                     <button
                       onClick={() => handleAction(t.id, "approve")}
@@ -610,7 +717,7 @@ export default function AdminPage() {
 
   useEffect(() => {
     setMounted(true);
-    const saved = typeof window !== "undefined" ? sessionStorage.getItem("admin_key") || "" : "";
+    const saved = typeof window !== "undefined" ? sessionStorage.getItem(ADMIN_KEY_SESSION) || "" : "";
     if (saved) {
       setAdminKey(saved);
       setAuthed(true);
@@ -629,7 +736,7 @@ export default function AdminPage() {
       if (!res.ok) throw new Error("Server error.");
       setAdminKey(keyInput);
       setAuthed(true);
-      sessionStorage.setItem("admin_key", keyInput);
+      sessionStorage.setItem(ADMIN_KEY_SESSION, keyInput);
     } catch {
       setAuthError("Could not authenticate. Try again.");
     } finally {
@@ -641,7 +748,7 @@ export default function AdminPage() {
     setAuthed(false);
     setAdminKey("");
     setKeyInput("");
-    sessionStorage.removeItem("admin_key");
+    sessionStorage.removeItem(ADMIN_KEY_SESSION);
   }
 
   if (!mounted) return null;
@@ -735,7 +842,7 @@ export default function AdminPage() {
 
         {/* Panel */}
         {section === "submissions" ? (
-          <SubmissionsPanel />
+          <SubmissionsPanel adminKey={adminKey} />
         ) : (
           <TestimonialsPanel adminKey={adminKey} />
         )}

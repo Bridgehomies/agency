@@ -146,11 +146,14 @@ const initialForm: FormData = {
 function RichEditor({
   value,
   onChange,
+  backlinks = [],
 }: {
   value: string;
   onChange: (val: string) => void;
+  backlinks?: { label: string; url: string }[];
 }) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const [blMenuOpen, setBlMenuOpen] = useState(false);
 
   const exec = useCallback((command: string, val?: string) => {
     editorRef.current?.focus();
@@ -163,9 +166,21 @@ function RichEditor({
     if (url) exec("createLink", url);
   }, [exec]);
 
+  // ponytail: prompt() for anchor text — no modal needed until UX feedback says otherwise
+  const insertBacklink = useCallback((bl: { label: string; url: string }) => {
+    setBlMenuOpen(false);
+    editorRef.current?.focus();
+    const anchor = prompt("Anchor text for this link:", bl.label || bl.url);
+    if (!anchor) return;
+    document.execCommand("insertHTML", false, `<a href="${bl.url}">${anchor}</a>`);
+    if (editorRef.current) onChange(editorRef.current.innerHTML);
+  }, [onChange]);
+
   const handleInput = useCallback(() => {
     if (editorRef.current) onChange(editorRef.current.innerHTML);
   }, [onChange]);
+
+  const filledBacklinks = backlinks.filter(bl => bl.url.trim());
 
   const tools: { title: string; action: () => void; icon: React.ReactNode; group?: string }[] = [
     { title: "Bold", action: () => exec("bold"), icon: <Bold size={14} />, group: "format" },
@@ -185,14 +200,14 @@ function RichEditor({
   const groups = ["format", "block", "list", "insert", "history"];
 
   return (
-    <div className="rich-editor-wrap">
+    <div className="rich-editor-wrap" style={{ position: "relative" }}>
       <style>{`
-        .rich-editor-wrap { border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: hidden; background: #fff; }
-        .rich-toolbar { display: flex; align-items: center; gap: 2px; padding: 8px 10px; border-bottom: 1px solid rgba(0,0,0,0.08); background: #fafaf9; flex-wrap: wrap; }
+        .rich-editor-wrap { border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: visible; background: #fff; }
+        .rich-toolbar { display: flex; align-items: center; gap: 2px; padding: 8px 10px; border-bottom: 1px solid rgba(0,0,0,0.08); background: #fafaf9; flex-wrap: wrap; border-radius: 12px 12px 0 0; }
         .rich-toolbar-sep { width: 1px; height: 20px; background: rgba(0,0,0,0.10); margin: 0 4px; }
         .rich-btn { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:6px; border:none; background:transparent; cursor:pointer; color:#444; transition:background 0.12s,color 0.12s; }
         .rich-btn:hover { background:rgba(0,0,0,0.07); color:#111; }
-        .rich-content { min-height: 340px; padding: 20px 24px; font-size: 14px; line-height: 1.85; color: #1a1a1a; outline: none; font-family: 'Georgia', serif; }
+        .rich-content { min-height: 340px; padding: 20px 24px; font-size: 14px; line-height: 1.85; color: #1a1a1a; outline: none; font-family: 'Georgia', serif; border-radius: 0 0 12px 12px; }
         .rich-content:empty::before { content: attr(data-placeholder); color: #aaa; font-style: italic; pointer-events:none; }
         .rich-content h2 { font-size: 1.35em; font-weight: 700; margin: 1.4em 0 0.5em; font-family: inherit; color: #111; }
         .rich-content h3 { font-size: 1.1em; font-weight: 700; margin: 1.2em 0 0.4em; font-family: inherit; color: #111; }
@@ -203,7 +218,12 @@ function RichEditor({
         .rich-content a { color: #b5883b; text-decoration: underline; }
         .rich-content hr { border: none; border-top: 1px solid rgba(0,0,0,0.12); margin: 1.6em 0; }
         .rich-content p { margin: 0.7em 0; }
+        .bl-dropdown { position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid rgba(0,0,0,0.12); border-radius:10px; box-shadow:0 8px 24px -8px rgba(0,0,0,0.18); z-index:50; min-width:220px; overflow:hidden; }
+        .bl-dropdown-item { display:flex; flex-direction:column; gap:2px; padding:10px 14px; cursor:pointer; transition:background 0.1s; border:none; background:transparent; width:100%; text-align:left; }
+        .bl-dropdown-item:hover { background:#fdf8ec; }
+        .bl-dropdown-item + .bl-dropdown-item { border-top:1px solid rgba(0,0,0,0.06); }
       `}</style>
+
       <div className="rich-toolbar" onMouseDown={(e) => e.preventDefault()}>
         {groups.map((group, gi) => (
           <React.Fragment key={group}>
@@ -215,7 +235,50 @@ function RichEditor({
             ))}
           </React.Fragment>
         ))}
+
+        {/* Backlinks dropdown — only shown when backlinks are filled in Step 2 */}
+        {filledBacklinks.length > 0 && (
+          <>
+            <span className="rich-toolbar-sep" />
+            <div style={{ position: "relative" }}>
+              <button
+                type="button"
+                className="rich-btn"
+                title="Insert backlink"
+                onClick={() => setBlMenuOpen(v => !v)}
+                style={{ width: "auto", padding: "0 8px", gap: 4, fontSize: 11, fontWeight: 700, color: "purple" }}
+              >
+                <Link2 size={13} />
+                My Links
+              </button>
+              {blMenuOpen && (
+                <>
+                  {/* ponytail: click-outside via overlay div, no useEffect listener needed */}
+                  <div
+                    style={{ position: "fixed", inset: 0, zIndex: 49 }}
+                    onClick={() => setBlMenuOpen(false)}
+                  />
+                  <div className="bl-dropdown">
+                    {filledBacklinks.map((bl, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        className="bl-dropdown-item"
+                        onMouseDown={(e) => e.preventDefault()} // keep editor focus
+                        onClick={() => insertBacklink(bl)}
+                      >
+                        <span style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a" }}>{bl.label || `Link ${i + 1}`}</span>
+                        <span style={{ fontSize: 11, color: "#aaa", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{bl.url}</span>
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
+
       <div
         ref={editorRef}
         className="rich-content"
@@ -570,7 +633,11 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "'DM Sans',sans-serif" }}>
             Article Body <span style={{ color: "#c9a84c" }}>*</span>
           </span>
-          <RichEditor value={form.content} onChange={(v) => update("content", v)} />
+          <RichEditor
+            value={form.content}
+            onChange={(v) => update("content", v)}
+            backlinks={form.backlinks}  // ← add this
+          />
           <p style={{ fontSize: 11.5, color: "#999", marginTop: 6, lineHeight: 1.6 }}>
             Use the toolbar for headings, bold, lists, blockquotes, and links. Minimum 800 words. <strong style={{ color: "purple", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
           </p>

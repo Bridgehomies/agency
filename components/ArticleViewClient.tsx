@@ -207,7 +207,7 @@ function ArticleSchema({ post }: { post: BlogPost }) {
     />
   );
 }
-
+ 
 // ─── Main Component ────────────────────────────────────────────────────────
 export default function ArticleViewClient({
   post,
