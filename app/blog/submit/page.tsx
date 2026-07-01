@@ -93,13 +93,15 @@ const jsonLd = {
 export default function WriteForUsPage() {
   return (
     <>
-      <Script id="write-for-us-schema" type="application/ld+json"
+      <script
+        id="write-for-us-schema"
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        strategy="beforeInteractive"
       />
       <Navbar />
       <main id="main-content" aria-label="Write for Us — Guest Post Submission">
         <BlogSubmitPortal />
+
       </main>
       <Footer />
     </>
