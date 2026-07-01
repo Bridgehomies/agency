@@ -776,6 +776,9 @@ export default function AdminPage() {
           >
             {authLoading ? "Authenticating…" : "Access dashboard"}
           </button>
+          <a href="/" className="mt-4 inline-block text-xs text-slate-500 hover:text-amber-700 transition">
+            ← Back to home
+          </a>
         </div>
       </div>
     );

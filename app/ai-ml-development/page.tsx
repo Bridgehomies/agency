@@ -10,18 +10,17 @@ import StatsCounter from "@/components/StatsCounter";
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title:
-    "ML Engineering Services | RAG Pipelines, LLM Integration & MLOps | Bridge Homies",
+  title: "AI & ML Engineering Services | RAG Pipelines, LLM Integration & MLOps | Bridge Homies",
 
   description:
-    "Bridge Homies provides ML engineering services including RAG pipeline development, LLM integration, MLOps, AI automation, vector databases, custom AI applications and enterprise AI solutions.",
+    "Bridge Homies provides AI and ML engineering services including RAG pipeline development, LLM integration, MLOps, AI automation, vector databases, custom AI applications and enterprise AI solutions.",
 
   alternates: {
     canonical: "https://www.bridgehomies.com/ai-ml-development",
   },
 
   openGraph: {
-    title: "ML Engineering Services | RAG Pipelines & Enterprise AI",
+    title: "AI & ML Engineering Services | RAG Pipelines, LLM Integration & MLOps | Bridge Homies",
     description:
       "Custom ML engineering, RAG systems, LLM integration and MLOps for startups and enterprises.",
     url: "https://www.bridgehomies.com/ai-ml-development",
@@ -522,7 +521,7 @@ export default function AiMlPage() {
               </div>
 
               <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none text-white mb-8">
-                ML Engineering{" "}
+                ML Model Engineering{" "}
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">
                   Services.
