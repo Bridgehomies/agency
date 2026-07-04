@@ -1,6 +1,5 @@
 // app/blog/page.tsx
 import type { Metadata } from "next";
-import Script from "next/script";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import BlogsExperience from "@/components/BlogsExperience";
@@ -81,11 +80,10 @@ export default async function BlogPage() {
   const posts = await getPublishedBlogs();
   return (
     <>
-      <Script
+      <script
         id="blog-index-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildJsonLd(posts)) }}
-        strategy="beforeInteractive"
       />
       <Navbar />
       <BlogsExperience posts={posts} />
