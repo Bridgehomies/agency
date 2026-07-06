@@ -1,0 +1,638 @@
+---
+id: "how-do-i-integrate-an-llm-into-existing-software"
+slug: "how-do-i-integrate-an-llm-into-existing-software"
+title: "How Do I Integrate an LLM Into My Existing Software?"
+excerpt: "Integrating an LLM into existing software is not just an API call. This guide explains the real architecture, security, migration strategy, cost, retrieval design, and production mistakes teams need to understand before adding AI to a live application."
+author: "Bridge Homies Team"
+authorRole: "Editorial"
+date: "2026-07-06T09:47:26.127Z"
+readTime: "1 min"
+category: "AI & Machine Learning"
+tags: ["LLM Integration","AI Software Development","RAG Pipeline","AI Agents","Enterprise AI","AI Automation","SaaS AI"]
+coverImage: "/uploads/blog/blog-1783331246091.png"
+views: 0
+published: true
+seoTitle: "How to Integrate an LLM Into Existing Software"
+seoDescription: "Learn how to integrate an LLM into existing software without rebuilding your application. Covers architecture, RAG, AI agents, security, cost, timelines, model selection, mistakes, and production deployment."
+schemaType: "BlogPosting"
+faq: [{"question":"What does LLM integration mean?","answer":"LLM integration means adding language intelligence to existing software while keeping authentication, permissions, business rules, databases, and workflows under the control of the application."},{"question":"Can I add AI without rebuilding my application?","answer":"Yes. Most companies can add AI as a separate service connected through backend APIs instead of rebuilding the entire application."},{"question":"Should I use an LLM, RAG, or AI agents?","answer":"Use a direct LLM for drafting and summarization, RAG for document-grounded answers, and AI agents for multi-step workflows across tools and APIs."},{"question":"How long does LLM integration take?","answer":"A simple prototype may take 1 to 2 weeks, while a production-ready integration usually takes 6 to 10 weeks depending on permissions, data quality, retrieval, and testing."},{"question":"How much does LLM integration cost?","answer":"The cost depends on scope, but most production projects include development, infrastructure, inference, embeddings, vector storage, monitoring, logging, testing, and maintenance."},{"question":"What is the biggest mistake companies make with LLM integration?","answer":"The biggest mistake is treating the LLM as the product instead of one service inside a larger production system."},{"question":"Is RAG always required?","answer":"No. RAG is only needed when the model must answer using your internal documents, knowledge base, records, or historical data."},{"question":"Can an LLM safely access my database?","answer":"Not directly. The safer approach is to expose controlled data through backend services and permission-aware retrieval instead of giving the model raw database access."}]
+---
+
+{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How do you integrate an LLM into existing software?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Integrating an LLM into existing software is not the same thing as adding a chatbot widget or calling an API from the backend. That is usually the easiest part. The real work starts when the model has to operate inside software that already has users, permissions, business rules, databases, workflows, audit logs, and uptime expectations."
+    },
+    {
+      "type": "paragraph",
+      "text": "The safest way to think about LLM integration is this: your existing application remains the system of record, and the LLM becomes an intelligence layer inside it. The application still controls authentication, authorization, billing, validation, database writes, and business logic. The model helps with language-heavy work such as summarizing, searching, explaining, classifying, drafting, and reasoning over information."
+    },
+    {
+      "type": "paragraph",
+      "text": "If you need help designing that architecture for a real product, our <a href='https://bridgehomies.com/ai-ml-development'>LLM integration services</a> focus on production systems rather than isolated demos."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What LLM integration actually means"
+    },
+    {
+      "type": "paragraph",
+      "text": "LLM integration means embedding language intelligence into a software product without breaking the parts of the product that already work. The goal is not to replace your application with AI. The goal is to make selected workflows smarter while keeping deterministic software responsible for predictable decisions."
+    },
+    {
+      "type": "paragraph",
+      "text": "In one production system we worked on, the client originally thought AI integration meant this: upload document, AI reads it, answer appears. Within two weeks, the team realized the API call itself was the smallest part of the project. The harder questions were about who could access confidential documents, how outdated specifications would be filtered, what happened when AI was not confident, how every response would be audited, and how usage costs would stay predictable."
+    },
+    {
+      "type": "paragraph",
+      "text": "That is the real shape of production AI. The LLM is only one service inside a larger system that includes authentication middleware, retrieval, validation, prompt versioning, logging, monitoring, and human review."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Can you add AI without rebuilding your application?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Yes, and in most cases you should. Rebuilding an entire product just to add AI is usually unnecessary and expensive. A better approach is to introduce an AI service beside the existing application and connect it through secure backend APIs."
+    },
+    {
+      "type": "paragraph",
+      "text": "Your current frontend can stay. Your database can stay. Your authentication system can stay. Your existing business logic can stay. The AI layer should be added carefully around a specific workflow where language understanding creates measurable value."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Start with one workflow instead of trying to make the whole product AI-powered.",
+        "Keep the existing backend as the source of truth.",
+        "Expose only the data the model needs through controlled APIs.",
+        "Release internally before exposing the feature to all users.",
+        "Measure whether the AI actually improves the workflow before expanding it."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Should you build AI chat, an AI copilot, RAG, an agent, or automation?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most teams ask which model they should use too early. The better question is which integration pattern matches the job your software needs to perform."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Existing software",
+        "Best LLM pattern",
+        "Why it fits"
+      ],
+      "rows": [
+        [
+          "CRM",
+          "Sales copilot",
+          "Helps with account summaries, follow-ups, email drafting, and customer history."
+        ],
+        [
+          "ERP",
+          "Document assistant",
+          "Explains policies, purchase orders, invoices, approvals, and operational records."
+        ],
+        [
+          "HR platform",
+          "Resume screening assistant",
+          "Summarizes candidates, compares profiles, and drafts evaluation notes."
+        ],
+        [
+          "Healthcare software",
+          "Clinical summary assistant",
+          "Summarizes notes while keeping final review with qualified staff."
+        ],
+        [
+          "SaaS product",
+          "AI feature assistant",
+          "Adds task-specific intelligence inside an existing workflow."
+        ],
+        [
+          "Marketplace",
+          "Listing generator",
+          "Drafts product titles, descriptions, tags, and category suggestions."
+        ],
+        [
+          "Accounting software",
+          "Invoice explanation assistant",
+          "Explains transactions, detects anomalies, and drafts customer-facing explanations."
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "AI chat is useful when users need a conversational interface. An AI copilot is better when AI should assist inside an existing workflow. A RAG system is needed when answers must be grounded in internal documents. An AI agent is useful when the system needs to perform multi-step tasks across tools and APIs. AI background workers are useful when the job is long-running, such as document processing, report generation, or batch classification."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "LLM vs RAG vs AI agents: which should you integrate?"
+    },
+    {
+      "type": "paragraph",
+      "text": "A direct LLM is best when the model only needs the user's input and general language ability. RAG is best when the model needs access to your company's documents, knowledge base, records, or policies. AI agents are best when the system needs to reason through multiple steps and call tools or APIs."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Need",
+        "Recommended approach",
+        "Example"
+      ],
+      "rows": [
+        [
+          "Drafting, rewriting, summarizing",
+          "Direct LLM",
+          "Generate a sales email or summarize a support ticket."
+        ],
+        [
+          "Answering from company documents",
+          "RAG",
+          "Answer questions using internal SOPs, contracts, or engineering files."
+        ],
+        [
+          "Executing multi-step workflows",
+          "AI agent",
+          "Read an email, check CRM data, create a task, and draft a reply."
+        ],
+        [
+          "Tax, inventory, pricing, approvals",
+          "Deterministic software",
+          "Use rules and calculations, not probabilistic generation."
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "For document-heavy products, start by understanding <a href='https://bridgehomies.com/blog/what-is-a-rag-pipeline'>what a RAG pipeline is</a>, because retrieval quality often matters more than the model itself."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Before integration: what most existing software looks like"
+    },
+    {
+      "type": "paragraph",
+      "text": "Before AI enters the system, most business software already has a layered architecture. Users interact with a frontend. The frontend talks to a backend. The backend handles authentication, business rules, APIs, and database operations."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "Existing SaaS before AI\n\nUser\n  ↓\nFrontend\n  ↓\nBackend API\n  ↓\nAuthentication and permissions\n  ↓\nBusiness rules\n  ↓\nDatabase\n  ↓\nReports, workflows, and notifications"
+    },
+    {
+      "type": "paragraph",
+      "text": "The mistake is placing the LLM beside the database and letting it answer freely. That creates security, accuracy, and compliance risk. The model should not bypass the application. It should operate through it."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "After integration: what a safer LLM architecture looks like"
+    },
+    {
+      "type": "paragraph",
+      "text": "After integration, the LLM sits behind the backend, not in front of it. The backend decides who the user is, what data they can access, what task they are performing, and what the model is allowed to receive."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "Existing SaaS after AI\n\nUser\n  ↓\nFrontend\n  ↓\nBackend API\n  ↓\nAuthentication\n  ↓\nAI Gateway\n  ↓\nRetrieval or task router\n  ↓\nLLM\n  ↓\nValidation\n  ↓\nBusiness rules\n  ↓\nDatabase or human review"
+    },
+    {
+      "type": "paragraph",
+      "text": "This separation matters. The AI gateway can manage model routing, retries, prompt templates, structured outputs, logging, cost controls, and fallback behavior without spreading AI logic across the entire application."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Common LLM integration architectures"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "1. AI copilot architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "An AI copilot assists users inside the workflow instead of replacing the workflow. This is common in CRMs, ERPs, dashboards, accounting tools, and support platforms."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "AI Copilot\n\nFrontend\n  ↓\nBackend API\n  ↓\nAI Service\n  ↓\nLLM\n  ↓\nSuggested response\n  ↓\nUser accepts, edits, or rejects"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "2. RAG architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "RAG is useful when the model must answer using company knowledge. The retrieval layer finds relevant and authorized content before the model generates a response."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "RAG Architecture\n\nUser question\n  ↓\nBackend authentication\n  ↓\nPermission-aware retrieval\n  ↓\nVector database or hybrid search\n  ↓\nRelevant documents\n  ↓\nLLM\n  ↓\nAnswer with source context"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "3. AI agent architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "An AI agent is useful when a request requires planning, tool use, and multiple steps. However, agents should be constrained by permissions, business rules, and human approval for high-risk actions."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "AI Agent Architecture\n\nUser request\n  ↓\nAgent planner\n  ↓\nTool selection\n  ↓\nAPIs and business systems\n  ↓\nValidation layer\n  ↓\nHuman approval if needed\n  ↓\nFinal action"
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "4. Event-driven AI architecture"
+    },
+    {
+      "type": "paragraph",
+      "text": "Event-driven AI is useful when work should happen in the background. For example, when a document is uploaded, the system can extract data, classify it, summarize it, and notify the right user without blocking the main request."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "text": "Event-Driven AI\n\nUser uploads file\n  ↓\nBackend stores file\n  ↓\nEvent published\n  ↓\nQueue\n  ↓\nAI worker\n  ↓\nExtraction, classification, or summary\n  ↓\nValidation\n  ↓\nSaved result or human review"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A practical migration strategy for adding AI to existing software"
+    },
+    {
+      "type": "paragraph",
+      "text": "The best LLM integrations rarely start with a full-platform rollout. They start with one valuable workflow, one controlled pilot, and one measurable business outcome."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Timeline",
+        "Focus",
+        "Outcome"
+      ],
+      "rows": [
+        [
+          "Week 1",
+          "Audit",
+          "Understand workflows, users, data, permissions, APIs, and risk."
+        ],
+        [
+          "Week 2",
+          "Prototype",
+          "Build a narrow proof of concept around one high-value task."
+        ],
+        [
+          "Week 3",
+          "Internal rollout",
+          "Test with internal users and collect failure cases."
+        ],
+        [
+          "Week 5",
+          "Pilot customers",
+          "Release to a small user segment with monitoring and human fallback."
+        ],
+        [
+          "Week 8",
+          "Production",
+          "Harden security, latency, cost controls, evaluation, and support process."
+        ],
+        [
+          "Ongoing",
+          "Continuous evaluation",
+          "Improve retrieval, prompts, UX, model routing, and business impact."
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The timeline can be shorter for simple AI drafting features and longer for enterprise systems with strict permissions or compliance requirements. The important part is sequencing. Audit first, prototype second, production rollout later."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How much does it cost to integrate an LLM?"
+    },
+    {
+      "type": "paragraph",
+      "text": "Many companies focus only on API pricing, but the API bill is rarely the full cost. A real production integration includes development, infrastructure, monitoring, retrieval, evaluation, security, and maintenance."
+    },
+    {
+      "type": "paragraph",
+      "text": "For a deeper cost breakdown across AI and machine learning products, see our guide on <a href='https://bridgehomies.com/blog/how-much-does-it-cost-to-build-an-ai-ml-app'>how much it costs to build an AI/ML app</a>."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Cost area",
+        "What it includes"
+      ],
+      "rows": [
+        [
+          "Development cost",
+          "Backend integration, AI service, API design, frontend UX, and testing."
+        ],
+        [
+          "Infrastructure",
+          "Servers, queues, workers, storage, caching, and deployment pipelines."
+        ],
+        [
+          "Inference",
+          "Model usage based on tokens, request volume, and model selection."
+        ],
+        [
+          "Embeddings",
+          "Creating vector representations for documents, records, or knowledge base entries."
+        ],
+        [
+          "Vector database",
+          "Storage and search infrastructure for semantic retrieval."
+        ],
+        [
+          "Monitoring",
+          "Latency, errors, model failures, hallucination reports, and uptime tracking."
+        ],
+        [
+          "Prompt logging",
+          "Versioned prompts, responses, token usage, and debugging history."
+        ],
+        [
+          "Evaluation",
+          "Test datasets, human review, accuracy checks, and regression testing."
+        ],
+        [
+          "Maintenance",
+          "Prompt updates, retrieval improvements, model routing, and cost optimization."
+        ],
+        [
+          "Monthly operating costs",
+          "Ongoing inference, hosting, storage, monitoring, and support."
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How to choose the right model"
+    },
+    {
+      "type": "paragraph",
+      "text": "Model selection should come after you understand the workflow, not before. The right model depends on latency, privacy, cost, context size, reasoning requirements, and the risk of mistakes."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Requirement",
+        "Recommendation"
+      ],
+      "rows": [
+        [
+          "Lowest latency",
+          "Use smaller models with short prompts and cached responses."
+        ],
+        [
+          "Highest reasoning quality",
+          "Use frontier reasoning models for complex tasks."
+        ],
+        [
+          "Sensitive data",
+          "Consider self-hosted, private cloud, or open-weight models depending on compliance needs."
+        ],
+        [
+          "Lowest cost",
+          "Use lightweight models and route only complex tasks to larger models."
+        ],
+        [
+          "Heavy document search",
+          "Use RAG with a mid-sized model and strong retrieval."
+        ],
+        [
+          "Coding assistant",
+          "Use a reasoning-focused model with strong code understanding."
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The most expensive model is not automatically the best model. In production, the best setup often uses model routing: simple tasks go to cheaper models, complex tasks go to stronger models, and risky outputs go to human review."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Security considerations for enterprise AI"
+    },
+    {
+      "type": "paragraph",
+      "text": "Security becomes more serious when an LLM can access internal knowledge. The model itself is not always the biggest risk. The retrieval pipeline is often the bigger risk because it decides what information enters the prompt."
+    },
+    {
+      "type": "paragraph",
+      "text": "In one integration, the existing permission system became the hardest part of the project. Different departments had access to different projects, customers, documents, invoices, and compliance records. Before improving prompts, the authorization layer had to be corrected so the AI could never retrieve documents the user was not allowed to see."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Enforce authentication before every AI request.",
+        "Use role-based access control in retrieval.",
+        "Filter documents by user permissions before they reach the prompt.",
+        "Log prompts, responses, sources, latency, and cost.",
+        "Encrypt sensitive data in transit and at rest.",
+        "Use rate limits to control abuse and cost spikes.",
+        "Keep secrets and API keys outside prompts.",
+        "Require human approval for high-risk actions.",
+        "Define retention policies for prompts and generated outputs."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Why retrieval quality matters more than most teams expect"
+    },
+    {
+      "type": "paragraph",
+      "text": "Many production AI failures are retrieval failures, not model failures. If the wrong context reaches the model, the answer can look confident while still being wrong."
+    },
+    {
+      "type": "paragraph",
+      "text": "We saw this clearly in an early deployment where the assistant generated technically correct answers from outdated engineering documents. The issue was not hallucination. Old specifications were still indexed beside current ones, and the retriever occasionally selected obsolete files because they were semantically similar."
+    },
+    {
+      "type": "paragraph",
+      "text": "A stronger retrieval system needs more than embeddings. It needs document freshness, metadata filtering, access control, ranking logic, and evaluation."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Chunking strategy: split documents in a way that preserves meaning instead of cutting blindly by token count.",
+        "Metadata filtering: filter by customer, project, document type, date, department, and permission level.",
+        "Hybrid search: combine keyword search with semantic search when exact terms matter.",
+        "Reranking: reorder retrieved results based on relevance before sending them to the model.",
+        "Version-aware retrieval: prioritize current documents and suppress outdated versions.",
+        "Document freshness: treat recency as a ranking signal where old data can create risk.",
+        "Permission-aware retrieval: never retrieve documents the user cannot already access.",
+        "Indexing pipelines: update embeddings when documents change, expire, or get replaced."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "12 production mistakes we see repeatedly"
+    },
+    {
+      "type": "paragraph",
+      "text": "Most failed LLM integrations do not fail because the model is weak. They fail because the surrounding software architecture is weak."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Starting with prompts before understanding the business workflow.",
+        "Ignoring permissions and exposing too much data to the model.",
+        "Skipping evaluation and relying only on manual testing.",
+        "Embedding everything without cleaning or versioning knowledge.",
+        "Letting AI write directly to the database without validation.",
+        "Launching without audit logs.",
+        "Building no fallback path when the model is uncertain.",
+        "Skipping caching and allowing repeated questions to increase cost.",
+        "Forgetting rate limits.",
+        "Removing human review from high-risk workflows too early.",
+        "Using the largest model for every task.",
+        "Forgetting that old documents can create wrong answers."
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Should you integrate an LLM? A simple scorecard"
+    },
+    {
+      "type": "paragraph",
+      "text": "Not every feature needs an LLM. In some products, deterministic rules, workflow automation, or better reporting will create more value at lower cost."
+    },
+    {
+      "type": "paragraph",
+      "text": "An LLM is worth evaluating if your users repeatedly do several of these tasks:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Read long documents.",
+        "Summarize information.",
+        "Search across knowledge bases.",
+        "Classify text or records.",
+        "Draft emails, reports, notes, or responses.",
+        "Compare documents or options.",
+        "Ask questions that require context.",
+        "Review messy unstructured information.",
+        "Need faster onboarding or explanation inside the product.",
+        "Can tolerate human review when confidence is low."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "If most answers are yes, AI may be worth testing. If the workflow is mostly calculations, approvals, inventory updates, pricing rules, or compliance formulas, deterministic software may be the better core solution."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "What business outcomes should you expect?"
+    },
+    {
+      "type": "paragraph",
+      "text": "The business case for LLM integration should be tied to measurable operational improvement, not novelty. AI should reduce time, increase accuracy, improve user experience, or create a feature users are willing to pay for."
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Outcome",
+        "How to measure it"
+      ],
+      "rows": [
+        [
+          "Engineering review time reduced",
+          "Compare average review duration before and after AI assistance."
+        ],
+        [
+          "Quotation preparation improved",
+          "Measure time from request intake to draft quotation."
+        ],
+        [
+          "Support tickets reduced",
+          "Track repeated questions before and after AI self-service."
+        ],
+        [
+          "Onboarding improved",
+          "Measure how quickly new users complete key workflows."
+        ],
+        [
+          "Search success increased",
+          "Track whether users find useful answers without escalation."
+        ],
+        [
+          "Employee adoption improved",
+          "Measure active usage by team, role, and workflow."
+        ],
+        [
+          "ROI period shortened",
+          "Compare development and operating cost against saved hours or revenue impact."
+        ]
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Measuring success after deployment"
+    },
+    {
+      "type": "paragraph",
+      "text": "Deployment is not success. A production LLM integration should be measured through both technical and business metrics."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Technical metrics: latency, cost per request, structured output validity, retrieval precision, hallucination reports, error rate, and model failure rate.",
+        "Business metrics: task completion rate, user adoption, time saved, support ticket reduction, human override rate, customer satisfaction, revenue impact, and operational efficiency."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "If users ignore the AI, frequently override it, or continue opening the same support tickets, the integration has not succeeded even if the model performs well in a benchmark."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The real answer: integrate AI like production software"
+    },
+    {
+      "type": "paragraph",
+      "text": "Five years ago, companies competed on who had better software. Today, they are starting to compete on who integrates intelligence into that software most effectively."
+    },
+    {
+      "type": "paragraph",
+      "text": "The winners will not simply be the teams using the newest model. They will be the teams treating AI as another production service, subject to the same engineering discipline, security standards, monitoring, cost controls, and operational rigor as every other component in their stack."
+    },
+    {
+      "type": "paragraph",
+      "text": "That is the real work of LLM integration. Not calling an API. Not adding a chatbot. Not chasing the largest model. The real work is designing a system where AI improves the product without weakening the architecture that made the product reliable in the first place."
+    }
+  ]
+}
