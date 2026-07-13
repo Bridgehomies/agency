@@ -1,8 +1,7 @@
 "use client";
 
-import { useState, useTransition, useRef, useCallback } from "react";
+import { useState, useTransition, useRef } from "react";
 import PhoneInput from "react-phone-input-2";
-import React from "react";
 import "react-phone-input-2/lib/style.css";
 import {
   ArrowRight,
@@ -17,23 +16,12 @@ import {
   FileText,
   Image as ImageIcon,
   ChevronRight,
-  Bold,
-  Italic,
-  List,
-  ListOrdered,
-  Heading2,
-  Heading3,
-  Quote,
-  Code,
-  Minus,
-  Link,
-  Undo,
-  Redo,
 } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
 type Step = 1 | 2 | 3 | 4;
+type ContentFormat = "markdown" | "json";
 
 type FormData = {
   name: string;
@@ -46,6 +34,7 @@ type FormData = {
   category: string;
   excerpt: string;
   tags: string;
+  contentFormat: ContentFormat;
   content: string;
   faqText: string;
   coverImageFile: File | null;
@@ -120,6 +109,245 @@ const FAQ_ITEMS = [
   },
 ];
 
+// ─── Content format templates (same authoring model as BlogWriterPortal) ──
+
+const markdownTemplate = `## Start with a strong search-intent heading
+
+Write your article body in Markdown. Use headings, short paragraphs, and lists that answer the reader's question directly.
+
+### Suggested structure
+
+- The problem your reader is searching for
+- Your practical answer or approach
+- Real examples, steps, or a mini case study
+- Link your backlinks naturally, e.g. [Bridge Homies](https://bridgehomies.com)
+`;
+
+const jsonTemplate = `{
+  "blocks": [
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Start with a strong search-intent heading"
+    },
+    {
+      "type": "paragraph",
+      "text": "Write your article body in JSON blocks. Each block becomes a rendered section on the published page."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Suggested structure"
+    },
+    {
+      "type": "list",
+      "items": [
+        "The problem your reader is searching for",
+        "Your practical answer or approach",
+        "Real examples, steps, or a mini case study"
+      ]
+    }
+  ]
+}`;
+
+function extractJsonBlocks(value: unknown): Record<string, unknown>[] {
+  if (Array.isArray(value)) {
+    return value as Record<string, unknown>[];
+  }
+  if (value && typeof value === "object") {
+    const record = value as Record<string, unknown>;
+    if (Array.isArray(record.blocks)) return record.blocks as Record<string, unknown>[];
+    if (Array.isArray(record.content)) return record.content as Record<string, unknown>[];
+    if (Array.isArray(record.body)) return record.body as Record<string, unknown>[];
+  }
+  return [];
+}
+
+function renderPreviewText(content: string) {
+  return content
+    .split("\n")
+    .map((line) => line.replace(/^#{1,6}\s*/, "").replace(/^[-*]\s*/, "").trim())
+    .filter(Boolean);
+}
+
+function getWordCount(content: string, format: ContentFormat): number {
+  if (format === "json") {
+    try {
+      const parsed = JSON.parse(content);
+      const blocks = extractJsonBlocks(parsed);
+      const text = blocks
+        .map((b) => {
+          if (typeof b.text === "string") return b.text;
+          if (Array.isArray(b.items)) return b.items.join(" ");
+          return "";
+        })
+        .join(" ");
+      return text.split(/\s+/).filter(Boolean).length;
+    } catch {
+      return 0;
+    }
+  }
+  return content
+    .replace(/^#{1,6}\s*/gm, "")
+    .split(/\s+/)
+    .filter(Boolean).length;
+}
+
+// ─── Live preview (ported from BlogWriterPortal) ───────────────────────────
+
+function JsonPreview({ content }: { content: string }) {
+  try {
+    const parsed = JSON.parse(content);
+    const blocks = extractJsonBlocks(parsed);
+
+    if (blocks.length === 0) {
+      return (
+        <p style={{ fontSize: 13, color: "#9b2c2a" }}>
+          JSON is valid, but no `blocks`, `content`, or `body` array was found.
+        </p>
+      );
+    }
+
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+        {blocks.map((block, index) => {
+          const type = typeof block.type === "string" ? block.type : "paragraph";
+
+          if (type === "heading") {
+            const level = Math.min(6, Math.max(1, Number(block.level || 2)));
+            const Tag = `h${level}` as any;
+            return (
+              <Tag
+                key={index}
+                style={{
+                  fontFamily: "'Playfair Display', serif",
+                  fontWeight: 700,
+                  color: "#111",
+                  fontSize: level === 2 ? "1.4rem" : "1.15rem",
+                  margin: 0,
+                }}
+              >
+                {String(block.text || "")}
+              </Tag>
+            );
+          }
+
+          if (type === "paragraph") {
+            return (
+              <p key={index} style={{ fontSize: 13, lineHeight: 1.85, color: "#444", margin: 0 }}>
+                {String(block.text || "")}
+              </p>
+            );
+          }
+
+          if (type === "list") {
+            const items = Array.isArray(block.items) ? block.items : [];
+            const ListTag = (block.ordered ? "ol" : "ul") as any;
+            return (
+              <ListTag
+                key={index}
+                style={{
+                  paddingLeft: 20,
+                  margin: 0,
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: 6,
+                  fontSize: 13,
+                  lineHeight: 1.7,
+                  color: "#444",
+                }}
+              >
+                {items.map((item: any, itemIndex: number) => (
+                  <li key={itemIndex}>{String(item)}</li>
+                ))}
+              </ListTag>
+            );
+          }
+
+          if (type === "quote") {
+            return (
+              <blockquote
+                key={index}
+                style={{
+                  borderLeft: "3px solid #c9a84c",
+                  margin: 0,
+                  padding: "4px 0 4px 16px",
+                  color: "#666",
+                  fontStyle: "italic",
+                  fontSize: 13,
+                }}
+              >
+                {String(block.text || "")}
+              </blockquote>
+            );
+          }
+
+          if (type === "code") {
+            return (
+              <pre
+                key={index}
+                style={{
+                  background: "#111",
+                  color: "#f5efe5",
+                  borderRadius: 8,
+                  padding: "12px 16px",
+                  fontSize: 12,
+                  overflowX: "auto",
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              >
+                <code>{String(block.code || "")}</code>
+              </pre>
+            );
+          }
+
+          return (
+            <p key={index} style={{ fontSize: 13, color: "#444" }}>
+              {typeof block.text === "string" ? block.text : JSON.stringify(block)}
+            </p>
+          );
+        })}
+      </div>
+    );
+  } catch (error) {
+    return (
+      <p style={{ fontSize: 13, color: "#9b2c2a" }}>
+        Invalid JSON. {error instanceof Error ? error.message : "Check the syntax and try again."}
+      </p>
+    );
+  }
+}
+
+function MarkdownPreview({ content }: { content: string }) {
+  const lines = renderPreviewText(content);
+
+  if (lines.length === 0) {
+    return <p style={{ fontSize: 13, color: "#999" }}>Start writing to see a preview.</p>;
+  }
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+      {lines.slice(0, 12).map((line, index) => (
+        <p
+          key={index}
+          style={
+            index === 0
+              ? { fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: 0 }
+              : { fontSize: 13, lineHeight: 1.85, color: "#444", margin: 0 }
+          }
+        >
+          {line}
+        </p>
+      ))}
+      {lines.length > 12 ? (
+        <p style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#bbb" }}>
+          Preview truncated
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
 const initialForm: FormData = {
   name: "",
   email: "",
@@ -135,162 +363,12 @@ const initialForm: FormData = {
   category: "Custom Web Apps",
   excerpt: "",
   tags: "",
-  content: "",
+  contentFormat: "markdown",
+  content: markdownTemplate,
   faqText: "",
   coverImageFile: null,
   coverImagePreview: "",
 };
-
-// ─── Rich Text Editor ───────────────────────────────────────────────────────
-
-function RichEditor({
-  value,
-  onChange,
-  backlinks = [],
-}: {
-  value: string;
-  onChange: (val: string) => void;
-  backlinks?: { label: string; url: string }[];
-}) {
-  const editorRef = useRef<HTMLDivElement>(null);
-  const [blMenuOpen, setBlMenuOpen] = useState(false);
-
-  const exec = useCallback((command: string, val?: string) => {
-    editorRef.current?.focus();
-    document.execCommand(command, false, val ?? undefined);
-    if (editorRef.current) onChange(editorRef.current.innerHTML);
-  }, [onChange]);
-
-  const insertLink = useCallback(() => {
-    const url = prompt("Enter URL:");
-    if (url) exec("createLink", url);
-  }, [exec]);
-
-  // ponytail: prompt() for anchor text — no modal needed until UX feedback says otherwise
-  const insertBacklink = useCallback((bl: { label: string; url: string }) => {
-    setBlMenuOpen(false);
-    editorRef.current?.focus();
-    const anchor = prompt("Anchor text for this link:", bl.label || bl.url);
-    if (!anchor) return;
-    document.execCommand("insertHTML", false, `<a href="${bl.url}">${anchor}</a>`);
-    if (editorRef.current) onChange(editorRef.current.innerHTML);
-  }, [onChange]);
-
-  const handleInput = useCallback(() => {
-    if (editorRef.current) onChange(editorRef.current.innerHTML);
-  }, [onChange]);
-
-  const filledBacklinks = backlinks.filter(bl => bl.url.trim());
-
-  const tools: { title: string; action: () => void; icon: React.ReactNode; group?: string }[] = [
-    { title: "Bold", action: () => exec("bold"), icon: <Bold size={14} />, group: "format" },
-    { title: "Italic", action: () => exec("italic"), icon: <Italic size={14} />, group: "format" },
-    { title: "Heading 2", action: () => exec("formatBlock", "<h2>"), icon: <Heading2 size={14} />, group: "block" },
-    { title: "Heading 3", action: () => exec("formatBlock", "<h3>"), icon: <Heading3 size={14} />, group: "block" },
-    { title: "Blockquote", action: () => exec("formatBlock", "<blockquote>"), icon: <Quote size={14} />, group: "block" },
-    { title: "Inline Code", action: () => exec("formatBlock", "<pre>"), icon: <Code size={14} />, group: "block" },
-    { title: "Bullet List", action: () => exec("insertUnorderedList"), icon: <List size={14} />, group: "list" },
-    { title: "Numbered List", action: () => exec("insertOrderedList"), icon: <ListOrdered size={14} />, group: "list" },
-    { title: "Divider", action: () => exec("insertHorizontalRule"), icon: <Minus size={14} />, group: "insert" },
-    { title: "Insert Link", action: insertLink, icon: <Link size={14} />, group: "insert" },
-    { title: "Undo", action: () => exec("undo"), icon: <Undo size={14} />, group: "history" },
-    { title: "Redo", action: () => exec("redo"), icon: <Redo size={14} />, group: "history" },
-  ];
-
-  const groups = ["format", "block", "list", "insert", "history"];
-
-  return (
-    <div className="rich-editor-wrap" style={{ position: "relative" }}>
-      <style>{`
-        .rich-editor-wrap { border: 1px solid rgba(0,0,0,0.12); border-radius: 12px; overflow: visible; background: #fff; }
-        .rich-toolbar { display: flex; align-items: center; gap: 2px; padding: 8px 10px; border-bottom: 1px solid rgba(0,0,0,0.08); background: #fafaf9; flex-wrap: wrap; border-radius: 12px 12px 0 0; }
-        .rich-toolbar-sep { width: 1px; height: 20px; background: rgba(0,0,0,0.10); margin: 0 4px; }
-        .rich-btn { display:flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:6px; border:none; background:transparent; cursor:pointer; color:#444; transition:background 0.12s,color 0.12s; }
-        .rich-btn:hover { background:rgba(0,0,0,0.07); color:#111; }
-        .rich-content { min-height: 340px; padding: 20px 24px; font-size: 14px; line-height: 1.85; color: #1a1a1a; outline: none; font-family: 'Georgia', serif; border-radius: 0 0 12px 12px; }
-        .rich-content:empty::before { content: attr(data-placeholder); color: #aaa; font-style: italic; pointer-events:none; }
-        .rich-content h2 { font-size: 1.35em; font-weight: 700; margin: 1.4em 0 0.5em; font-family: inherit; color: #111; }
-        .rich-content h3 { font-size: 1.1em; font-weight: 700; margin: 1.2em 0 0.4em; font-family: inherit; color: #111; }
-        .rich-content blockquote { border-left: 3px solid #c9a84c; margin: 1.2em 0; padding: 4px 0 4px 18px; color: #555; font-style: italic; }
-        .rich-content pre { background: #f4f3f0; border-radius: 6px; padding: 12px 16px; font-family: 'JetBrains Mono', 'Courier New', monospace; font-size: 0.85em; overflow-x: auto; }
-        .rich-content ul, .rich-content ol { padding-left: 24px; margin: 0.75em 0; }
-        .rich-content li { margin-bottom: 0.3em; }
-        .rich-content a { color: #b5883b; text-decoration: underline; }
-        .rich-content hr { border: none; border-top: 1px solid rgba(0,0,0,0.12); margin: 1.6em 0; }
-        .rich-content p { margin: 0.7em 0; }
-        .bl-dropdown { position:absolute; top:calc(100% + 6px); right:0; background:#fff; border:1px solid rgba(0,0,0,0.12); border-radius:10px; box-shadow:0 8px 24px -8px rgba(0,0,0,0.18); z-index:50; min-width:220px; overflow:hidden; }
-        .bl-dropdown-item { display:flex; flex-direction:column; gap:2px; padding:10px 14px; cursor:pointer; transition:background 0.1s; border:none; background:transparent; width:100%; text-align:left; }
-        .bl-dropdown-item:hover { background:#fdf8ec; }
-        .bl-dropdown-item + .bl-dropdown-item { border-top:1px solid rgba(0,0,0,0.06); }
-      `}</style>
-
-      <div className="rich-toolbar" onMouseDown={(e) => e.preventDefault()}>
-        {groups.map((group, gi) => (
-          <React.Fragment key={group}>
-            {gi > 0 && <span className="rich-toolbar-sep" />}
-            {tools.filter(t => t.group === group).map(t => (
-              <button key={t.title} type="button" className="rich-btn" title={t.title} onClick={t.action}>
-                {t.icon}
-              </button>
-            ))}
-          </React.Fragment>
-        ))}
-
-        {/* Backlinks dropdown — only shown when backlinks are filled in Step 2 */}
-        {filledBacklinks.length > 0 && (
-          <>
-            <span className="rich-toolbar-sep" />
-            <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="rich-btn"
-                title="Insert backlink"
-                onClick={() => setBlMenuOpen(v => !v)}
-                style={{ width: "auto", padding: "0 8px", gap: 4, fontSize: 11, fontWeight: 700, color: "purple" }}
-              >
-                <Link2 size={13} />
-                My Links
-              </button>
-              {blMenuOpen && (
-                <>
-                  {/* ponytail: click-outside via overlay div, no useEffect listener needed */}
-                  <div
-                    style={{ position: "fixed", inset: 0, zIndex: 49 }}
-                    onClick={() => setBlMenuOpen(false)}
-                  />
-                  <div className="bl-dropdown">
-                    {filledBacklinks.map((bl, i) => (
-                      <button
-                        key={i}
-                        type="button"
-                        className="bl-dropdown-item"
-                        onMouseDown={(e) => e.preventDefault()} // keep editor focus
-                        onClick={() => insertBacklink(bl)}
-                      >
-                        <span style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a" }}>{bl.label || `Link ${i + 1}`}</span>
-                        <span style={{ fontSize: 11, color: "#aaa", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{bl.url}</span>
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-          </>
-        )}
-      </div>
-
-      <div
-        ref={editorRef}
-        className="rich-content"
-        contentEditable
-        suppressContentEditableWarning
-        onInput={handleInput}
-        data-placeholder="Write your article here. Use the toolbar above to format headings, bold text, lists, and more…"
-        dangerouslySetInnerHTML={{ __html: value }}
-      />
-    </div>
-  );
-}
 
 // ─── Step indicator ─────────────────────────────────────────────────────────
 
@@ -475,7 +553,7 @@ const sharedStyles = `
   .phone-wrap .react-tel-input .country-list { border-radius:8px !important; box-shadow:0 8px 32px -8px rgba(0,0,0,0.16) !important; border:1px solid rgba(0,0,0,0.10) !important; }
 `;
 
-// ─── Steps (unchanged logic, same as original) ────────────────────────────
+// ─── Steps ─────────────────────────────────────────────────────────────────
 
 function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v: any) => void }) {
   return (
@@ -556,6 +634,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
 
 function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v: any) => void }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const contentRef = useRef<HTMLTextAreaElement>(null);
 
   function handleFile(file: File | null) {
     if (!file) return;
@@ -568,14 +647,49 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
 
   const filled = form.backlinks.filter(bl => bl.url.trim());
 
+  function insertBacklink(bl: { label: string; url: string }) {
+    const anchor = bl.label || bl.url;
+    const snippet = `[${anchor}](${bl.url})`;
+    const el = contentRef.current;
+
+    if (!el) {
+      update("content", `${form.content} ${snippet} `);
+      return;
+    }
+
+    const start = el.selectionStart ?? form.content.length;
+    const end = el.selectionEnd ?? form.content.length;
+    const next = form.content.slice(0, start) + snippet + form.content.slice(end);
+    update("content", next);
+
+    requestAnimationFrame(() => {
+      el.focus();
+      const pos = start + snippet.length;
+      el.setSelectionRange(pos, pos);
+    });
+  }
+
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "22px" }}>
       {filled.length > 0 && (
         <div className="bh-notice bh-notice-gold" style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
           <Link2 size={15} style={{ marginTop: 2, flexShrink: 0 }} />
-          <div>
+          <div style={{ flex: 1 }}>
             <strong style={{ fontWeight: 700 }}>Include your backlinks in the article body</strong><br />
-            <span style={{ fontSize: 12 }}>{filled.map(bl => bl.label || bl.url).join(", ")} embed these contextually for maximum SEO value.</span>
+            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
+              {filled.map((bl, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => insertBacklink(bl)}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#fff", border: "1px solid purple", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 700, color: "purple", cursor: "pointer" }}
+                >
+                  <Link2 size={11} />
+                  {bl.label || `Link ${i + 1}`}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
@@ -629,19 +743,71 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
             </div>
           )}
         </div>
+
+        {/* ── Content format + body — same writing model as BlogWriterPortal ── */}
+        <div style={{ gridColumn: "1/-1" }}>
+          <Field label="Content Format" required hint="Choose how you'd like to write your article.">
+            <select
+              className={inputCls}
+              value={form.contentFormat}
+              onChange={(e) => {
+                const nextFormat = e.target.value as ContentFormat;
+                const currentTemplate = form.contentFormat === "json" ? jsonTemplate : markdownTemplate;
+                const nextTemplate = nextFormat === "json" ? jsonTemplate : markdownTemplate;
+
+                update("contentFormat", nextFormat);
+                if (form.content.trim() === currentTemplate.trim() || !form.content.trim()) {
+                  update("content", nextTemplate);
+                }
+              }}
+            >
+              <option value="markdown">Markdown / MDX</option>
+              <option value="json">JSON blocks</option>
+            </select>
+          </Field>
+        </div>
+
         <div style={{ gridColumn: "1/-1" }}>
           <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "'DM Sans',sans-serif" }}>
             Article Body <span style={{ color: "#c9a84c" }}>*</span>
           </span>
-          <RichEditor
+          <textarea
+            ref={contentRef}
+            className={textareaCls}
+            style={{ minHeight: "22rem", fontFamily: "'JetBrains Mono', monospace", fontSize: 13, lineHeight: 1.8 }}
             value={form.content}
-            onChange={(v) => update("content", v)}
-            backlinks={form.backlinks}  // ← add this
+            onChange={(e) => update("content", e.target.value)}
+            required
           />
           <p style={{ fontSize: 11.5, color: "#999", marginTop: 6, lineHeight: 1.6 }}>
-            Use the toolbar for headings, bold, lists, blockquotes, and links. Minimum 800 words. <strong style={{ color: "purple", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
+            {form.contentFormat === "json"
+              ? "Use JSON blocks. Supported JSON can be an array of blocks or an object with `blocks`, `content`, or `body`."
+              : "Use Markdown or MDX. Minimum 800 words."}{" "}
+            <strong style={{ color: "purple", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
           </p>
         </div>
+
+        {/* ── Live preview ── */}
+        <div style={{ gridColumn: "1/-1" }} className="bh-card">
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, borderBottom: "1px solid rgba(0,0,0,0.08)", paddingBottom: 14, marginBottom: 16 }}>
+            <div>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: 0 }}>Live preview</p>
+              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: "4px 0 0" }}>
+                {form.title || "Untitled article"}
+              </h3>
+            </div>
+            <span style={{ borderRadius: 20, background: "#f5efe5", padding: "4px 12px", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a6535" }}>
+              {form.contentFormat === "json" ? "JSON preview" : "Draft preview"}
+            </span>
+          </div>
+          {form.excerpt ? (
+            <p style={{ fontSize: 13, lineHeight: 1.85, color: "#666", borderBottom: "1px solid rgba(0,0,0,0.06)", paddingBottom: 16, marginBottom: 16 }}>
+              {form.excerpt}
+            </p>
+          ) : null}
+          {form.contentFormat === "json" ? <JsonPreview content={form.content} /> : <MarkdownPreview content={form.content} />}
+        </div>
+
         <div style={{ gridColumn: "1/-1" }}>
           <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>Question::Answer</code></span>}>
             <textarea className={textareaCls} style={{ minHeight: 100 }} placeholder={"What is a custom web app?::A custom web app is tailored specifically to your business needs.\nHow long does a dashboard take?::Most take 4–12 weeks depending on complexity."} value={form.faqText} onChange={(e) => update("faqText", e.target.value)} />
@@ -654,7 +820,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
 
 function Step4({ form }: { form: FormData }) {
   const filled = form.backlinks.filter(bl => bl.url.trim());
-  const wordCount = form.content.replace(/<[^>]*>/g, "").split(/\s+/).filter(Boolean).length;
+  const wordCount = getWordCount(form.content, form.contentFormat);
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -690,6 +856,7 @@ function Step4({ form }: { form: FormData }) {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 24px", fontSize: 13, color: "#333" }}>
           <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Title </span>{form.title}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Category </span>{form.category}</div>
+          <div><span style={{ fontWeight: 600, color: "#888" }}>Format </span>{form.contentFormat === "json" ? "JSON blocks" : "Markdown / MDX"}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Word count </span>~{wordCount} words {wordCount < 800 && <span style={{ color: "#c9a84c", fontWeight: 700 }}>(min 800)</span>}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Tags </span>{form.tags || "—"}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Image </span>{form.coverImageFile?.name || "None"}</div>
@@ -750,8 +917,8 @@ export default function BlogSubmitPortal() {
     if (s === 3) {
       if (!form.title.trim()) return "Please enter an article title.";
       if (!form.excerpt.trim()) return "Please add a short excerpt.";
-      const text = form.content.replace(/<[^>]*>/g, "").trim();
-      if (!text) return "Please write your article content.";
+      const templateTrim = (form.contentFormat === "json" ? jsonTemplate : markdownTemplate).trim();
+      if (!form.content.trim() || form.content.trim() === templateTrim) return "Please write your article content.";
       if (!form.coverImageFile) return "Please upload a featured image.";
     }
     return "";

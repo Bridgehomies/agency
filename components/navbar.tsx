@@ -66,12 +66,12 @@ export default function Navbar() {
   return (
     <>
       {/* Ticker bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 h-7 bg-white border-b border-black/10 overflow-hidden flex items-center">
+      <div className="fixed top-0 left-0 right-0 z-50 h-6 sm:h-7 bg-white border-b border-black/10 overflow-hidden flex items-center">
         <div className="flex whitespace-nowrap animate-ticker">
           {[...repeated, ...repeated].map((item, i) => (
             <span
               key={i}
-              className="inline-flex items-center gap-5 px-6 text-[9px] tracking-[0.2em] uppercase text-black/60 font-medium"
+              className="inline-flex items-center gap-3 sm:gap-5 px-4 sm:px-6 text-[8px] sm:text-[9px] tracking-[0.2em] uppercase text-black/60 font-medium"
             >
               {item}
               <span className="text-violet-600 text-[7px]">◆</span>
@@ -83,21 +83,21 @@ export default function Navbar() {
       {/* Main bar */}
       <header
         className={cn(
-          "fixed top-7 left-0 right-0 z-40 h-[68px] flex items-center justify-between px-10 transition-all duration-300 bg-white",
+          "fixed top-6 sm:top-7 left-0 right-0 z-40 h-[60px] sm:h-[68px] flex items-center justify-between px-4 sm:px-6 md:px-10 transition-all duration-300 bg-white",
           scrolled && !isOpen ? "border-b border-black/10" : "border-b border-transparent"
         )}
       >
         {/* Logo */}
-        <button onClick={() => go("/")} className="flex items-center gap-3 group">
+        <button onClick={() => go("/")} className="flex items-center gap-3 group shrink-0">
           <img
             src="/logo-bg.png"
             alt="Bridge Homies"
-            className="h-10 w-auto object-contain"
+            className="h-8 sm:h-9 md:h-10 w-auto object-contain"
           />
         </button>
 
         {/* Center status pill */}
-        <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center gap-2 border border-black/15 px-4 py-[6px]">
+        <div className="absolute left-1/2 -translate-x-1/2 hidden lg:flex items-center gap-2 border border-black/15 px-4 py-[6px]">
           <span className="w-[5px] h-[5px] rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-[10px] tracking-[0.12em] uppercase text-black/70 font-medium">
             Available for projects
@@ -107,19 +107,19 @@ export default function Navbar() {
         {/* Toggle */}
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="flex flex-col gap-[6px] p-2 group"
+          className="flex flex-col gap-[5px] sm:gap-[6px] p-2 group shrink-0"
           aria-label="Toggle menu"
         >
           <span
             className={cn(
               "block h-px bg-black transition-all duration-500 origin-center",
-              isOpen ? "w-6 translate-y-[3.5px] rotate-45" : "w-7"
+              isOpen ? "w-5 sm:w-6 translate-y-[3px] sm:translate-y-[3.5px] rotate-45" : "w-6 sm:w-7"
             )}
           />
           <span
             className={cn(
               "block h-px bg-black transition-all duration-500 origin-center ml-auto",
-              isOpen ? "w-6 -translate-y-[3.5px] -rotate-45" : "w-5"
+              isOpen ? "w-5 sm:w-6 -translate-y-[3px] sm:-translate-y-[3.5px] -rotate-45" : "w-4 sm:w-5"
             )}
           />
         </button>
@@ -133,10 +133,10 @@ export default function Navbar() {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.65, ease: [0.77, 0, 0.18, 1] }}
-            className="fixed inset-0 z-30 bg-white grid grid-cols-2 pt-[calc(28px+68px)]"
+            className="fixed inset-0 z-30 bg-white grid grid-cols-1 md:grid-cols-2 pt-[calc(24px+60px)] sm:pt-[calc(28px+68px)] overflow-y-auto"
           >
             {/* Left — Nav links */}
-            <div className="flex flex-col justify-between px-10 pb-12 border-r border-black/10">
+            <div className="flex flex-col justify-between px-5 sm:px-8 md:px-10 pb-8 md:pb-12 border-b md:border-b-0 md:border-r border-black/10">
               <nav className="flex flex-col">
                 {navLinks.map((link, i) => (
                   <motion.button
@@ -146,21 +146,21 @@ export default function Navbar() {
                     transition={{ delay: 0.2 + i * 0.06 }}
                     onClick={() => go(link.href)}
                     className={cn(
-                      "group flex items-baseline gap-3 w-full text-left py-[14px]",
+                      "group flex items-baseline gap-2 sm:gap-3 w-full text-left py-[10px] sm:py-[12px] md:py-[14px]",
                       "border-t border-black/10 last:border-b last:border-black/10",
                       "hover:border-t-black/30 transition-colors duration-200"
                     )}
                   >
-                    <span className="text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
+                    <span className="text-[9px] sm:text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[20px] sm:min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
                       {link.num}
                     </span>
                     <span
-                      className="text-[48px] leading-none tracking-[0.02em] text-black/60 group-hover:text-black transition-colors duration-300"
+                      className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px] leading-none tracking-[0.02em] text-black/60 group-hover:text-black transition-colors duration-300"
                       style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                     >
                       {link.name}
                     </span>
-                    <span className="ml-auto text-base text-black/60 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+                    <span className="ml-auto text-sm sm:text-base text-black/60 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline">
                       ↗
                     </span>
                   </motion.button>
@@ -171,12 +171,12 @@ export default function Navbar() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                className="flex flex-col gap-1"
+                className="flex flex-col gap-1 mt-8 md:mt-0"
               >
-                <span className="text-[10px] tracking-[0.1em] uppercase text-black/60">
+                <span className="text-[9px] sm:text-[10px] tracking-[0.1em] uppercase text-black/60">
                   Bridge Homies Studio
                 </span>
-                <span className="text-[10px] tracking-[0.1em] uppercase text-black/50">
+                <span className="text-[9px] sm:text-[10px] tracking-[0.1em] uppercase text-black/50">
                   Lahore, Pakistan — Est. 2025
                 </span>
               </motion.div>
@@ -187,23 +187,27 @@ export default function Navbar() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.25 }}
-              className="flex flex-col justify-between px-12 pb-12 bg-black/[0.02]"
+              className="flex flex-col justify-between px-5 sm:px-8 md:px-12 pb-8 md:pb-12 bg-black/[0.02]"
             >
-              <div className="flex flex-col gap-10 pt-6">
+              <div className="flex flex-col gap-8 md:gap-10 pt-6">
                 {/* Email */}
                 <div>
                   <p className="text-[9px] tracking-[0.2em] uppercase text-black/60 mb-3 font-medium">
                     Get in touch
                   </p>
-                  <div className="flex items-center gap-4 border-b border-black/20 pb-3">
+                  <div className="flex flex-wrap items-center gap-3 sm:gap-4 border-b border-black/20 pb-3">
                     <a
                       href="mailto:info@bridgehomies.com"
-                      className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em]"
+                      className="text-[15px] sm:text-[17px] md:text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em] break-all"
                     >
                       info@bridgehomies.com
                     </a>
-                    <span className="w-px h-5 bg-black/20" />
-                    <a href="https://wa.me/923429263395" target="_blank" className="text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em]">
+                    <span className="hidden sm:block w-px h-5 bg-black/20" />
+                    <a
+                      href="https://wa.me/923429263395"
+                      target="_blank"
+                      className="text-[15px] sm:text-[17px] md:text-[20px] font-light text-black/90 hover:text-black transition-colors duration-200 tracking-[-0.02em]"
+                    >
                       +92 342 9263395
                     </a>
                   </div>
@@ -229,7 +233,7 @@ export default function Navbar() {
               </div>
 
               {/* CTA */}
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-3 mt-8 md:mt-0">
                 <button
                   onClick={() => go("#contact")}
                   className="w-full py-4 bg-violet-600 hover:bg-violet-700 transition-colors duration-200 flex items-center justify-between px-5 group"
@@ -251,4 +255,4 @@ export default function Navbar() {
       </AnimatePresence>
     </>
   );
-} 
+}
