@@ -220,7 +220,7 @@ function JsonPreview({ content }: { content: string }) {
               <Tag
                 key={index}
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "var(--font-playfair), serif",
                   fontWeight: 700,
                   color: "#111",
                   fontSize: level === 2 ? "1.4rem" : "1.15rem",
@@ -293,7 +293,7 @@ function JsonPreview({ content }: { content: string }) {
                   padding: "12px 16px",
                   fontSize: 12,
                   overflowX: "auto",
-                  fontFamily: "'JetBrains Mono', monospace",
+                  fontFamily: "var(--font-jetbrains), monospace",
                 }}
               >
                 <code>{String(block.code || "")}</code>
@@ -332,7 +332,7 @@ function MarkdownPreview({ content }: { content: string }) {
           key={index}
           style={
             index === 0
-              ? { fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: 0 }
+              ? { fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: 0 }
               : { fontSize: 13, lineHeight: 1.85, color: "#444", margin: 0 }
           }
         >
@@ -371,26 +371,12 @@ const initialForm: FormData = {
 };
 
 // ─── Step indicator ─────────────────────────────────────────────────────────
-
+// PERF FIX: this component used to inject its own <style> tag on every
+// render. It's now pure markup — its CSS lives once in `sharedStyles`,
+// rendered a single time by the top-level BlogSubmitPortal component.
 function StepIndicator({ step, total, labels }: { step: Step; total: number; labels: string[] }) {
   return (
     <div className="step-indicator" role="navigation" aria-label="Form steps">
-      <style>{`
-        .step-indicator { display:flex; align-items:center; gap:0; margin-bottom:40px; }
-        .step-item { display:flex; align-items:center; flex:1; }
-        .step-dot { display:flex; flex-direction:column; align-items:center; gap:6px; }
-        .step-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family: 'Helvetica Neue', sans-serif; transition: all 0.3s; flex-shrink:0; }
-        .step-circle.done   { background:#1a1a1a; color:#c9a84c; border: 2px solid #1a1a1a; }
-        .step-circle.active { background:#f7f3fe; color:#1a1a1a; border: 2px solid purple; }
-        .step-circle.idle   { background:transparent; color:#aaa; border: 2px solid #ddd; }
-        .step-label { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
-        .step-label.done   { color:#7a6535; } 
-        .step-label.active { color:#1a1a1a; }
-        .step-label.idle   { color:#bbb; }
-        .step-line { flex:1; height:1px; background:#00000061; position:relative; margin: 0 4px; margin-bottom: 22px; }
-        .step-line-fill { position:absolute; inset:0; background:#c9a84c; transition: width 0.5s ease; }
-        @media(max-width:480px) { .step-label { display:none; } }
-      `}</style>
       {labels.map((label, i) => {
         const s = i + 1;
         const state = s < step ? "done" : s === step ? "active" : "idle";
@@ -415,18 +401,16 @@ function StepIndicator({ step, total, labels }: { step: Step; total: number; lab
 }
 
 // ─── Field wrapper ─────────────────────────────────────────────────────────
-
+// PERF FIX: same as StepIndicator above — this renders inside every step,
+// for every input on the form (10-15+ instances). It used to inject a
+// duplicate <style> tag on each render, which is exactly what PageSpeed's
+// "Reduce unused CSS" and main-thread/forced-reflow diagnostics were
+// picking up. Its CSS now lives once in `sharedStyles`.
 function Field({ label, hint, children, required }: {
   label: string; hint?: React.ReactNode; children: React.ReactNode; required?: boolean;
 }) {
   return (
     <label className="field-block">
-      <style>{`
-        .field-block { display:block; }
-        .field-label { display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:8px; font-family:'Helvetica Neue',sans-serif; }
-        .field-req { color:#c9a84c; }
-        .field-hint { font-size:11.5px; color:#999; margin-top:6px; line-height:1.6; font-weight:400; text-transform:none; letter-spacing:0; }
-      `}</style>
       <span className="field-label">
         {label}{required && <span className="field-req" aria-label="required">*</span>}
       </span>
@@ -439,10 +423,26 @@ function Field({ label, hint, children, required }: {
 const inputCls = "bh-input";
 const textareaCls = "bh-input bh-textarea";
 
+// PERF FIX: removed the @import('fonts.googleapis.com/...') that used to
+// open this string. @import inside a client-rendered <style> tag forces a
+// 4-hop chain (HTML -> parse <style> -> discover @import -> fetch CSS ->
+// fetch font files) before the H1 ("Write for Us / Publish on Bridge
+// Homies" — the LCP element on this page) can paint in its final font.
+// That chain is what PageSpeed flagged as "render-blocking requests" and
+// "network dependency tree", and the fallback-to-webfont swap it caused
+// (serif Playfair Display vs. the browser's sans-serif fallback, on a
+// two-line clamp()-sized heading) is the CLS "layout shift culprit".
+//
+// Fonts now load once, site-wide, via next/font/google in the root layout
+// (see app/fonts.ts + app/layout.tsx) and are referenced below as CSS
+// variables. Make sure the *.variable classes from app/fonts.ts are applied
+// on <html> or <body> in the root layout so these variables are in scope.
+//
+// Also merged in: the CSS that used to live in separate <style> tags inside
+// the Field and StepIndicator components (see PERF FIX notes above them),
+// now declared exactly once here.
 const sharedStyles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;1,700&family=DM+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
-
-  .bh-root { font-family: 'DM Sans', sans-serif; }
+  .bh-root { font-family: var(--font-dm-sans), sans-serif; }
 
   .bh-input {
     width: 100%;
@@ -452,7 +452,7 @@ const sharedStyles = `
     padding: 11px 14px;
     font-size: 14px;
     color: #1a1a1a;
-    font-family: 'DM Sans', sans-serif;
+    font-family: var(--font-dm-sans), sans-serif;
     outline: none;
     transition: border-color 0.15s, box-shadow 0.15s;
     -webkit-appearance: none;
@@ -472,7 +472,7 @@ const sharedStyles = `
     background:#1a1a1a; color:#fff;
     border:none; border-radius:8px;
     padding:12px 28px; font-size:13px; font-weight:600;
-    font-family:'DM Sans',sans-serif;
+    font-family: var(--font-dm-sans), sans-serif;
     letter-spacing:0.04em;
     cursor:pointer; transition:background 0.15s;
   }
@@ -484,7 +484,7 @@ const sharedStyles = `
     background:#c9a84c; color:#1a1a1a;
     border:none; border-radius:8px;
     padding:12px 28px; font-size:13px; font-weight:700;
-    font-family:'DM Sans',sans-serif;
+    font-family: var(--font-dm-sans), sans-serif;
     letter-spacing:0.04em;
     cursor:pointer; transition:background 0.15s, box-shadow 0.15s;
   }
@@ -496,7 +496,7 @@ const sharedStyles = `
     background:transparent; color:#666;
     border:1px solid rgba(0,0,0,0.12); border-radius:8px;
     padding:12px 22px; font-size:13px; font-weight:500;
-    font-family:'DM Sans',sans-serif;
+    font-family: var(--font-dm-sans), sans-serif;
     cursor:pointer; transition:background 0.15s;
   }
   .bh-btn-ghost:hover { background:#f5f5f4; }
@@ -526,7 +526,7 @@ const sharedStyles = `
     text-transform:uppercase;
     color:purple;
     margin-bottom:16px;
-    font-family:'DM Sans',sans-serif;
+    font-family: var(--font-dm-sans), sans-serif;
   }
 
   .phone-wrap .react-tel-input .form-control {
@@ -535,7 +535,7 @@ const sharedStyles = `
     background:#fafaf8 !important;
     padding:11px 14px 11px 48px !important;
     font-size:14px !important; color:#1a1a1a !important;
-    height:auto !important; font-family:'DM Sans',sans-serif !important;
+    height:auto !important; font-family: var(--font-dm-sans), sans-serif !important;
     box-shadow:none !important;
   }
   .phone-wrap .react-tel-input .form-control:focus {
@@ -551,6 +551,28 @@ const sharedStyles = `
   .phone-wrap .react-tel-input .selected-flag { border-radius:8px 0 0 8px !important; padding:0 0 0 12px !important; background:transparent !important; }
   .phone-wrap .react-tel-input .selected-flag:hover { background:rgba(201,168,76,0.08) !important; }
   .phone-wrap .react-tel-input .country-list { border-radius:8px !important; box-shadow:0 8px 32px -8px rgba(0,0,0,0.16) !important; border:1px solid rgba(0,0,0,0.10) !important; }
+
+  /* ── merged from StepIndicator ───────────────────────────────────────── */
+  .step-indicator { display:flex; align-items:center; gap:0; margin-bottom:40px; }
+  .step-item { display:flex; align-items:center; flex:1; }
+  .step-dot { display:flex; flex-direction:column; align-items:center; gap:6px; }
+  .step-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family: var(--font-dm-sans), sans-serif; transition: all 0.3s; flex-shrink:0; }
+  .step-circle.done   { background:#1a1a1a; color:#c9a84c; border: 2px solid #1a1a1a; }
+  .step-circle.active { background:#f7f3fe; color:#1a1a1a; border: 2px solid purple; }
+  .step-circle.idle   { background:transparent; color:#aaa; border: 2px solid #ddd; }
+  .step-label { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+  .step-label.done   { color:#7a6535; }
+  .step-label.active { color:#1a1a1a; }
+  .step-label.idle   { color:#bbb; }
+  .step-line { flex:1; height:1px; background:#00000061; position:relative; margin: 0 4px; margin-bottom: 22px; }
+  .step-line-fill { position:absolute; inset:0; background:#c9a84c; transition: width 0.5s ease; }
+  @media(max-width:480px) { .step-label { display:none; } }
+
+  /* ── merged from Field ───────────────────────────────────────────────── */
+  .field-block { display:block; }
+  .field-label { display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:8px; font-family: var(--font-dm-sans), sans-serif; }
+  .field-req { color:#c9a84c; }
+  .field-hint { font-size:11.5px; color:#999; margin-top:6px; line-height:1.6; font-weight:400; text-transform:none; letter-spacing:0; }
 `;
 
 // ─── Steps ─────────────────────────────────────────────────────────────────
@@ -676,7 +698,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <Link2 size={15} style={{ marginTop: 2, flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
             <strong style={{ fontWeight: 700 }}>Include your backlinks in the article body</strong><br />
-            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
+            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 4, padding: "1px 6px", fontFamily: "var(--font-jetbrains), monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
               {filled.map((bl, i) => (
                 <button
@@ -713,7 +735,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           </Field>
         </div>
         <div style={{ gridColumn: "1/-1" }}>
-          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "'DM Sans',sans-serif" }}>
+          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "var(--font-dm-sans), sans-serif" }}>
             Featured Image <span style={{ color: "#c9a84c" }}>*</span>
           </span>
           <input ref={fileInputRef} type="file" accept="image/*" style={{ display: "none" }} aria-label="Upload featured image" tabIndex={-1} onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
@@ -768,13 +790,13 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
 
         <div style={{ gridColumn: "1/-1" }}>
-          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "'DM Sans',sans-serif" }}>
+          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "var(--font-dm-sans), sans-serif" }}>
             Article Body <span style={{ color: "#c9a84c" }}>*</span>
           </span>
           <textarea
             ref={contentRef}
             className={textareaCls}
-            style={{ minHeight: "22rem", fontFamily: "'JetBrains Mono', monospace", fontSize: 13, lineHeight: 1.8 }}
+            style={{ minHeight: "22rem", fontFamily: "var(--font-jetbrains), monospace", fontSize: 13, lineHeight: 1.8 }}
             value={form.content}
             onChange={(e) => update("content", e.target.value)}
             required
@@ -792,7 +814,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, borderBottom: "1px solid rgba(0,0,0,0.08)", paddingBottom: 14, marginBottom: 16 }}>
             <div>
               <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: 0 }}>Live preview</p>
-              <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: "4px 0 0" }}>
+              <h3 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: "4px 0 0" }}>
                 {form.title || "Untitled article"}
               </h3>
             </div>
@@ -809,7 +831,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
 
         <div style={{ gridColumn: "1/-1" }}>
-          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "'JetBrains Mono', monospace", fontSize: 11 }}>Question::Answer</code></span>}>
+          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "var(--font-jetbrains), monospace", fontSize: 11 }}>Question::Answer</code></span>}>
             <textarea className={textareaCls} style={{ minHeight: 100 }} placeholder={"What is a custom web app?::A custom web app is tailored specifically to your business needs.\nHow long does a dashboard take?::Most take 4–12 weeks depending on complexity."} value={form.faqText} onChange={(e) => update("faqText", e.target.value)} />
           </Field>
         </div>
@@ -875,7 +897,7 @@ function SuccessScreen() {
       <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#f0faf4", border: "2px solid #b2dfc5", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 28 }}>
         <CheckCircle size={30} color="#2d8653" />
       </div>
-      <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "2.2rem", fontWeight: 800, color: "#1a1a1a", margin: "0 0 14px" }}>You're in the queue!</h2>
+      <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "2.2rem", fontWeight: 800, color: "#1a1a1a", margin: "0 0 14px" }}>You're in the queue!</h2>
       <p style={{ fontSize: 14, lineHeight: 1.8, color: "#666", maxWidth: 440, margin: "0 0 10px" }}>
         Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#555" }}>3–5 business days</strong>.
       </p>
@@ -883,10 +905,10 @@ function SuccessScreen() {
         Once accepted, your article will be published with your author profile and all backlinks live.
       </p>
       <div style={{ display: "flex", gap: 12 }}>
-        <a href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1a1a1a", color: "#fff", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 600, textDecoration: "none", fontFamily: "'DM Sans',sans-serif" }}>
+        <a href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1a1a1a", color: "#fff", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font-dm-sans), sans-serif" }}>
           Browse the blog <ArrowRight size={14} />
         </a>
-        <a href="/blog/write-for-us" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#555", border: "1px solid rgba(0,0,0,0.12)", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 500, textDecoration: "none", fontFamily: "'DM Sans',sans-serif" }}>
+        <a href="/blog/write-for-us" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#555", border: "1px solid rgba(0,0,0,0.12)", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 500, textDecoration: "none", fontFamily: "var(--font-dm-sans), sans-serif" }}>
           Submit another post
         </a>
       </div>
@@ -981,6 +1003,9 @@ export default function BlogSubmitPortal() {
 
   return (
     <div className="bh-root bg-black/10" style={{ minHeight: "100vh", padding: "120px 24px 80px" }}>
+      {/* sharedStyles is now rendered exactly once, here, for the whole
+          multi-step form — not re-injected by Field/StepIndicator on every
+          render. */}
       <style>{sharedStyles}</style>
 
       <div style={{ maxWidth: 760, margin: "0 auto" }}>
@@ -990,7 +1015,7 @@ export default function BlogSubmitPortal() {
           <ol
             itemScope
             itemType="https://schema.org/BreadcrumbList"
-            style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, fontSize: 11.5, color: "#999", fontFamily: "'DM Sans',sans-serif" }}
+            style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, fontSize: 11.5, color: "#999", fontFamily: "var(--font-dm-sans), sans-serif" }}
           >
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
               <a href="/" itemProp="item" style={{ color: "#bbb", textDecoration: "none" }}><span itemProp="name">Home</span></a>
@@ -1012,15 +1037,20 @@ export default function BlogSubmitPortal() {
         {/* ── Hero ── */}
         <header style={{ marginBottom: 64 }}>
           {/* SEO: exact-match keyword in prominent position before H1 */}
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "purple", marginBottom: 14, fontFamily: "'DM Sans',sans-serif" }}>
+          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "purple", marginBottom: 14, fontFamily: "var(--font-dm-sans), sans-serif" }}>
             Write for Us Guest Post Submission Portal
           </p>
 
           {/*
             SEO CRITICAL: H1 must contain the exact keyword "Write for Us".
             This is the primary ranking signal on-page.
+
+            PERF: this H1 is the page's LCP element. It now paints against
+            next/font's self-hosted, preloaded Playfair Display instead of
+            waiting on the old @import chain — see the sharedStyles comment
+            above for the full explanation.
           */}
-          <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 800, color: "#111", lineHeight: 1.12, margin: "0 0 20px", maxWidth: 620 }}>
+          <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 800, color: "#111", lineHeight: 1.12, margin: "0 0 20px", maxWidth: 620 }}>
             Write for Us<br />Publish on Bridge Homies
           </h1>
 
@@ -1036,7 +1066,7 @@ export default function BlogSubmitPortal() {
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10, marginBottom: 28 }}>
             {NICHES.map(({ label, desc }) => (
               <div key={label} style={{ background: "rgba(255,255,255,0.6)", border: "1px solid #937cbbff", borderRadius: 10, padding: "14px 16px" }}>
-                <p style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a", margin: "0 0 4px", fontFamily: "'DM Sans',sans-serif" }}>{label}</p>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a", margin: "0 0 4px", fontFamily: "var(--font-dm-sans), sans-serif" }}>{label}</p>
                 <p style={{ fontSize: 11, color: "#888", margin: 0, lineHeight: 1.5 }}>{desc}</p>
               </div>
             ))}
@@ -1052,7 +1082,7 @@ export default function BlogSubmitPortal() {
               "800 words minimum",
               "No AI filler accepted",
             ].map(tag => (
-              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #937cbbff", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 600, color: "#7a6535", fontFamily: "'DM Sans',sans-serif" }}>
+              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #937cbbff", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 600, color: "#7a6535", fontFamily: "var(--font-dm-sans), sans-serif" }}>
                 <CheckCircle size={11} color="purple" />
                 {tag}
               </span>
@@ -1067,14 +1097,14 @@ export default function BlogSubmitPortal() {
         <section aria-label="Guest post submission form">
           <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "36px 40px", boxShadow: "0 24px 60px -30px rgba(0,0,0,0.14)" }}>
             <div style={{ borderBottom: "1px solid rgba(0,0,0,0.07)", paddingBottom: 20, marginBottom: 28 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: "0 0 6px", fontFamily: "'DM Sans',sans-serif" }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: "0 0 6px", fontFamily: "var(--font-dm-sans), sans-serif" }}>
                 Step {step} of 4
               </p>
               {/*
                 H2 inside the form secondary heading, not competing with H1.
                 Uses "write for us" adjacent copy at step 3 naturally.
               */}
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.85rem", fontWeight: 700, color: "#111", margin: 0 }}>
+              <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.85rem", fontWeight: 700, color: "#111", margin: 0 }}>
                 {["Tell us about yourself", "Add your dofollow backlinks", "Write your article", "Review & submit your guest post"][step - 1]}
               </h2>
             </div>
@@ -1112,7 +1142,7 @@ export default function BlogSubmitPortal() {
 
         {/* ── Guest post guidelines (semantic, crawlable) ── */}
         <section aria-labelledby="guidelines-heading" style={{ marginTop: 32, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
-          <h2 id="guidelines-heading" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 10px" }}>
+          <h2 id="guidelines-heading" style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 10px" }}>
             Guest Post Guidelines Who Should Write for Us?
           </h2>
           <p style={{ fontSize: 13, lineHeight: 1.8, color: "#666", margin: "0 0 20px" }}>
@@ -1120,7 +1150,7 @@ export default function BlogSubmitPortal() {
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
-              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d8653", margin: "0 0 10px", fontFamily: "'DM Sans',sans-serif" }}>We publish</h3>
+              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d8653", margin: "0 0 10px", fontFamily: "var(--font-dm-sans), sans-serif" }}>We publish</h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {WE_PUBLISH.map(t => (
                   <li key={t} style={{ fontSize: 12, color: "#555", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #b2dfc5" }}>{t}</li>
@@ -1128,7 +1158,7 @@ export default function BlogSubmitPortal() {
               </ul>
             </div>
             <div>
-              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9b2c2a", margin: "0 0 10px", fontFamily: "'DM Sans',sans-serif" }}>We don't publish</h3>
+              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9b2c2a", margin: "0 0 10px", fontFamily: "var(--font-dm-sans), sans-serif" }}>We don't publish</h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {WE_DONT.map(t => (
                   <li key={t} style={{ fontSize: 12, color: "#555", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #f2c4c1" }}>{t}</li>
@@ -1140,13 +1170,13 @@ export default function BlogSubmitPortal() {
 
         {/* ── FAQ section (semantic <dl>, mirrors JSON-LD FAQPage) ── */}
         <section aria-labelledby="faq-heading" style={{ marginTop: 24, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
-          <h2 id="faq-heading" style={{ fontFamily: "'Playfair Display', serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 20px" }}>
+          <h2 id="faq-heading" style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 20px" }}>
             Frequently Asked Questions Write for Us
           </h2>
           <dl style={{ margin: 0 }}>
             {FAQ_ITEMS.map(({ q, a }, i) => (
               <div key={i} style={{ borderBottom: i < FAQ_ITEMS.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none", paddingBottom: 14, marginBottom: 14 }}>
-                <dt style={{ fontSize: 13, fontWeight: 700, color: "#1a1a1a", margin: "0 0 5px", fontFamily: "'DM Sans',sans-serif" }}>{q}</dt>
+                <dt style={{ fontSize: 13, fontWeight: 700, color: "#1a1a1a", margin: "0 0 5px", fontFamily: "var(--font-dm-sans), sans-serif" }}>{q}</dt>
                 <dd style={{ fontSize: 13, color: "#666", margin: 0, lineHeight: 1.75 }}>{a}</dd>
               </div>
             ))}

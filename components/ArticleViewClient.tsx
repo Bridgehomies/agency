@@ -241,9 +241,23 @@ export default function ArticleViewClient({
     <>
       <ArticleSchema post={post} />
 
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+      {/*
+        PERF FIX: removed the @import('fonts.googleapis.com/...') that used to
+        live here. @import inside a client-rendered <style> tag forces a
+        4-hop chain (HTML -> parse <style> -> discover @import -> fetch CSS ->
+        fetch font files) before text can paint in its final font. That chain
+        was flagged by PageSpeed as "render-blocking requests" and
+        "network dependency tree", and the FOUT-to-webfont swap it causes was
+        the CLS "layout shift culprit" on this template.
 
+        Fonts are now loaded once, site-wide, via next/font/google in the
+        root layout (see app/fonts.ts + app/layout.tsx), which self-hosts
+        them at build time (no external round trip) and exposes them as the
+        CSS variables referenced below. Apply the *.variable classes from
+        app/fonts.ts on <html> or <body> in the root layout so these
+        variables are in scope everywhere.
+      */}
+      <style>{`
         :root {
           --ink:    #0a0a0a;
           --paper:  #f5f1ea;
@@ -269,10 +283,10 @@ export default function ArticleViewClient({
           to   { transform: scaleX(1); transform-origin: left; }
         }
 
-        .font-bebas { font-family: 'Bebas Neue', sans-serif; }
-        .font-bask  { font-family: 'Libre Baskerville', serif; }
-        .font-mono  { font-family: 'IBM Plex Mono', monospace; }
-        .font-sans  { font-family: 'IBM Plex Sans', sans-serif; }
+        .font-bebas { font-family: var(--font-bebas), sans-serif; }
+        .font-bask  { font-family: var(--font-baskerville), serif; }
+        .font-mono  { font-family: var(--font-plex-mono), monospace; }
+        .font-sans  { font-family: var(--font-plex-sans), sans-serif; }
 
         .hero-animate .hero-eyebrow { animation: revealLeft 0.6s 0.1s  both; }
         .hero-animate .hero-line    { animation: lineGrow  0.5s 0.25s  both; }
@@ -288,18 +302,17 @@ export default function ArticleViewClient({
 
         /* ── Article body typography ─────────────────────────────────────── */
         .article-body p              { margin-bottom: 1.65em; }
-        .article-body h2             { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: 0.02em; color: var(--ink); margin-top: 3em; margin-bottom: 0.6em; border-bottom: 1px solid var(--rule); padding-bottom: 0.3em; scroll-margin-top: 110px; }
-        .article-body h3             { font-family: 'Libre Baskerville', serif; font-size: 1.3rem; font-style: italic; color: var(--ink); margin-top: 2.4em; margin-bottom: 0.5em; scroll-margin-top: 110px; }
-        .article-body h4             { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-top: 2em; margin-bottom: 0.4em; scroll-margin-top: 110px; }
+        .article-body h2             { font-family: var(--font-bebas), sans-serif; font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: 0.02em; color: var(--ink); margin-top: 3em; margin-bottom: 0.6em; border-bottom: 1px solid var(--rule); padding-bottom: 0.3em; scroll-margin-top: 110px; }
+        .article-body h3             { font-family: var(--font-baskerville), serif; font-size: 1.3rem; font-style: italic; color: var(--ink); margin-top: 2.4em; margin-bottom: 0.5em; scroll-margin-top: 110px; }
+        .article-body h4             { font-family: var(--font-plex-mono), monospace; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); margin-top: 2em; margin-bottom: 0.4em; scroll-margin-top: 110px; }
         .article-body a              { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
         .article-body strong         { color: var(--ink); font-weight: 700; }
         .article-body ul,
         .article-body ol             { margin-bottom: 1.65em; padding-left: 1.4em; }
         .article-body li             { margin-bottom: 0.5em; }
-        .article-body blockquote     { margin: 2.5em 0; padding: 1.6em 2em; border-left: 3px solid var(--accent); background: #fff; font-family: 'Libre Baskerville', serif; font-style: italic; font-size: 1.18rem; color: var(--ink); line-height: 1.75; }
-        /* FIX: was ".article-body mt-4" (broken selector) — correct: .article-body .mt-4 */
-        .article-body code           { font-family: 'IBM Plex Mono', monospace; font-size: 0.84em; background: #ede9e0; color: #c8401a; padding: 2px 6px; border-radius: 3px; }
-        .article-body .mt-4          { font-family: 'IBM Plex Mono', monospace; font-size: 0.84em; }
+        .article-body blockquote     { margin: 2.5em 0; padding: 1.6em 2em; border-left: 3px solid var(--accent); background: #fff; font-family: var(--font-baskerville), serif; font-style: italic; font-size: 1.18rem; color: var(--ink); line-height: 1.75; }
+        .article-body code           { font-family: var(--font-plex-mono), monospace; font-size: 0.84em; background: #ede9e0; color: #c8401a; padding: 2px 6px; border-radius: 3px; }
+        .article-body .mt-4          { font-family: var(--font-plex-mono), monospace; font-size: 0.84em; }
         .article-body pre            { background: var(--ink); border-radius: 4px; padding: 1.5em; overflow-x: auto; margin: 2em 0; }
         .article-body pre code       { background: transparent; color: #d4cfc6; padding: 0; font-size: 0.88em; }
 
@@ -329,19 +342,19 @@ export default function ArticleViewClient({
         .toc-header:hover            { color: var(--accent); }
         .toc-header-left             { display: flex; align-items: center; gap: 8px; }
         .toc-dot                     { width: 6px; height: 6px; background: var(--accent); flex-shrink: 0; border-radius: 50%; }
-        .toc-label                   { font-family: 'IBM Plex Mono', monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
-        .toc-count                   { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: var(--muted); background: var(--rule); padding: 1px 6px; }
+        .toc-label                   { font-family: var(--font-plex-mono), monospace; font-size: 0.65rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 500; }
+        .toc-count                   { font-family: var(--font-plex-mono), monospace; font-size: 0.58rem; color: var(--muted); background: var(--rule); padding: 1px 6px; }
         .toc-chevron                 { color: var(--muted); flex-shrink: 0; }
         .toc-list                    { list-style: none; margin: 0; padding: 4px 0; }
         .toc-item                    { display: flex; align-items: center; gap: 0; padding: 0 0 0 14px; min-height: 36px; position: relative; }
         .toc-item--sub               { padding-left: 28px; }
         .toc-item--sub .toc-index   { opacity: 0.4; }
-        .toc-index                   { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: var(--muted); width: 22px; flex-shrink: 0; user-select: none; }
+        .toc-index                   { font-family: var(--font-plex-mono), monospace; font-size: 0.58rem; color: var(--muted); width: 22px; flex-shrink: 0; user-select: none; }
         .toc-index--active           { color: var(--accent); font-weight: 500; }
         .toc-track                   { width: 2px; height: 100%; background: rgba(10,10,10,0.06); margin: 0 10px; flex-shrink: 0; position: relative; align-self: stretch; }
         .toc-track-fill              { position: absolute; top: 0; left: 0; right: 0; height: 0%; background: var(--accent); transition: height 0.2s ease; }
         .toc-track-fill--active      { height: 100%; }
-        .toc-link                    { flex: 1; background: none; border: none; text-align: left; font-family: 'IBM Plex Sans', sans-serif; font-size: 0.78rem; line-height: 1.4; color: var(--muted); cursor: pointer; padding: 6px 0; transition: color 0.15s; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .toc-link                    { flex: 1; background: none; border: none; text-align: left; font-family: var(--font-plex-sans), sans-serif; font-size: 0.78rem; line-height: 1.4; color: var(--muted); cursor: pointer; padding: 6px 0; transition: color 0.15s; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .toc-link:hover              { color: var(--ink); }
         .toc-link--active            { color: var(--ink); font-weight: 600; }
 
@@ -378,7 +391,7 @@ export default function ArticleViewClient({
           background: var(--accent);
           color: #fff;
           padding: 0.5rem 1rem;
-          font-family: 'IBM Plex Mono', monospace;
+          font-family: var(--font-plex-mono), monospace;
           font-size: 0.75rem;
           z-index: 9999;
           text-decoration: none;
@@ -531,7 +544,7 @@ export default function ArticleViewClient({
             </div>
           </div>
 
-          {/* Cover image — FIX: fetchPriority="high" + loading="eager" for LCP */}
+          {/* Cover image — fetchPriority="high" + loading="eager" for LCP */}
           <div className="border-t border-[#d4cfc6] relative w-full h-[320px] md:h-[460px] overflow-hidden hero-image">
             <img
               src={post.coverImage || "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=1600&h=600&fit=crop"}

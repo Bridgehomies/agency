@@ -3,10 +3,17 @@ import Script from "next/script";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
-import { Bebas_Neue } from "next/font/google";
 import { SITE_URL } from "@/lib/config";
+import { fontVariables } from "./fonts";
 
-const bebas = Bebas_Neue({ weight: "400", subsets: ["latin"], variable: "--font-bebas" });
+// PERF FIX: removed the standalone `Bebas_Neue({...})` call that used to be
+// here. It duplicated the `bebasNeue` export already declared in
+// app/fonts.ts under the same `--font-bebas` variable name — two separate
+// next/font instances competing for one CSS variable, which meant Next was
+// generating and potentially shipping two font-loading strategies for the
+// same typeface. `fonts.ts` is now the single source of truth; every font
+// the site uses is loaded there exactly once and exposed via
+// `fontVariables` below.
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -69,7 +76,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    // PERF/CLS FIX: fontVariables applied here — this is what actually puts
+    // --font-bebas, --font-baskerville, --font-plex-mono, --font-plex-sans,
+    // --font-playfair, --font-dm-sans, and --font-jetbrains into scope for
+    // every page. Without this line, every var(--font-*) reference in
+    // ArticleViewClient.tsx and BlogSubmitPortal.tsx silently falls through
+    // to each rule's fallback (serif/sans-serif/monospace) — the components
+    // were fixed, but weren't switched from the visible fallback font.
+    <html lang="en" className={fontVariables}>
       <body>
         <script
           type="application/ld+json"
@@ -167,4 +181,4 @@ export default function RootLayout({
       </body>
     </html>
   );
-} 
+}
