@@ -1,84 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 
-const BRIDGE_HOMIES_LOCATION = {
-  title: "Bridge Homies",
-  address1: "167/A",
-  address2: "Block G1 Block G 1 Phase 1 Johar Town, Lahore, 54782, Pakistan",
-  coords: { lat: 31.47865600031038, lng: 74.28096650859833 },
-  placeId: "ChIJl3C-8LADGTkRl72j2jfjjU8",
-  actions: [
-    {
-      label: "Book appointment",
-      defaultUrl: "https://www.bridgehomies.com/#contact",
-    },
-  ],
-};
-
-const LOCATOR_CONFIG = {
-  locations: [BRIDGE_HOMIES_LOCATION],
-  mapOptions: {
-    center: { lat: 31.47865600031038, lng: 74.28096650859833 },
-    fullscreenControl: true,
-    mapTypeControl: false,
-    streetViewControl: false,
-    zoom: 15,
-    zoomControl: true,
-    maxZoom: 17,
-    mapId: "DEMO_MAP_ID",
-  },
-  mapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "",
-  capabilities: {
-    input: false,
-    autocomplete: false,
-    directions: false,
-    distanceMatrix: false,
-    details: true,
-    actions: true,
-  },
-};
-
 const INFO_ITEMS = [
-  { label: "Address", value: "167/A Block G1, Johar Town" },
+  { label: "Address", value: "164 Block G1, Johar Town" },
   { label: "City", value: "Lahore, Punjab" },
-  { label: "Hours", value: "Mon–Fri, 10am–8pm PST" },
+  { label: "Hours", value: "Mon-Sat, 10am-8pm PST" },
   { label: "Team", value: "15+ members" },
 ];
 
 export default function InteractiveMap() {
-  const locatorRef = useRef<HTMLElement>(null);
-  const scriptLoadedRef = useRef(false);
-
-  useEffect(() => {
-    if (scriptLoadedRef.current) return;
-    scriptLoadedRef.current = true;
-
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY ?? "";
-
-    const apiLoader = document.createElement("gmpx-api-loader");
-    apiLoader.setAttribute("key", apiKey);
-    apiLoader.setAttribute("solution-channel", "GMP_QB_locatorplus_v11_cF");
-    document.head.appendChild(apiLoader);
-
-    const script = document.createElement("script");
-    script.type = "module";
-    script.src =
-      "https://ajax.googleapis.com/ajax/libs/@googlemaps/extended-component-library/0.6.11/index.min.js";
-    document.head.appendChild(script);
-
-    script.onload = async () => {
-      await customElements.whenDefined("gmpx-store-locator");
-      const locator = locatorRef.current as HTMLElement & {
-        configureFromQuickBuilder?: (config: typeof LOCATOR_CONFIG) => void;
-      };
-      if (locator?.configureFromQuickBuilder) {
-        locator.configureFromQuickBuilder(LOCATOR_CONFIG);
-      }
-    };
-  }, []);
-
   return (
     <section className="relative py-24 md:py-36 overflow-hidden ">
 
@@ -97,7 +28,7 @@ export default function InteractiveMap() {
 
       <div className="relative container max-w-7xl mx-auto px-6">
 
-        {/* Header row — asymmetric, oversized */}
+        {/* Header row - asymmetric, oversized */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -131,7 +62,7 @@ export default function InteractiveMap() {
             className="text-sm text-black/50 max-w-xs md:text-right leading-relaxed"
             style={{ fontFamily: "'DM Mono', monospace" }}
           >
-            Bridge Homies is rooted in Johar Town, Lahore — a creative hub where
+            Bridge Homies is rooted in Johar Town, Lahore, a creative hub where
             ideas are built into products.
           </motion.p>
         </div>
@@ -152,14 +83,19 @@ export default function InteractiveMap() {
               boxShadow: "0 40px 120px rgba(0,0,0,0.6)",
             }}
           >
-            <gmpx-store-locator
-              ref={locatorRef}
-              map-id="DEMO_MAP_ID"
-              style={{ width: "100%", height: "100%" }}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3402.6562397980497!2d74.2803112!3d31.4786412!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391903b0f0be7097%3A0x4f8de337daa3bd97!2sBridge%20Homies!5e0!3m2!1sen!2s!4v1784199503450!5m2!1sen!2s"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="strict-origin-when-cross-origin"
+              title="Bridge Homies location map"
             />
           </div>
 
-          {/* Floating info card — overlaps bottom-left of map */}
+          {/* Floating info card - overlaps bottom-left of map */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -246,13 +182,13 @@ export default function InteractiveMap() {
                   Book a visit
                 </span>
                 <span className="text-purple-500 text-sm transition-transform group-hover:translate-x-1">
-                  →
+                  {"\u2192"}
                 </span>
               </a>
             </div>
           </motion.div>
 
-          {/* Coordinates badge — top-right corner of map */}
+          {/* Coordinates badge - top-right corner of map */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -270,7 +206,7 @@ export default function InteractiveMap() {
               className="text-[10px] text-white/50 tracking-widest"
               style={{ fontFamily: "'DM Mono', monospace" }}
             >
-              31.4787° N · 74.2810° E
+              31.4787N, 74.2810E
             </p>
           </motion.div>
         </motion.div>
