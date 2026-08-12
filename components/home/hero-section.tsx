@@ -475,9 +475,11 @@ export default function HeroSectionSpatial() {
         className="absolute w-full text-center pointer-events-none -z-10"
         style={{ y: textY, opacity, willChange: "transform, opacity" }}
       >
-        <h1 className="text-[12vw] font-black tracking-tighter text-foreground/5 leading-none select-none uppercase">
+        {/* Decorative background word — not a heading, so it no longer competes
+            with the real H1 below for the page's single H1 slot. */}
+        <div aria-hidden="true" className="text-[12vw] font-black tracking-tighter text-foreground/5 leading-none select-none uppercase">
           Intelligence
-        </h1>
+        </div>
       </motion.div>
 
       <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-8 sm:mt-16 lg:mt-20">
@@ -549,9 +551,9 @@ export default function HeroSectionSpatial() {
           className="mt-16 text-center max-w-2xl z-20"
           style={{ y: statsY, willChange: "transform" }}
         >
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
             We bridge the gap between <span className="text-primary italic">theory</span> and <span className="text-primary italic">scale.</span>
-          </h2>
+          </h1>
           <Button
             size="lg"
             className="rounded-full h-14 px-8 text-lg group bg-foreground text-background hover:bg-foreground/90 transition-all"

@@ -4,7 +4,7 @@ import WebDevClient from "./WebDevClient"
 export const metadata: Metadata = {
   title: "Website Development Services — Next.js, React & Django | Bridge Homies",
   description:
-    "Bridge Homies delivers expert website development using Next.js, React, and Django. From SaaS and web apps to enterprise software — we build scalable, AI-powered digital products that perform.",
+    "Bridge Homies delivers website development using Next.js, React, and Django — scalable, AI-powered SaaS, web apps, and enterprise software.",
   alternates: {
     canonical: "https://bridgehomies.com/webdev",
   },

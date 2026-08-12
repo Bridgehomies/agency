@@ -11,6 +11,14 @@ export const metadata: Metadata = {
         description: "Partner with Pakistan's AI/ML engineers to build RAG pipelines, custom LLMs, and automated workflow solutions.",
         url: "https://www.bridgehomies.com/ai-ml-agency-pakistan",
         type: "website",
+        images: [
+            {
+                url: "/og-image.png",
+                width: 1200,
+                height: 630,
+                alt: "Bridge Homies — AI Development Company in Pakistan",
+            },
+        ],
     },
 };
 

@@ -14,7 +14,7 @@ import StatsCounter from "@/components/StatsCounter";
 export const metadata: Metadata = {
   title: "Mobile App Development Services iOS, Android & AI | Bridge Homies",
   description:
-    "Bridge Homies builds intelligent iOS and Android mobile apps with AI automation and machine learning. Native, cross-platform, and enterprise mobile solutions delivered production-ready.",
+    "Bridge Homies builds intelligent iOS and Android apps with AI automation. Native, cross-platform, and enterprise mobile solutions, production-ready.",
   alternates: {
     canonical: "https://www.bridgehomies.com/mobile",
   },

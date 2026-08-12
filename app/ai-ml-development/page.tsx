@@ -12,10 +12,10 @@ import StatsCounter from "@/components/StatsCounter";
 // query (197 impressions) that was previously buried mid-page with no title/H1 weight.
 
 export const metadata: Metadata = {
-  title: "ML Model Engineering Services | AI/ML Engineering Service Providers | Bridge Homies",
+  title: "ML Model Engineering Services | Bridge Homies",
 
   description:
-    "Bridge Homies is an AI/ML engineering service provider delivering ML model engineering services, RAG pipeline development, LLM integration, and MLOps for startups and enterprises. Book a free strategy call.",
+    "Bridge Homies delivers ML model engineering, RAG pipeline development, LLM integration, and MLOps for startups and enterprises.",
 
   alternates: {
     canonical: "https://www.bridgehomies.com/ai-ml-development",

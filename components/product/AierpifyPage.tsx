@@ -242,7 +242,9 @@ export default function AierpifyPage() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-[clamp(2.8rem,6vw,5rem)] font-black leading-[0.96] tracking-tight mb-6 max-w-3xl">
+          {/* This section is embedded inside the /products page, which already
+              has its own H1 (Hero.tsx) — demoted to H2 to avoid two H1s on one page. */}
+          <h2 className="text-[clamp(2.8rem,6vw,5rem)] font-black leading-[0.96] tracking-tight mb-6 max-w-3xl">
             Stop filing{" "}
             <span className="italic font-light text-primary/80">invoices</span>
             <br />
@@ -253,7 +255,7 @@ export default function AierpifyPage() {
             >
               Forever.
             </span>
-          </h1>
+          </h2>
 
           <p className="text-white/50 text-lg leading-relaxed max-w-xl mb-10 font-normal">
             Aierpify connects your business directly to FBR's digital invoicing

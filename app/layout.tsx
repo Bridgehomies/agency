@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     template: "%s | Bridge Homies",
   },
   description:
-    "Bridge Homies is a machine learning agency and AI/ML engineering service provider based in Lahore, Pakistan. We build RAG pipelines, LLM integrations, custom software, and SaaS platforms.",
+    "Bridge Homies is a machine learning agency and AI/ML engineering provider in Lahore, Pakistan. We build RAG pipelines, LLM integrations, and SaaS platforms.",
   alternates: {
     canonical: "/", // ponytail: relative — metadataBase resolves to www.bridgehomies.com/
   },

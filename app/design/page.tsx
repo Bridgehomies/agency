@@ -12,9 +12,9 @@ import { Metadata } from "next";
 
 // ─── Metadata (Next.js App Router) — ✅ Only allowed in Server Components ───
 export const metadata: Metadata = {
-  title: "Video Editing, Graphic Design & Social Media Management Agency | Bridge Homies",
+  title: "Video Editing & Graphic Design Agency | Bridge Homies",
   description:
-    "Bridge Homies is a full-service creative agency offering professional video editing, graphic design, brand identity design, social media management, and content creation. We craft scroll-stopping visuals that grow your brand.",
+    "Bridge Homies is a full-service creative agency offering video editing, graphic design, brand identity, and social media management that grows your brand.",
   keywords:
     "video editing services, graphic design agency, social media management, brand identity design, content creation agency, reel editing service, motion graphics, Instagram reels editor, YouTube video editing, TikTok content creation, viral content creation, logo design agency, social media marketing agency, content strategy agency",
   alternates: { canonical: "https://bridgehomies.com/design" },
@@ -24,6 +24,14 @@ export const metadata: Metadata = {
       "Professional video editing, graphic design, social media management, and brand identity services. We help brands dominate every platform.",
     url: "https://bridgehomies.com/design",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bridge Homies — Video Editing & Graphic Design Agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",

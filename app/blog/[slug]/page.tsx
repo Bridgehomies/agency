@@ -189,7 +189,9 @@ export default async function BlogPostPage({
     "@type": blog.schemaType || "BlogPosting",
     headline: blog.seoTitle || blog.title,
     description: blog.seoDescription || blog.excerpt,
-    image: blog.coverImage,
+    // schema.org validators require Article/BlogPosting `image` to be present —
+    // fall back to the site OG image instead of omitting the field entirely.
+    image: blog.coverImage || "https://bridgehomies.com/og-image.png",
     datePublished: blog.date,
     dateModified: blog.date,
     author: {
@@ -201,6 +203,12 @@ export default async function BlogPostPage({
       "@type": "Organization",
       name: "Bridge Homies",
       url: "https://bridgehomies.com",
+      // Required by Google's Article rich-result validator — was missing,
+      // which is what's been failing schema validation on every blog post.
+      logo: {
+        "@type": "ImageObject",
+        url: "https://bridgehomies.com/Favicon.png",
+      },
     },
     url: `https://bridgehomies.com/blog/${blog.slug}`,
     keywords: blog.tags.join(", "),

@@ -13,9 +13,9 @@ import StickyTransformSection from "@/components/home/sticky-transform-section"
 import TestimonialsSection from "@/components/home/testimonials-section"
 
 export const metadata: Metadata = {
-  title: "AI ML Engineering Services & Machine Learning Agency | Bridge Homies",
+  title: "AI/ML Engineering & Machine Learning Agency | Bridge Homies",
   description:
-    "Bridge Homies is a leading machine learning agency and top AI ML engineering service provider. We deliver expert website development, SaaS, web apps, AI automation, and enterprise software to help businesses scale globally.",
+    "Bridge Homies is a machine learning agency and AI/ML engineering service provider. We build websites, SaaS, web apps, and AI automation worldwide.",
   alternates: {
     canonical: "/", // resolves to https://www.bridgehomies.com via metadataBase
   },
