@@ -7,7 +7,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import rehypeHighlight from "rehype-highlight";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import ArticleViewClient from "@/components/ArticleViewClient";
+import ArticleViewClient from "@/components/blog/ArticleViewClient";
 import { getAllBlogs, getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
 
 function escapeInline(value: string) {
@@ -156,7 +156,7 @@ export default async function BlogPostPage({
       // Convert unclosed HTML void elements to JSX-compliant self-closing tags
       .replace(/<br\s*>/gi, "<br />")
       .replace(/<hr\s*>/gi, "<hr />")
-      .replace(/<img([^>]+[^\/])>/gi, "<img$1 />") 
+      .replace(/<img([^>]+[^\/])>/gi, "<img$1 />")
     : rawContent;
 
   const { content } = await compileMDX({

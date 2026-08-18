@@ -78,26 +78,26 @@ const WE_DONT = [
   "Generic explainers with no original depth",
   "Promotional copy or press releases",
   "AI-generated filler without genuine insight",
-  "Articles under 800 words",
+  "Articles under 1,000 words",
 ];
 
 // FAQ data rendered as semantic <dl> for crawlers (mirrors JSON-LD)
 const FAQ_ITEMS = [
   {
     q: "Is it free to write for Bridge Homies?",
-    a: "Yes submitting a guest post is completely free. No fees, ever.",
+    a: "Reciprocal link exchanges are $0. New guest articles and link placements are $15 (or $12 on bulk/reseller orders of 5+). Payment is only due after your piece is verified live — pay after live.",
   },
   {
     q: "Do I get a dofollow backlink?",
-    a: "Every accepted article includes up to 3 dofollow backlinks in your author profile, plus natural in-body links.",
+    a: "Every accepted article includes up to 1–2 permanent dofollow links, placed naturally in the body.",
   },
   {
     q: "What is the minimum word count?",
-    a: "800 words minimum. We recommend 1,200–2,500 words for best editorial and SEO performance.",
+    a: "1,000+ words minimum, deeply technical and 100% human-written. AI-generated filler is rejected during technical review.",
   },
   {
     q: "How long does review take?",
-    a: "Our editorial team responds within 3–5 business days.",
+    a: "2–3 business days for technical review, formatting, and publication.",
   },
   {
     q: "What topics can I write about?",
@@ -106,6 +106,10 @@ const FAQ_ITEMS = [
   {
     q: "Will I get an author profile?",
     a: "Yes every published contributor gets a permanent author profile page with their bio and backlinks.",
+  },
+  {
+    q: "What niches are excluded?",
+    a: "Zero-tolerance: casino/gambling/iGaming, CBD/cannabis/pharma, crypto/forex/high-risk finance, adult, and essay-writing or general non-technical content — at any price.",
   },
 ];
 
@@ -627,7 +631,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div className="bh-notice bh-notice-gold">
-        <strong style={{ fontWeight: 700 }}>Your 3 dofollow backlinks</strong> These appear in your permanent author profile on every article you publish here. For the highest SEO value, also weave them naturally into your article body in Step 3.
+        <strong style={{ fontWeight: 700 }}>Your dofollow backlinks (up to 1–2)</strong> These appear in your permanent author profile on every article you publish here. For the highest SEO value, also weave them naturally into your article body in Step 3.
       </div>
       {form.backlinks.map((bl, i) => (
         <div key={i} className="bh-card">
@@ -804,7 +808,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <p style={{ fontSize: 11.5, color: "#999", marginTop: 6, lineHeight: 1.6 }}>
             {form.contentFormat === "json"
               ? "Use JSON blocks. Supported JSON can be an array of blocks or an object with `blocks`, `content`, or `body`."
-              : "Use Markdown or MDX. Minimum 800 words."}{" "}
+              : "Use Markdown or MDX. Minimum 1,000 words."}{" "}
             <strong style={{ color: "purple", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
           </p>
         </div>
@@ -847,7 +851,7 @@ function Step4({ form }: { form: FormData }) {
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <div className="bh-notice bh-notice-green">
-        <strong style={{ fontWeight: 700 }}>Ready to submit your guest post.</strong> Review everything below, then hit <em>Submit for Review</em>. We'll respond within 3–5 business days.
+        <strong style={{ fontWeight: 700 }}>Ready to submit your guest post.</strong> Review everything below, then hit <em>Submit for Review</em>. We'll respond within 2–3 business days.
       </div>
       <div className="bh-card">
         <p className="bh-section-label">Author</p>
@@ -879,7 +883,7 @@ function Step4({ form }: { form: FormData }) {
           <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Title </span>{form.title}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Category </span>{form.category}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Format </span>{form.contentFormat === "json" ? "JSON blocks" : "Markdown / MDX"}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Word count </span>~{wordCount} words {wordCount < 800 && <span style={{ color: "#c9a84c", fontWeight: 700 }}>(min 800)</span>}</div>
+          <div><span style={{ fontWeight: 600, color: "#888" }}>Word count </span>~{wordCount} words {wordCount < 1000 && <span style={{ color: "#c9a84c", fontWeight: 700 }}>(min 1,000)</span>}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Tags </span>{form.tags || "—"}</div>
           <div><span style={{ fontWeight: 600, color: "#888" }}>Image </span>{form.coverImageFile?.name || "None"}</div>
           <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Excerpt </span>{form.excerpt}</div>
@@ -899,7 +903,7 @@ function SuccessScreen() {
       </div>
       <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "2.2rem", fontWeight: 800, color: "#1a1a1a", margin: "0 0 14px" }}>You're in the queue!</h2>
       <p style={{ fontSize: 14, lineHeight: 1.8, color: "#666", maxWidth: 440, margin: "0 0 10px" }}>
-        Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#555" }}>3–5 business days</strong>.
+        Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#555" }}>2–3 business days</strong>.
       </p>
       <p style={{ fontSize: 13, lineHeight: 1.8, color: "#999", maxWidth: 400, margin: "0 0 32px" }}>
         Once accepted, your article will be published with your author profile and all backlinks live.
@@ -1056,7 +1060,7 @@ export default function BlogSubmitPortal() {
 
           <p style={{ fontSize: 14.5, lineHeight: 1.85, color: "#666", maxWidth: 560, margin: "0 0 12px" }}>
             We publish guest posts from developers, architects, product managers, and founders who build real software for real businesses.
-            Submit an article and reach thousands of readers plus earn up to <strong style={{ color: "#555" }}>3 dofollow backlinks</strong> and a <strong style={{ color: "#555" }}>permanent author profile</strong>, free.
+            Submit an article and reach thousands of readers plus earn up to <strong style={{ color: "#555" }}>1–2 dofollow backlinks</strong> and a <strong style={{ color: "#555" }}>permanent author profile</strong>. Standard placements are <strong style={{ color: "#555" }}>$15</strong> ($12 on bulk orders of 5+), pay after your piece is live — reciprocal link exchanges are <strong style={{ color: "#555" }}>$0</strong>.
           </p>
           <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#888", maxWidth: 560, margin: "0 0 36px" }}>
             We cover <strong style={{ color: "#555" }}>custom web apps</strong>, <strong style={{ color: "#555" }}>admin dashboards</strong>, <strong style={{ color: "#555" }}>automation tools</strong>, <strong style={{ color: "#555" }}>AI integrations</strong>, <strong style={{ color: "#555" }}>SaaS platforms</strong>, <strong style={{ color: "#555" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
@@ -1075,12 +1079,13 @@ export default function BlogSubmitPortal() {
           {/* Trust badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {[
-              "100% free to submit",
-              "Up to 3 dofollow backlinks",
-              "Editorial review in 3–5 days",
+              "$15 per placement ($0 link exchange)",
+              "Up to 1–2 dofollow backlinks",
+              "Editorial review in 2–3 days",
               "Permanent author profile",
-              "800 words minimum",
+              "1,000+ words minimum",
               "No AI filler accepted",
+              "Pay after live",
             ].map(tag => (
               <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #937cbbff", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 600, color: "#7a6535", fontFamily: "var(--font-dm-sans), sans-serif" }}>
                 <CheckCircle size={11} color="purple" />
@@ -1146,7 +1151,7 @@ export default function BlogSubmitPortal() {
             Guest Post Guidelines Who Should Write for Us?
           </h2>
           <p style={{ fontSize: 13, lineHeight: 1.8, color: "#666", margin: "0 0 20px" }}>
-            We welcome practitioners developers, architects, product managers, and founders who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 800 words.
+            We welcome practitioners developers, architects, product managers, and founders who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 1,000 words. Strictly software engineering, SaaS architecture, AI/ML, cloud/DevOps, or web/mobile development — we do not accept casino, CBD/pharma, crypto/forex, adult, or general non-technical content at any price.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
@@ -1184,7 +1189,7 @@ export default function BlogSubmitPortal() {
         </section>
 
         <p style={{ textAlign: "center", fontSize: 11.5, color: "#aaa", marginTop: 24, lineHeight: 1.7 }}>
-          By submitting your guest post you agree to our editorial guidelines. We respond within 3–5 business days. Your email is never shared publicly.
+          By submitting your guest post you agree to our editorial guidelines. We respond within 2–3 business days. Your email is never shared publicly.
         </p>
       </div>
     </div>

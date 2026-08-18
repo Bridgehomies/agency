@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
-import BlogSubmitPortal from "@/components/BlogSubmitPortal";
+import BlogSubmitPortal from "@/components/blog/BlogSubmitPortal";
 
 export const metadata: Metadata = {
   title: "Write for Us | SaaS, Web Dev & AI Guest Posts",
@@ -59,8 +59,8 @@ const jsonLd = {
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home",         item: "https://www.bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Blog",         item: "https://www.bridgehomies.com/blog" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+          { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.bridgehomies.com/blog" },
           { "@type": "ListItem", position: 3, name: "Write for Us", item: "https://www.bridgehomies.com/blog/submit" },
         ],
       },
@@ -69,22 +69,38 @@ const jsonLd = {
       "@type": "FAQPage",
       "@id": "https://www.bridgehomies.com/blog/submit#faq",
       mainEntity: [
-        { "@type": "Question", name: "Is it free to write for Bridge Homies?",
-          acceptedAnswer: { "@type": "Answer", text: "Yes, submitting a guest post is completely free. No fees, ever." } },
-        { "@type": "Question", name: "Do I get a dofollow backlink?",
-          acceptedAnswer: { "@type": "Answer", text: "Every accepted article includes up to 3 dofollow backlinks in your author profile, plus natural in-body links." } },
-        { "@type": "Question", name: "What is the minimum word count?",
-          acceptedAnswer: { "@type": "Answer", text: "800 words minimum. We recommend 1,200–2,500 words for best editorial and SEO performance." } },
-        { "@type": "Question", name: "How long does review take?",
-          acceptedAnswer: { "@type": "Answer", text: "Our editorial team responds within 3–5 business days." } },
-        { "@type": "Question", name: "What topics can I write about?",
-          acceptedAnswer: { "@type": "Answer", text: "Custom web apps, admin dashboards, SaaS, AI/ML integrations, automation, eCommerce, billing systems, lead generation, SEO, and software case studies." } },
-        { "@type": "Question", name: "Will I get an author profile?",
-          acceptedAnswer: { "@type": "Answer", text: "Yes, every published contributor gets a permanent author profile page with their bio and backlinks." } },
-        { "@type": "Question", name: "Can I submit an article about my SaaS startup or product?",
-          acceptedAnswer: { "@type": "Answer", text: "Yes, as long as the article delivers genuine value rather than reading as a press release. Case studies, technical breakdowns, and growth stories are welcome." } },
-        { "@type": "Question", name: "Can I submit AI or machine learning content?",
-          acceptedAnswer: { "@type": "Answer", text: "Yes. We accept high-quality articles about AI engineering, LLMs, automation workflows, machine learning integration in products, and AI-powered SaaS applications." } },
+        {
+          "@type": "Question", name: "Is it free to write for Bridge Homies?",
+          acceptedAnswer: { "@type": "Answer", text: "Yes, submitting a guest post is completely free. No fees, ever." }
+        },
+        {
+          "@type": "Question", name: "Do I get a dofollow backlink?",
+          acceptedAnswer: { "@type": "Answer", text: "Every accepted article includes up to 3 dofollow backlinks in your author profile, plus natural in-body links." }
+        },
+        {
+          "@type": "Question", name: "What is the minimum word count?",
+          acceptedAnswer: { "@type": "Answer", text: "800 words minimum. We recommend 1,200–2,500 words for best editorial and SEO performance." }
+        },
+        {
+          "@type": "Question", name: "How long does review take?",
+          acceptedAnswer: { "@type": "Answer", text: "Our editorial team responds within 3–5 business days." }
+        },
+        {
+          "@type": "Question", name: "What topics can I write about?",
+          acceptedAnswer: { "@type": "Answer", text: "Custom web apps, admin dashboards, SaaS, AI/ML integrations, automation, eCommerce, billing systems, lead generation, SEO, and software case studies." }
+        },
+        {
+          "@type": "Question", name: "Will I get an author profile?",
+          acceptedAnswer: { "@type": "Answer", text: "Yes, every published contributor gets a permanent author profile page with their bio and backlinks." }
+        },
+        {
+          "@type": "Question", name: "Can I submit an article about my SaaS startup or product?",
+          acceptedAnswer: { "@type": "Answer", text: "Yes, as long as the article delivers genuine value rather than reading as a press release. Case studies, technical breakdowns, and growth stories are welcome." }
+        },
+        {
+          "@type": "Question", name: "Can I submit AI or machine learning content?",
+          acceptedAnswer: { "@type": "Answer", text: "Yes. We accept high-quality articles about AI engineering, LLMs, automation workflows, machine learning integration in products, and AI-powered SaaS applications." }
+        },
       ],
     },
   ],

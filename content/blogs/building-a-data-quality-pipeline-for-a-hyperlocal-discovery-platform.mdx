@@ -1,0 +1,134 @@
+---
+id: "sub_1786713457753_3gv6zd"
+slug: "building-a-data-quality-pipeline-for-a-hyperlocal-discovery-platform"
+title: "Building a Data Quality Pipeline for a Hyperlocal Discovery Platform"
+excerpt: "A practical, field-tested workflow for keeping thousands of changing local-service records accurate. This article covers source confidence, normalization, freshness rules, exception queues, and the checks that keep public discovery pages useful."
+author: "Sumit Kapoor"
+authorRole: "Founder, LyfSkills"
+date: "2026-08-18T10:01:56.297Z"
+readTime: "1 min"
+category: "Case Studies"
+tags: ["Data Quality","Hyperlocal Search","PostgreSQL","SEO"]
+coverImage: "https://lhvblc9cxjhxnxme.public.blob.vercel-storage.com/submissions/building-a-data-quality-pipeline-for-a-hyperlocal-discovery-platform-1786713455363.png"
+views: 0
+published: true
+seoTitle: "Building a Data Quality Pipeline for a Hyperlocal Discovery Platform"
+seoDescription: "A practical, field-tested workflow for keeping thousands of changing local-service records accurate. This article covers source confidence, normalization, freshness rules, exception queues, and the checks that keep public discovery pages useful."
+schemaType: "BlogPosting"
+faq: [{"question":"What is a data quality pipeline?","answer":"A repeatable workflow that collects, normalizes, validates, scores, and reviews records before and after publication."},{"question":"How do you keep hyperlocal listings accurate?","answer":"Track source confidence and freshness separately, normalize key fields, queue exceptions for review, and recheck high-risk facts on a schedule."},{"question":"Why separate facts from editorial copy?","answer":"Facts such as addresses and opening hours change frequently, while editorial summaries change less often; separating them makes corrections faster and safer."}]
+---
+
+Location-based marketplaces look simple from the outside. A user chooses a neighbourhood, selects a category, and gets a useful list of nearby options. Behind that interaction sits a much harder engineering problem: turning inconsistent local-business information into records that can be searched, compared, and trusted.
+
+This becomes especially difficult when the supply side is fragmented. A large chain may publish complete addresses, operating hours, social links, and structured categories. A neighbourhood sports coach may have only an Instagram profile and a phone number. A dance studio may use one name on Google Maps, another on its website, and a third on a local directory.
+
+If those records go straight into the product, the discovery experience degrades quickly. Duplicate listings appear. Search results mix branches and brands. Users land on pages with broken phone numbers or vague locations. The first engineering priority, therefore, should not be adding more landing pages. It should be building a reliable data-quality layer.
+
+## Start with a canonical record, not the source format
+
+Every source describes a business differently, so the ingestion layer should never treat any one source as the database schema. Instead, map all incoming data to a canonical record.
+
+A practical record for a local activity provider might include:
+
+- canonical business name;
+- provider type and activity categories;
+- complete and normalized address;
+- latitude and longitude;
+- locality, city, and postal code;
+- phone, email, and website;
+- source URLs and timestamps;
+- branch or parent-organization relationship;
+- verification status;
+- confidence score for each important field.
+
+Keeping provenance is essential. If two sources disagree about a phone number, the team needs to know where each value came from and when it was last observed. Replacing one value with another without retaining provenance makes later audits unnecessarily difficult.
+
+## Normalize before attempting to deduplicate
+
+Raw strings are poor identifiers. `HSR Layout`, `H.S.R. Layout`, and `Sector 2 HSR` may describe the same locality. Phone numbers may include spaces, country codes, or leading zeroes. Business names often contain legal suffixes, branch labels, or punctuation that does not help matching.
+
+Normalization should happen in small, testable stages:
+
+1. Standardize Unicode, whitespace, and punctuation.
+2. Parse and normalize phone numbers with country context.
+3. Separate building, street, locality, city, and postal code where possible.
+4. Convert known locality aliases to a canonical value.
+5. Remove legal suffixes and generic terms only for comparison, while preserving the display name.
+6. Normalize URLs and social handles.
+
+The important distinction is that normalized values are matching aids, not necessarily display values. A user should still see the provider's chosen name and a readable address.
+
+## Use several weak signals instead of one brittle rule
+
+There is rarely a single perfect key for local businesses. Phone numbers are useful but can be shared across branches. Names can change. Coordinates can be imprecise. Websites may represent an entire chain rather than one location.
+
+A better deduplication system combines multiple signals. For example:
+
+- exact or near-exact phone match;
+- normalized domain match;
+- name similarity;
+- postal-code match;
+- distance between coordinates;
+- overlap in street or locality tokens;
+- matching social profile;
+- known parent-brand relationship.
+
+These signals can feed a weighted score. High-confidence pairs can merge automatically. Medium-confidence pairs should enter a review queue. Low-confidence pairs remain separate.
+
+The review queue matters because false merges are usually more damaging than visible duplicates. Combining two similarly named academies can attach the wrong phone number, address, or reviews to a listing. It is often safer to leave an uncertain pair unmerged until stronger evidence appears.
+
+## Model categories as a controlled vocabulary
+
+Category sprawl quietly ruins marketplace search. One source may say `football coaching`, another `soccer academy`, and another `sports training`. Storing all three as unrelated free-text labels weakens filters, landing pages, and recommendations.
+
+Maintain a controlled taxonomy with aliases mapped to canonical categories. The taxonomy should support hierarchy, because users often search at different levels of specificity. `Sports > Football > Goalkeeping coaching` is more useful than a flat tag list.
+
+Do not force every provider into one category. Many local centres offer several activities, but the relationship should carry evidence and confidence. A category inferred from a page title should not have the same certainty as one confirmed by the provider.
+
+## Treat location as a product feature
+
+Coordinates alone do not create a good local experience. Geocoders can place a record at the centre of a postal code or on the wrong side of a large neighbourhood. A useful validation layer should check whether the returned city, postal code, and locality agree with the submitted address.
+
+For dense cities, distance should also be interpreted carefully. Five kilometres can mean a short trip in one area and an impractical journey in another. Store raw coordinates, but preserve neighbourhood and administrative boundaries so the product can evolve beyond a simple radius filter.
+
+In our work on [LyfSkills Discover](https://discover.lyfskills.com/), this was one of the most practical lessons: users think in familiar localities and landmarks, while source data often thinks in postal addresses. The data model has to support both.
+
+## Make freshness measurable
+
+A local listing is not permanently correct. Providers move, close, change phone numbers, and update their services. Every record therefore needs a freshness strategy.
+
+Useful fields include `first_seen_at`, `last_seen_at`, `last_verified_at`, and `verification_method`. These support simple rules such as:
+
+- recheck high-traffic listings more frequently;
+- flag records when primary sources disappear;
+- reduce confidence when contact details have not been observed recently;
+- prioritize user-reported corrections;
+- preserve historical values for audit and rollback.
+
+Freshness should influence ranking carefully. A recently verified listing deserves more confidence, but a small provider should not disappear merely because it updates its website less often than a national chain.
+
+## Build observability for data, not only infrastructure
+
+Engineering teams monitor latency and error rates, but marketplace teams also need visibility into data health. A compact dashboard can track:
+
+- percentage of records with valid coordinates;
+- duplicate candidates by confidence band;
+- listings missing a usable contact method;
+- records not verified within the target window;
+- category-mapping failures;
+- ingestion volume and rejection reasons by source;
+- manual-review throughput and agreement rate.
+
+These metrics turn vague complaints about listing quality into a queue the team can prioritize. They also reveal whether a new source is genuinely improving coverage or simply adding duplicates.
+
+## Keep humans in the difficult part of the loop
+
+Automation is excellent at normalization, candidate generation, and routine validation. It is less reliable when two providers share a brand, operate from the same venue, or have sparse online footprints.
+
+The goal is not to remove human review. It is to reserve it for ambiguous cases. Reviewers should see the conflicting values, source evidence, map distance, and reason the system flagged the pair. Their decisions should then feed back into matching thresholds and taxonomy rules.
+
+A trustworthy hyperlocal marketplace is built record by record. The visible interface may be a search box and a set of listings, but the durable advantage lies underneath: a system that knows where information came from, how confident it is, when it changed, and when a person should make the final call.
+
+## Author bio
+
+Sumit Kapoor is the founder of LyfSkills, where he works on product, data, and growth problems behind local discovery. His current work includes building LyfSkills Discover, a platform that helps people find nearby sports, fitness, arts, and learning activities across Indian cities.

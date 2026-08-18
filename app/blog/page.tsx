@@ -2,7 +2,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import BlogsExperience from "@/components/BlogsExperience";
+import BlogsExperience from "@/components/blog/BlogsExperience";
 import { getPublishedBlogs } from "@/lib/blog";
 
 export const metadata: Metadata = {

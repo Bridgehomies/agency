@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, Clock, Eye, Search, PenLine } from "lucide-react";
 import type { BlogPost } from "@/lib/blog";
 
+const PAGE_SIZE = 15;
+
 function formatViews(n: number): string {
   return n >= 1000 ? `${(n / 1000).toFixed(1)}K` : String(n);
 }
@@ -19,6 +21,7 @@ function formatDate(iso: string): string {
 export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState("All");
+  const [page, setPage] = useState(1);
 
   const categories = useMemo(
     () => ["All", ...Array.from(new Set(posts.map((p) => p.category).filter(Boolean)))],
@@ -38,6 +41,59 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
     });
   }, [category, posts, query]);
 
+  const pinnedPosts = filteredPosts.slice(0, 2);
+  const restPosts = filteredPosts.slice(2);
+  const pageCount = Math.max(1, Math.ceil(restPosts.length / PAGE_SIZE));
+  const currentPage = Math.min(page, pageCount);
+  const pagePosts = restPosts.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE);
+
+  function goToPage(p: number) {
+    setPage(p);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function PostCard({ post, featured }: { post: BlogPost; featured: boolean }) {
+    return (
+      <Link
+        href={`/blog/${post.slug}`}
+        className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#222] bg-[#141414] transition hover:border-[#3a3530] ${featured ? "md:col-span-2 xl:col-span-2" : ""}`}
+      >
+        <div className={`relative overflow-hidden bg-[#1e1c19] ${featured ? "h-60" : "h-48"}`}>
+          {post.coverImage ? (
+            <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105" />
+          ) : (
+            <div className="h-full w-full bg-gradient-to-br from-[#1e1c19] to-[#2a2520]" />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+          {post.category && (
+            <span className="absolute left-4 top-4 rounded-full bg-[#f5f0e8] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-[#111]">
+              {post.category}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-1 flex-col p-5">
+          <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-violet-100">{formatDate(post.date)}</p>
+          <h2
+            className={`font-serif font-normal leading-snug text-purple-100 ${featured ? "text-[1.6rem]" : "text-xl"}`}
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            {post.title}
+          </h2>
+          <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-400">{post.excerpt}</p>
+          <div className="mt-5 flex items-center justify-between border-t border-[#1e1e1e] pt-4">
+            <div className="flex items-center gap-4 text-xs text-violet-100">
+              <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
+              <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
+            </div>
+            <span className="flex items-center gap-1.5 text-xs font-medium text-[#f7f3fe] transition group-hover:text-[#DCCBFB]">
+              Read <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
+            </span>
+          </div>
+        </div>
+      </Link>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-secondary text-[#f0ece4]">
 
@@ -56,7 +112,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#555]" />
           <input
             value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            onChange={(e) => { setQuery(e.target.value); setPage(1); }}
             placeholder="Search by title, topic, or tag"
             className="w-full rounded-full border border-[#2e2e2e] bg-gray-100 py-3 pl-11 pr-5 text-sm text-[#f0ece4] outline-none placeholder:text-[#555] focus:border-[#c5b89e]"
           />
@@ -66,7 +122,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           {categories.map((item) => (
             <button
               key={item}
-              onClick={() => setCategory(item)}
+              onClick={() => { setCategory(item); setPage(1); }}
               className={`rounded-full px-4 py-1.5 text-xs font-medium transition ${
                 category === item
                   ? "bg-[#f5f0e8] text-[#111]"
@@ -91,7 +147,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             </div>
             <div>
               <p className="text-sm font-semibold text-black">Write for Us — Submit a Guest Post</p>
-              <p className="text-[12px] text-[#666]">Share your expertise · earn 3 dofollow backlinks · get a permanent author profile</p>
+              <p className="text-[12px] text-[#666]">Share your expertise · earn 1–2 dofollow backlinks · get a permanent author profile</p>
             </div>
           </div>
           <span className="flex shrink-0 items-center gap-1.5 rounded-full bg-violet-800/60 px-4 py-1.5 text-xs font-semibold text-violet-100 transition group-hover:bg-violet-700/70">
@@ -117,50 +173,54 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             </Link>
           </div>
         ) : (
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {filteredPosts.map((post, index) => {
-              const featured = index === 0 && category === "All" && !query;
-              return (
-                <Link
-                  key={post.slug}
-                  href={`/blog/${post.slug}`}
-                  className={`group flex h-full flex-col overflow-hidden rounded-2xl border border-[#222] bg-[#141414] transition hover:border-[#3a3530] ${featured ? "md:col-span-2 xl:col-span-2" : ""}`}
-                >
-                  <div className={`relative overflow-hidden bg-[#1e1c19] ${featured ? "h-60" : "h-48"}`}>
-                    {post.coverImage ? (
-                      <img src={post.coverImage} alt={post.title} className="h-full w-full object-cover opacity-80 transition duration-700 group-hover:scale-105" />
-                    ) : (
-                      <div className="h-full w-full bg-gradient-to-br from-[#1e1c19] to-[#2a2520]" />
-                    )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    {post.category && (
-                      <span className="absolute left-4 top-4 rounded-full bg-[#f5f0e8] px-3 py-1 text-[10px] font-medium uppercase tracking-[0.16em] text-[#111]">
-                        {post.category}
-                      </span>
-                    )}
-                  </div>
-                  <div className="flex flex-1 flex-col p-5">
-                    <p className="mb-2 text-[11px] uppercase tracking-[0.12em] text-violet-100">{formatDate(post.date)}</p>
-                    <h2
-                      className={`font-serif font-normal leading-snug text-purple-100 ${featured ? "text-[1.6rem]" : "text-xl"}`}
-                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                    >
-                      {post.title}
-                    </h2>
-                    <p className="mt-3 flex-1 text-sm leading-relaxed text-gray-400">{post.excerpt}</p>
-                    <div className="mt-5 flex items-center justify-between border-t border-[#1e1e1e] pt-4">
-                      <div className="flex items-center gap-4 text-xs text-violet-100">
-                        <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
-                        <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
-                      </div>
-                      <span className="flex items-center gap-1.5 text-xs font-medium text-[#f7f3fe] transition group-hover:text-[#DCCBFB]">
-                        Read <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              );
-            })}
+          <>
+            {/* Top 2 posts stay pinned across every page */}
+            <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+              {pinnedPosts.map((post, index) => (
+                <PostCard key={post.slug} post={post} featured={index === 0 && category === "All" && !query} />
+              ))}
+            </div>
+
+            {pagePosts.length > 0 && (
+              <div className="mt-5 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+                {pagePosts.map((post) => (
+                  <PostCard key={post.slug} post={post} featured={false} />
+                ))}
+              </div>
+            )}
+          </>
+        )}
+
+        {/* ── PAGINATION ── */}
+        {pageCount > 1 && (
+          <div className="mt-10 flex items-center justify-center gap-2">
+            <button
+              onClick={() => goToPage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="rounded-full border border-[#2e2e2e] bg-gray-100 px-4 py-2 text-xs font-medium text-[#666] transition hover:text-[#f0ece4] disabled:opacity-30 disabled:pointer-events-none"
+            >
+              Prev
+            </button>
+            {Array.from({ length: pageCount }, (_, i) => i + 1).map((p) => (
+              <button
+                key={p}
+                onClick={() => goToPage(p)}
+                className={`h-9 w-9 rounded-full text-xs font-medium transition ${
+                  p === currentPage
+                    ? "bg-[#f5f0e8] text-[#111]"
+                    : "border border-[#2e2e2e] bg-gray-100 text-[#666] hover:text-[#f0ece4]"
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+            <button
+              onClick={() => goToPage(currentPage + 1)}
+              disabled={currentPage === pageCount}
+              className="rounded-full border border-[#2e2e2e] bg-gray-100 px-4 py-2 text-xs font-medium text-[#666] transition hover:text-[#f0ece4] disabled:opacity-30 disabled:pointer-events-none"
+            >
+              Next
+            </button>
           </div>
         )}
 
@@ -171,12 +231,12 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             Got something worth reading? <em className="italic text-violet-300">Publish it here.</em>
           </h2>
           <p className="mx-auto mt-3 max-w-sm text-[13px] leading-relaxed text-[#666]">
-            Submit a guest post and earn up to 3 dofollow backlinks plus a permanent author profile page.
+            Submit a guest post and earn up to 1–2 dofollow backlinks plus a permanent author profile page. $15/placement, $0 for link exchanges — pay after live.
           </p>
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link href="/blog/submit" className="inline-flex items-center gap-2 rounded-full bg-violet-700 px-6 py-3 text-sm font-semibold text-white transition hover:bg-violet-600">
               <PenLine className="h-4 w-4" />
-              Submit a guest post — it's free
+              Submit a guest post
             </Link>
           </div>
         </div>

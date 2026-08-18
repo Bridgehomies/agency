@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
-import BlogWriterPortal from "@/components/BlogWriterPortal";
+import BlogWriterPortal from "@/components/blog/BlogWriterPortal";
 
 export const metadata: Metadata = {
   title: "Write Blog",

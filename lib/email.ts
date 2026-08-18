@@ -78,6 +78,22 @@ export async function sendApprovalEmail(sub: GuestSubmission) {
           Don't forget to share it with your audience! Tag us or link back — we'd love to amplify your post.
         </p>
 
+        <div style="background: #faf7f2; border: 1px solid #eee; border-radius: 8px; padding: 18px 20px; margin: 24px 0; font-size: 13px; line-height: 1.7; color: #444;">
+          <p style="margin: 0 0 10px; font-weight: 700; color: #111;">Payment terms & pricing</p>
+          <p style="margin: 0 0 10px;">
+            We operate on a strict <strong>pay-after-live</strong> policy — since your placement is confirmed live above, payment can now be processed.
+          </p>
+          <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
+            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Standard rate</td><td><strong>$15</strong> / placement</td></tr>
+            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Bulk / reseller rate</td><td><strong>$12</strong> / placement (5+ orders)</td></tr>
+            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Link exchange</td><td>$0 (reciprocal DoFollow swap)</td></tr>
+          </table>
+          <p style="margin: 10px 0 0;">
+            Accepted payment methods: <strong>Wise, Payoneer, or direct bank transfer</strong>. Full terms:
+            <a href="${SITE_URL}/blog-terms" style="color: #b06a00;">bridgehomies.com/blog-terms</a>.
+          </p>
+        </div>
+
         <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
 
         <p style="font-size: 12px; color: #aaa;">
@@ -87,7 +103,6 @@ export async function sendApprovalEmail(sub: GuestSubmission) {
     `,
   });
 }
-
 // ─── Submitter: rejection ─────────────────────────────────────────────────────
 
 export async function sendRejectionEmail(sub: GuestSubmission, notes?: string) {
