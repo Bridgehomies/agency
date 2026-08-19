@@ -11,12 +11,13 @@ import type { GuestSubmission } from "@/app/api/blog/submit/route";
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Configuration
-const FROM = `Bridge Homies Editorial <onboarding@resend.dev>`; 
 // Note: Once you verify your domain in Resend, change this to:
 // "Bridge Homies Editorial <hello@bridgehomies.com>"
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
 const SITE_URL = process.env.SITE_URL || "https://bridgehomies.com";
+
+const FROM = `Bridge Homies Editorial <${ADMIN_EMAIL}>`;
 
 // ─── Admin notification (new submission) ─────────────────────────────────────
 
