@@ -14,6 +14,17 @@ const navLinks = [
   { num: "06", name: "Blog", href: "/blog" },
   { num: "07", name: "Testimonials", href: "/testimonials" },
   { num: "08", name: "Design", href: "/design" },
+  {
+    num: "09",
+    name: "Case Studies",
+    href: "#contact",
+    children: [
+      { name: "Aierpify", href: "/case-studies/aierpify" },
+      { name: "Anosuim", href: "/case-studies/anosuim" },
+      { name: "IHFP", href: "/case-studies/ihfp" },
+      { name: "Mail Hauler Pro", href: "/case-studies/mail-hauler-pro" },
+    ],
+  },
 ];
 
 const socials = [
@@ -32,9 +43,11 @@ const tickerItems = [
   "Digital Strategy",
 ];
 
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -136,34 +149,56 @@ export default function Navbar() {
             className="fixed inset-0 z-30 bg-white grid grid-cols-1 md:grid-cols-2 pt-[calc(24px+60px)] sm:pt-[calc(28px+68px)] overflow-y-auto"
           >
             {/* Left — Nav links */}
-            <div className="flex flex-col justify-between px-5 sm:px-8 md:px-10 pb-8 md:pb-12 border-b md:border-b-0 md:border-r border-black/10">
+            <div className="flex flex-col justify-between px-5 sm:px-8 mt-4 md:px-10 pb-8 md:pb-12 border-b md:border-b-0 md:border-r border-black/10">
               <nav className="flex flex-col">
                 {navLinks.map((link, i) => (
-                  <motion.button
-                    key={link.name}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 + i * 0.06 }}
-                    onClick={() => go(link.href)}
-                    className={cn(
-                      "group flex items-baseline gap-2 sm:gap-3 w-full text-left py-[10px] sm:py-[12px] md:py-[14px]",
-                      "border-t border-black/10 last:border-b last:border-black/10",
-                      "hover:border-t-black/30 transition-colors duration-200"
-                    )}
-                  >
-                    <span className="text-[9px] sm:text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[20px] sm:min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
-                      {link.num}
-                    </span>
-                    <span
-                      className="text-[28px] sm:text-[36px] md:text-[44px] lg:text-[48px] leading-none tracking-[0.02em] text-black/60 group-hover:text-black transition-colors duration-300"
-                      style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  <div key={link.name} className="border-t border-black/10 last:border-b">
+                    <motion.button
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 + i * 0.06 }}
+                      onClick={() => (link.children ? setExpanded(!expanded) : go(link.href))}
+                      className="group flex items-baseline gap-2 sm:gap-3 w-full text-left py-[10px] sm:py-[12px] md:py-[14px] hover:border-t-black/30 transition-colors duration-200"
                     >
-                      {link.name}
-                    </span>
-                    <span className="ml-auto text-sm sm:text-base text-black/60 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 hidden sm:inline">
-                      ↗
-                    </span>
-                  </motion.button>
+                      <span className="text-[9px] sm:text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[20px] sm:min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
+                        {link.num}
+                      </span>
+                      <span
+                        className="text-[20px] sm:text-[26px] md:text-[32px] lg:text-[36px] leading-none tracking-[0.02em] text-black/60 group-hover:text-black transition-colors duration-300"
+                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                      >
+                        {link.name}
+                      </span>
+                      <span className="ml-auto text-sm sm:text-base text-black/60 transition-all duration-300">
+                        {link.children
+                          ? expanded ? "↑" : "↓"
+                          : <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 hidden sm:inline">↗</span>}
+                      </span>
+                    </motion.button>
+
+                    {link.children && (
+                      <AnimatePresence>
+                        {expanded && (
+                          <motion.div
+                            initial={{ height: 0, opacity: 0 }}
+                            animate={{ height: "auto", opacity: 1 }}
+                            exit={{ height: 0, opacity: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="overflow-hidden pl-5 sm:pl-8 md:pl-10"
+                          >
+                            {link.children.map((child) => (
+                              <button
+                                key={child.name}
+                                onClick={() => go(child.href)}
+                                className="block w-full text-left py-2.5 sm:py-2 text-[12px] sm:text-[13px] md:text-[15px] tracking-[0.04em] text-black/50 hover:text-black transition-colors"                              >
+                                {child.name}
+                              </button>
+                            ))}
+                          </motion.div>
+                        )}
+                      </AnimatePresence>
+                    )}
+                  </div>
                 ))}
               </nav>
 
