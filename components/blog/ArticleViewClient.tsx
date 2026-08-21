@@ -428,7 +428,7 @@ export default function ArticleViewClient({
           <div className="max-w-[1340px] mx-auto px-6 md:px-12 pt-16 pb-12">
 
             {/* SEO: breadcrumb visible to crawlers + users */}
-            <nav aria-label="Breadcrumb" className="hero-eyebrow mb-4">
+            <nav aria-label="Breadcrumb" className="hero-eyebrow mb-4 mt-14">
               <ol className="flex items-center gap-2 list-none p-0 m-0" itemScope itemType="https://schema.org/BreadcrumbList">
                 <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
                   <Link href="/" className="font-mono text-[0.62rem] tracking-[0.14em] uppercase text-[#6b6560] hover:text-[#c8401a] transition-colors no-underline" itemProp="item">
