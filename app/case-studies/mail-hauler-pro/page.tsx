@@ -17,6 +17,8 @@ const data: CaseStudyData = {
     "Helping marketing teams manage multiple inboxes, automate campaigns, and monitor email deliverability from one central platform.",
   targetUsers: "Marketing teams, agencies, sales teams, and lead-generation businesses",
   status: "Live and scaling through private beta",
+  liveUrl: "https://mailhaulerpro.com",
+  coverImage: "/work/white.png",
   heroSummary:
     "Mail Hauler Pro is a cold email automation platform built for marketing teams, lead-generation agencies, and businesses running outbound email campaigns across multiple inboxes. Bridge Homies designed and developed it as a complete email operations platform, combining inbox management, campaign automation, warm-up, lead handling, deliverability monitoring, and analytics.",
   challengeIntro:

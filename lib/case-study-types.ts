@@ -21,6 +21,7 @@ export interface CaseStudyData {
   targetUsers: string
   status: string
   liveUrl?: string
+  coverImage?: string
   heroSummary: string
   challengeIntro: string
   challengePoints: string[]

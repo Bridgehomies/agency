@@ -66,6 +66,24 @@ export default function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
         </div>
       </section>
 
+      {/* COVER */}
+      {data.coverImage && (
+        <section className="pb-20 lg:pb-28 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <figure className="group relative overflow-hidden border border-gray-200 bg-white">
+              <div className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:3rem_3rem]" />
+              <div className="relative z-10 flex items-center justify-center p-10 sm:p-16 min-h-[20rem] md:min-h-[28rem]">
+                <img
+                  src={data.coverImage}
+                  alt={`${data.name} — ${data.category}`}
+                  className="max-h-[15rem] md:max-h-[22rem] w-auto object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                />
+              </div>
+            </figure>
+          </div>
+        </section>
+      )}
+
       {/* OVERVIEW */}
       <section className="py-20 bg-white border-y border-gray-200/60">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">

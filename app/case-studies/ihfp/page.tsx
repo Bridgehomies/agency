@@ -18,6 +18,7 @@ const data: CaseStudyData = {
   targetUsers: "Loft owners, pigeon enthusiasts, clubs, judges, organizers, and administrators",
   status: "Deployed production platform",
   liveUrl: "https://ihfp.io",
+  coverImage: "/work/hfp.png",
   heroSummary:
     "IHFP is a web-based platform built for pigeon enthusiasts, loft owners, clubs, tournament organizers, judges, and administrators. Bridge Homies developed IHFP as a structured digital ecosystem where users can manage pigeon lofts, organize tournaments, communicate with other members, submit entries, record race results, and manage competition workflows from one platform.",
   challengeIntro:

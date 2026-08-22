@@ -17,6 +17,8 @@ const data: CaseStudyData = {
     "Helping Pakistani businesses create, manage, and submit compliant digital invoices — from invoice creation to FBR integration, subscriptions, and admin controls.",
   targetUsers: "Pakistani businesses and taxpayers",
   status: "Live production platform",
+  liveUrl: "https://aierpify.com",
+  coverImage: "/work/aierpify.png",
   heroSummary:
     "Aierpify is a cloud-based FBR e-invoicing platform built for Pakistani businesses that need a simpler way to generate tax invoices, manage billing records, and submit invoice data digitally. Bridge Homies designed and developed Aierpify as a complete SaaS product — from invoice creation and customer management to FBR integration, subscriptions, reporting, and administrative controls.",
   challengeIntro:
