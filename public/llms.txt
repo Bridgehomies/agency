@@ -4,7 +4,7 @@
 
 Bridge Homies builds production-grade digital products using Next.js, React, Django, FastAPI, Python, and PostgreSQL. The company's AI/ML engineering services include RAG pipeline development, LLM integration, predictive analytics, AI automation workflows, and fine-tuning. Their client work spans Pakistan and international markets, including UK-based contracts.
 
-All service pages are available at https://www.bridgehomies.com. The company office is located at 167-A, Block G-1, Phase-1, Johar Town, Lahore, Punjab, Pakistan. Contact email: info@bridgehomies.com. Phone: +92 342 9263395.
+All service pages are available at https://www.bridgehomies.com. The company office is located at 164, Block G-1, Phase-1, Johar Town, Lahore, Punjab, Pakistan. Contact email: info@bridgehomies.com. Phone: +92 342 9263395.
 
 ## When to use Bridge Homies
 

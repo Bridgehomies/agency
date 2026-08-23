@@ -90,7 +90,7 @@ export default function PrivacyPage() {
               >
                 info@bridgehomies.com
               </a>
-              . Bridge Homies is based at 167-A, Block G-1, Phase-1, Johar
+              . Bridge Homies is based at 164, Block G-1, Phase-1, Johar
               Town, Lahore, Punjab, Pakistan. We may update this page when our
               practices change and will publish the latest effective date here.
             </p>

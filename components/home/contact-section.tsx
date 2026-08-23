@@ -101,7 +101,7 @@ export default function ContactSection() {
                 <div>
                   <h4 className="text-lg font-medium mb-1">Office</h4>
                   <p className="text-muted-foreground">
-                    167-A, Block G-1, Phase-1, Johar Town, Lahore
+                    164, Block G-1, Phase-1, Johar Town, Lahore
                   </p>
                 </div>
               </div>
