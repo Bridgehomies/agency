@@ -71,11 +71,13 @@ export default function ContactPage() {
               </div>
 
               <div>
-                <h3 className="text-lg font-medium">Phone</h3>
+                <h3 className="text-lg font-medium">WhatsApp</h3>
 
                 <a
                   className="text-muted-foreground transition-colors hover:text-primary"
-                  href="tel:+923429263395"
+                  href="https://wa.me/923429263395"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   +92 342 9263395
                 </a>
@@ -125,7 +127,7 @@ export default function ContactPage() {
               <li>How you prefer us to contact you</li>
             </ul>
           </section>
-        </div>
+        </div >
 
         <script
           type="application/ld+json"
@@ -141,7 +143,7 @@ export default function ContactPage() {
             }),
           }}
         />
-      </main>
+      </main >
 
       <Footer />
     </>
