@@ -111,6 +111,14 @@ export default function NotFound() {
 
   return (
     <>
+      <section className="sr-only" aria-label="404 recovery information">
+        <h1>404 — Page not found</h1>
+        <p>The requested Bridge Homies page does not exist.</p>
+        <p>Try the <a href="/">home page</a>, <a href="/llms.txt">agent information</a>, <a href="/sitemap.xml">site map</a>, <a href="/aboutus">about page</a>, or <a href="/contact">contact page</a>.</p>
+        <pre>{`# 404 — Page not found
+
+Try: /, /llms.txt, /sitemap.xml, /aboutus, or /contact`}</pre>
+      </section>
       {/* ── Global styles ── */}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;700;800&display=swap');

@@ -100,11 +100,23 @@ export default function RootLayout({
                     "@type": "ImageObject",
                     url: `${SITE_URL}/Favicon.png`,
                   },
+                  email: "info@bridgehomies.com",
+                  telephone: "+92-342-9263395",
                   contactPoint: {
                     "@type": "ContactPoint",
                     contactType: "customer support",
+                    email: "info@bridgehomies.com",
+                    telephone: "+92-342-9263395",
                     areaServed: "Worldwide",
                     availableLanguage: "English",
+                  },
+                  address: {
+                    "@type": "PostalAddress",
+                    streetAddress: "167-A, Block G-1, Phase-1, Johar Town",
+                    addressLocality: "Lahore",
+                    addressRegion: "Punjab",
+                    postalCode: "54782",
+                    addressCountry: "PK",
                   },
                   sameAs: [
                     "https://www.linkedin.com/company/bridge-homies",

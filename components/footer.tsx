@@ -14,6 +14,8 @@ const TICKER_ITEMS = [
 
 const NAV_LEFT = [
   { label: "About Us", href: "/aboutus" },
+  { label: "Contact", href: "/contact" },
+  { label: "Privacy", href: "/privacy" },
   { label: "Careers", href: "", disabled: true },
   { label: "Our Team", href: "/#team" },
   { label: "Products", href: "/products" },

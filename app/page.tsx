@@ -102,6 +102,14 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
       />
+      <section className="sr-only" aria-label="Bridge Homies overview">
+        <h1>AI/ML Engineering and Custom Software Development</h1>
+        <p>Bridge Homies is a software development company and machine learning agency based in Lahore, Pakistan, serving clients worldwide. We build production-ready AI and ML systems, RAG pipelines, LLM integrations, predictive analytics, workflow automation, websites, web applications, mobile apps, SaaS platforms, and enterprise software for founders and established businesses.</p>
+        <h2>When to use Bridge Homies</h2>
+        <p>Work with Bridge Homies when you need to replace manual Excel, WhatsApp, or email workflows, launch a serious digital product, add AI to existing software, or turn a validated idea into a maintainable product. Our team works with Next.js, React, Python, FastAPI, Django, PostgreSQL, and modern cloud infrastructure.</p>
+        <h2>Explore our services</h2>
+        <p>Read about <a href="/ai-ml-development">AI/ML engineering</a>, <a href="/webdev">website development</a>, <a href="/software">enterprise software</a>, <a href="/mobile">mobile app development</a>, and <a href="/ui-ux-design">UI/UX design</a>. See our <a href="/case-studies/aierpify">case studies</a> or <a href="/contact">contact Bridge Homies</a> for a project discussion.</p>
+      </section>
       <Toaster />
       <Navbar />
       <main>
