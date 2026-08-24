@@ -1,0 +1,354 @@
+---
+id: "three-open-source-tools-for-better-ai-generated-websites"
+slug: "three-open-source-tools-for-better-ai-generated-websites"
+title: "Three Open-Source Tools for Building Better AI-Generated Websites"
+excerpt: "Awesome DESIGN.md, web-design, and Taste Skill help Claude Code and other AI coding agents create more consistent, original, and usable websites. Here is how the three tools differ and how to use them together."
+author: "Bridge Homies Team"
+authorRole: "Editorial"
+date: "2026-08-24T09:39:20.573Z"
+readTime: "1 min"
+category: "AI & Web Development"
+tags: ["AI web development","Claude Code","frontend development","web design","design systems","AI coding agents","UI/UX design"]
+coverImage: "/uploads/blog/blog-1787564360389.png"
+views: 0
+published: true
+seoTitle: "3 Open-Source Tools for Better AI-Generated Websites using Claude, Codex or any other Agent"
+seoDescription: "Learn how Awesome DESIGN.md, web-design, and Taste Skill help Claude Code create consistent, original, responsive, and usable AI-generated websites."
+schemaType: "BlogPosting"
+faq: [{"question":"What is Awesome DESIGN.md?","answer":"Awesome DESIGN.md is a collection of reusable DESIGN.md files that describe the visual language of popular websites and products for AI design and coding agents."},{"question":"What is the web-design Claude Code skill?","answer":"web-design is a Claude Code skill that creates a DESIGN.md specification from a brief, URL, screenshot, or brand reference before generating frontend code."},{"question":"What is Taste Skill?","answer":"Taste Skill is an open-source collection of rules that helps AI coding agents avoid generic frontend designs and produce more context-aware, complete, and visually distinctive interfaces."},{"question":"Can these tools be used with Claude Code?","answer":"Yes. DESIGN.md files can be placed inside a project for Claude Code to read, while web-design and Taste Skill can be installed as Claude Code-compatible skills."},{"question":"Should I copy the design of another website?","answer":"No. Use reference designs to study principles such as spacing, typography, color roles, and layout. Create an original visual identity instead of copying logos, content, or distinctive branded elements."},{"question":"Do these tools replace a human designer?","answer":"No. They help structure design decisions and guide AI agents, but human review is still needed for product usability, accessibility, branding, and visual quality."},{"question":"How should I use these tools together?","answer":"Use Awesome DESIGN.md for research and inspiration, web-design to create a project-specific design specification, and Taste Skill to guide implementation and quality checks."}]
+---
+
+{
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "AI coding tools can generate a working website in minutes. The harder part is getting them to create an interface that feels intentional, consistent, and appropriate for its users. Three open-source resources can help: Awesome DESIGN.md by VoltAgent, web-design by xiaopu-ai, and Taste Skill."
+    },
+    {
+      "type": "paragraph",
+      "text": "These tools are related, but they are not interchangeable. Awesome DESIGN.md provides reusable visual references, web-design creates a design specification before implementation, and Taste Skill adds rules that help AI agents avoid generic or incomplete frontend output."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Why AI-generated websites often look generic"
+    },
+    {
+      "type": "paragraph",
+      "text": "When a prompt says build a modern SaaS website, an AI agent often reaches for familiar patterns: oversized gradient headlines, rounded cards, glowing backgrounds, three-column pricing sections, and decorative dashboard mockups."
+    },
+    {
+      "type": "paragraph",
+      "text": "These elements are not automatically bad. The problem is that they are often used without considering the product, audience, industry, or brand. A healthcare platform needs clarity and trust, while a creative portfolio may need stronger art direction and motion."
+    },
+    {
+      "type": "paragraph",
+      "text": "A better workflow gives the AI agent a shared design language. This is similar to creating a project-specific <a href='https://bridgehomies.com/blog/how-to-design-interfaces-that-help-users-make-faster-decisions'>design system for faster user decisions</a>, rather than relying on a vague request for something modern."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "1. Awesome DESIGN.md provides visual design references"
+    },
+    {
+      "type": "paragraph",
+      "text": "Awesome DESIGN.md is a curated collection of DESIGN.md files based on the visual language of well-known websites and products. The repository explains that these files are plain-text design system documents intended to help AI agents generate more consistent interfaces."
+    },
+    {
+      "type": "paragraph",
+      "text": "The collection includes references inspired by products and brands such as Linear, Vercel, Stripe, Apple, Airbnb, Nike, Supabase, Figma, and Spotify. Each reference attempts to turn visual observations into practical instructions."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "What a DESIGN.md file contains"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Visual theme and atmosphere",
+        "Color palette and semantic color roles",
+        "Typography and type hierarchy",
+        "Button, card, input, and navigation styles",
+        "Layout and spacing principles",
+        "Shadows and elevation",
+        "Responsive behavior",
+        "Design do's and don'ts",
+        "Prompt guidance for AI agents"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "You can copy a suitable DESIGN.md file into your project and instruct your AI coding agent to read it before creating or modifying the frontend."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Read DESIGN.md before writing frontend code. Use its typography, color roles, spacing rules, component styling, responsive behavior, and design constraints. Keep all new components consistent with the specification."
+    },
+    {
+      "type": "paragraph",
+      "text": "The most important limitation is that a reference should not become a brand clone. Study the principles behind a design, but avoid copying logos, proprietary illustrations, exact layouts, or distinctive marketing language."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "2. web-design uses a spec-first workflow"
+    },
+    {
+      "type": "paragraph",
+      "text": "The <a href='https://github.com/xiaopu-ai/web-design'>web-design repository</a> is a Claude Code skill designed around a simple idea: understand the design direction first, create an editable specification, and only then generate the frontend code."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "How web-design works"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Understand the brief, reference URL, screenshot, keywords, or brand",
+        "Create a readable DESIGN.md specification",
+        "Generate the frontend according to the approved specification",
+        "Audit the result against quality and reference requirements"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The generated specification covers color, typography, components, layout, motion, depth, design rules, responsive behavior, and accessibility. This creates an intermediate design contract that can be reviewed before a large amount of code is written."
+    },
+    {
+      "type": "paragraph",
+      "text": "The repository provides installation instructions for cloning the skill into Claude Code's skills directory:"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "git clone https://github.com/KAOPU-XiaoPu/web-design ~/.claude/skills/web-design"
+    },
+    {
+      "type": "paragraph",
+      "text": "After installation, Claude Code can use the skill to turn a product brief, screenshot, or reference URL into a project-specific design specification."
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Use the web-design skill. Study this brief and reference screenshot. First create DESIGN.md covering color, typography, layout, components, motion, depth, responsive behavior, accessibility, and design constraints. Do not write frontend code until the design direction has been reviewed."
+    },
+    {
+      "type": "paragraph",
+      "text": "This workflow is especially useful when several pages must share the same visual language. The same specification can guide a landing page, dashboard, settings area, forms, tables, and mobile layouts."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "3. Taste Skill helps prevent generic frontend output"
+    },
+    {
+      "type": "paragraph",
+      "text": "Taste Skill describes itself as an anti-slop frontend framework for AI agents. It provides open-source skill files that work with Claude Code, Codex, Cursor, Gemini CLI, v0, Lovable, OpenCode, and other tools that support skill files."
+    },
+    {
+      "type": "paragraph",
+      "text": "Its purpose is broader than producing one design document. Taste Skill provides rules that influence how an AI agent chooses a visual direction, design system, layout, typography, motion, themes, and completion checks."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Notable Taste Skill capabilities"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Infers the industry, audience, mood, layout family, and motion depth",
+        "Helps select an appropriate design system",
+        "Encourages light and dark theme hierarchy",
+        "Uses an audit-first process for redesigns",
+        "Checks for missing states and incomplete sections",
+        "Supports different visual directions such as minimalist and brutalist styles"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The website currently describes Taste Skill v2 as experimental. That means teams should review updates and avoid assuming that every rule will remain unchanged between versions."
+    },
+    {
+      "type": "paragraph",
+      "text": "Taste Skill can be installed with the following command:"
+    },
+    {
+      "type": "code",
+      "language": "bash",
+      "code": "npx skills add Leonxlnx/taste-skill --skill \"design-taste-frontend\""
+    },
+    {
+      "type": "paragraph",
+      "text": "A useful instruction for Claude Code would be:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "code": "Use the design-taste-frontend skill. First understand the product, audience, industry, and desired mood. Choose an appropriate design direction instead of defaulting to a generic SaaS layout. Before finishing, check responsiveness, accessibility, theme hierarchy, empty states, loading states, error states, and consistency."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How these three resources differ"
+    },
+    {
+      "type": "table",
+      "headers": [
+        "Resource",
+        "Primary role",
+        "Best for",
+        "Main output"
+      ],
+      "rows": [
+        [
+          "Awesome DESIGN.md",
+          "Visual reference library",
+          "Studying established design languages",
+          "Ready-to-use DESIGN.md files"
+        ],
+        [
+          "web-design",
+          "Spec-first workflow",
+          "Turning briefs, URLs, and screenshots into design rules",
+          "Project-specific DESIGN.md followed by code"
+        ],
+        [
+          "Taste Skill",
+          "Design and quality rules",
+          "Avoiding generic or incomplete AI-generated interfaces",
+          "Rules applied during design and implementation"
+        ]
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The simplest distinction is this: Awesome DESIGN.md answers what a design language looks like, web-design explains how to convert a brief into a design specification, and Taste Skill guides the agent while it makes and checks implementation decisions."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "How to use all three with Claude Code"
+    },
+    {
+      "type": "paragraph",
+      "text": "Claude Code is Anthropic's terminal-based coding assistant. It can inspect a project, read instruction files, modify source code, run commands, and help implement complete features. These resources give Claude Code more specific design context than a single prompt."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Step 1: Study relevant design principles"
+    },
+    {
+      "type": "paragraph",
+      "text": "Start with Awesome DESIGN.md and review several references related to your product. For an analytics platform, you might study Linear for information density, Vercel for restraint, Stripe for marketing presentation, and Supabase for technical communication."
+    },
+    {
+      "type": "paragraph",
+      "text": "Do not copy one reference blindly. Extract principles such as spacing, hierarchy, color relationships, component density, and responsive behavior."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Step 2: Create a project-specific DESIGN.md"
+    },
+    {
+      "type": "paragraph",
+      "text": "Use web-design to turn the product brief and selected principles into a specification that belongs to your own project. Define the primary action, type scale, color roles, content width, mobile behavior, interaction states, animation rules, and accessibility requirements."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Step 3: Apply Taste Skill during implementation"
+    },
+    {
+      "type": "paragraph",
+      "text": "Use Taste Skill to challenge the generated output. Ask Claude Code whether the visual direction fits the audience, whether the interface contains generic patterns, and whether loading, empty, error, success, disabled, and focus states have been handled."
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "text": "Step 4: Review the rendered website"
+    },
+    {
+      "type": "paragraph",
+      "text": "A frontend can satisfy a written specification and still feel wrong when rendered. Review desktop and mobile layouts, long headings, populated and empty states, keyboard navigation, contrast, touch targets, and the rhythm between sections."
+    },
+    {
+      "type": "paragraph",
+      "text": "For a broader process, teams can also follow a <a href='https://bridgehomies.com/blog/how-to-build-a-reliable-claude-code-workflow-for-real-software-projects'>reliable Claude Code workflow for real software projects</a>, including project instructions, testing, reviews, and version control."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Example: designing a clinic appointment platform"
+    },
+    {
+      "type": "paragraph",
+      "text": "A generic AI prompt may produce a clinic dashboard with purple gradients, oversized cards, and decorative charts. A better design brief would prioritize trust, clarity, accessibility, and fast scanning."
+    },
+    {
+      "type": "list",
+      "items": [
+        "Use calm neutral surfaces with a restrained blue-green accent",
+        "Make appointment dates, patient names, and statuses easy to scan",
+        "Use clear success, warning, and error states",
+        "Turn appointment lists into stacked records on mobile",
+        "Keep the primary booking action visible",
+        "Avoid decorative gradients and unnecessary motion"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "The result may be less visually loud, but it is more appropriate for healthcare. The design serves the users instead of displaying the AI agent's favorite patterns."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Important limitations"
+    },
+    {
+      "type": "list",
+      "items": [
+        "A design file cannot compensate for unclear product requirements",
+        "Visual consistency does not automatically mean usability",
+        "AI-generated design systems still require human review",
+        "Public visual references should not be copied as brand identities",
+        "Skills and repositories can change, so versions should be reviewed before updates"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Final verdict"
+    },
+    {
+      "type": "paragraph",
+      "text": "These resources represent three useful layers of AI-assisted frontend development. Awesome DESIGN.md provides structured visual references. web-design introduces a spec-first process that separates design decisions from code generation. Taste Skill adds broader rules for context, originality, redesigns, themes, and completion quality."
+    },
+    {
+      "type": "paragraph",
+      "text": "The strongest workflow is not to ask Claude Code for a beautiful website and hope the result feels original. Give it a clear product brief, relevant visual principles, an editable design specification, implementation constraints, and a rendered quality checklist."
+    },
+    {
+      "type": "paragraph",
+      "text": "Used properly, these tools turn Claude Code from a code generator into a design-aware implementation partner. They do not replace human designers, but they give designers and developers a clearer way to direct AI toward interfaces that are more consistent, usable, and distinctive."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Sources and further reading"
+    },
+    {
+      "type": "list",
+      "items": [
+        "<a href='https://github.com/voltagent/awesome-design-md'>Awesome DESIGN.md by VoltAgent</a>",
+        "<a href='https://github.com/xiaopu-ai/web-design'>web-design Claude Code skill</a>",
+        "<a href='https://www.tasteskill.dev/'>Taste Skill</a>"
+      ]
+    }
+  ]
+}
