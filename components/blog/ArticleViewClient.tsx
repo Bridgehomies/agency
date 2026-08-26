@@ -61,6 +61,9 @@ interface TocItem {
 function TableOfContents({ articleRef }: { articleRef: React.RefObject<HTMLElement | null> }) {
   const [items, setItems] = useState<TocItem[]>([]);
   const [activeId, setActiveId] = useState<string>("");
+  // ponytail: open by default everywhere so every heading is discoverable
+  // right from the top of the article; capped height + scroll (CSS) keeps
+  // it from pushing the article down on mobile instead of collapsing it.
   const [isOpen, setIsOpen] = useState(true);
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -163,7 +166,6 @@ function TableOfContents({ articleRef }: { articleRef: React.RefObject<HTMLEleme
                     className={`toc-link ${isActive ? "toc-link--active" : ""}`}
                     onClick={() => scrollTo(item.id)}
                     aria-current={isActive ? "location" : undefined}
-                    title={item.text}
                   >
                     {item.text}
                   </button>
@@ -325,6 +327,7 @@ export default function ArticleViewClient({
         }
         .toc-sidebar {
           width: 240px;
+          max-width: 100%;
           border-left: 1px solid var(--rule);
           background: transparent;
         }
@@ -346,15 +349,15 @@ export default function ArticleViewClient({
         .toc-count                   { font-family: var(--font-plex-mono), monospace; font-size: 0.58rem; color: var(--muted); background: var(--rule); padding: 1px 6px; }
         .toc-chevron                 { color: var(--muted); flex-shrink: 0; }
         .toc-list                    { list-style: none; margin: 0; padding: 4px 0; }
-        .toc-item                    { display: flex; align-items: center; gap: 0; padding: 0 0 0 14px; min-height: 36px; position: relative; }
+        .toc-item                    { display: flex; align-items: flex-start; gap: 0; padding: 8px 0 8px 14px; position: relative; }
         .toc-item--sub               { padding-left: 28px; }
         .toc-item--sub .toc-index   { opacity: 0.4; }
-        .toc-index                   { font-family: var(--font-plex-mono), monospace; font-size: 0.58rem; color: var(--muted); width: 22px; flex-shrink: 0; user-select: none; }
+        .toc-index                   { font-family: var(--font-plex-mono), monospace; font-size: 0.58rem; color: var(--muted); width: 22px; flex-shrink: 0; user-select: none; padding-top: 2px; }
         .toc-index--active           { color: var(--accent); font-weight: 500; }
-        .toc-track                   { width: 2px; height: 100%; background: rgba(10,10,10,0.06); margin: 0 10px; flex-shrink: 0; position: relative; align-self: stretch; }
+        .toc-track                   { width: 2px; align-self: stretch; background: rgba(10,10,10,0.06); margin: 0 10px; flex-shrink: 0; position: relative; }
         .toc-track-fill              { position: absolute; top: 0; left: 0; right: 0; height: 0%; background: var(--accent); transition: height 0.2s ease; }
         .toc-track-fill--active      { height: 100%; }
-        .toc-link                    { flex: 1; background: none; border: none; text-align: left; font-family: var(--font-plex-sans), sans-serif; font-size: 0.78rem; line-height: 1.4; color: var(--muted); cursor: pointer; padding: 6px 0; transition: color 0.15s; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .toc-link                    { flex: 1; background: none; border: none; text-align: left; font-family: var(--font-plex-sans), sans-serif; font-size: 0.78rem; line-height: 1.4; color: var(--muted); cursor: pointer; padding: 0 0 0 0; transition: color 0.15s; }
         .toc-link:hover              { color: var(--ink); }
         .toc-link--active            { color: var(--ink); font-weight: 600; }
 
@@ -369,13 +372,31 @@ export default function ArticleViewClient({
         }
         .article-col { padding-right: 1.5rem; }
 
+        /* ponytail: below 1240px there's no room for a side rail, so the TOC
+           drops from a sticky sidebar into a collapsible block above the
+           article instead of disappearing. Reuses the same component/CSS,
+           just re-flowed via grid order + position:static. */
         @media (max-width: 1240px) {
           .body-layout {
-            grid-template-columns: 1fr min(720px, 90%) 1fr;
-            gap: 2rem;
+            grid-template-columns: 1fr;
+            gap: 0;
+            padding: 0 1.25rem;
           }
-          .toc-col      { display: none; }
+          .body-layout > div:first-child,
+          .body-layout > div:last-child { display: none; } /* spacer cols */
+          .toc-col      { position: static; order: -1; padding: 1.5rem 0 0; }
+          .toc-sidebar  { width: 100%; border: 1px solid var(--rule); }
+          #toc-nav      { max-height: 46vh; overflow-y: auto; }
           .article-col  { padding-right: 0; }
+        }
+
+        @media (max-width: 480px) {
+          .hero-editorial-wrapper { min-height: auto; }
+          .toc-header   { padding-left: 10px; }
+          .toc-item     { padding: 5px 0 5px 10px; }
+          .toc-item--sub { padding-left: 22px; }
+          .toc-link     { font-size: 0.73rem; line-height: 1.32; }
+          .toc-index    { font-size: 0.54rem; width: 18px; }
         }
 
         /* ── Hover states ────────────────────────────────────────────────── */
