@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { markdownForPath, prefersMarkdown } from "@/lib/agent-markdown";
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   if (!prefersMarkdown(request.headers.get("accept"))) return NextResponse.next();
 
   return new NextResponse(markdownForPath(request.nextUrl.pathname), {

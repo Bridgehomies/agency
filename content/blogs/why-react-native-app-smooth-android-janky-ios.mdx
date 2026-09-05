@@ -2,7 +2,7 @@
 id: "e4c7a90d"
 slug: "why-react-native-app-smooth-android-janky-ios"
 title: "Why Your React Native App Is Smooth on Android but Janky on iOS"
-excerpt: "Same React Native code can perform very differently across platforms. Learn why iOS may expose list, JavaScript, image, and rendering bottlenecks—and how to diagnose them properly."
+excerpt: "Same React Native code can perform very differently across platforms. Learn why iOS may expose list, JavaScript, image, and rendering bottlenecks and how to diagnose them properly."
 author: "Bridge Homies Team"
 authorRole: "Editorial"
 date: "2026-09-04T12:00:00.000Z"
@@ -22,7 +22,7 @@ faq: [{"question":"Why is my React Native app slow on iOS but fast on Android?",
   "blocks": [
     {
       "type": "paragraph",
-      "text": "<strong>Same React Native code does not guarantee the same performance.</strong> If an interaction feels smooth on Android but stutters on an iPhone, iOS has not necessarily broken React Native—and Android has not necessarily proved the implementation is efficient. More often, the two platforms have exposed the same workload differently."
+      "text": "<strong>Same React Native code does not guarantee the same performance.</strong> If an interaction feels smooth on Android but stutters on an iPhone, iOS has not necessarily broken React Native and Android has not necessarily proved the implementation is efficient. More often, the two platforms have exposed the same workload differently."
     },
     {
       "type": "paragraph",
@@ -77,7 +77,7 @@ faq: [{"question":"Why is my React Native app slow on iOS but fast on Android?",
     },
     {
       "type": "paragraph",
-      "text": "If the JavaScript frame rate falls while the UI frame rate remains relatively steady, look for expensive React commits, selectors, synchronous parsing, search or filter work, logging, or handlers that update state too often. A ScrollView can often continue moving because scrolling is native, while the <a href='https://bridgehomies.com/blog/client-side-processing-zero-server-execution-developer-privacy-speed'>JavaScript-driven parts of the screen</a>—such as a header reacting to scroll position—start to lag."
+      "text": "If the JavaScript frame rate falls while the UI frame rate remains relatively steady, look for expensive React commits, selectors, synchronous parsing, search or filter work, logging, or handlers that update state too often. A ScrollView can often continue moving because scrolling is native, while the <a href='https://bridgehomies.com/blog/client-side-processing-zero-server-execution-developer-privacy-speed'>JavaScript-driven parts of the screen</a> such as a header reacting to scroll position start to lag."
     },
     {
       "type": "paragraph",
@@ -115,7 +115,7 @@ faq: [{"question":"Why is my React Native app slow on iOS but fast on Android?",
     },
     {
       "type": "paragraph",
-      "text": "Start with stable identity and a modest rendering window, then tune from measurements—not copied snippets. Keep keyExtractor stable, memoise a row only when its inputs can remain stable, and avoid creating new item objects or inline callbacks for every render. If rows have fixed dimensions, getItemLayout can also save measurement work; React Native specifically recommends it for large lists with slow rendering."
+      "text": "Start with stable identity and a modest rendering window, then tune from measurements not copied snippets. Keep keyExtractor stable, memoise a row only when its inputs can remain stable, and avoid creating new item objects or inline callbacks for every render. If rows have fixed dimensions, getItemLayout can also save measurement work; React Native specifically recommends it for large lists with slow rendering."
     },
     {
       "type": "paragraph",
@@ -184,7 +184,7 @@ faq: [{"question":"Why is my React Native app slow on iOS but fast on Android?",
     },
     {
       "type": "paragraph",
-      "text": "Avoid the shortcuts: adding React.memo everywhere, switching lists immediately, enabling the New Architecture and declaring victory, or blaming iOS. The New Architecture changes important internals, but it is not a substitute for profiling the bottleneck in front of you. A dependency or architecture change is justified when the evidence points to a limitation it solves—not when it is simply the newest lever available."
+      "text": "Avoid the shortcuts: adding React.memo everywhere, switching lists immediately, enabling the New Architecture and declaring victory, or blaming iOS. The New Architecture changes important internals, but it is not a substitute for profiling the bottleneck in front of you. A dependency or architecture change is justified when the evidence points to a limitation it solves not when it is simply the newest lever available."
     },
     {
       "type": "heading",

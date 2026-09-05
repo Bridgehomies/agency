@@ -22,7 +22,7 @@ For over two decades, the dominant architectural paradigm for web utilities has 
 
 While this server-centric model made sense when browsers were simple document viewers, it introduces significant friction in modern engineering workflows. Every remote round trip incurs DNS resolution, TLS handshake overhead, network transfer latency, and cold-start queuing. More critically, piping proprietary source code, internal database dumps, and sensitive API payloads through third-party cloud servers introduces unmanaged data leakage risks.
 
-Recent advancements in modern browser engines—specifically sandboxed WebAssembly (Wasm) runtimes, multi-threaded Web Workers, and hardware-accelerated Web APIs—have fundamentally changed the economics of web computation. High-performance, compute-intensive operations can now execute directly inside the client’s local memory (RAM) and CPU with zero server interaction.
+Recent advancements in modern browser engines specifically sandboxed WebAssembly (Wasm) runtimes, multi-threaded Web Workers, and hardware-accelerated Web APIs have fundamentally changed the economics of web computation. High-performance, compute-intensive operations can now execute directly inside the client’s local memory (RAM) and CPU with zero server interaction.
 
 This article examines the technical architecture of client-side web utilities, analyzes the performance and privacy advantages over traditional serverless backends, and outlines practical implementation patterns for software developers.
 
@@ -53,7 +53,7 @@ In contrast, performing that same data transformation locally in browser memory 
 
 ### The Data Residency and Compliance Blind Spot
 
-When developers paste proprietary data—such as JWT session tokens, environment variables, or confidential database exports—into generic online tools, that payload terminates on an unvetted third-party server. Even if the service claims an ephemeral data-retention policy, data is often written to temporary swap memory, container disk caches, or centralized observability logs. For engineering organizations operating under strict NDA, SOC 2, HIPAA, or GDPR compliance frameworks, this unmanaged data transmission creates immediate compliance liabilities.
+When developers paste proprietary data such as JWT session tokens, environment variables, or confidential database exports into generic online tools, that payload terminates on an unvetted third-party server. Even if the service claims an ephemeral data-retention policy, data is often written to temporary swap memory, container disk caches, or centralized observability logs. For engineering organizations operating under strict NDA, SOC 2, HIPAA, or GDPR compliance frameworks, this unmanaged data transmission creates immediate compliance liabilities.
 
 ## 2. The Anatomy of Browser-Native Execution Engines
 
@@ -103,7 +103,7 @@ self.onmessage = async (e) => {
 
 ### Native Web Cryptography API (SubtleCrypto)
 
-For security utilities—such as hashing, key generation, and token validation—modern browsers expose the hardware-accelerated `crypto.subtle` API. This allows developers to perform SHA-256 digests, HMAC calculations, and AES encryption locally without loading external third-party JavaScript libraries or transmitting secrets across the wire.
+For security utilities such as hashing, key generation, and token validation modern browsers expose the hardware-accelerated `crypto.subtle` API. This allows developers to perform SHA-256 digests, HMAC calculations, and AES encryption locally without loading external third-party JavaScript libraries or transmitting secrets across the wire.
 
 ```javascript
 // Client-side SHA-256 computation in local memory
