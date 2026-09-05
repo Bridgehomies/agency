@@ -1,0 +1,207 @@
+---
+id: "e4c7a90d"
+slug: "why-react-native-app-smooth-android-janky-ios"
+title: "Why Your React Native App Is Smooth on Android but Janky on iOS"
+excerpt: "Same React Native code can perform very differently across platforms. Learn why iOS may expose list, JavaScript, image, and rendering bottlenecks—and how to diagnose them properly."
+author: "Bridge Homies Team"
+authorRole: "Editorial"
+date: "2026-09-04T12:00:00.000Z"
+readTime: "11 min"
+category: "Software Development"
+tags: ["React Native","iOS Performance","Android Performance","Mobile App Development","FlatList Optimization"]
+coverImage: "/uploads/blog/app.png"
+views: 0
+published: true
+seoTitle: "React Native Smooth on Android but Janky on iOS: Why?"
+seoDescription: "Find out why a React Native app can feel smooth on Android but janky on iOS, how frame budgets and rendering differ, and how to profile the real bottleneck."
+schemaType: "BlogPosting"
+faq: [{"question":"Why is my React Native app slow on iOS but fast on Android?","answer":"The same React Native code still runs through different native rendering, image, memory, and graphics systems. iOS may expose a JavaScript, list, image-decoding, or compositing bottleneck that did not cross the frame budget on the Android device you tested."},{"question":"How can I tell whether React Native jank is caused by JavaScript or the UI thread?","answer":"Compare JS and UI FPS in React Native’s Performance Monitor. Low JS FPS points toward React renders, event handlers, or synchronous JavaScript. Low UI FPS with healthy JS points toward native layout, images, blur, shadows, or GPU rendering. Profile the affected interaction before changing code."},{"question":"Does React.memo fix FlatList scrolling lag?","answer":"Only when row props are stable and unnecessary parent updates are removed. New object props, inline callbacks, oversized images, scroll-driven state updates, and expensive row UI can still make a memoised list slow."},{"question":"Should I test React Native performance in debug mode?","answer":"No. Development mode and logging can significantly slow JavaScript execution. Reproduce and profile the issue on a physical device using a release build before treating it as a production problem."},{"question":"Do iOS shadows, blur, opacity, and rounded images affect performance?","answer":"They can. Repeated blur, transparency, clipping, shadows, and large image layers increase compositing and memory work, particularly in dense scrolling views. Keep the visual effect where it matters and profile the actual screen."},{"question":"Will the New Architecture automatically fix React Native performance?","answer":"No. It changes React Native internals but does not remove unnecessary renders, large images, expensive styling, or overloaded animations. Use it when it supports your measured needs, not as a substitute for profiling."}]
+---
+
+{
+  "blocks": [
+    {
+      "type": "paragraph",
+      "text": "<strong>Same React Native code does not guarantee the same performance.</strong> If an interaction feels smooth on Android but stutters on an iPhone, iOS has not necessarily broken React Native—and Android has not necessarily proved the implementation is efficient. More often, the two platforms have exposed the same workload differently."
+    },
+    {
+      "type": "paragraph",
+      "text": "The useful question is not, ‘Which platform is faster?’ It is: <strong>which part of this screen cannot finish its work in time, and on which thread?</strong> That shift turns performance work from random optimisations into diagnosis."
+    },
+    {
+      "type": "paragraph",
+      "text": "At a 60 Hz refresh rate, an app has roughly 16.67 ms to prepare each frame. If the JavaScript thread, native UI work, image decoding, or GPU compositing repeatedly runs beyond that budget, frames are dropped and the user sees jank. React Native’s own <a href='https://reactnative.dev/docs/performance'>performance guide</a> frames the problem this way: both iOS and Android have at least 60 FPS to target, but the app must complete the necessary work before each deadline."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The honest starting point: measure before telling a performance story"
+    },
+    {
+      "type": "paragraph",
+      "text": "It is tempting to turn an anecdote into a confident case study: ‘Our Android app was smooth, but iOS was slow because of X.’ Unless the team recorded the device, OS version, release build, repeatable steps, and profiler evidence, that is not a case study. It is a hypothesis."
+    },
+    {
+      "type": "paragraph",
+      "text": "For teams investigating this properly, create a small reproducible test matrix. Test the same release build on a current iPhone and an older supported iPhone, then compare it with a mainstream Android device and a mid-range Android device. Record a concrete path, such as: open an image-heavy feed, scroll continuously for 20 seconds, open several details, return to the feed, and refresh it. ‘The feed pauses when image cards enter the viewport’ is actionable. ‘iOS feels slow’ is not."
+    },
+    {
+      "type": "paragraph",
+      "text": "This is more than documentation hygiene. It protects the team from fixing the wrong thing. A device difference may be caused by hardware, OS scheduling, different image-decoding behaviour, memory pressure, a library’s native implementation, or a design that is near the frame budget everywhere but only crosses the line on one platform."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "React Native shares application code, not an identical rendering pipeline"
+    },
+    {
+      "type": "paragraph",
+      "text": "React Native lets one JavaScript or TypeScript codebase describe an interface for both platforms. It does not turn iOS and Android into the same graphics system. Each platform creates and renders native views through its own UI framework, graphics stack, image pipeline, font rendering, memory behaviour, and device range."
+    },
+    {
+      "type": "paragraph",
+      "text": "That distinction matters when a screen is already doing a lot: a long feed, large remote images, rounded clipping, translucent overlays, shadows, blur, nested animated elements, and state updates triggered while scrolling. Android may still appear acceptable on one tested device; iOS may make the bottleneck visible sooner. The reverse can happen too."
+    },
+    {
+      "type": "paragraph",
+      "text": "So ‘Android is smooth’ is not a performance verdict. It only says that one device, on one OS build, completed that particular workload acceptably. <a href='https://bridgehomies.com/mobile'>Cross-platform quality</a> requires testing the experience on both platforms, especially the interactions users repeat hundreds of times: scrolling, typing, opening a modal, navigating, refreshing a list, and loading media."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "First, find out whether JavaScript or rendering is missing the frame budget"
+    },
+    {
+      "type": "paragraph",
+      "text": "React Native performance is easiest to understand when you separate two kinds of work. The JavaScript thread runs React logic, event handlers, much of your application code, and updates that eventually reach native views. The native UI side is responsible for laying out and drawing the interface. React Native’s Performance Monitor exposes separate JS and UI frame rates for precisely this reason."
+    },
+    {
+      "type": "paragraph",
+      "text": "If the JavaScript frame rate falls while the UI frame rate remains relatively steady, look for expensive React commits, selectors, synchronous parsing, search or filter work, logging, or handlers that update state too often. A ScrollView can often continue moving because scrolling is native, while the <a href='https://bridgehomies.com/blog/client-side-processing-zero-server-execution-developer-privacy-speed'>JavaScript-driven parts of the screen</a>—such as a header reacting to scroll position—start to lag."
+    },
+    {
+      "type": "paragraph",
+      "text": "If UI frame rate falls while JavaScript looks healthy, the likely suspects change. Now inspect view-hierarchy complexity, image decode and resizing, shadows, blur, masks, alpha compositing, native layout work, or an animation asking the GPU to redraw too much every frame. If both frame rates deteriorate, the problem may cross layers: a complex state update causes React work, creates or updates many native views, and adds memory or rendering pressure at the same time."
+    },
+    {
+      "type": "paragraph",
+      "text": "That distinction is the foundation of a reliable troubleshooting method. Do not start by adding React.memo, replacing every FlatList, or enabling a new architecture flag. Start by identifying the workload that crosses a frame boundary."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The most common cause: the JavaScript thread is doing too much during an interaction"
+    },
+    {
+      "type": "paragraph",
+      "text": "A familiar anti-pattern is storing a continuously changing value in React state during a scroll. A FlatList that calls setScrollY with the content offset at a scroll throttle of 16 can deliver updates around every frame. On its own, that is not automatically wrong. But if scrollY lives high in the tree, each update can re-render the feed, header, and rows while the user is trying to scroll. The cost is not just one state setter; it is every downstream component and calculation invalidated by it."
+    },
+    {
+      "type": "paragraph",
+      "text": "For a purely visual effect, use an approach that does not force a large React tree to reconcile on every scroll tick. For a business rule that genuinely needs scroll position, update at useful thresholds rather than continuously. Then profile the result. The goal is not to celebrate an optimisation; it is to see fewer expensive commits and a scrolling path that remains responsive."
+    },
+    {
+      "type": "paragraph",
+      "text": "React Native documents the same failure mode in plain terms: an expensive root update can block the JavaScript thread long enough to drop multiple frames. Read the <a href='https://reactnative.dev/docs/performance'>official performance overview</a> before applying broad optimisations."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A slow FlatList is usually a screen-design problem wearing a list-library label"
+    },
+    {
+      "type": "paragraph",
+      "text": "FlatList virtualises rows, but it cannot make an expensive row cheap. A list can still behave like a ScrollView when it uses unstable keys, passes newly created props to every row, renders full-size media into thumbnails, listens to every scroll event, or rebuilds the parent tree each time pagination data changes."
+    },
+    {
+      "type": "paragraph",
+      "text": "Start with stable identity and a modest rendering window, then tune from measurements—not copied snippets. Keep keyExtractor stable, memoise a row only when its inputs can remain stable, and avoid creating new item objects or inline callbacks for every render. If rows have fixed dimensions, getItemLayout can also save measurement work; React Native specifically recommends it for large lists with slow rendering."
+    },
+    {
+      "type": "paragraph",
+      "text": "Tools such as FlashList may be worth evaluating for dense feeds, but only after fixing excessive re-renders, data shape, and media handling. A faster list does not rescue a card that decodes a huge image, recalculates derived data, and layers several costly visual effects."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "iOS jank can be an image and compositing problem, not a React problem"
+    },
+    {
+      "type": "paragraph",
+      "text": "Image-heavy cards deserve suspicion early. A 3000-pixel original displayed as a small thumbnail still has to be fetched, decoded, cached, and managed in memory. Repeating that work while the user scrolls creates pressure that may show up as stutter, delayed image appearance, or even app termination on constrained devices."
+    },
+    {
+      "type": "paragraph",
+      "text": "Serve responsive image variants close to their display dimensions, define image dimensions before rendering where possible, and avoid changing image width or height on every animation frame. React Native notes that iOS re-crops and rescales an image when its size changes; using a transform scale is generally cheaper for a zoom-style effect."
+    },
+    {
+      "type": "paragraph",
+      "text": "Visual polish also has a cost. A card combining a large rounded image, transparent gradient, live blur, multiple shadows, and animated opacity can be fine as one hero element. Repeating it across a fast-scrolling feed is a different proposition. On iOS, profile the actual composition rather than guessing. Often the <a href='https://bridgehomies.com/blog/how-to-design-interfaces-that-help-users-make-faster-decisions'>design can retain its hierarchy</a> with one restrained shadow, fewer translucent layers, blur limited to a fixed header or modal, and no unnecessary clipping around every image."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Why animations and gestures become unresponsive"
+    },
+    {
+      "type": "paragraph",
+      "text": "The user does not experience ‘a busy thread.’ They experience a tap that responds late, a navigation transition that freezes, or a gesture that feels sticky. JavaScript-driven animations suffer when JavaScript is blocked; native-stack transitions tend to fare better because they run on the native main UI thread."
+    },
+    {
+      "type": "paragraph",
+      "text": "For interaction-heavy interfaces, keep per-frame React state changes out of the path where possible. Use UI-thread animation techniques appropriately, but do not treat this as a magic switch. Moving work off the JavaScript thread cannot make a massive view hierarchy, oversized images, or dozens of simultaneous animations free. The <a href='https://docs.swmansion.com/react-native-reanimated/docs/guides/performance/'>Reanimated performance guidance</a> makes the same point: UI-thread animations still have real rendering cost."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "Debug mode can create a problem that production users never see"
+    },
+    {
+      "type": "paragraph",
+      "text": "One of the costliest performance mistakes is testing only with Metro development mode enabled. Development warnings, tooling, and logging can heavily slow the JavaScript thread. React Native explicitly recommends profiling with Development Mode off and testing performance in release builds."
+    },
+    {
+      "type": "paragraph",
+      "text": "This does not mean every issue that improves in release can be ignored. Release mode is the first trustworthy baseline. If the same repeatable interaction still drops frames there, it is a production problem. Also remove or gate noisy console.log calls and debugging middleware: React Native warns that they can themselves become a JavaScript-thread bottleneck."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "A practical 60-minute playbook for iOS jank"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Reproduce the problem on a physical iPhone using a release build. Record the device, iOS version, and exact steps.",
+        "Record the same workflow on Android so the comparison is behavioural, not subjective.",
+        "Identify the moment of failure: initial load, typing, scrolling, navigation, image appearance, or a gesture.",
+        "Check JS FPS and UI FPS separately. That decides whether to investigate JavaScript work, rendering work, or both.",
+        "Use React DevTools Profiler for repeated commits and unnecessary row rendering. Time suspicious synchronous transformations in development only.",
+        "On iOS, profile with Xcode Instruments: Time Profiler for CPU work, Allocations for climbing memory, and Core Animation for drawing and compositing pressure.",
+        "Audit the hot screen: scroll-driven state, unstable list props, image dimensions, blur, shadows, transparency, nested animated views, and heavy work during transitions.",
+        "Change one suspected cause, then retest the same path on the same devices. Keep a before-and-after recording or metric."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "text": "Avoid the shortcuts: adding React.memo everywhere, switching lists immediately, enabling the New Architecture and declaring victory, or blaming iOS. The New Architecture changes important internals, but it is not a substitute for profiling the bottleneck in front of you. A dependency or architecture change is justified when the evidence points to a limitation it solves—not when it is simply the newest lever available."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "text": "The takeaway: platform differences are diagnostic signals"
+    },
+    {
+      "type": "paragraph",
+      "text": "Your <a href='https://bridgehomies.com/mobile'>React Native app</a> can share most of its application code while exercising two different native rendering environments. That is the promise of cross-platform development, not a guarantee that every workload costs the same amount everywhere."
+    },
+    {
+      "type": "paragraph",
+      "text": "When Android is smooth and iOS is janky, treat the difference as useful evidence. It tells you to test the real interaction, separate JavaScript from UI work, profile the screen on physical hardware, and make one measured change at a time. In practice, the culprit is often ordinary: a list that re-renders too broadly, images larger than their job, visual layers repeated too many times, or state updates happening during the exact moment the user expects motion to feel effortless."
+    },
+    {
+      "type": "paragraph",
+      "text": "Fix the measured work, not the platform label. That is how a React Native app becomes reliably smooth on both."
+    }
+  ]
+}
