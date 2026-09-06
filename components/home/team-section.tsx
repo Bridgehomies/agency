@@ -10,6 +10,7 @@ interface TeamMember {
   name: string;
   role: string;
   image: string;
+  imageAlt: string;
   bio: string;
   social: {
     linkedin: string;
@@ -24,6 +25,7 @@ const team: TeamMember[] = [
     name: "Muhammad Bin Asif",
     role: "Founder & Director",
     image: "/team/bini.png",
+    imageAlt: "Portrait of Muhammad Bin Asif, Bridge Homies Founder and Director",
     bio: "Visionary leader with a passion for technology and innovation, dedicated to driving the company's mission forward.",
     social: {
       linkedin: "https://www.linkedin.com/in/mbinasif/",
@@ -35,6 +37,7 @@ const team: TeamMember[] = [
     name: "Muhammad Talha",
     role: "Co-Founder & Director",
     image: "/team/tal.jpg",
+    imageAlt: "Portrait of Muhammad Talha, Bridge Homies Co-Founder and Director",
     bio: "Experienced software engineer with a passion for building scalable applications. Expert in full-stack development.",
     social: {
       linkedin: "https://www.linkedin.com/in/muhammad-talha-100949260/",
@@ -46,6 +49,7 @@ const team: TeamMember[] = [
     name: "Daniyal Majid",
     role: "CTO & Director",
     image: "/team/ddani.png",
+    imageAlt: "Portrait of Daniyal Majid, Bridge Homies CTO and Director",
     bio: "Tech enthusiast, driving innovation and excellence in our projects. Expert in cloud computing and AI.",
     social: {
       linkedin: "",
@@ -96,7 +100,7 @@ export default function TeamSection() {
                   <div className="relative w-full aspect-square bg-muted overflow-hidden">
                     <img
                       src={member.image}
-                      alt={member.name}
+                      alt={member.imageAlt}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />

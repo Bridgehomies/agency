@@ -14,6 +14,7 @@ const PROJECTS = [
     subtitle: "Pigeon Racing Community Platform",
     category: "WEB",
     image: "/work/hfp.png",
+    imageAlt: "IHFP pigeon racing community platform project interface",
     year: "2025",
     color: "#8B5CF6",
     bg: "#F3EEFF",
@@ -289,7 +290,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
         <div className="relative w-full shrink-0 overflow-hidden" style={{ aspectRatio: "4/3" }}>
           <motion.img
             src={project.image}
-            alt={project.title.replace("\n", " ")}
+            alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
             animate={{ scale: hovered ? 1.05 : 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="w-full h-full object-cover"
@@ -549,7 +550,7 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
             <div className="relative shadow-xl overflow-hidden" style={{ border: `1px solid ${project.color}25` }}>
               <img
                 src={project.image}
-                alt={project.title.replace("\n", " ")}
+                alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
                 className="w-full h-auto object-cover block"
                 style={{ aspectRatio: "16/10" }}
               />

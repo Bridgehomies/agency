@@ -510,7 +510,7 @@ export default function HeroSectionSpatial() {
             <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent mix-blend-overlay z-10" />
             <img
               src="/team.png"
-              alt="Bridge Homies Engineering"
+              alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
               className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               fetchPriority="high"
             />
