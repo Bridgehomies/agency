@@ -62,7 +62,7 @@ A modernization plan should identify which system owns each record, how informat
 
 For example, a webhook should usually be acknowledged quickly while heavier work is processed in a queue. That reduces timeouts and allows retries, monitoring, and dead-letter handling. For a deeper technical breakdown, see our guide on <a href='https://bridgehomies.com/blog/how-do-i-integrate-an-llm-into-existing-software'>how to integrate an LLM into existing software</a>.
 
-An incremental integration layer is often the right first move when the core system still works but is difficult to extend.
+An incremental integration layer is often the right first move when the core system still works but is difficult to extend. If the estate spans multiple cloud providers, the architecture and security documentation each provider publishes is usually the most reliable source for how their managed queues, identity, and networking primitives are meant to be wired together.
 
 ### 2. Data and knowledge: Is the information reliable and usable?
 
@@ -100,9 +100,9 @@ For high-impact workflows, AI should normally draft, classify, flag, or recommen
 
 Governance is part of the architecture, not paperwork added after the prototype.
 
-Enterprise AI needs tenant isolation, least-privilege access, schema validation, audit trails, redaction, idempotency, retries, cost limits, monitoring, fallbacks, and rollback.
+Enterprise AI needs tenant isolation, least-privilege access, schema validation, audit trails, redaction, idempotency, retries, cost limits, monitoring, fallbacks, and rollback. Teams building this out don't need to start from a blank page: NIST's AI Risk Management Framework and the ISO/IEC 42001 and ISO/IEC 23894 standards both lay out how to structure risk assessment and management for AI systems, and the OWASP guidance for large-language-model applications catalogs the failure modes — prompt injection, insecure output handling, excessive agency — that these controls exist to contain.
 
-These controls matter because AI systems fail differently from normal software. A model can produce a plausible but incorrect response. A retried tool call can duplicate an invoice. A retrieval system can expose the wrong tenant’s data if boundaries are poorly designed.
+These controls matter because AI systems fail differently from normal software. A model can produce a plausible but incorrect response. A retried tool call can duplicate an invoice. A retrieval system can expose the wrong tenant's data if boundaries are poorly designed.
 
 Without governance and reliability, AI remains experimentation. With them, it can become part of the enterprise operating model.
 
@@ -110,7 +110,7 @@ Without governance and reliability, AI remains experimentation. With them, it ca
 
 A representative Bridge Homies modernization project involved an <a href='https://bridgehomies.com/case-studies/aierpify'>e-invoicing and business-operations platform</a> for Pakistani businesses.
 
-The starting point was not one ancient application. It was a mixture of manual invoicing, spreadsheet-based product data, paper-oriented accounting habits, and tax-compliance workflows that needed to connect with FBR/PRAL requirements.
+The starting point was not one ancient application. It was a mixture of manual invoicing, spreadsheet-based product data, paper-oriented accounting habits, and tax-compliance workflows that needed to connect with FBR/PRAL requirements, following the field, schema, and endpoint definitions in the official FBR/PRAL e-invoicing and integration documentation.
 
 The users included business owners, accounts staff, invoice operators, and administrators overseeing multiple customers. Their immediate concerns were practical: can an invoice be issued correctly, is the product and tax data valid, can the record be found later, and can corrections be made without creating a compliance problem?
 
@@ -130,9 +130,9 @@ This should not be overstated as a fully autonomous AI transformation. The intel
 
 The difficult part is rarely the first successful API call. The real challenge is preserving meaning across systems.
 
-In the e-invoicing workflow, product and tax data often existed as inconsistent human-readable descriptions. The compliance payload expected structured fields such as HS/PCT codes, units of measure, sales values, tax values, scenario IDs, and sale types.
+In the e-invoicing workflow, product and tax data often existed as inconsistent human-readable descriptions. The compliance payload expected structured fields such as HS/PCT codes, units of measure, sales values, tax values, scenario IDs, and sale types, exactly as specified in FBR/PRAL's own integration reference.
 
-Sandbox and validation responses were not always easy to interpret. A technically valid payload could still fail because a seller’s tax-registration state was not aligned. Dates could also shift around month-end when server time zones and serialization were handled incorrectly.
+Sandbox and validation responses were not always easy to interpret. A technically valid payload could still fail because a seller's tax-registration state was not aligned. Dates could also shift around month-end when server time zones and serialization were handled incorrectly.
 
 Editing, cancellation, and correction flows were harder than initial invoice creation because compliance systems care about the lifecycle of a document, not just whether its first submission succeeded.
 
@@ -186,7 +186,7 @@ Then move through a controlled implementation process:
 
 ## Non-negotiable controls for enterprise AI
 
-The following controls should be treated as baseline requirements:
+The following controls should be treated as baseline requirements, and they map closely to the risk categories NIST's AI RMF and the OWASP LLM application guidance both call out as the ones enterprises get wrong most often:
 
 * Tenant isolation for retrieval, storage, logs, and tools.
 * Least-privilege access for every service and action.
@@ -242,7 +242,7 @@ Yes. APIs, integration layers, structured data, queues, retrieval, and controlle
 
 ### Should we migrate to the cloud before adding AI?
 
-Not always. Cloud migration can improve deployment, backups, availability, and security operations, but it does not repair poor data or unclear workflows. Assess the integration and data axes first.
+Not always. Cloud migration can improve deployment, backups, availability, and security operations — and the architecture and security documentation published by major cloud providers is the right reference once that migration is underway — but it does not repair poor data or unclear workflows. Assess the integration and data axes first.
 
 ### Is RAG suitable for every enterprise knowledge base?
 
@@ -269,25 +269,3 @@ The five-axis model provides a practical test:
 * Can the system be governed, monitored, and reversed?
 
 When the answer is yes across all five axes, AI can become a dependable part of how the business operates. When it is not, the first modernization task is usually to repair the missing foundation.
-
-## Credible external source types to cite
-
-* NIST AI Risk Management Framework
-* ISO/IEC 42001 and ISO/IEC 23894 guidance
-* OWASP guidance for large-language-model applications
-* Official FBR/PRAL e-invoicing and integration documentation
-* Cloud-provider architecture and security documentation
-
-## Digital PR and linkable asset opportunities
-
-### Five-Axis AI Modernization Readiness Scorecard
-
-Create a downloadable scorecard that lets CIOs and operations leaders rate Integration, Data, Intelligence, Workflow, and Governance from one to five, with recommended next actions for each score.
-
-### Legacy AI Modernization Failure Benchmark
-
-Publish anonymised findings from implementation testing, such as invalid fields, missing permissions, duplicate writes, time-zone errors, failed retries, and human overrides. Clearly explain the data collection method and limitations.
-
-### Compliance-Safe AI Workflow Calculator
-
-Build a calculator that estimates potential savings from lower manual effort, less rework, and faster retrieval, while separately showing model cost, review time, and human-approval requirements.
