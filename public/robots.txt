@@ -1,9 +1,15 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /admin/*
+Disallow: /api/*
+Disallow: /blog/submit
+Disallow: /testimonials/submit
+Disallow: /write
 
 # Host
-Host: https://bridgehomies.com
+Host: https://www.bridgehomies.com
 
 # Sitemaps
-Sitemap: https://bridgehomies.com/sitemap.xml
+Sitemap: https://www.bridgehomies.com/sitemap.xml

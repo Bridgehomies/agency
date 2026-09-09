@@ -14,7 +14,7 @@ const schema = {
       url: "https://www.bridgehomies.com/software",
       name: "Premium Custom Software Development | Bridge Homies Software House",
       description:
-        "Bridge Homies is an elite software house engineering scalable enterprise software solutions, custom software development, and AI systems. Your search for premium software houses near me ends here.",
+        "Bridge Homies builds custom software for startups and enterprises: SaaS platforms, AI-assisted workflows, integrations, and scalable business systems.",
     },
     {
       "@type": "Service",
@@ -23,7 +23,7 @@ const schema = {
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/software",
       description:
-        "Architecting elite custom software development and enterprise software solutions tailored to your complex workflows.",
+        "Custom software development for startups and enterprises, including SaaS platforms, AI-assisted workflows, and complex integrations.",
       serviceType: "Custom Software Development",
       areaServed: "Worldwide",
     },
@@ -33,7 +33,7 @@ const schema = {
 export const metadata = {
   title: "Custom Software Development Services | Bridge Homies",
   description:
-    "Enterprise software, SaaS platforms, and AI integration built by Bridge Homies a software house in Lahore delivering scalable custom solutions.",
+    "Custom software development for startups and enterprises: SaaS platforms, AI integration, and scalable business systems built by Bridge Homies in Lahore.",
 };
 
 export default function SoftwarePage() {
@@ -79,6 +79,52 @@ export default function SoftwarePage() {
                 </a>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STARTUP-SPECIFIC SOFTWARE DEVELOPMENT */}
+      <section id="startups" className="py-24 md:py-32 bg-gray-900 text-white relative overflow-hidden">
+        <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-purple-700/20 blur-3xl" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
+            <div className="lg:col-span-5">
+              <div className="inline-flex items-center space-x-3 mb-7">
+                <div className="h-px w-8 bg-purple-400" />
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">For Startup Teams</span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-7">
+                Custom software built around the risk worth testing first.
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
+                Startups do not need a large platform on day one. They need a focused release that proves a real customer workflow, leaves room to learn, and does not create expensive rework when the product gains traction.
+              </p>
+              <Link href="/contact" className="mt-10 inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3.5 font-bold hover:bg-purple-300 transition-colors">
+                Discuss your product idea
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-gray-700 border border-gray-700">
+              {[
+                ["Find the right first release", "We map the customer, workflow, decision, and success signal before proposing features. The aim is a usable product, not a polished demo."],
+                ["Build the product core", "We design the SaaS, web app, mobile workflow, dashboard, or API foundation that users will actually rely on—then add AI where it earns its place."],
+                ["Integrate without locking you in", "Payments, CRMs, internal tools, data sources, and third-party APIs are planned as part of the product architecture, with project-specific code and accounts made clear."],
+                ["Prepare for the next stage", "Clear milestones, documented decisions, observability, and maintainable code help your team improve the product after real users expose what needs to change."],
+              ].map(([title, description], index) => (
+                <article key={title} className="bg-gray-900 p-7 md:p-9 min-h-56 hover:bg-gray-800 transition-colors">
+                  <span className="block text-purple-300 text-xs font-bold tracking-[0.16em] mb-8">0{index + 1}</span>
+                  <h3 className="text-xl font-bold mb-4">{title}</h3>
+                  <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="mt-12 pt-8 border-t border-gray-700 grid md:grid-cols-3 gap-6 text-sm text-gray-300">
+            <p><strong className="text-white">Good fit:</strong> founders with a specific customer problem, an accountable product owner, and willingness to release in focused stages.</p>
+            <p><strong className="text-white">AI when useful:</strong> document processing, retrieval, classification, drafting, and workflow assistance—not AI added just to satisfy a trend.</p>
+            <p><strong className="text-white">What stays clear:</strong> scope assumptions, acceptance criteria, data ownership, third-party costs, and the support needed after launch.</p>
           </div>
         </div>
       </section>

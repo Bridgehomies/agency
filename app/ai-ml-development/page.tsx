@@ -621,6 +621,44 @@ export default function AiMlPage() {
         </div>
       </section>
 
+      {/* ── MLOPS CONSULTING ──────────────────────────────────────────────── */}
+      <section className="py-28 bg-gray-900 text-white relative overflow-hidden" aria-labelledby="mlops-consulting-heading">
+        <div className="absolute -left-24 -bottom-32 w-96 h-96 rounded-full bg-purple-700/20 blur-3xl" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
+            <div className="lg:col-span-5">
+              <div className="inline-flex items-center space-x-3 mb-7">
+                <div className="h-px w-8 bg-purple-400" />
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">Production Operations</span>
+              </div>
+              <h2 id="mlops-consulting-heading" className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-7">
+                MLOps Consulting
+              </h2>
+              <p className="text-gray-300 text-lg leading-relaxed">
+                MLOps consulting makes machine-learning systems repeatable and operable after launch. We help teams version data and models, build controlled release pipelines, monitor quality and cost, and define the rollback and ownership process before a model becomes business-critical.
+              </p>
+              <Link href="/blog/what-is-mlops-consulting" className="mt-9 inline-flex items-center gap-2 font-bold text-white border-b border-purple-300 pb-1 hover:text-purple-300 transition-colors">
+                Read the practical MLOps consulting guide <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+
+            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-gray-700 border border-gray-700">
+              {[
+                ["Release with control", "Connect code, data, configurations, and model versions to a testable release process with approval and rollback conditions."],
+                ["Monitor what matters", "Track service reliability alongside latency, spend, input changes, and the quality signals that affect the actual business workflow."],
+                ["Keep AI systems governable", "Make access, audit records, retention, incident response, and the owner for model changes explicit from the start."],
+                ["Test RAG as a system", "For retrieval products, evaluate retrieval quality, citations, document-level access filters, and prompt-injection resistance—not just whether the answer sounds convincing."],
+              ].map(([title, description]) => (
+                <article key={title} className="bg-gray-900 p-7 md:p-9 min-h-52 hover:bg-gray-800 transition-colors">
+                  <h3 className="text-xl font-bold mb-4">{title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-400">{description}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── COMMON QUESTIONS ──────────────────────────────────────────────── */}
       <section
         className="py-32 bg-white border-t border-gray-100"
