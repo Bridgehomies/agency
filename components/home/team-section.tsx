@@ -24,7 +24,7 @@ const team: TeamMember[] = [
   {
     name: "Muhammad Bin Asif",
     role: "Founder & Director",
-    image: "/team/bini.png",
+    image: "/team/bini-1.png",
     imageAlt: "Portrait of Muhammad Bin Asif, Bridge Homies Founder and Director",
     bio: "Visionary leader with a passion for technology and innovation, dedicated to driving the company's mission forward.",
     social: {
@@ -36,7 +36,7 @@ const team: TeamMember[] = [
   {
     name: "Muhammad Talha",
     role: "Co-Founder & Director",
-    image: "/team/tal.jpg",
+    image: "/team/tal.png",
     imageAlt: "Portrait of Muhammad Talha, Bridge Homies Co-Founder and Director",
     bio: "Experienced software engineer with a passion for building scalable applications. Expert in full-stack development.",
     social: {

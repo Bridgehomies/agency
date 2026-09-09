@@ -2,7 +2,7 @@ import { FaLinkedin } from "react-icons/fa";
 
 const TEAM = [
   {
-    img: "/team/bini.png",
+    img: "/team/bini-1.png",
     alt: "MBA",
     name: "Muhammad Bin Asif",
     role: "Founder & Director",
@@ -11,7 +11,7 @@ const TEAM = [
     linkedin: "https://www.linkedin.com/in/mbinasif/",
   },
   {
-    img: "/team/tal.jpg",
+    img: "/team/tal.png",
     alt: "MT",
     name: "Muhammad Talha",
     role: "Co-Founder & Director",
