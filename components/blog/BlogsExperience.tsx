@@ -85,7 +85,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           )}
         </div>
         <div className="flex flex-1 flex-col border border-t-0 border-[#d4cfc6] p-5">
-          <p className="mb-2 text-[0.62rem] uppercase tracking-[0.14em] text-[#c8401a]" style={{ fontFamily: F_MONO }}>
+          <p className="mb-2 text-[0.62rem] uppercase tracking-[0.14em] text-violet-400" style={{ fontFamily: F_MONO }}>
             {formatDate(post.date)}
           </p>
           <h2
@@ -103,7 +103,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
               <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
             </div>
             <span
-              className="flex items-center gap-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-[#c8401a] transition group-hover:text-[#0a0a0a]"
+              className="flex items-center gap-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-violet-500 transition group-hover:text-[#0a0a0a]"
               style={{ fontFamily: F_MONO }}
             >
               Read <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
@@ -121,7 +121,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
       <div className="bg-[#f5f1ea] border-b border-[#d4cfc6]">
         <div className="mx-auto max-w-[1340px] px-6 md:px-12 pt-36 pb-14">
           <div className="mb-6 flex items-center gap-3">
-            <div className="h-1.5 w-1.5 bg-[#c8401a]" aria-hidden="true" />
+            <div className="h-1.5 w-1.5 bg-violet-500" aria-hidden="true" />
             <span className="text-[0.65rem] uppercase tracking-[0.2em] text-[#6b6560]" style={{ fontFamily: F_MONO }}>
               Bridge Homies Editorial
             </span>
@@ -133,7 +133,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             className="text-[clamp(2.4rem,6vw,4.6rem)] uppercase leading-[0.95] tracking-[0.01em] text-[#0a0a0a]"
             style={{ fontFamily: F_BEBAS }}
           >
-            AI Engineering &amp; <span className="text-[#c8401a]">SaaS</span> Development
+            AI Engineering &amp; <span className="text-violet-500">SaaS</span> Development
           </h1>
           <p
             className="mt-6 max-w-2xl text-[1.05rem] italic leading-[1.7] text-[#6b6560]"
@@ -178,11 +178,11 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
       <div className="mx-auto max-w-[1340px] px-6 md:px-12 pt-10 pb-2">
         <Link
           href="/blog/submit"
-          className="group flex items-center justify-between gap-4 border border-[#d4cfc6] bg-white px-6 py-5 transition hover:border-[#c8401a]"
+          className="group flex items-center justify-between gap-4 border border-[#d4cfc6] bg-white px-6 py-5 transition hover:border-violet-600"
         >
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#f5f1ea]">
-              <PenLine className="h-4 w-4 text-[#c8401a]" />
+              <PenLine className="h-4 w-4 text-violet-500" />
             </div>
             <div>
               <p className="text-sm font-bold text-[#0a0a0a]" style={{ fontFamily: F_SANS }}>
@@ -194,7 +194,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             </div>
           </div>
           <span
-            className="flex shrink-0 items-center gap-1.5 bg-[#c8401a] px-4 py-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-[#f5f1ea] transition group-hover:bg-[#0a0a0a]"
+            className="flex shrink-0 items-center gap-1.5 bg-violet-600 px-4 py-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-[#f5f1ea] transition group-hover:bg-[#0a0a0a]"
             style={{ fontFamily: F_MONO }}
           >
             Start writing <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
@@ -246,7 +246,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             <button
               onClick={() => goToPage(currentPage - 1)}
               disabled={currentPage === 1}
-              className="border border-[#d4cfc6] bg-white px-4 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-[#6b6560] transition hover:border-[#0a0a0a] hover:text-[#0a0a0a] disabled:opacity-30 disabled:pointer-events-none"
+              className="border border-violet-200 bg-white px-4 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-[#6b6560] transition hover:border-[#0a0a0a] hover:text-[#0a0a0a] disabled:opacity-30 disabled:pointer-events-none"
             >
               Prev
             </button>
@@ -255,7 +255,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                 key={p}
                 onClick={() => goToPage(p)}
                 className={`h-9 w-9 border text-[0.65rem] transition ${p === currentPage
-                    ? "border-[#0a0a0a] bg-[#0a0a0a] text-[#f5f1ea]"
+                    ? "border-[#0a0a0a] bg-violet-800 text-[#f5f1ea]"
                     : "border-[#d4cfc6] bg-white text-[#6b6560] hover:border-[#0a0a0a] hover:text-[#0a0a0a]"
                   }`}
               >
@@ -265,7 +265,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             <button
               onClick={() => goToPage(currentPage + 1)}
               disabled={currentPage === pageCount}
-              className="border border-[#d4cfc6] bg-white px-4 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-[#6b6560] transition hover:border-[#0a0a0a] hover:text-[#0a0a0a] disabled:opacity-30 disabled:pointer-events-none"
+              className="border border-violet-200 bg-white px-4 py-2 text-[0.65rem] uppercase tracking-[0.1em] text-[#6b6560] transition hover:border-[#0a0a0a] hover:text-[#0a0a0a] disabled:opacity-30 disabled:pointer-events-none"
             >
               Next
             </button>
@@ -274,11 +274,11 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
 
         {/* ── BOTTOM WRITE FOR US CALLOUT ── */}
         <div className="mt-14 border border-[#d4cfc6] bg-[#f5f1ea] px-8 py-10 text-center">
-          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-[#c8401a]" style={{ fontFamily: F_MONO }}>
+          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-violet-500" style={{ fontFamily: F_MONO }}>
             Write for Us
           </p>
           <h2 className="mx-auto max-w-md text-[1.8rem] uppercase leading-tight text-[#0a0a0a]" style={{ fontFamily: F_BEBAS }}>
-            Got something worth reading? <span className="text-[#c8401a]">Publish it here.</span>
+            Got something worth reading? <span className="text-violet-500">Publish it here.</span>
           </h2>
           <p className="mx-auto mt-3 max-w-sm text-[0.8rem] leading-relaxed text-[#6b6560]" style={{ fontFamily: F_SANS }}>
             Submit a guest post and earn up to 1–2 dofollow backlinks plus a permanent author profile page. $15/placement, $0 for link exchanges pay after live.
@@ -286,7 +286,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/blog/submit"
-              className="inline-flex items-center gap-2 bg-[#c8401a] px-6 py-3 text-[0.7rem] uppercase tracking-[0.1em] text-white transition hover:bg-[#0a0a0a]"
+              className="inline-flex items-center gap-2 bg-violet-600 px-6 py-3 text-[0.7rem] uppercase tracking-[0.1em] text-white transition hover:bg-[#0a0a0a]"
               style={{ fontFamily: F_MONO }}
             >
               <PenLine className="h-4 w-4" />
