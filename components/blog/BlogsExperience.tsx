@@ -145,7 +145,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           {/* ── SEARCH + FILTER ── */}
           <div className="mt-10 border-t border-[#d4cfc6] pt-8">
             <label className="relative block max-w-md">
-              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-[#6b6560]" />
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-violet-600" />
               <input
                 value={query}
                 onChange={(e) => { setQuery(e.target.value); setPage(1); }}
@@ -161,8 +161,8 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
                   key={item}
                   onClick={() => { setCategory(item); setPage(1); }}
                   className={`border px-4 py-1.5 text-[0.65rem] uppercase tracking-[0.1em] transition ${category === item
-                      ? "border-[#0a0a0a] bg-[#0a0a0a] text-[#f5f1ea]"
-                      : "border-[#d4cfc6] bg-white text-[#6b6560] hover:border-[#0a0a0a] hover:text-[#0a0a0a]"
+                      ? "border-[#0a0a0a] bg-violet-700 text-[#f5f1ea]"
+                      : "border-[#d4cfc6] bg-white text-[#6b6560] hover:border-violet-700 hover:text-[#0a0a0a]"
                     }`}
                   style={{ fontFamily: F_MONO }}
                 >

@@ -224,9 +224,9 @@ function JsonPreview({ content }: { content: string }) {
               <Tag
                 key={index}
                 style={{
-                  fontFamily: "var(--font-playfair), serif",
+                  fontFamily: "var(--font-baskerville), serif",
                   fontWeight: 700,
-                  color: "#111",
+                  color: "#0a0a0a",
                   fontSize: level === 2 ? "1.4rem" : "1.15rem",
                   margin: 0,
                 }}
@@ -273,10 +273,10 @@ function JsonPreview({ content }: { content: string }) {
               <blockquote
                 key={index}
                 style={{
-                  borderLeft: "3px solid #c9a84c",
+                  borderLeft: "3px solid #c8401a",
                   margin: 0,
                   padding: "4px 0 4px 16px",
-                  color: "#666",
+                  color: "#6b6560",
                   fontStyle: "italic",
                   fontSize: 13,
                 }}
@@ -291,13 +291,13 @@ function JsonPreview({ content }: { content: string }) {
               <pre
                 key={index}
                 style={{
-                  background: "#111",
-                  color: "#f5efe5",
-                  borderRadius: 8,
+                  background: "#0a0a0a",
+                  color: "#f5f1ea",
+                  borderRadius: 0,
                   padding: "12px 16px",
                   fontSize: 12,
                   overflowX: "auto",
-                  fontFamily: "var(--font-jetbrains), monospace",
+                  fontFamily: "var(--font-plex-mono), monospace",
                 }}
               >
                 <code>{String(block.code || "")}</code>
@@ -326,7 +326,7 @@ function MarkdownPreview({ content }: { content: string }) {
   const lines = renderPreviewText(content);
 
   if (lines.length === 0) {
-    return <p style={{ fontSize: 13, color: "#999" }}>Start writing to see a preview.</p>;
+    return <p style={{ fontSize: 13, color: "#a39d94" }}>Start writing to see a preview.</p>;
   }
 
   return (
@@ -336,7 +336,7 @@ function MarkdownPreview({ content }: { content: string }) {
           key={index}
           style={
             index === 0
-              ? { fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: 0 }
+              ? { fontFamily: "var(--font-baskerville), serif", fontSize: "1.4rem", fontWeight: 700, color: "#0a0a0a", margin: 0 }
               : { fontSize: 13, lineHeight: 1.85, color: "#444", margin: 0 }
           }
         >
@@ -344,7 +344,7 @@ function MarkdownPreview({ content }: { content: string }) {
         </p>
       ))}
       {lines.length > 12 ? (
-        <p style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#bbb" }}>
+        <p style={{ fontSize: 10, letterSpacing: "0.15em", textTransform: "uppercase", color: "#a39d94" }}>
           Preview truncated
         </p>
       ) : null}
@@ -445,138 +445,141 @@ const textareaCls = "bh-input bh-textarea";
 // Also merged in: the CSS that used to live in separate <style> tags inside
 // the Field and StepIndicator components (see PERF FIX notes above them),
 // now declared exactly once here.
+// ── Editorial design tokens — same palette/fonts as /blog ───────────────
+// ink #0a0a0a · paper #f5f1ea · muted #6b6560 · accent #c8401a · violet #7c3aed · rule #d4cfc6
 const sharedStyles = `
-  .bh-root { font-family: var(--font-dm-sans), sans-serif; }
+  .bh-root { font-family: var(--font-plex-sans), sans-serif; }
 
   .bh-input {
     width: 100%;
-    background: #fafaf8;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 8px;
+    background: #fff;
+    border: 1px solid #d4cfc6;
+    border-radius: 0;
     padding: 11px 14px;
     font-size: 14px;
-    color: #1a1a1a;
-    font-family: var(--font-dm-sans), sans-serif;
+    color: #0a0a0a;
+    font-family: var(--font-plex-sans), sans-serif;
     outline: none;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    transition: border-color 0.15s;
     -webkit-appearance: none;
   }
   .bh-input:focus {
-    border-color: #c9a84c;
-    box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+    border-color: #c8401a;
     background: #fff;
   }
-  .bh-input::placeholder { color: #bbb; }
+  .bh-input::placeholder { color: #a39d94; }
   .bh-textarea { resize: vertical; min-height: 100px; }
 
-  select.bh-input { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+  select.bh-input { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6560' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
 
   .bh-btn-primary {
     display:inline-flex; align-items:center; gap:8px;
-    background:#1a1a1a; color:#fff;
-    border:none; border-radius:8px;
-    padding:12px 28px; font-size:13px; font-weight:600;
-    font-family: var(--font-dm-sans), sans-serif;
-    letter-spacing:0.04em;
+    background:#0a0a0a; color:#f5f1ea;
+    border:none; border-radius:0;
+    padding:12px 28px; font-size:0.65rem; font-weight:600;
+    font-family: var(--font-plex-mono), monospace;
+    letter-spacing:0.1em; text-transform:uppercase;
     cursor:pointer; transition:background 0.15s;
   }
-  .bh-btn-primary:hover { background:#000; }
-  .bh-btn-primary:disabled { opacity:0.5; cursor:not-allowed; }
+  .bh-btn-primary:hover { background:#c8401a; }
+  .bh-btn-primary:disabled { opacity:0.4; cursor:not-allowed; }
 
   .bh-btn-submit {
     display:inline-flex; align-items:center; gap:8px;
-    background:#c9a84c; color:#1a1a1a;
-    border:none; border-radius:8px;
-    padding:12px 28px; font-size:13px; font-weight:700;
-    font-family: var(--font-dm-sans), sans-serif;
-    letter-spacing:0.04em;
-    cursor:pointer; transition:background 0.15s, box-shadow 0.15s;
+    background:#c8401a; color:#f5f1ea;
+    border:none; border-radius:0;
+    padding:12px 28px; font-size:0.65rem; font-weight:700;
+    font-family: var(--font-plex-mono), monospace;
+    letter-spacing:0.1em; text-transform:uppercase;
+    cursor:pointer; transition:background 0.15s;
   }
-  .bh-btn-submit:hover { background:#b8963e; box-shadow: 0 4px 20px rgba(201,168,76,0.3); }
-  .bh-btn-submit:disabled { opacity:0.5; cursor:not-allowed; }
+  .bh-btn-submit:hover { background:#0a0a0a; }
+  .bh-btn-submit:disabled { opacity:0.4; cursor:not-allowed; }
 
   .bh-btn-ghost {
     display:inline-flex; align-items:center; gap:6px;
-    background:transparent; color:#666;
-    border:1px solid rgba(0,0,0,0.12); border-radius:8px;
-    padding:12px 22px; font-size:13px; font-weight:500;
-    font-family: var(--font-dm-sans), sans-serif;
-    cursor:pointer; transition:background 0.15s;
+    background:transparent; color:#6b6560;
+    border:1px solid #d4cfc6; border-radius:0;
+    padding:12px 22px; font-size:0.65rem; font-weight:600;
+    font-family: var(--font-plex-mono), monospace;
+    letter-spacing:0.1em; text-transform:uppercase;
+    cursor:pointer; transition:background 0.15s, border-color 0.15s;
   }
-  .bh-btn-ghost:hover { background:#f5f5f4; }
+  .bh-btn-ghost:hover { border-color:#0a0a0a; color:#0a0a0a; }
 
   .bh-notice {
-    border-radius: 8px;
+    border-radius: 0;
     padding: 14px 18px;
     font-size: 13px;
     line-height: 1.7;
+    font-family: var(--font-plex-sans), sans-serif;
   }
-  .bh-notice-gold { background:#f7f3fe; border:1px solid purple; color:#7a6535; }
-  .bh-notice-blue { background:#f0f5ff; border:1px solid #c5d5f8; color:#3554a0; }
+  .bh-notice-gold { background:#f5f1ea; border:1px solid #d4cfc6; color:#6b6560; }
+  .bh-notice-blue { background:#f5f1ea; border:1px solid #ded3f2; color:#4c1d95; }
   .bh-notice-green { background:#f0faf4; border:1px solid #b2dfc5; color:#1e6640; }
   .bh-notice-red   { background:#fdf1f0; border:1px solid #f2c4c1; color:#9b2c2a; }
 
   .bh-card {
     background:#fff;
-    border:1px solid rgba(0,0,0,0.08);
-    border-radius:12px;
+    border:1px solid #d4cfc6;
+    border-radius:0;
     padding:24px;
   }
 
   .bh-section-label {
-    font-size:10px;
+    font-size:0.62rem;
     font-weight:700;
     letter-spacing:0.18em;
     text-transform:uppercase;
-    color:purple;
+    color:#7c3aed;
     margin-bottom:16px;
-    font-family: var(--font-dm-sans), sans-serif;
+    font-family: var(--font-plex-mono), monospace;
   }
 
   .phone-wrap .react-tel-input .form-control {
-    width:100% !important; border-radius:8px !important;
-    border:1px solid rgba(0,0,0,0.12) !important;
-    background:#fafaf8 !important;
+    width:100% !important; border-radius:0 !important;
+    border:1px solid #d4cfc6 !important;
+    background:#fff !important;
     padding:11px 14px 11px 48px !important;
-    font-size:14px !important; color:#1a1a1a !important;
-    height:auto !important; font-family: var(--font-dm-sans), sans-serif !important;
+    font-size:14px !important; color:#0a0a0a !important;
+    height:auto !important; font-family: var(--font-plex-sans), sans-serif !important;
     box-shadow:none !important;
   }
   .phone-wrap .react-tel-input .form-control:focus {
-    border-color:#c9a84c !important;
-    box-shadow:0 0 0 3px rgba(201,168,76,0.12) !important;
+    border-color:#c8401a !important;
+    box-shadow:none !important;
   }
   .phone-wrap .react-tel-input .flag-dropdown {
-    border-radius:8px 0 0 8px !important;
-    border:1px solid rgba(0,0,0,0.12) !important;
+    border-radius:0 !important;
+    border:1px solid #d4cfc6 !important;
     border-right:none !important;
-    background:#fafaf8 !important;
+    background:#fff !important;
   }
-  .phone-wrap .react-tel-input .selected-flag { border-radius:8px 0 0 8px !important; padding:0 0 0 12px !important; background:transparent !important; }
-  .phone-wrap .react-tel-input .selected-flag:hover { background:rgba(201,168,76,0.08) !important; }
-  .phone-wrap .react-tel-input .country-list { border-radius:8px !important; box-shadow:0 8px 32px -8px rgba(0,0,0,0.16) !important; border:1px solid rgba(0,0,0,0.10) !important; }
+  .phone-wrap .react-tel-input .selected-flag { border-radius:0 !important; padding:0 0 0 12px !important; background:transparent !important; }
+  .phone-wrap .react-tel-input .selected-flag:hover { background:#f5f1ea !important; }
+  .phone-wrap .react-tel-input .country-list { border-radius:0 !important; box-shadow:0 8px 32px -8px rgba(0,0,0,0.16) !important; border:1px solid #d4cfc6 !important; }
 
   /* ── merged from StepIndicator ───────────────────────────────────────── */
   .step-indicator { display:flex; align-items:center; gap:0; margin-bottom:40px; }
   .step-item { display:flex; align-items:center; flex:1; }
   .step-dot { display:flex; flex-direction:column; align-items:center; gap:6px; }
-  .step-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family: var(--font-dm-sans), sans-serif; transition: all 0.3s; flex-shrink:0; }
-  .step-circle.done   { background:#1a1a1a; color:#c9a84c; border: 2px solid #1a1a1a; }
-  .step-circle.active { background:#f7f3fe; color:#1a1a1a; border: 2px solid purple; }
-  .step-circle.idle   { background:transparent; color:#aaa; border: 2px solid #ddd; }
-  .step-label { font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
-  .step-label.done   { color:#7a6535; }
-  .step-label.active { color:#1a1a1a; }
-  .step-label.idle   { color:#bbb; }
-  .step-line { flex:1; height:1px; background:#00000061; position:relative; margin: 0 4px; margin-bottom: 22px; }
-  .step-line-fill { position:absolute; inset:0; background:#c9a84c; transition: width 0.5s ease; }
+  .step-circle { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:13px; font-weight:700; font-family: var(--font-plex-mono), monospace; transition: all 0.3s; flex-shrink:0; }
+  .step-circle.done   { background:#0a0a0a; color:#f5f1ea; border: 2px solid #0a0a0a; }
+  .step-circle.active { background:#f5f1ea; color:#0a0a0a; border: 2px solid #7c3aed; }
+  .step-circle.idle   { background:transparent; color:#a39d94; border: 2px solid #d4cfc6; }
+  .step-label { font-size:0.6rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; font-family: var(--font-plex-mono), monospace; }
+  .step-label.done   { color:#6b6560; }
+  .step-label.active { color:#0a0a0a; }
+  .step-label.idle   { color:#a39d94; }
+  .step-line { flex:1; height:1px; background:#d4cfc6; position:relative; margin: 0 4px; margin-bottom: 22px; }
+  .step-line-fill { position:absolute; inset:0; background:#7c3aed; transition: width 0.5s ease; }
   @media(max-width:480px) { .step-label { display:none; } }
 
   /* ── merged from Field ───────────────────────────────────────────────── */
   .field-block { display:block; }
-  .field-label { display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#555; margin-bottom:8px; font-family: var(--font-dm-sans), sans-serif; }
-  .field-req { color:#c9a84c; }
-  .field-hint { font-size:11.5px; color:#999; margin-top:6px; line-height:1.6; font-weight:400; text-transform:none; letter-spacing:0; }
+  .field-label { display:flex; align-items:center; gap:4px; font-size:0.62rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:#6b6560; margin-bottom:8px; font-family: var(--font-plex-mono), monospace; }
+  .field-req { color:#c8401a; }
+  .field-hint { font-size:11.5px; color:#a39d94; margin-top:6px; line-height:1.6; font-weight:400; text-transform:none; letter-spacing:0; font-family: var(--font-plex-sans), sans-serif; }
 `;
 
 // ─── Steps ─────────────────────────────────────────────────────────────────
@@ -591,19 +594,19 @@ function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v
       </div>
       <Field label="Full Name" required>
         <div style={{ position: "relative" }}>
-          <User size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#bbb", pointerEvents: "none" }} />
+          <User size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
           <input className={inputCls} style={{ paddingLeft: 36 }} placeholder="Jane Smith" value={form.name} onChange={(e) => update("name", e.target.value)} required />
         </div>
       </Field>
       <Field label="Occupation / Role" required>
         <div style={{ position: "relative" }}>
-          <Briefcase size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#bbb", pointerEvents: "none" }} />
+          <Briefcase size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
           <input className={inputCls} style={{ paddingLeft: 36 }} placeholder="Full-Stack Developer, Acme Inc." value={form.occupation} onChange={(e) => update("occupation", e.target.value)} required />
         </div>
       </Field>
       <Field label="Email Address" required hint="We'll notify you when your guest post is reviewed.">
         <div style={{ position: "relative" }}>
-          <Mail size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#bbb", pointerEvents: "none" }} />
+          <Mail size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
           <input type="email" className={inputCls} style={{ paddingLeft: 36 }} placeholder="jane@example.com" value={form.email} onChange={(e) => update("email", e.target.value)} required />
         </div>
       </Field>
@@ -642,7 +645,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
             </Field>
             <Field label="URL">
               <div style={{ position: "relative" }}>
-                <Globe size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#bbb", pointerEvents: "none" }} />
+                <Globe size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
                 <input type="url" className={inputCls} style={{ paddingLeft: 36 }} placeholder="https://yoursite.com" value={bl.url} onChange={(e) => updateLink(i, "url", e.target.value)} />
               </div>
             </Field>
@@ -702,14 +705,14 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           <Link2 size={15} style={{ marginTop: 2, flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
             <strong style={{ fontWeight: 700 }}>Include your backlinks in the article body</strong><br />
-            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 4, padding: "1px 6px", fontFamily: "var(--font-jetbrains), monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
+            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 0, padding: "1px 6px", fontFamily: "var(--font-plex-mono), monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
               {filled.map((bl, i) => (
                 <button
                   key={i}
                   type="button"
                   onClick={() => insertBacklink(bl)}
-                  style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#fff", border: "1px solid purple", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 700, color: "purple", cursor: "pointer" }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: 6, background: "#fff", border: "1px solid #7c3aed", borderRadius: 0, padding: "5px 12px", fontSize: 11, fontWeight: 700, color: "#7c3aed", cursor: "pointer" }}
                 >
                   <Link2 size={11} />
                   {bl.label || `Link ${i + 1}`}
@@ -739,32 +742,32 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
           </Field>
         </div>
         <div style={{ gridColumn: "1/-1" }}>
-          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "var(--font-dm-sans), sans-serif" }}>
-            Featured Image <span style={{ color: "#c9a84c" }}>*</span>
+          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b6560", marginBottom: 8, fontFamily: "var(--font-plex-sans), sans-serif" }}>
+            Featured Image <span style={{ color: "#c8401a" }}>*</span>
           </span>
           <input ref={fileInputRef} type="file" accept="image/*" style={{ display: "none" }} aria-label="Upload featured image" tabIndex={-1} onChange={(e) => handleFile(e.target.files?.[0] ?? null)} />
           {form.coverImagePreview ? (
-            <div style={{ position: "relative", borderRadius: 10, overflow: "hidden", border: "1px solid rgba(0,0,0,0.10)" }}>
+            <div style={{ position: "relative", borderRadius: 0, overflow: "hidden", border: "1px solid #d4cfc6" }}>
               <img src={form.coverImagePreview} alt="Cover preview" style={{ width: "100%", height: 200, objectFit: "cover", display: "block" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)", display: "flex", alignItems: "flex-end", padding: 14, gap: 10 }}>
-                <span style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", borderRadius: 20, padding: "4px 12px", fontSize: 11, color: "#fff", fontWeight: 500 }}>{form.coverImageFile?.name}</span>
-                <button type="button" onClick={() => { update("coverImageFile", null); update("coverImagePreview", ""); }} style={{ background: "#e53e3e", border: "none", borderRadius: 20, padding: "4px 12px", fontSize: 11, color: "#fff", fontWeight: 600, cursor: "pointer" }}>Remove</button>
+                <span style={{ background: "rgba(255,255,255,0.12)", backdropFilter: "blur(8px)", borderRadius: 0, padding: "4px 12px", fontSize: 11, color: "#fff", fontWeight: 500 }}>{form.coverImageFile?.name}</span>
+                <button type="button" onClick={() => { update("coverImageFile", null); update("coverImagePreview", ""); }} style={{ background: "#e53e3e", border: "none", borderRadius: 0, padding: "4px 12px", fontSize: 11, color: "#fff", fontWeight: 600, cursor: "pointer" }}>Remove</button>
               </div>
             </div>
           ) : (
             <div
               onClick={() => fileInputRef.current?.click()}
-              onDragOver={(e) => { e.preventDefault(); (e.currentTarget as HTMLElement).style.borderColor = "#c9a84c"; (e.currentTarget as HTMLElement).style.background = "#fdf8ec"; }}
-              onDragLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,0,0,0.12)"; (e.currentTarget as HTMLElement).style.background = "#fafaf8"; }}
-              onDrop={(e) => { e.preventDefault(); (e.currentTarget as HTMLElement).style.borderColor = "rgba(0,0,0,0.12)"; (e.currentTarget as HTMLElement).style.background = "#fafaf8"; handleFile(e.dataTransfer.files?.[0] ?? null); }}
-              style={{ border: "2px dashed rgba(0,0,0,0.12)", borderRadius: 10, background: "#fafaf8", padding: "40px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: 12, cursor: "pointer", textAlign: "center", transition: "all 0.15s" }}
+              onDragOver={(e) => { e.preventDefault(); (e.currentTarget as HTMLElement).style.borderColor = "#c8401a"; (e.currentTarget as HTMLElement).style.background = "#f5f1ea"; }}
+              onDragLeave={(e) => { (e.currentTarget as HTMLElement).style.borderColor = "#d4cfc6"; (e.currentTarget as HTMLElement).style.background = "#fff"; }}
+              onDrop={(e) => { e.preventDefault(); (e.currentTarget as HTMLElement).style.borderColor = "#d4cfc6"; (e.currentTarget as HTMLElement).style.background = "#fff"; handleFile(e.dataTransfer.files?.[0] ?? null); }}
+              style={{ border: "2px dashed #d4cfc6", borderRadius: 0, background: "#fff", padding: "40px 24px", display: "flex", flexDirection: "column", alignItems: "center", gap: 12, cursor: "pointer", textAlign: "center", transition: "all 0.15s" }}
             >
-              <div style={{ width: 48, height: 48, borderRadius: 10, background: "#f2e9d0", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <ImageIcon size={22} color="#c9a84c" />
+              <div style={{ width: 48, height: 48, borderRadius: 0, background: "#f5f1ea", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <ImageIcon size={22} color="#c8401a" />
               </div>
               <div>
-                <p style={{ fontSize: 13, fontWeight: 600, color: "#333", margin: 0 }}>Drop image here or <span style={{ color: "#c9a84c", textDecoration: "underline" }}>browse</span></p>
-                <p style={{ fontSize: 11.5, color: "#aaa", margin: "4px 0 0" }}>JPG, PNG, WebP · max 5 MB · recommended 1200×630</p>
+                <p style={{ fontSize: 13, fontWeight: 600, color: "#0a0a0a", margin: 0 }}>Drop image here or <span style={{ color: "#c8401a", textDecoration: "underline" }}>browse</span></p>
+                <p style={{ fontSize: 11.5, color: "#a39d94", margin: "4px 0 0" }}>JPG, PNG, WebP · max 5 MB · recommended 1200×630</p>
               </div>
             </div>
           )}
@@ -794,40 +797,40 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
 
         <div style={{ gridColumn: "1/-1" }}>
-          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#555", marginBottom: 8, fontFamily: "var(--font-dm-sans), sans-serif" }}>
-            Article Body <span style={{ color: "#c9a84c" }}>*</span>
+          <span className="field-label" style={{ display: "flex", alignItems: "center", gap: 4, fontSize: 11.5, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#6b6560", marginBottom: 8, fontFamily: "var(--font-plex-sans), sans-serif" }}>
+            Article Body <span style={{ color: "#c8401a" }}>*</span>
           </span>
           <textarea
             ref={contentRef}
             className={textareaCls}
-            style={{ minHeight: "22rem", fontFamily: "var(--font-jetbrains), monospace", fontSize: 13, lineHeight: 1.8 }}
+            style={{ minHeight: "22rem", fontFamily: "var(--font-plex-mono), monospace", fontSize: 13, lineHeight: 1.8 }}
             value={form.content}
             onChange={(e) => update("content", e.target.value)}
             required
           />
-          <p style={{ fontSize: 11.5, color: "#999", marginTop: 6, lineHeight: 1.6 }}>
+          <p style={{ fontSize: 11.5, color: "#a39d94", marginTop: 6, lineHeight: 1.6 }}>
             {form.contentFormat === "json"
               ? "Use JSON blocks. Supported JSON can be an array of blocks or an object with `blocks`, `content`, or `body`."
               : "Use Markdown or MDX. Minimum 1,000 words."}{" "}
-            <strong style={{ color: "purple", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
+            <strong style={{ color: "#7c3aed", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
           </p>
         </div>
 
         {/* ── Live preview ── */}
         <div style={{ gridColumn: "1/-1" }} className="bh-card">
-          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, borderBottom: "1px solid rgba(0,0,0,0.08)", paddingBottom: 14, marginBottom: 16 }}>
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, borderBottom: "1px solid #d4cfc6", paddingBottom: 14, marginBottom: 16 }}>
             <div>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: 0 }}>Live preview</p>
-              <h3 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#111", margin: "4px 0 0" }}>
+              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#7c3aed", margin: 0 }}>Live preview</p>
+              <h3 style={{ fontFamily: "var(--font-baskerville), serif", fontSize: "1.4rem", fontWeight: 700, color: "#0a0a0a", margin: "4px 0 0" }}>
                 {form.title || "Untitled article"}
               </h3>
             </div>
-            <span style={{ borderRadius: 20, background: "#f5efe5", padding: "4px 12px", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#7a6535" }}>
+            <span style={{ borderRadius: 0, background: "#f5f1ea", padding: "4px 12px", fontSize: 10, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "#6b6560" }}>
               {form.contentFormat === "json" ? "JSON preview" : "Draft preview"}
             </span>
           </div>
           {form.excerpt ? (
-            <p style={{ fontSize: 13, lineHeight: 1.85, color: "#666", borderBottom: "1px solid rgba(0,0,0,0.06)", paddingBottom: 16, marginBottom: 16 }}>
+            <p style={{ fontSize: 13, lineHeight: 1.85, color: "#6b6560", borderBottom: "1px solid #d4cfc6", paddingBottom: 16, marginBottom: 16 }}>
               {form.excerpt}
             </p>
           ) : null}
@@ -835,7 +838,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
 
         <div style={{ gridColumn: "1/-1" }}>
-          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f4f3f0", borderRadius: 4, padding: "1px 6px", fontFamily: "var(--font-jetbrains), monospace", fontSize: 11 }}>Question::Answer</code></span>}>
+          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f5f1ea", borderRadius: 0, padding: "1px 6px", fontFamily: "var(--font-plex-mono), monospace", fontSize: 11 }}>Question::Answer</code></span>}>
             <textarea className={textareaCls} style={{ minHeight: 100 }} placeholder={"What is a custom web app?::A custom web app is tailored specifically to your business needs.\nHow long does a dashboard take?::Most take 4–12 weeks depending on complexity."} value={form.faqText} onChange={(e) => update("faqText", e.target.value)} />
           </Field>
         </div>
@@ -855,12 +858,12 @@ function Step4({ form }: { form: FormData }) {
       </div>
       <div className="bh-card">
         <p className="bh-section-label">Author</p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 24px", fontSize: 13, color: "#333" }}>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Name </span>{form.name}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Email </span>{form.email}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Role </span>{form.occupation}</div>
-          {form.phone && <div><span style={{ fontWeight: 600, color: "#888" }}>Phone </span>+{form.phone}</div>}
-          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Bio </span>{form.bio}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 24px", fontSize: 13, color: "#0a0a0a" }}>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Name </span>{form.name}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Email </span>{form.email}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Role </span>{form.occupation}</div>
+          {form.phone && <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Phone </span>+{form.phone}</div>}
+          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Bio </span>{form.bio}</div>
         </div>
       </div>
       {filled.length > 0 && (
@@ -869,9 +872,9 @@ function Step4({ form }: { form: FormData }) {
           <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 13 }}>
             {filled.map((bl, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-                <Globe size={13} color="#c9a84c" />
+                <Globe size={13} color="#c8401a" />
                 <span style={{ fontWeight: 600 }}>{bl.label || "—"}</span>
-                <span style={{ color: "#888", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{bl.url}</span>
+                <span style={{ color: "#6b6560", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{bl.url}</span>
               </div>
             ))}
           </div>
@@ -879,14 +882,14 @@ function Step4({ form }: { form: FormData }) {
       )}
       <div className="bh-card">
         <p className="bh-section-label">Article</p>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 24px", fontSize: 13, color: "#333" }}>
-          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Title </span>{form.title}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Category </span>{form.category}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Format </span>{form.contentFormat === "json" ? "JSON blocks" : "Markdown / MDX"}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Word count </span>~{wordCount} words {wordCount < 1000 && <span style={{ color: "#c9a84c", fontWeight: 700 }}>(min 1,000)</span>}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Tags </span>{form.tags || "—"}</div>
-          <div><span style={{ fontWeight: 600, color: "#888" }}>Image </span>{form.coverImageFile?.name || "None"}</div>
-          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#888" }}>Excerpt </span>{form.excerpt}</div>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "10px 24px", fontSize: 13, color: "#0a0a0a" }}>
+          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Title </span>{form.title}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Category </span>{form.category}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Format </span>{form.contentFormat === "json" ? "JSON blocks" : "Markdown / MDX"}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Word count </span>~{wordCount} words {wordCount < 1000 && <span style={{ color: "#c8401a", fontWeight: 700 }}>(min 1,000)</span>}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Tags </span>{form.tags || "—"}</div>
+          <div><span style={{ fontWeight: 600, color: "#6b6560" }}>Image </span>{form.coverImageFile?.name || "None"}</div>
+          <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Excerpt </span>{form.excerpt}</div>
         </div>
       </div>
     </div>
@@ -901,18 +904,18 @@ function SuccessScreen() {
       <div style={{ width: 72, height: 72, borderRadius: "50%", background: "#f0faf4", border: "2px solid #b2dfc5", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 28 }}>
         <CheckCircle size={30} color="#2d8653" />
       </div>
-      <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "2.2rem", fontWeight: 800, color: "#1a1a1a", margin: "0 0 14px" }}>You're in the queue!</h2>
-      <p style={{ fontSize: 14, lineHeight: 1.8, color: "#666", maxWidth: 440, margin: "0 0 10px" }}>
-        Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#555" }}>2–3 business days</strong>.
+      <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "2.6rem", color: "#0a0a0a", margin: "0 0 14px" }}>You're in the queue!</h2>
+      <p style={{ fontSize: 14, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 440, margin: "0 0 10px" }}>
+        Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#0a0a0a" }}>2–3 business days</strong>.
       </p>
-      <p style={{ fontSize: 13, lineHeight: 1.8, color: "#999", maxWidth: 400, margin: "0 0 32px" }}>
+      <p style={{ fontSize: 13, lineHeight: 1.8, color: "#a39d94", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 400, margin: "0 0 32px" }}>
         Once accepted, your article will be published with your author profile and all backlinks live.
       </p>
       <div style={{ display: "flex", gap: 12 }}>
-        <a href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#1a1a1a", color: "#fff", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 600, textDecoration: "none", fontFamily: "var(--font-dm-sans), sans-serif" }}>
+        <a href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#0a0a0a", color: "#f5f1ea", borderRadius: 0, padding: "12px 24px", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textDecoration: "none", fontFamily: "var(--font-plex-mono), monospace" }}>
           Browse the blog <ArrowRight size={14} />
         </a>
-        <a href="/blog/write-for-us" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#555", border: "1px solid rgba(0,0,0,0.12)", borderRadius: 8, padding: "12px 24px", fontSize: 13, fontWeight: 500, textDecoration: "none", fontFamily: "var(--font-dm-sans), sans-serif" }}>
+        <a href="/blog/write-for-us" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#6b6560", border: "1px solid #d4cfc6", borderRadius: 0, padding: "12px 24px", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textDecoration: "none", fontFamily: "var(--font-plex-mono), monospace" }}>
           Submit another post
         </a>
       </div>
@@ -999,14 +1002,14 @@ export default function BlogSubmitPortal() {
   const STEP_LABELS = ["About You", "Your Links", "The Article", "Review"];
 
   if (submitted) return (
-    <div className="bh-root" style={{ minHeight: "100vh", background: "#f5efe5", padding: "120px 24px 80px" }}>
+    <div className="bh-root" style={{ minHeight: "100vh", background: "#f5f1ea", padding: "160px 24px 80px" }}>
       <style>{sharedStyles}</style>
       <div style={{ maxWidth: 680, margin: "0 auto" }}><SuccessScreen /></div>
     </div>
   );
 
   return (
-    <div className="bh-root bg-black/10" style={{ minHeight: "100vh", padding: "120px 24px 80px" }}>
+    <div className="bh-root" style={{ minHeight: "100vh", background: "#fff", padding: "160px 24px 80px" }}>
       {/* sharedStyles is now rendered exactly once, here, for the whole
           multi-step form — not re-injected by Field/StepIndicator on every
           render. */}
@@ -1019,20 +1022,20 @@ export default function BlogSubmitPortal() {
           <ol
             itemScope
             itemType="https://schema.org/BreadcrumbList"
-            style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, fontSize: 11.5, color: "#999", fontFamily: "var(--font-dm-sans), sans-serif" }}
+            style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, fontSize: "0.65rem", textTransform: "uppercase", letterSpacing: "0.1em", color: "#a39d94", fontFamily: "var(--font-plex-mono), monospace" }}
           >
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <a href="/" itemProp="item" style={{ color: "#bbb", textDecoration: "none" }}><span itemProp="name">Home</span></a>
+              <a href="/" itemProp="item" style={{ color: "#6b6560", textDecoration: "none" }}><span itemProp="name">Home</span></a>
               <meta itemProp="position" content="1" />
             </li>
-            <li style={{ color: "#ccc" }}>›</li>
+            <li style={{ color: "#d4cfc6" }}>/</li>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <a href="/blog" itemProp="item" style={{ color: "#bbb", textDecoration: "none" }}><span itemProp="name">Blog</span></a>
+              <a href="/blog" itemProp="item" style={{ color: "#6b6560", textDecoration: "none" }}><span itemProp="name">Blog</span></a>
               <meta itemProp="position" content="2" />
             </li>
-            <li style={{ color: "#ccc" }}>›</li>
+            <li style={{ color: "#d4cfc6" }}>/</li>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <span itemProp="name" style={{ color: "#888" }}>Write for Us</span>
+              <span itemProp="name" style={{ color: "#0a0a0a" }}>Write for Us</span>
               <meta itemProp="position" content="3" />
             </li>
           </ol>
@@ -1041,37 +1044,42 @@ export default function BlogSubmitPortal() {
         {/* ── Hero ── */}
         <header style={{ marginBottom: 64 }}>
           {/* SEO: exact-match keyword in prominent position before H1 */}
-          <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.25em", textTransform: "uppercase", color: "purple", marginBottom: 14, fontFamily: "var(--font-dm-sans), sans-serif" }}>
-            Write for Us Guest Post Submission Portal
-          </p>
+          <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 12 }}>
+            <div style={{ height: 6, width: 6, background: "#7c3aed" }} aria-hidden="true" />
+            <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b6560", margin: 0, fontFamily: "var(--font-plex-mono), monospace" }}>
+              Write for Us — Guest Post Submission Portal
+            </p>
+          </div>
+
+          <div style={{ marginBottom: 24, height: 2, width: 64, background: "#0a0a0a" }} />
 
           {/*
             SEO CRITICAL: H1 must contain the exact keyword "Write for Us".
             This is the primary ranking signal on-page.
 
             PERF: this H1 is the page's LCP element. It now paints against
-            next/font's self-hosted, preloaded Playfair Display instead of
+            next/font's self-hosted, preloaded Bebas Neue instead of
             waiting on the old @import chain — see the sharedStyles comment
             above for the full explanation.
           */}
-          <h1 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "clamp(2.4rem, 5vw, 3.6rem)", fontWeight: 800, color: "#111", lineHeight: 1.12, margin: "0 0 20px", maxWidth: 620 }}>
-            Write for Us<br />Publish on Bridge Homies
+          <h1 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", lineHeight: 0.95, letterSpacing: "0.01em", color: "#0a0a0a", margin: "0 0 20px", maxWidth: 640 }}>
+            Write for Us <span style={{ color: "#7c3aed" }}>Publish on Bridge Homies</span>
           </h1>
 
-          <p style={{ fontSize: 14.5, lineHeight: 1.85, color: "#666", maxWidth: 560, margin: "0 0 12px" }}>
+          <p style={{ fontSize: "1.02rem", lineHeight: 1.85, color: "#6b6560", fontFamily: "var(--font-baskerville), serif", fontStyle: "italic", maxWidth: 560, margin: "0 0 16px" }}>
             We publish guest posts from developers, architects, product managers, and founders who build real software for real businesses.
-            Submit an article and reach thousands of readers plus earn up to <strong style={{ color: "#555" }}>1–2 dofollow backlinks</strong> and a <strong style={{ color: "#555" }}>permanent author profile</strong>. Standard placements are <strong style={{ color: "#555" }}>$15</strong> ($12 on bulk orders of 5+), pay after your piece is live — reciprocal link exchanges are <strong style={{ color: "#555" }}>$0</strong>.
+            Submit an article and reach thousands of readers plus earn up to <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>1–2 dofollow backlinks</strong> and a <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>permanent author profile</strong>. Standard placements are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$15</strong> ($12 on bulk orders of 5+), pay after your piece is live — reciprocal link exchanges are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$0</strong>.
           </p>
-          <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#888", maxWidth: 560, margin: "0 0 36px" }}>
-            We cover <strong style={{ color: "#555" }}>custom web apps</strong>, <strong style={{ color: "#555" }}>admin dashboards</strong>, <strong style={{ color: "#555" }}>automation tools</strong>, <strong style={{ color: "#555" }}>AI integrations</strong>, <strong style={{ color: "#555" }}>SaaS platforms</strong>, <strong style={{ color: "#555" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
+          <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 560, margin: "0 0 36px" }}>
+            We cover <strong style={{ color: "#0a0a0a" }}>custom web apps</strong>, <strong style={{ color: "#0a0a0a" }}>admin dashboards</strong>, <strong style={{ color: "#0a0a0a" }}>automation tools</strong>, <strong style={{ color: "#0a0a0a" }}>AI integrations</strong>, <strong style={{ color: "#0a0a0a" }}>SaaS platforms</strong>, <strong style={{ color: "#0a0a0a" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
           </p>
 
           {/* Niche grid */}
           <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 10, marginBottom: 28 }}>
             {NICHES.map(({ label, desc }) => (
-              <div key={label} style={{ background: "rgba(255,255,255,0.6)", border: "1px solid #937cbbff", borderRadius: 10, padding: "14px 16px" }}>
-                <p style={{ fontSize: 12, fontWeight: 700, color: "#1a1a1a", margin: "0 0 4px", fontFamily: "var(--font-dm-sans), sans-serif" }}>{label}</p>
-                <p style={{ fontSize: 11, color: "#888", margin: 0, lineHeight: 1.5 }}>{desc}</p>
+              <div key={label} style={{ background: "#fff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "14px 16px" }}>
+                <p style={{ fontSize: 12, fontWeight: 700, color: "#0a0a0a", margin: "0 0 4px", fontFamily: "var(--font-plex-sans), sans-serif" }}>{label}</p>
+                <p style={{ fontSize: 11, color: "#6b6560", margin: 0, lineHeight: 1.5, fontFamily: "var(--font-plex-sans), sans-serif" }}>{desc}</p>
               </div>
             ))}
           </div>
@@ -1087,8 +1095,8 @@ export default function BlogSubmitPortal() {
               "No AI filler accepted",
               "Pay after live",
             ].map(tag => (
-              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #937cbbff", borderRadius: 20, padding: "5px 12px", fontSize: 11, fontWeight: 600, color: "#7a6535", fontFamily: "var(--font-dm-sans), sans-serif" }}>
-                <CheckCircle size={11} color="purple" />
+              <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "5px 12px", fontSize: "0.62rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em", color: "#6b6560", fontFamily: "var(--font-plex-mono), monospace" }}>
+                <CheckCircle size={11} color="#7c3aed" />
                 {tag}
               </span>
             ))}
@@ -1100,16 +1108,16 @@ export default function BlogSubmitPortal() {
 
         {/* ── Form card ── */}
         <section aria-label="Guest post submission form">
-          <div style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 16, padding: "36px 40px", boxShadow: "0 24px 60px -30px rgba(0,0,0,0.14)" }}>
-            <div style={{ borderBottom: "1px solid rgba(0,0,0,0.07)", paddingBottom: 20, marginBottom: 28 }}>
-              <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "purple", margin: "0 0 6px", fontFamily: "var(--font-dm-sans), sans-serif" }}>
+          <div style={{ background: "#fff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "36px 40px" }}>
+            <div style={{ borderBottom: "1px solid #d4cfc6", paddingBottom: 20, marginBottom: 28 }}>
+              <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#7c3aed", margin: "0 0 6px", fontFamily: "var(--font-plex-mono), monospace" }}>
                 Step {step} of 4
               </p>
               {/*
                 H2 inside the form secondary heading, not competing with H1.
                 Uses "write for us" adjacent copy at step 3 naturally.
               */}
-              <h2 style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.85rem", fontWeight: 700, color: "#111", margin: 0 }}>
+              <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "2rem", color: "#0a0a0a", margin: 0 }}>
                 {["Tell us about yourself", "Add your dofollow backlinks", "Write your article", "Review & submit your guest post"][step - 1]}
               </h2>
             </div>
@@ -1126,7 +1134,7 @@ export default function BlogSubmitPortal() {
               </div>
             )}
 
-            <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid rgba(0,0,0,0.07)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div style={{ marginTop: 28, paddingTop: 20, borderTop: "1px solid #d4cfc6", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <button type="button" onClick={prevStep} className="bh-btn-ghost" style={{ visibility: step === 1 ? "hidden" : "visible" }}>
                 Back
               </button>
@@ -1146,27 +1154,27 @@ export default function BlogSubmitPortal() {
         </section>
 
         {/* ── Guest post guidelines (semantic, crawlable) ── */}
-        <section aria-labelledby="guidelines-heading" style={{ marginTop: 32, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
-          <h2 id="guidelines-heading" style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 10px" }}>
-            Guest Post Guidelines Who Should Write for Us?
+        <section aria-labelledby="guidelines-heading" style={{ marginTop: 32, background: "#f2eaf5ff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "28px 32px" }}>
+          <h2 id="guidelines-heading" style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "1.7rem", color: "#0a0a0a", margin: "0 0 10px" }}>
+            Guest Post Guidelines — Who Should Write for Us?
           </h2>
-          <p style={{ fontSize: 13, lineHeight: 1.8, color: "#666", margin: "0 0 20px" }}>
+          <p style={{ fontSize: 13, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", margin: "0 0 20px" }}>
             We welcome practitioners developers, architects, product managers, and founders who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 1,000 words. Strictly software engineering, SaaS architecture, AI/ML, cloud/DevOps, or web/mobile development — we do not accept casino, CBD/pharma, crypto/forex, adult, or general non-technical content at any price.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
-              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#2d8653", margin: "0 0 10px", fontFamily: "var(--font-dm-sans), sans-serif" }}>We publish</h3>
+              <h3 style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#2d8653", margin: "0 0 10px", fontFamily: "var(--font-plex-mono), monospace" }}>We publish</h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {WE_PUBLISH.map(t => (
-                  <li key={t} style={{ fontSize: 12, color: "#555", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #b2dfc5" }}>{t}</li>
+                  <li key={t} style={{ fontSize: 12, color: "#6b6560", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #b2dfc5", fontFamily: "var(--font-plex-sans), sans-serif" }}>{t}</li>
                 ))}
               </ul>
             </div>
             <div>
-              <h3 style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#9b2c2a", margin: "0 0 10px", fontFamily: "var(--font-dm-sans), sans-serif" }}>We don't publish</h3>
+              <h3 style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#9b2c2a", margin: "0 0 10px", fontFamily: "var(--font-plex-mono), monospace" }}>We don't publish</h3>
               <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
                 {WE_DONT.map(t => (
-                  <li key={t} style={{ fontSize: 12, color: "#555", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #f2c4c1" }}>{t}</li>
+                  <li key={t} style={{ fontSize: 12, color: "#6b6560", margin: "0 0 6px", lineHeight: 1.6, paddingLeft: 12, borderLeft: "2px solid #f2c4c1", fontFamily: "var(--font-plex-sans), sans-serif" }}>{t}</li>
                 ))}
               </ul>
             </div>
@@ -1174,21 +1182,21 @@ export default function BlogSubmitPortal() {
         </section>
 
         {/* ── FAQ section (semantic <dl>, mirrors JSON-LD FAQPage) ── */}
-        <section aria-labelledby="faq-heading" style={{ marginTop: 24, background: "rgba(255,255,255,0.55)", border: "1px solid rgba(0,0,0,0.07)", borderRadius: 12, padding: "28px 32px" }}>
-          <h2 id="faq-heading" style={{ fontFamily: "var(--font-playfair), serif", fontSize: "1.4rem", fontWeight: 700, color: "#1a1a1a", margin: "0 0 20px" }}>
-            Frequently Asked Questions Write for Us
+        <section aria-labelledby="faq-heading" style={{ marginTop: 24, background: "#f5f1ea", border: "1px solid #d4cfc6", borderRadius: 0, padding: "28px 32px" }}>
+          <h2 id="faq-heading" style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "1.7rem", color: "#0a0a0a", margin: "0 0 20px" }}>
+            Frequently Asked Questions — Write for Us
           </h2>
           <dl style={{ margin: 0 }}>
             {FAQ_ITEMS.map(({ q, a }, i) => (
-              <div key={i} style={{ borderBottom: i < FAQ_ITEMS.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none", paddingBottom: 14, marginBottom: 14 }}>
-                <dt style={{ fontSize: 13, fontWeight: 700, color: "#1a1a1a", margin: "0 0 5px", fontFamily: "var(--font-dm-sans), sans-serif" }}>{q}</dt>
-                <dd style={{ fontSize: 13, color: "#666", margin: 0, lineHeight: 1.75 }}>{a}</dd>
+              <div key={i} style={{ borderBottom: i < FAQ_ITEMS.length - 1 ? "1px solid #d4cfc6" : "none", paddingBottom: 14, marginBottom: 14 }}>
+                <dt style={{ fontSize: 13, fontWeight: 700, color: "#0a0a0a", margin: "0 0 5px", fontFamily: "var(--font-plex-sans), sans-serif" }}>{q}</dt>
+                <dd style={{ fontSize: 13, color: "#6b6560", margin: 0, lineHeight: 1.75, fontFamily: "var(--font-plex-sans), sans-serif" }}>{a}</dd>
               </div>
             ))}
           </dl>
         </section>
 
-        <p style={{ textAlign: "center", fontSize: 11.5, color: "#aaa", marginTop: 24, lineHeight: 1.7 }}>
+        <p style={{ textAlign: "center", fontSize: 11.5, color: "#a39d94", marginTop: 24, lineHeight: 1.7, fontFamily: "var(--font-plex-sans), sans-serif" }}>
           By submitting your guest post you agree to our editorial guidelines. We respond within 2–3 business days. Your email is never shared publicly.
         </p>
       </div>
