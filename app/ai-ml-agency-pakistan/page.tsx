@@ -3,7 +3,7 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-    title: "AI Development Company in Pakistan | Bridge Homies",
+    title: { absolute: "AI Development Company in Pakistan" },
     description: "Partner with Pakistan's AI/ML engineers to build RAG pipelines, custom LLMs, and automated workflow solutions.",
     alternates: { canonical: "https://www.bridgehomies.com/ai-ml-agency-pakistan" },
     openGraph: {

@@ -31,7 +31,7 @@ const schema = {
 };
 
 export const metadata = {
-  title: "Custom Software Development Services | Bridge Homies",
+  title: { absolute: "Custom Software Development | Bridge Homies" },
   description:
     "Custom software development for startups and enterprises: SaaS platforms, AI integration, and scalable business systems built by Bridge Homies in Lahore.",
 };
@@ -206,6 +206,7 @@ export default function SoftwarePage() {
               <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
                 <img
                   src="https://images.unsplash.com/photo-1649877508777-1554357604eb?q=80&w=580&auto=format&fit=crop"
+                  alt="Custom software development team collaborating on a digital product"
                   className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gray-900/30"></div>

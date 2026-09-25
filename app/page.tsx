@@ -13,7 +13,7 @@ import StickyTransformSection from "@/components/home/sticky-transform-section"
 import TestimonialsSection from "@/components/home/testimonials-section"
 
 export const metadata: Metadata = {
-  title: "AI/ML Engineering & Machine Learning Agency | Bridge Homies",
+  title: { absolute: "AI/ML Engineering Services | Bridge Homies" },
   description:
     "Bridge Homies is a machine learning agency and AI/ML engineering service provider. We build websites, SaaS, web apps, and AI automation worldwide.",
   alternates: {
@@ -103,7 +103,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
       />
       <section className="sr-only" aria-label="Bridge Homies overview">
-        <h1>AI/ML Engineering and Custom Software Development</h1>
+        <p>AI/ML Engineering and Custom Software Development</p>
         <p>Bridge Homies is a software development company and machine learning agency based in Lahore, Pakistan, serving clients worldwide. We build production-ready AI and ML systems, RAG pipelines, LLM integrations, predictive analytics, workflow automation, websites, web applications, mobile apps, SaaS platforms, and enterprise software for founders and established businesses.</p>
         <h2>When to use Bridge Homies</h2>
         <p>Work with Bridge Homies when you need to replace manual Excel, WhatsApp, or email workflows, launch a serious digital product, add AI to existing software, or turn a validated idea into a maintainable product. Our team works with Next.js, React, Python, FastAPI, Django, PostgreSQL, and modern cloud infrastructure.</p>

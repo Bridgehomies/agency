@@ -26,6 +26,7 @@ const STATIC_PAGE_SOURCES = {
   "/case-studies/anosuim": "app/case-studies/anosuim/page.tsx",
   "/case-studies/ihfp": "app/case-studies/ihfp/page.tsx",
   "/case-studies/mail-hauler-pro": "app/case-studies/mail-hauler-pro/page.tsx",
+  "/case-studies/opleo": "app/case-studies/opleo/page.tsx",
   "/contact": "app/contact/page.tsx",
   "/design": "app/design/page.tsx",
   "/mobile": "app/mobile/page.tsx",
@@ -106,6 +107,8 @@ module.exports = {
     "/admin/*",
     "/api/*",
     "/blog/submit",
+    "/blog-terms",
+    "/blog/where-can-i-find-websites-that-say-write-for-us",
     "/testimonials/submit",
     "/write",
   ],
@@ -118,6 +121,9 @@ module.exports = {
   additionalPaths: async (config) => [
     await config.transform(config, "/ui-ux-design"),
     await config.transform(config, "/ai-ml-development"),
+    await config.transform(config, "/case-studies/opleo"),
+    await config.transform(config, "/blog-terms"),
+    await config.transform(config, "/blog/where-can-i-find-websites-that-say-write-for-us"),
   ],
 
   transform: async (config, url) => {

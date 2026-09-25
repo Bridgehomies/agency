@@ -3,7 +3,7 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: "Mail Hauler Pro — Cold Email Automation Platform | Bridge Homies",
+  title: { absolute: "Mail Hauler Pro Automation SaaS | Bridge Homies" },
   description:
     "How Bridge Homies built Mail Hauler Pro, a multi-inbox cold email SaaS with campaign automation, warm-up, deliverability monitoring, and analytics.",
   alternates: { canonical: "https://bridgehomies.com/case-studies/mail-hauler-pro" },

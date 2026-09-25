@@ -8,7 +8,8 @@ import rehypeHighlight from "rehype-highlight";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import ArticleViewClient from "@/components/blog/ArticleViewClient";
-import { getAllBlogs, getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
+import { getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
+import { blogSeoDescription, blogSeoTitle } from "@/lib/seo";
 
 function escapeInline(value: string) {
   return value.replace(/\n/g, " ").trim();
@@ -61,7 +62,14 @@ function normalizeBlogContent(raw: string) {
     return blocks
       .map((block) => renderJsonBlock((block || {}) as Record<string, unknown>))
       .filter(Boolean)
-      .join("\n\n");
+      .join("\n\n")
+      // remark-gfm turns bare URLs into links. When an editor has already
+      // wrapped the identical URL in an HTML anchor, that would otherwise
+      // render as <a><a>…</a></a> and trigger a hydration error.
+      .replace(
+        /<a\b[^>]*\bhref=["'](https?:\/\/[^"']+)["'][^>]*>(https?:\/\/[^<\s]+)<\/a>/gi,
+        (anchor, href, label) => href.replace(/\/$/, "") === label.replace(/\/$/, "") ? label : anchor
+      );
   } catch {
     return raw;
   }
@@ -70,20 +78,10 @@ function normalizeBlogContent(raw: string) {
 // ─── Static params: MDX files + approved KV submissions ───────────────────────
 
 export async function generateStaticParams() {
-  const [mdxSlugs, kvPosts] = await Promise.all([
-    Promise.resolve(getAllBlogs().map((blog) => ({ slug: blog.slug }))),
-    // getPublishedBlogs() returns merged MDX + KV — dedupe by slug
-    import("@/lib/blog").then((m) =>
-      m.getPublishedBlogs().then((posts) => posts.map((p) => ({ slug: p.slug })))
-    ),
-  ]);
-
-  const seen = new Set<string>();
-  return [...mdxSlugs, ...kvPosts].filter(({ slug }) => {
-    if (seen.has(slug)) return false;
-    seen.add(slug);
-    return true;
-  });
+  // Only published posts become static pages, so retired content cannot be
+  // emitted into the build or discovered by sitemap generation.
+  const posts = await getPublishedBlogs();
+  return posts.map((post) => ({ slug: post.slug }));
 }
 
 // ─── Metadata ─────────────────────────────────────────────────────────────────
@@ -100,11 +98,11 @@ export async function generateMetadata({
 
   const siteUrl = "https://bridgehomies.com";
   const url = `${siteUrl}/blog/${blog.slug}`;
-  const title = blog.seoTitle || blog.title;
-  const description = blog.seoDescription || blog.excerpt;
+  const title = blogSeoTitle(blog.seoTitle || blog.title);
+  const description = blogSeoDescription(blog.seoDescription || blog.excerpt);
 
   return {
-    title: `${title} | Bridge Homies`,
+    title: { absolute: title },
     description,
     authors: [{ name: blog.author }],
     openGraph: {
@@ -143,7 +141,11 @@ export default async function BlogPostPage({
 
   // Guest submissions store HTML from the rich editor.
   // MDX files store markdown. normalizeBlogContent handles both.
-  const rawContent = normalizeBlogContent(blog.content);
+  // ArticleViewClient supplies the one page H1. Demote any H1 authored in an
+  // MDX body so templates cannot create competing page-level headings.
+  const rawContent = normalizeBlogContent(blog.content)
+    .replace(/^#(?!#)\s+/gm, "## ")
+    .replace(/<\/?h1\b/gi, (tag) => tag.replace(/h1/i, "h2"));
 
   // If the content looks like HTML (from the rich editor), sanitize it so
   // compileMDX doesn't choke on unclosed HTML void tags.
@@ -249,4 +251,4 @@ export default async function BlogPostPage({
       <Footer />
     </>
   );
-} 
+}

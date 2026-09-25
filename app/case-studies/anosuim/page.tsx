@@ -3,7 +3,7 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: "Anosuim — Multi-Clinic Healthcare Management SaaS | Bridge Homies",
+  title: { absolute: "Anosuim Healthcare SaaS | Bridge Homies" },
   description:
     "How Bridge Homies designed Anosuim, a multi-tenant healthcare SaaS with clinic operations, billing, patient engagement, and AI-powered appointment automation.",
   alternates: { canonical: "https://bridgehomies.com/case-studies/anosuim" },

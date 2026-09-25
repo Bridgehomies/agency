@@ -11,7 +11,7 @@ import Navbar from '@/components/navbar'
 
 export default function ProductsClient() {
   return (
-    <main className="min-h-screen">
+    <main className="products-page min-h-screen">
       <Navbar />
       <Hero />
       <Stats />

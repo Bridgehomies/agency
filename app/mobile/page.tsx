@@ -12,7 +12,7 @@ import StatsCounter from "@/components/StatsCounter";
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: "Mobile App Development Services iOS, Android & AI | Bridge Homies",
+  title: { absolute: "Mobile App Development | Bridge Homies" },
   description:
     "Bridge Homies builds intelligent iOS and Android apps with AI automation. Native, cross-platform, and enterprise mobile solutions, production-ready.",
   alternates: {

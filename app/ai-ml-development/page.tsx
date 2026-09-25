@@ -12,7 +12,7 @@ import StatsCounter from "@/components/StatsCounter";
 // query (197 impressions) that was previously buried mid-page with no title/H1 weight.
 
 export const metadata: Metadata = {
-  title: "ML Model Engineering Services | Bridge Homies",
+  title: { absolute: "ML Model Engineering | Bridge Homies" },
 
   description:
     "Bridge Homies delivers ML model engineering, RAG pipeline development, LLM integration, and MLOps for startups and enterprises.",

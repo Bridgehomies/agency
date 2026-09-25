@@ -25,3 +25,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+bridgehomies.com-audit/
+
+# Ignore all .zip files in any directory
+*.zip

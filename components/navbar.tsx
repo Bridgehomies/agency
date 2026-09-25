@@ -23,6 +23,7 @@ const navLinks = [
       { name: "Anosuim", href: "/case-studies/anosuim" },
       { name: "IHFP", href: "/case-studies/ihfp" },
       { name: "Mail Hauler Pro", href: "/case-studies/mail-hauler-pro" },
+      { name: "OPleo", href: "/case-studies/opleo" },
     ],
   },
 ];

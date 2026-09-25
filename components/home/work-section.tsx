@@ -9,7 +9,35 @@ import { Button } from "@/components/ui/button";
 
 const PROJECTS = [
   {
-    id: 8, index: "01",
+    id: 12, index: "01",
+    title: "OPLEO", titleShort: "OP",
+    subtitle: "HR & Operations Platform",
+    category: "WEB",
+    image: "/work/Logo-Square.png",
+    imageAlt: "OPleo HR and operations platform interface",
+    year: "2026",
+    color: "#7C3AED",
+    bg: "#F5F0FF",
+    longDescription: "A unified HR and operations platform that brings employee workflows, attendance, payroll, and day-to-day business operations into one connected product.",
+    technologies: ["Web Platform", "HR Operations", "Attendance", "Payroll"],
+    link: "https://www.opleo.dev/",
+  },
+  {
+    id: 13, index: "02",
+    title: "ANOSUIM", titleShort: "AN",
+    subtitle: "Healthcare Management SaaS",
+    category: "WEB",
+    image: "/work/anosuim.png",
+    imageAlt: "Anosuim healthcare management SaaS dashboard",
+    year: "2026",
+    color: "#0F766E",
+    bg: "#F0FDFA",
+    longDescription: "A multi-tenant healthcare SaaS for clinic operations, patient records, appointments, billing, and AI-assisted lead capture and scheduling.",
+    technologies: ["Multi-tenant SaaS", "Healthcare", "AI Automation", "Role-based Access"],
+    link: "/case-studies/anosuim",
+  },
+  {
+    id: 8, index: "03",
     title: "IHFP", titleShort: "IH",
     subtitle: "Pigeon Racing Community Platform",
     category: "WEB",
@@ -23,7 +51,7 @@ const PROJECTS = [
     link: "https://ihfp.io",
   },
   {
-    id: 9, index: "02",
+    id: 9, index: "04",
     title: "MAIL\nHAULER PRO", titleShort: "MH",
     subtitle: "Email Infrastructure SaaS",
     category: "WEB",
@@ -36,7 +64,7 @@ const PROJECTS = [
     link: "https://mailhaulerpro.com",
   },
   {
-    id: 4, index: "03",
+    id: 4, index: "05",
     title: "AIERPIFY", titleShort: "AI",
     subtitle: "FBR Invoicing Software",
     category: "WEB",
@@ -49,7 +77,7 @@ const PROJECTS = [
     link: "https://aierpify.com",
   },
   {
-    id: 10, index: "04",
+    id: 10, index: "06",
     title: "PREMIUM\nSTRINGZ", titleShort: "PS",
     subtitle: "Event Management Platform",
     category: "WEB",
@@ -62,7 +90,7 @@ const PROJECTS = [
     link: "https://premiumstringz.net",
   },
   {
-    id: 11, index: "05",
+    id: 11, index: "07",
     title: "TRINITY\nPEPTIDE", titleShort: "TP",
     subtitle: "Peptide & Supplements Ecommerce",
     category: "WEB",
@@ -75,7 +103,7 @@ const PROJECTS = [
     link: "https://trinitypeptidegroup.com",
   },
   {
-    id: 7, index: "06",
+    id: 7, index: "08",
     title: "NABEERA\nBAREERA", titleShort: "NB",
     subtitle: "Ecommerce — Fashion & Lifestyle",
     category: "WEB",
@@ -88,7 +116,7 @@ const PROJECTS = [
     link: "https://www.nabeerabareera.com/",
   },
   {
-    id: 1, index: "07",
+    id: 1, index: "09",
     title: "CV\nJET", titleShort: "CV",
     subtitle: "Smart Resume Platform",
     category: "WEB",
@@ -101,7 +129,7 @@ const PROJECTS = [
     link: "https://cvjet.com",
   },
   {
-    id: 2, index: "08",
+    id: 2, index: "10",
     title: "EMOTION\nDETECT", titleShort: "ED",
     subtitle: "ML · NLP Text Analysis",
     category: "WEB · MOBILE",
@@ -114,7 +142,7 @@ const PROJECTS = [
     link: "https://text-sentiments-detector.streamlit.app/",
   },
   {
-    id: 3, index: "09",
+    id: 3, index: "11",
     title: "MOVEX\nAUTO", titleShort: "MX",
     subtitle: "Vehicle Transport Platform",
     category: "WEB",
@@ -127,7 +155,7 @@ const PROJECTS = [
     link: "https://movexautoshipping.com",
   },
   {
-    id: 5, index: "10",
+    id: 5, index: "12",
     title: "FB AUTO\nMATIONS", titleShort: "FB",
     subtitle: "Social Media Engine",
     category: "WEB",
@@ -140,7 +168,7 @@ const PROJECTS = [
     link: "https://facebook-automations.com",
   },
   {
-    id: 6, index: "11",
+    id: 6, index: "13",
     title: "ONYX\nFINTECH", titleShort: "OX",
     subtitle: "AI Loan Matchmaking",
     category: "WEB",

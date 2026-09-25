@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import WebDevClient from "./WebDevClient"
 
 export const metadata: Metadata = {
-  title: "Website Development Services — Next.js, React & Django | Bridge Homies",
+  title: { absolute: "Website Development | Bridge Homies" },
   description:
     "Bridge Homies delivers website development using Next.js, React, and Django — scalable, AI-powered SaaS, web apps, and enterprise software.",
   alternates: {

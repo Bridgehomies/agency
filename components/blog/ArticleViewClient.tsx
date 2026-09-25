@@ -25,6 +25,21 @@ function formatDate(iso: string): string {
   }
 }
 
+const SERVICE_LINKS = [
+  { href: "/ai-ml-development", label: "AI/ML engineering", terms: ["ai", "ml", "machine learning", "rag", "llm", "mlops", "automation"] },
+  { href: "/software", label: "custom software development", terms: ["saas", "software", "enterprise", "workflow", "integration"] },
+  { href: "/webdev", label: "website development", terms: ["web", "website", "frontend", "next.js", "react"] },
+  { href: "/mobile", label: "mobile app development", terms: ["mobile", "ios", "android", "react native"] },
+];
+
+function getRelevantServiceLinks(tags: string[]) {
+  const searchableText = tags.join(" ").toLowerCase();
+  const matches = SERVICE_LINKS.filter((service) =>
+    service.terms.some((term) => searchableText.includes(term))
+  );
+  return (matches.length > 0 ? matches : SERVICE_LINKS.slice(0, 2)).slice(0, 2);
+}
+
 // ─── Reading Progress Bar ──────────────────────────────────────────────────
 function ReadingProgress() {
   const [progress, setProgress] = useState(0);
@@ -223,6 +238,8 @@ export default function ArticleViewClient({
   const [mounted, setMounted] = useState(false);
   const articleRef = useRef<HTMLElement>(null);
   const [calculatedReadTime, setCalculatedReadTime] = useState(0);
+  const [views, setViews] = useState(post.views);
+  const relevantServices = getRelevantServiceLinks(post.tags);
 
   useEffect(() => {
     setMounted(true);
@@ -234,6 +251,22 @@ export default function ArticleViewClient({
       setCalculatedReadTime(Math.max(1, Math.ceil(totalWords / 200)));
     }
   }, []);
+
+  useEffect(() => {
+    const storageKey = `bridgehomies:blog-viewed:${post.slug}`;
+    const previouslyCounted = window.sessionStorage.getItem(storageKey) === "1";
+    if (!previouslyCounted) window.sessionStorage.setItem(storageKey, "1");
+
+    fetch(`/api/blog/views?slug=${encodeURIComponent(post.slug)}`, {
+      method: previouslyCounted ? "GET" : "POST",
+      cache: "no-store",
+    })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { views?: number } | null) => {
+        if (typeof data?.views === "number") setViews(data.views);
+      })
+      .catch(() => undefined);
+  }, [post.slug]);
 
   const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -553,7 +586,7 @@ export default function ArticleViewClient({
                 <div className="flex flex-col items-end">
                   <div className="flex items-baseline gap-1.5">
                     <span className="font-bebas text-2xl text-[#0a0a0a] leading-none tracking-tight">
-                      {formatViews(post.views)}
+                      {formatViews(views)}
                     </span>
                     <span className="font-mono text-[0.58rem] tracking-[0.12em] uppercase text-[#6b6560]">VIEWS</span>
                   </div>
@@ -615,6 +648,32 @@ export default function ArticleViewClient({
               >
                 {content}
               </article>
+
+              <section className="border-t border-[#d4cfc6] py-8" aria-label="Related Bridge Homies services">
+                <p className="font-mono text-[0.65rem] tracking-[0.18em] text-[#6b6560] uppercase mb-3">
+                  Build this with Bridge Homies
+                </p>
+                <p className="font-sans text-[0.9rem] leading-relaxed text-[#2a2520] mb-4">
+                  Need help applying these ideas to a real product? Explore our relevant delivery services.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  {relevantServices.map((service) => (
+                    <Link
+                      key={service.href}
+                      href={service.href}
+                      className="font-mono text-[0.68rem] tracking-[0.1em] uppercase border border-[#0a0a0a] px-3.5 py-2 text-[#0a0a0a] no-underline hover:bg-[#0a0a0a] hover:text-[#f5f1ea] transition-colors"
+                    >
+                      {service.label} →
+                    </Link>
+                  ))}
+                  <Link
+                    href="/case-studies/aierpify"
+                    className="font-mono text-[0.68rem] tracking-[0.1em] uppercase border border-[#d4cfc6] px-3.5 py-2 text-[#0a0a0a] no-underline hover:border-[#0a0a0a] transition-colors"
+                  >
+                    View a case study →
+                  </Link>
+                </div>
+              </section>
 
               {/* Tags */}
               <div
@@ -760,7 +819,7 @@ export default function ArticleViewClient({
                 </section>
               )}
 
-              {/* Contribute CTA — SEO: internal link to /blog/submit with keyword-rich anchor */}
+              {/* Contribute CTA */}
               <div className="mt-14 border border-[#d4cfc6] bg-[#f5f1ea] px-8 py-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
                   <p className="font-bebas text-[1.1rem] tracking-[0.06em] text-[#0a0a0a] mb-1">

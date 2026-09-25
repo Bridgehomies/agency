@@ -3,7 +3,7 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: "IHFP — Pigeon Loft, Tournament & Community Platform | Bridge Homies",
+  title: { absolute: "IHFP Community Platform | Bridge Homies" },
   description:
     "How Bridge Homies built IHFP, a role-based platform for pigeon lofts, clubs, tournaments, judging, real-time scoring, and community messaging.",
   alternates: { canonical: "https://bridgehomies.com/case-studies/ihfp" },

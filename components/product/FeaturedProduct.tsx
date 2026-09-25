@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import {
   Calculator,
   TrendingUp,
@@ -99,6 +100,56 @@ export default function FeaturedProduct() {
           >
             <div className="bg-white border-4 border-gray-900 relative rounded-none shadow-xl">
               <AierpifyPage />
+            </div>
+          </div>
+        </div>
+
+        {/* SECTION DIVIDER */}
+        <hr className="border-t border-gray-200 my-16 max-w-7xl mx-auto" />
+
+        {/* ========================================================================= */}
+        {/* PRODUCT 3: OPLEO */}
+        {/* ========================================================================= */}
+        <div className="mb-20 grid grid-cols-1 lg:grid-cols-12 gap-8 auto-rows-fr">
+          <div className="lg:col-span-4 relative bg-violet-50 border-4 border-violet-100 p-8 rounded-tr-[3rem] rounded-bl-[3rem] overflow-hidden flex flex-col justify-between min-h-[320px]">
+            <div className="absolute -right-6 -bottom-10 text-9xl font-black text-violet-100/70 select-none -rotate-12">
+              OP
+            </div>
+            <div className="relative z-10">
+              <div className="w-16 h-16 bg-violet-100 text-violet-700 rounded-none flex items-center justify-center mb-6">
+                <span className="text-2xl font-black">O</span>
+              </div>
+              <h3 className="text-3xl font-black text-gray-900 mb-4 tracking-tight">OPleo</h3>
+              <p className="text-gray-700 font-medium leading-relaxed">
+                A connected people-operations platform for attendance, payroll, leave, remote work, invoicing, and employee self-service.
+              </p>
+            </div>
+            <div className="relative z-10 mt-8 pt-4 border-t-2 border-violet-200">
+              <span className="text-violet-700 font-black tracking-widest uppercase text-sm">Status: Live</span>
+            </div>
+          </div>
+
+          <div className="lg:col-span-8 flex flex-col justify-center bg-white p-2">
+            <div className="inline-flex items-center w-max px-4 py-1.5 bg-violet-100 text-violet-700 rounded-none text-sm font-bold tracking-widest uppercase mb-8 border-l-4 border-violet-500">
+              <span className="w-2 h-2 rounded-full bg-violet-500 animate-pulse mr-3"></span>
+              Product Status: Live
+            </div>
+            <h2 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 tracking-tighter leading-[0.9] mb-6">
+              OPLEO. <br />
+              <span className="text-violet-600 text-4xl sm:text-5xl lg:text-6xl block mt-2 font-extrabold">PEOPLE OPERATIONS, CONNECTED.</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-xl font-medium leading-relaxed mb-10">
+              Replace fragmented spreadsheets and manual handoffs with a shared operational record across employee, HR, finance, and attendance workflows.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a href="https://www.opleo.dev/" target="_blank" rel="noopener noreferrer" className="group flex items-center gap-4 px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold text-lg rounded-none transition-all w-full sm:w-auto justify-center">
+                VISIT OPLEO
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </a>
+              <Link href="/case-studies/opleo" className="group flex items-center gap-4 px-8 py-4 bg-gray-900 hover:bg-black text-white font-bold text-lg rounded-none transition-all w-full sm:w-auto justify-center">
+                VIEW CASE STUDY
+                <ArrowRight className="w-6 h-6 group-hover:translate-x-2 transition-transform" />
+              </Link>
             </div>
           </div>
         </div>

@@ -9,7 +9,7 @@ export default function SleekCTA() {
   const closeModal = () => setActiveModal(null);
 
   return (
-    <section className="bg-[#0b0f19] py-24 sm:py-32 px-6 relative overflow-hidden font-sans antialiased">
+    <section className="bg-[#0b0f19] py-24 sm:py-32 px-6 relative overflow-hidden antialiased">
       {/* Subtle background glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-indigo-500/10 blur-[140px] rounded-full pointer-events-none" />
 

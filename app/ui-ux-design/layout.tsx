@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "UI/UX Design Services | Bridge Homies",
+  title: { absolute: "UI/UX Design Services | Bridge Homies" },
   description:
     "Bridge Homies designs SaaS, web, and enterprise product interfaces — UI/UX design, prototyping, wireframing, and design systems built to convert.",
   alternates: {

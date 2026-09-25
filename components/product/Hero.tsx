@@ -59,14 +59,15 @@ export default function Hero() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
-
+        .products-page,
         .hero-root {
-          font-family: 'DM Sans', sans-serif;
+          font-family: var(--font-plex-sans), sans-serif;
         }
 
         .hero-heading {
-          font-family: 'Syne', sans-serif;
+          font-family: var(--font-bebas), sans-serif;
+          font-weight: 400;
+          letter-spacing: 0.025em;
         }
 
         @keyframes fadeUp {

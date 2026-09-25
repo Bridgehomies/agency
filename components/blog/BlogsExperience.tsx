@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Clock, Eye, Search, PenLine } from "lucide-react";
 import type { BlogPost } from "@/lib/blog";
@@ -23,6 +23,21 @@ function formatDate(iso: string): string {
   try {
     return new Date(iso).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
   } catch { return iso; }
+}
+
+function LiveViewCount({ slug, initialViews }: { slug: string; initialViews: number }) {
+  const [views, setViews] = useState(initialViews);
+
+  useEffect(() => {
+    fetch(`/api/blog/views?slug=${encodeURIComponent(slug)}`, { cache: "no-store" })
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data: { views?: number } | null) => {
+        if (typeof data?.views === "number") setViews(data.views);
+      })
+      .catch(() => undefined);
+  }, [slug]);
+
+  return <>{formatViews(views)}</>;
 }
 
 export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
@@ -100,7 +115,7 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           <div className="mt-5 flex items-center justify-between border-t border-[#d4cfc6] pt-4">
             <div className="flex items-center gap-4 text-[0.65rem] text-[#6b6560]" style={{ fontFamily: F_MONO }}>
               <span className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" />{post.readTime}</span>
-              <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" />{formatViews(post.views)}</span>
+              <span className="flex items-center gap-1.5"><Eye className="h-3.5 w-3.5" /><LiveViewCount slug={post.slug} initialViews={post.views} /></span>
             </div>
             <span
               className="flex items-center gap-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-violet-500 transition group-hover:text-[#0a0a0a]"

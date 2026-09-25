@@ -12,7 +12,7 @@ import { Metadata } from "next";
 
 // ─── Metadata (Next.js App Router) — ✅ Only allowed in Server Components ───
 export const metadata: Metadata = {
-  title: "Video Editing & Graphic Design Agency | Bridge Homies",
+  title: { absolute: "Digital Strategy & Design | Bridge Homies" },
   description:
     "Bridge Homies is a full-service creative agency offering video editing, graphic design, brand identity, and social media management that grows your brand.",
   keywords:
@@ -688,4 +688,4 @@ export default function DesignPage() {
       <Footer />
     </main>
   );
-} 
+}
