@@ -18,6 +18,8 @@ import {
   Image as ImageIcon,
   Loader2,
   MessageSquare,
+  Landmark,
+  Receipt,
 } from "lucide-react";
 
 type GuestSubmission = {
@@ -39,6 +41,12 @@ type GuestSubmission = {
   faqText: string;
   coverImagePath: string;
   adminNotes?: string;
+  publishOption: "exchange" | "paid" | "";
+  exchangeUrl: string;
+  paidPlan: "advance" | "after_live" | "";
+  amountUsd: number;
+  paymentProofPath: string;
+  paymentVerified: boolean;
 };
 
 const STATUS_MAP = {
@@ -123,6 +131,14 @@ function SubmissionCard({
               <Tag className="h-3.5 w-3.5 text-amber-600" />
               {sub.category}
             </span>
+            <span className="flex items-center gap-1.5">
+              <Landmark className="h-3.5 w-3.5 text-amber-600" />
+              {sub.publishOption === "exchange"
+                ? "Link exchange ($0)"
+                : sub.publishOption === "paid"
+                ? `Paid — $${sub.amountUsd} (${sub.paidPlan === "advance" ? "advance" : "after live"})`
+                : "No plan selected"}
+            </span>
           </div>
         </div>
 
@@ -159,6 +175,47 @@ function SubmissionCard({
           <div>
             <p className="mb-1 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">Bio</p>
             <p className="text-sm leading-7 text-slate-700">{sub.bio}</p>
+          </div>
+
+          {/* Publishing / payment */}
+          <div className="rounded-xl border border-black/8 bg-white p-4">
+            <p className="mb-2 flex items-center gap-1.5 text-xs font-bold uppercase tracking-[0.18em] text-amber-700">
+              <Receipt className="h-3.5 w-3.5" />
+              Publishing option
+            </p>
+            {sub.publishOption === "exchange" ? (
+              <p className="text-sm text-slate-700">
+                Reciprocal link exchange added a link to us at{" "}
+                <a href={sub.exchangeUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 underline">
+                  {sub.exchangeUrl || "no URL provided"}
+                </a>
+                . Please verify the link is live before approving.
+              </p>
+            ) : sub.publishOption === "paid" ? (
+              <div className="space-y-2 text-sm text-slate-700">
+                <p>
+                  <strong>${sub.amountUsd}</strong> —{" "}
+                  {sub.paidPlan === "advance" ? "contributor claims to have paid in advance" : "due after the post goes live"}.
+                </p>
+                {sub.paidPlan === "advance" && (
+                  <p>
+                    Transfer proof:{" "}
+                    {sub.paymentProofPath ? (
+                      <a href={sub.paymentProofPath} target="_blank" rel="noopener noreferrer" className="font-semibold text-amber-700 underline">
+                        View attached proof
+                      </a>
+                    ) : (
+                      <span className="font-semibold text-red-600">Not attached — do not approve without verifying payment.</span>
+                    )}
+                  </p>
+                )}
+                <p className={sub.paymentVerified ? "font-semibold text-green-700" : "font-semibold text-amber-700"}>
+                  {sub.paymentVerified ? "Payment verified by admin" : "Payment not yet verified — confirm funds before publishing."}
+                </p>
+              </div>
+            ) : (
+              <p className="text-sm text-red-600">No publishing option was selected.</p>
+            )}
           </div>
 
           {/* Backlinks */}

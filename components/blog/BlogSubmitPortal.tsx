@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition, useRef } from "react";
+import { useState, useTransition, useRef, useEffect } from "react";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import {
@@ -16,12 +16,19 @@ import {
   FileText,
   Image as ImageIcon,
   ChevronRight,
+  Landmark,
+  ShieldCheck,
+  Upload,
+  Copy,
+  Check,
 } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
 
-type Step = 1 | 2 | 3 | 4;
+type Step = 1 | 2 | 3 | 4 | 5;
 type ContentFormat = "markdown" | "json";
+type PublishOption = "" | "exchange" | "paid";
+type PaidPlan = "" | "advance" | "after_live";
 
 type FormData = {
   name: string;
@@ -39,7 +46,15 @@ type FormData = {
   faqText: string;
   coverImageFile: File | null;
   coverImagePreview: string;
+  // ── Publishing / payment choice ──
+  publishOption: PublishOption;
+  exchangeUrl: string; // required when publishOption === "exchange"
+  paidPlan: PaidPlan; // required when publishOption === "paid"
+  paymentProofFile: File | null; // required when paidPlan === "advance"
+  paymentProofPreview: string;
 };
+
+const DRAFT_STORAGE_KEY = "bh_guest_post_draft_v1";
 
 const CATEGORIES = [
   "Custom Web Apps",
@@ -85,7 +100,7 @@ const WE_DONT = [
 const FAQ_ITEMS = [
   {
     q: "Is it free to write for Bridge Homies?",
-    a: "Reciprocal link exchanges are $0. New guest articles and link placements are $15 (or $12 on bulk/reseller orders of 5+). Payment is only due after your piece is verified live — pay after live.",
+    a: "Reciprocal link exchanges are $0. Paid placements are $10 if you pay in advance, or $12 if you'd rather pay after your piece is verified live.",
   },
   {
     q: "Do I get a dofollow backlink?",
@@ -372,7 +387,20 @@ const initialForm: FormData = {
   faqText: "",
   coverImageFile: null,
   coverImagePreview: "",
+  publishOption: "",
+  exchangeUrl: "",
+  paidPlan: "",
+  paymentProofFile: null,
+  paymentProofPreview: "",
 };
+
+// Fields that are safe (and small enough) to persist to localStorage as an
+// in-progress draft. File objects can't be serialized, so they're excluded
+// — a resumed draft asks the contributor to re-attach the image / proof.
+function serializableDraft(form: FormData) {
+  const { coverImageFile, paymentProofFile, coverImagePreview, paymentProofPreview, ...rest } = form;
+  return rest;
+}
 
 // ─── Step indicator ─────────────────────────────────────────────────────────
 // PERF FIX: this component used to inject its own <style> tag on every
@@ -589,7 +617,7 @@ function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v
     <div style={{ display: "grid", gap: "20px", gridTemplateColumns: "1fr 1fr" }}>
       <div style={{ gridColumn: "1/-1" }}>
         <div className="bh-notice bh-notice-gold">
-          <strong style={{ fontWeight: 700 }}>Step 1 of 4 Tell us about yourself</strong> Our editorial team reviews every submission personally. A complete profile with a real bio and role increases your chances of acceptance significantly.
+          <strong style={{ fontWeight: 700 }}>Step 1 of 5 Tell us about yourself</strong> Our editorial team reviews every submission personally. A complete profile with a real bio and role increases your chances of acceptance significantly.
         </div>
       </div>
       <Field label="Full Name" required>
@@ -847,9 +875,247 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
   );
 }
 
-function Step4({ form }: { form: FormData }) {
+// ─── Bank details (fetched on demand, never hardcoded client-side) ───────
+type BankDetails = {
+  accountName: string;
+  accountNumber: string;
+  routingNumber: string;
+  bankName: string;
+  bankAddress: string;
+  accountType: string;
+  bankCountry: string;
+};
+
+function BankDetailsCard({ amountLabel }: { amountLabel: string }) {
+  const [details, setDetails] = useState<BankDetails | null>(null);
+  const [loadError, setLoadError] = useState("");
+  const [copiedField, setCopiedField] = useState("");
+
+  useEffect(() => {
+    let cancelled = false;
+    fetch("/api/blog/payment-details", { cache: "no-store" })
+      .then((res) => { if (!res.ok) throw new Error("failed"); return res.json(); })
+      .then((data: BankDetails) => { if (!cancelled) setDetails(data); })
+      .catch(() => { if (!cancelled) setLoadError("Couldn't load transfer details. Please refresh or contact us."); });
+    return () => { cancelled = true; };
+  }, []);
+
+  function copy(field: string, value: string) {
+    navigator.clipboard?.writeText(value).then(() => {
+      setCopiedField(field);
+      setTimeout(() => setCopiedField(""), 1500);
+    });
+  }
+
+  const rows: { key: keyof BankDetails; label: string }[] = [
+    { key: "accountName", label: "Account Name" },
+    { key: "accountNumber", label: "Account Number" },
+    { key: "routingNumber", label: "Routing Number" },
+    { key: "bankName", label: "Bank" },
+    { key: "bankAddress", label: "Bank Address" },
+    { key: "accountType", label: "Account Type" },
+  ];
+
+  return (
+    <div className="bh-card" style={{ background: "#f5f1ea" }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
+        <ShieldCheck size={15} color="#2d8653" />
+        <p className="bh-section-label" style={{ margin: 0 }}>Bank transfer details — {amountLabel}</p>
+      </div>
+      {loadError && <p style={{ fontSize: 12.5, color: "#9b2c2a" }}>{loadError}</p>}
+      {!details && !loadError && (
+        <p style={{ fontSize: 12.5, color: "#a39d94", display: "flex", alignItems: "center", gap: 8 }}>
+          <Loader2 size={13} style={{ animation: "spin 1s linear infinite" }} /> Loading secure transfer details…
+        </p>
+      )}
+      {details && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          {rows.map(({ key, label }, i) => (
+            <div
+              key={key}
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                gap: 12,
+                padding: "10px 0",
+                borderBottom: i < rows.length - 1 ? "1px solid #d4cfc6" : "none",
+              }}
+            >
+              <div>
+                <p style={{ fontSize: 10, fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "#a39d94", margin: "0 0 2px" }}>{label}</p>
+                <p style={{ fontSize: 13.5, color: "#0a0a0a", margin: 0, fontFamily: key === "accountNumber" || key === "routingNumber" ? "var(--font-plex-mono), monospace" : "inherit" }}>{details[key]}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => copy(key, details[key])}
+                aria-label={`Copy ${label}`}
+                style={{ background: "transparent", border: "none", cursor: "pointer", color: copiedField === key ? "#2d8653" : "#a39d94", display: "flex", alignItems: "center", padding: 4, flexShrink: 0 }}
+              >
+                {copiedField === key ? <Check size={14} /> : <Copy size={14} />}
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+      <p style={{ fontSize: 11, color: "#a39d94", marginTop: 14, lineHeight: 1.6 }}>
+        These details are fetched securely and are never stored in your browser. Please double-check the account number before sending a transfer.
+      </p>
+    </div>
+  );
+}
+
+function Step4({ form, update }: { form: FormData; update: (k: keyof FormData, v: any) => void }) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  function handleProofFile(file: File | null) {
+    if (!file) return;
+    if (file.size > 8 * 1024 * 1024) { alert("File must be under 8 MB."); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => { update("paymentProofPreview", e.target?.result as string); update("paymentProofFile", file); };
+    reader.readAsDataURL(file);
+  }
+
+  const options: { id: PublishOption; title: string; price: string; desc: string }[] = [
+    { id: "exchange", title: "Reciprocal Link Exchange", price: "$0", desc: "You link to us from a live page on your site — we publish your guest post free." },
+    { id: "paid", title: "Paid Placement", price: "$10–$12", desc: "No link exchange needed. Pay a small placement fee instead." },
+  ];
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+      <div className="bh-notice bh-notice-gold">
+        <strong style={{ fontWeight: 700 }}>Choose how you'd like to publish.</strong> Pick a reciprocal link exchange (free) or a paid placement.
+      </div>
+
+      {/* ── Publish option cards ── */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+        {options.map((opt) => {
+          const active = form.publishOption === opt.id;
+          return (
+            <button
+              key={opt.id}
+              type="button"
+              onClick={() => update("publishOption", opt.id)}
+              style={{
+                textAlign: "left",
+                cursor: "pointer",
+                background: active ? "#fff" : "#f5f1ea",
+                border: active ? "2px solid #7c3aed" : "1px solid #d4cfc6",
+                borderRadius: 0,
+                padding: "18px 20px",
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 8 }}>
+                <span style={{ fontSize: 13.5, fontWeight: 700, color: "#0a0a0a" }}>{opt.title}</span>
+                <span style={{ fontSize: 12, fontWeight: 700, color: "#7c3aed", fontFamily: "var(--font-plex-mono), monospace" }}>{opt.price}</span>
+              </div>
+              <p style={{ fontSize: 12, color: "#6b6560", margin: 0, lineHeight: 1.6 }}>{opt.desc}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ── Reciprocal link exchange ── */}
+      {form.publishOption === "exchange" && (
+        <div className="bh-card">
+          <p className="bh-section-label">Where did you add our link?</p>
+          <Field label="URL of the page where you added our company link" required hint="Please add a link to our company on a live page before submitting.">
+            <div style={{ position: "relative" }}>
+              <Globe size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
+              <input
+                type="url"
+                className={inputCls}
+                style={{ paddingLeft: 36 }}
+                placeholder="https://yoursite.com/page-with-our-link"
+                value={form.exchangeUrl}
+                onChange={(e) => update("exchangeUrl", e.target.value)}
+                required
+              />
+            </div>
+          </Field>
+        </div>
+      )}
+
+      {/* ── Paid placement ── */}
+      {form.publishOption === "paid" && (
+        <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+            {[
+              { id: "advance" as PaidPlan, title: "Pay in Advance", price: "$10", desc: "Send payment now and attach your transfer proof before submitting." },
+              { id: "after_live" as PaidPlan, title: "Pay After Live", price: "$12", desc: "Submit now, pay once your article is verified live." },
+            ].map((plan) => {
+              const active = form.paidPlan === plan.id;
+              return (
+                <button
+                  key={plan.id}
+                  type="button"
+                  onClick={() => update("paidPlan", plan.id)}
+                  style={{
+                    textAlign: "left",
+                    cursor: "pointer",
+                    background: active ? "#fff" : "#f5f1ea",
+                    border: active ? "2px solid #c8401a" : "1px solid #d4cfc6",
+                    borderRadius: 0,
+                    padding: "16px 18px",
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "#0a0a0a" }}>{plan.title}</span>
+                    <span style={{ fontSize: 13, fontWeight: 700, color: "#c8401a", fontFamily: "var(--font-plex-mono), monospace" }}>{plan.price}</span>
+                  </div>
+                  <p style={{ fontSize: 11.5, color: "#6b6560", margin: 0, lineHeight: 1.6 }}>{plan.desc}</p>
+                </button>
+              );
+            })}
+          </div>
+
+          {form.paidPlan && (
+            <BankDetailsCard amountLabel={form.paidPlan === "advance" ? "$10, pay in advance" : "$12, pay after your post is live"} />
+          )}
+
+          {form.paidPlan === "advance" && (
+            <div className="bh-card">
+              <p className="bh-section-label" style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                <Landmark size={13} /> Money transfer proof <span style={{ color: "#c8401a" }}>*</span>
+              </p>
+              <p style={{ fontSize: 12, color: "#6b6560", margin: "0 0 12px", lineHeight: 1.6 }}>
+                Please send your $10 transfer first, then attach a screenshot or receipt below. You can't submit your post until this is attached.
+              </p>
+              <input ref={fileInputRef} type="file" accept="image/*,.pdf" style={{ display: "none" }} aria-label="Upload payment proof" onChange={(e) => handleProofFile(e.target.files?.[0] ?? null)} />
+              {form.paymentProofFile ? (
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, border: "1px solid #d4cfc6", background: "#f0faf4", padding: "12px 16px" }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 10, minWidth: 0 }}>
+                    <CheckCircle size={16} color="#2d8653" style={{ flexShrink: 0 }} />
+                    <span style={{ fontSize: 12.5, color: "#0a0a0a", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{form.paymentProofFile.name}</span>
+                  </div>
+                  <button type="button" onClick={() => { update("paymentProofFile", null); update("paymentProofPreview", ""); }} style={{ background: "transparent", border: "none", color: "#9b2c2a", cursor: "pointer", fontSize: 11.5, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", flexShrink: 0 }}>Remove</button>
+                </div>
+              ) : (
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  style={{ border: "2px dashed #d4cfc6", background: "#fff", padding: "24px", display: "flex", alignItems: "center", justifyContent: "center", gap: 10, cursor: "pointer", textAlign: "center" }}
+                >
+                  <Upload size={16} color="#c8401a" />
+                  <span style={{ fontSize: 12.5, color: "#6b6560" }}>Attach transfer proof (image or PDF, max 8 MB)</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Step5({ form }: { form: FormData }) {
   const filled = form.backlinks.filter(bl => bl.url.trim());
   const wordCount = getWordCount(form.content, form.contentFormat);
+  const paymentSummary =
+    form.publishOption === "exchange"
+      ? "Reciprocal link exchange (free)"
+      : form.publishOption === "paid"
+      ? form.paidPlan === "advance" ? "Paid — $10, pay in advance" : form.paidPlan === "after_live" ? "Paid — $12, pay after live" : "Paid — plan not selected"
+      : "Not selected";
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
@@ -892,6 +1158,18 @@ function Step4({ form }: { form: FormData }) {
           <div style={{ gridColumn: "1/-1" }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Excerpt </span>{form.excerpt}</div>
         </div>
       </div>
+      <div className="bh-card">
+        <p className="bh-section-label">Publishing option</p>
+        <div style={{ fontSize: 13, color: "#0a0a0a" }}>
+          <span style={{ fontWeight: 600, color: "#6b6560" }}>Plan </span>{paymentSummary}
+          {form.publishOption === "exchange" && form.exchangeUrl && (
+            <div style={{ marginTop: 6 }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Link exchange URL </span>{form.exchangeUrl}</div>
+          )}
+          {form.publishOption === "paid" && form.paidPlan === "advance" && (
+            <div style={{ marginTop: 6 }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Transfer proof </span>{form.paymentProofFile?.name || "Not attached"}</div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -931,6 +1209,57 @@ export default function BlogSubmitPortal() {
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState("");
   const [isPending, startTransition] = useTransition();
+  const [draftBanner, setDraftBanner] = useState<"none" | "offer" | "dismissed">("none");
+
+  // ── Draft persistence: resume an abandoned submission ──────────────────
+  // On mount, check for a previously saved in-progress draft and offer to
+  // resume it, so leaving mid-way doesn't lose the contributor's work.
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(DRAFT_STORAGE_KEY);
+      if (raw) setDraftBanner("offer");
+    } catch {
+      // localStorage unavailable (private browsing, etc.) — skip silently.
+    }
+  }, []);
+
+  // Autosave the in-progress form (minus files) to localStorage on every
+  // change, so if the person closes the tab or navigates away mid-form,
+  // their progress is kept as a draft instead of lost.
+  useEffect(() => {
+    if (submitted || draftBanner === "offer") return;
+    try {
+      window.localStorage.setItem(
+        DRAFT_STORAGE_KEY,
+        JSON.stringify({ step, form: serializableDraft(form), savedAt: Date.now() })
+      );
+    } catch {
+      // Ignore quota/availability errors — autosave is best-effort.
+    }
+  }, [form, step, submitted, draftBanner]);
+
+  function resumeDraft() {
+    try {
+      const raw = window.localStorage.getItem(DRAFT_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        setForm(prev => ({ ...prev, ...parsed.form }));
+        setStep((parsed.step ?? 1) as Step);
+      }
+    } catch {
+      // Corrupt draft — just start fresh.
+    }
+    setDraftBanner("dismissed");
+  }
+
+  function discardDraft() {
+    try { window.localStorage.removeItem(DRAFT_STORAGE_KEY); } catch {}
+    setDraftBanner("dismissed");
+  }
+
+  function clearDraft() {
+    try { window.localStorage.removeItem(DRAFT_STORAGE_KEY); } catch {}
+  }
 
   function update(key: keyof FormData, val: any) {
     setForm(prev => ({ ...prev, [key]: val }));
@@ -950,6 +1279,18 @@ export default function BlogSubmitPortal() {
       if (!form.content.trim() || form.content.trim() === templateTrim) return "Please write your article content.";
       if (!form.coverImageFile) return "Please upload a featured image.";
     }
+    if (s === 4) {
+      if (!form.publishOption) return "Please choose how you'd like to publish — link exchange or paid placement.";
+      if (form.publishOption === "exchange" && !form.exchangeUrl.trim()) {
+        return "Please share the URL of the page where you added our company link.";
+      }
+      if (form.publishOption === "paid") {
+        if (!form.paidPlan) return "Please choose a payment plan.";
+        if (form.paidPlan === "advance" && !form.paymentProofFile) {
+          return "Please attach your money transfer proof before continuing you can't submit an advance-paid post without it.";
+        }
+      }
+    }
     return "";
   }
 
@@ -957,7 +1298,7 @@ export default function BlogSubmitPortal() {
     const err = validate(step);
     if (err) { setError(err); return; }
     setError("");
-    setStep(prev => Math.min(4, prev + 1) as Step);
+    setStep(prev => Math.min(5, prev + 1) as Step);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
@@ -968,8 +1309,8 @@ export default function BlogSubmitPortal() {
   }
 
   async function handleSubmit() {
-    const err = validate(3);
-    if (err) { setError(err); return; }
+    const stepErr = validate(3) || validate(4);
+    if (stepErr) { setError(stepErr); return; }
     setError("");
     startTransition(async () => {
       try {
@@ -987,10 +1328,15 @@ export default function BlogSubmitPortal() {
         data.append("content", form.content);
         data.append("faqText", form.faqText);
         if (form.coverImageFile) data.append("coverImage", form.coverImageFile);
+        data.append("publishOption", form.publishOption);
+        data.append("paidPlan", form.paidPlan);
+        data.append("exchangeUrl", form.exchangeUrl);
+        if (form.paymentProofFile) data.append("paymentProof", form.paymentProofFile);
 
         const res = await fetch("/api/blog/submit", { method: "POST", body: data });
         const result = await res.json();
         if (!res.ok) { setError(result.error || "Something went wrong. Please try again."); return; }
+        clearDraft();
         setSubmitted(true);
         window.scrollTo({ top: 0, behavior: "smooth" });
       } catch {
@@ -999,7 +1345,7 @@ export default function BlogSubmitPortal() {
     });
   }
 
-  const STEP_LABELS = ["About You", "Your Links", "The Article", "Review"];
+  const STEP_LABELS = ["About You", "Your Links", "The Article", "Payment", "Review"];
 
   if (submitted) return (
     <div className="bh-root" style={{ minHeight: "100vh", background: "#f5f1ea", padding: "160px 24px 80px" }}>
@@ -1068,7 +1414,7 @@ export default function BlogSubmitPortal() {
 
           <p style={{ fontSize: "1.02rem", lineHeight: 1.85, color: "#6b6560", fontFamily: "var(--font-baskerville), serif", fontStyle: "italic", maxWidth: 560, margin: "0 0 16px" }}>
             We publish guest posts from developers, architects, product managers, and founders who build real software for real businesses.
-            Submit an article and reach thousands of readers plus earn up to <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>1–2 dofollow backlinks</strong> and a <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>permanent author profile</strong>. Standard placements are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$15</strong> ($12 on bulk orders of 5+), pay after your piece is live — reciprocal link exchanges are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$0</strong>.
+            Submit an article and reach thousands of readers plus earn up to <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>1–2 dofollow backlinks</strong> and a <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>permanent author profile</strong>. Paid placements are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$10</strong> paid in advance or <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$12</strong> paid after your piece is live — reciprocal link exchanges are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$0</strong>.
           </p>
           <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 560, margin: "0 0 36px" }}>
             We cover <strong style={{ color: "#0a0a0a" }}>custom web apps</strong>, <strong style={{ color: "#0a0a0a" }}>admin dashboards</strong>, <strong style={{ color: "#0a0a0a" }}>automation tools</strong>, <strong style={{ color: "#0a0a0a" }}>AI integrations</strong>, <strong style={{ color: "#0a0a0a" }}>SaaS platforms</strong>, <strong style={{ color: "#0a0a0a" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
@@ -1087,13 +1433,13 @@ export default function BlogSubmitPortal() {
           {/* Trust badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {[
-              "$15 per placement ($0 link exchange)",
+              "$10–$12 per placement ($0 link exchange)",
               "Up to 1–2 dofollow backlinks",
               "Editorial review in 2–3 days",
               "Permanent author profile",
               "1,000+ words minimum",
               "No AI filler accepted",
-              "Pay after live",
+              "Pay in advance or after live",
             ].map(tag => (
               <span key={tag} style={{ display: "inline-flex", alignItems: "center", gap: 5, background: "#fff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "5px 12px", fontSize: "0.62rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.04em", color: "#6b6560", fontFamily: "var(--font-plex-mono), monospace" }}>
                 <CheckCircle size={11} color="#7c3aed" />
@@ -1103,29 +1449,41 @@ export default function BlogSubmitPortal() {
           </div>
         </header>
 
+        {/* ── Draft resume banner ── */}
+        {draftBanner === "offer" && (
+          <div className="bh-notice bh-notice-blue" style={{ marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, flexWrap: "wrap" }}>
+            <span><strong style={{ fontWeight: 700 }}>You have an unfinished guest post in progress.</strong> Pick up where you left off?</span>
+            <div style={{ display: "flex", gap: 10, flexShrink: 0 }}>
+              <button type="button" onClick={resumeDraft} className="bh-btn-primary" style={{ padding: "8px 16px" }}>Resume draft</button>
+              <button type="button" onClick={discardDraft} className="bh-btn-ghost" style={{ padding: "8px 16px" }}>Start fresh</button>
+            </div>
+          </div>
+        )}
+
         {/* ── Step indicator ── */}
-        <StepIndicator step={step} total={4} labels={STEP_LABELS} />
+        <StepIndicator step={step} total={5} labels={STEP_LABELS} />
 
         {/* ── Form card ── */}
         <section aria-label="Guest post submission form">
           <div style={{ background: "#fff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "36px 40px" }}>
             <div style={{ borderBottom: "1px solid #d4cfc6", paddingBottom: 20, marginBottom: 28 }}>
               <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#7c3aed", margin: "0 0 6px", fontFamily: "var(--font-plex-mono), monospace" }}>
-                Step {step} of 4
+                Step {step} of 5
               </p>
               {/*
                 H2 inside the form secondary heading, not competing with H1.
                 Uses "write for us" adjacent copy at step 3 naturally.
               */}
               <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "2rem", color: "#0a0a0a", margin: 0 }}>
-                {["Tell us about yourself", "Add your dofollow backlinks", "Write your article", "Review & submit your guest post"][step - 1]}
+                {["Tell us about yourself", "Add your dofollow backlinks", "Write your article", "How would you like to publish?", "Review & submit your guest post"][step - 1]}
               </h2>
             </div>
 
             {step === 1 && <Step1 form={form} update={update} />}
             {step === 2 && <Step2 form={form} update={update} />}
             {step === 3 && <Step3 form={form} update={update} />}
-            {step === 4 && <Step4 form={form} />}
+            {step === 4 && <Step4 form={form} update={update} />}
+            {step === 5 && <Step5 form={form} />}
 
             {error && (
               <div className="bh-notice bh-notice-red" style={{ marginTop: 20, display: "flex", alignItems: "flex-start", gap: 10 }} role="alert">
@@ -1138,7 +1496,7 @@ export default function BlogSubmitPortal() {
               <button type="button" onClick={prevStep} className="bh-btn-ghost" style={{ visibility: step === 1 ? "hidden" : "visible" }}>
                 Back
               </button>
-              {step < 4 ? (
+              {step < 5 ? (
                 <button type="button" onClick={nextStep} className="bh-btn-primary">
                   Continue <ChevronRight size={14} />
                 </button>

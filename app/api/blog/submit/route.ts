@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { put } from "@vercel/blob";
 import { kv } from "@vercel/kv";
 import { sendSubmissionNotification } from "@/lib/email";
+import { resolveAmountUsd } from "@/lib/payment-info";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -25,6 +26,13 @@ export type GuestSubmission = {
   faqText: string;
   coverImagePath: string;
   adminNotes?: string;
+  // ── Publishing / payment choice ──
+  publishOption: "exchange" | "paid" | "";
+  exchangeUrl: string;
+  paidPlan: "advance" | "after_live" | "";
+  amountUsd: number;
+  paymentProofPath: string;
+  paymentVerified: boolean;
 };
 
 const KV_KEY = "blog:submissions";
@@ -74,8 +82,30 @@ export async function POST(req: NextRequest) {
     const faqText     = formData.get("faqText")?.toString() ?? "";
     const imageFile   = formData.get("coverImage") as File | null;
 
+    const publishOption = (formData.get("publishOption")?.toString() ?? "") as "exchange" | "paid" | "";
+    const paidPlan       = (formData.get("paidPlan")?.toString() ?? "") as "advance" | "after_live" | "";
+    const exchangeUrl    = formData.get("exchangeUrl")?.toString() ?? "";
+    const proofFile      = formData.get("paymentProof") as File | null;
+
     if (!name || !email || !title || !excerpt || !content) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
+    }
+
+    // ── Validate publishing / payment choice server-side ───────────────────
+    // (The client already enforces this, but never trust the client alone.)
+    if (publishOption !== "exchange" && publishOption !== "paid") {
+      return NextResponse.json({ error: "Please choose a publishing option." }, { status: 400 });
+    }
+    if (publishOption === "exchange" && !exchangeUrl.trim()) {
+      return NextResponse.json({ error: "Please provide the URL where you added our link." }, { status: 400 });
+    }
+    if (publishOption === "paid") {
+      if (paidPlan !== "advance" && paidPlan !== "after_live") {
+        return NextResponse.json({ error: "Please choose a payment plan." }, { status: 400 });
+      }
+      if (paidPlan === "advance" && (!proofFile || proofFile.size === 0)) {
+        return NextResponse.json({ error: "Please attach your money transfer proof before submitting." }, { status: 400 });
+      }
     }
 
     // ── Upload cover image to Vercel Blob ─────────────────────────────────
@@ -91,6 +121,21 @@ export async function POST(req: NextRequest) {
       });
 
       coverImagePath = blob.url;
+    }
+
+    // ── Upload payment proof (private-ish — only linked from the admin panel) ──
+    let paymentProofPath = "";
+    if (proofFile && proofFile.size > 0) {
+      const ext      = proofFile.name.split(".").pop() ?? "jpg";
+      const safeName = `payment-proofs/${slugify(title)}-${Date.now()}.${ext}`;
+      const buffer   = Buffer.from(await proofFile.arrayBuffer());
+
+      const blob = await put(safeName, buffer, {
+        access: "public",
+        contentType: proofFile.type || `image/${ext}`,
+      });
+
+      paymentProofPath = blob.url;
     }
 
     // ── Build submission record ────────────────────────────────────────────
@@ -113,6 +158,14 @@ export async function POST(req: NextRequest) {
       content,
       faqText,
       coverImagePath,
+      publishOption,
+      exchangeUrl,
+      paidPlan,
+      amountUsd: resolveAmountUsd(publishOption, paidPlan),
+      paymentProofPath,
+      // "Pay in advance" comes with proof attached, but an admin still
+      // confirms the funds actually arrived before marking it verified.
+      paymentVerified: false,
     };
 
     // ── Persist to Vercel KV ──────────────────────────────────────────────
