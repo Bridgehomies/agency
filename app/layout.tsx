@@ -161,7 +161,7 @@ export default function RootLayout({
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "ML Model Engineering" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps Consulting Services", url: `${SITE_URL}/mlops-consulting-services` } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Application Development" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Product Development" } },

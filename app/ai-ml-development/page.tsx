@@ -637,9 +637,14 @@ export default function AiMlPage() {
               <p className="text-gray-300 text-lg leading-relaxed">
                 MLOps consulting makes machine-learning systems repeatable and operable after launch. We help teams version data and models, build controlled release pipelines, monitor quality and cost, and define the rollback and ownership process before a model becomes business-critical.
               </p>
-              <Link href="/blog/what-is-mlops-consulting" className="mt-9 inline-flex items-center gap-2 font-bold text-white border-b border-purple-300 pb-1 hover:text-purple-300 transition-colors">
-                Read the practical MLOps consulting guide <span aria-hidden="true">↗</span>
-              </Link>
+              <div className="mt-9 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-5 items-start">
+                <Link href="/mlops-consulting-services" className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-3 font-bold hover:bg-purple-300 transition-colors">
+                  Explore MLOps consulting services <span aria-hidden="true">↗</span>
+                </Link>
+                <Link href="/blog/what-is-mlops-consulting" className="inline-flex items-center gap-2 font-bold text-white border-b border-purple-300 pb-1 hover:text-purple-300 transition-colors sm:mt-3 lg:mt-0 xl:mt-3">
+                  Read the practical MLOps guide <span aria-hidden="true">↗</span>
+                </Link>
+              </div>
             </div>
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-gray-700 border border-gray-700">

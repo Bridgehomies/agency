@@ -30,6 +30,7 @@ const NAV_RIGHT = [
   { label: "UI/UX", href: "/ui-ux-design" },
   { label: "Software", href: "/software" },
   { label: "AI & ML engineering services", href: "/ai-ml-development" },
+  { label: "MLOps Consulting", href: "/mlops-consulting-services" },
   { label: "Design", href: "/design" },
 ];
 

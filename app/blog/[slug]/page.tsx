@@ -96,7 +96,7 @@ export async function generateMetadata({
 
   if (!blog) return { title: "Post Not Found | Bridge Homies" };
 
-  const siteUrl = "https://bridgehomies.com";
+  const siteUrl = "https://www.bridgehomies.com";
   const url = `${siteUrl}/blog/${blog.slug}`;
   const title = blogSeoTitle(blog.seoTitle || blog.title);
   const description = blogSeoDescription(blog.seoDescription || blog.excerpt);
@@ -193,7 +193,7 @@ export default async function BlogPostPage({
     description: blog.seoDescription || blog.excerpt,
     // schema.org validators require Article/BlogPosting `image` to be present —
     // fall back to the site OG image instead of omitting the field entirely.
-    image: blog.coverImage || "https://bridgehomies.com/og-image.png",
+    image: blog.coverImage || "https://www.bridgehomies.com/og-image.png",
     datePublished: blog.date,
     dateModified: blog.date,
     author: {
@@ -204,20 +204,20 @@ export default async function BlogPostPage({
     publisher: {
       "@type": "Organization",
       name: "Bridge Homies",
-      url: "https://bridgehomies.com",
+      url: "https://www.bridgehomies.com",
       // Required by Google's Article rich-result validator — was missing,
       // which is what's been failing schema validation on every blog post.
       logo: {
         "@type": "ImageObject",
-        url: "https://bridgehomies.com/Favicon.png",
+        url: "https://www.bridgehomies.com/Favicon.png",
       },
     },
-    url: `https://bridgehomies.com/blog/${blog.slug}`,
+    url: `https://www.bridgehomies.com/blog/${blog.slug}`,
     keywords: blog.tags.join(", "),
     articleSection: blog.category,
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://bridgehomies.com/blog/${blog.slug}`,
+      "@id": `https://www.bridgehomies.com/blog/${blog.slug}`,
     },
   };
 
