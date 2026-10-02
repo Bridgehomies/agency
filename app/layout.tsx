@@ -145,7 +145,7 @@ export default function RootLayout({
                   priceRange: "$$",
                   address: {
                     "@type": "PostalAddress",
-                    streetAddress: "167/A Block G1, Johar Town",
+                    streetAddress: "164, Block G-1, Phase-1, Johar Town",
                     addressLocality: "Lahore",
                     addressRegion: "Punjab",
                     postalCode: "54782",

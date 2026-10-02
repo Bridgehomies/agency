@@ -80,6 +80,26 @@ module.exports = {
 
   robotsTxtOptions: {
     policies: [
+      // These are the search crawlers that power citation surfaces. They are
+      // declared separately so an upstream robots rule cannot accidentally
+      // obscure the site's intended AI-search access policy. Training bots
+      // remain governed by the default policy and are deliberately not used
+      // as a proxy for search citability.
+      {
+        userAgent: "OAI-SearchBot",
+        allow: "/",
+        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+      },
+      {
+        userAgent: "Claude-SearchBot",
+        allow: "/",
+        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+      },
+      {
+        userAgent: "PerplexityBot",
+        allow: "/",
+        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+      },
       {
         userAgent: "*",
         allow: "/",

@@ -552,7 +552,7 @@ export default function HeroSectionSpatial() {
           style={{ y: statsY, willChange: "transform" }}
         >
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
-            We bridge the gap between <span className="text-primary italic">theory</span> and <span className="text-primary italic">scale.</span>
+            AI/ML engineering and custom software, built for <span className="text-primary italic">scale.</span>
           </h1>
           <Button
             size="lg"
