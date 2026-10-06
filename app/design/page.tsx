@@ -17,12 +17,12 @@ export const metadata: Metadata = {
     "Bridge Homies is a full-service creative agency offering video editing, graphic design, brand identity, and social media management that grows your brand.",
   keywords:
     "video editing services, graphic design agency, social media management, brand identity design, content creation agency, reel editing service, motion graphics, Instagram reels editor, YouTube video editing, TikTok content creation, viral content creation, logo design agency, social media marketing agency, content strategy agency",
-  alternates: { canonical: "https://bridgehomies.com/design" },
+  alternates: { canonical: "https://www.bridgehomies.com/design" },
   openGraph: {
     title: "Video Editing & Graphic Design Agency | Bridge Homies",
     description:
       "Professional video editing, graphic design, social media management, and brand identity services. We help brands dominate every platform.",
-    url: "https://bridgehomies.com/design",
+    url: "https://www.bridgehomies.com/design",
     type: "website",
     images: [
       {
@@ -47,25 +47,25 @@ const schema = {
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://bridgehomies.com/design/#webpage",
-      url: "https://bridgehomies.com/design",
+      "@id": "https://www.bridgehomies.com/design/#webpage",
+      url: "https://www.bridgehomies.com/design",
       name: "Video Editing, Graphic Design & Social Media Management | Bridge Homies",
       description:
         "Bridge Homies is a full-service creative agency specialising in video editing, graphic design, brand identity, and social media management for brands that want to dominate every platform.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Creative Design & Video Editing", item: "https://bridgehomies.com/design" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+          { "@type": "ListItem", position: 2, name: "Creative Design & Video Editing", item: "https://www.bridgehomies.com/design" },
         ],
       },
     },
     {
       "@type": "ProfessionalService",
-      "@id": "https://bridgehomies.com/#organization",
+      "@id": "https://www.bridgehomies.com/#organization",
       name: "Bridge Homies",
-      url: "https://bridgehomies.com",
-      logo: "https://bridgehomies.com/logo.png",
+      url: "https://www.bridgehomies.com",
+      logo: "https://www.bridgehomies.com/Favicon.png",
       sameAs: [
         "https://www.instagram.com/bridgehomies",
         "https://www.linkedin.com/company/bridgehomies",
@@ -73,9 +73,9 @@ const schema = {
     },
     {
       "@type": "Service",
-      "@id": "https://bridgehomies.com/design/#service-video",
+      "@id": "https://www.bridgehomies.com/design/#service-video",
       name: "Professional Video Editing Services",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
       description:
         "Professional video editing for YouTube, Instagram Reels, TikTok, and brand promos. Motion graphics, colour grading, and scroll-stopping cuts.",
       serviceType: "Video Editing",
@@ -83,9 +83,9 @@ const schema = {
     },
     {
       "@type": "Service",
-      "@id": "https://bridgehomies.com/design/#service-graphic",
+      "@id": "https://www.bridgehomies.com/design/#service-graphic",
       name: "Graphic Design & Brand Identity",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
       description:
         "Full-service graphic design including logo design, brand identity systems, social media templates, and visual communication.",
       serviceType: "Graphic Design",
@@ -93,9 +93,9 @@ const schema = {
     },
     {
       "@type": "Service",
-      "@id": "https://bridgehomies.com/design/#service-social",
+      "@id": "https://www.bridgehomies.com/design/#service-social",
       name: "Social Media Management & Content Creation",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
       description:
         "Done-for-you social media management covering content strategy, daily posting, analytics, and audience growth across Instagram, TikTok, LinkedIn, and YouTube.",
       serviceType: "Social Media Management",
@@ -103,7 +103,7 @@ const schema = {
     },
     {
       "@type": "FAQPage",
-      "@id": "https://bridgehomies.com/design/#faq",
+      "@id": "https://www.bridgehomies.com/design/#faq",
       mainEntity: [
         {
           "@type": "Question",

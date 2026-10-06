@@ -31,6 +31,14 @@ const schema = {
 };
 
 export const metadata = {
+  alternates: { canonical: "/software" },
+  openGraph: {
+    title: "Custom Software Development | Bridge Homies",
+    description: "Build SaaS platforms, internal tools, and business integrations with our software agency in Lahore. Discuss your project with Bridge Homies.",
+    url: "/software",
+    type: "website",
+    images: ["/og-image.png"],
+  },
   title: { absolute: "Custom Software Development | Bridge Homies" },
   description:
     "Custom software development for startups and enterprises: SaaS platforms, AI integration, and scalable business systems built by Bridge Homies in Lahore.",
@@ -54,9 +62,9 @@ export default function SoftwarePage() {
                 <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Premium Software House</span>
               </div>
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
-                Engineer <br />
+                Custom Software <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
-                  The Future.
+                  Development.
                 </span>
               </h1>
             </div>
@@ -67,7 +75,7 @@ export default function SoftwarePage() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#contact"
+                  href="/contact"
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600"
                 >
                   <span className="relative z-10 flex items-center gap-2">

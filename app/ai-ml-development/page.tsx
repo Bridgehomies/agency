@@ -12,7 +12,7 @@ import StatsCounter from "@/components/StatsCounter";
 // query (197 impressions) that was previously buried mid-page with no title/H1 weight.
 
 export const metadata: Metadata = {
-  title: { absolute: "ML Model Engineering | Bridge Homies" },
+  title: { absolute: "ML Model Engineering Services | Bridge Homies" },
 
   description:
     "Bridge Homies delivers ML model engineering, RAG pipeline development, LLM integration, and MLOps for startups and enterprises.",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-ai-ml.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "ML Model Engineering Services Bridge Homies",
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "ML Model Engineering Services | Bridge Homies",
     description:
       "ML model engineering, RAG pipelines, LLM integration and MLOps for startups and enterprises.",
-    images: ["/og-ai-ml.jpg"],
+    images: ["/og-image.png"],
   },
 
   robots: {

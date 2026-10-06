@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "Real feedback from clients who've worked with Bridge Homies on web, mobile, AI/ML, and SaaS projects — no cherry-picking, just honest reviews.",
   alternates: {
-    canonical: "https://bridgehomies.com/testimonials",
+    canonical: "https://www.bridgehomies.com/testimonials",
   },
   openGraph: {
     title: "Client Testimonials | Bridge Homies",
     description:
       "Real feedback from clients who've worked with Bridge Homies on web, mobile, AI/ML, and SaaS projects — no cherry-picking, just honest reviews.",
-    url: "https://bridgehomies.com/testimonials",
+    url: "https://www.bridgehomies.com/testimonials",
     siteName: "Bridge Homies",
     type: "website",
     images: [

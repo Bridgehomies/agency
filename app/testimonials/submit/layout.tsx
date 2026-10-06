@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "Worked with Bridge Homies? Share your experience — your feedback helps us improve and helps other businesses know what to expect.",
   alternates: {
-    canonical: "https://bridgehomies.com/testimonials/submit",
+    canonical: "https://www.bridgehomies.com/testimonials/submit",
   },
   openGraph: {
     title: "Share Your Experience | Bridge Homies",
     description:
       "Worked with Bridge Homies? Share your experience — your feedback helps us improve and helps other businesses know what to expect.",
-    url: "https://bridgehomies.com/testimonials/submit",
+    url: "https://www.bridgehomies.com/testimonials/submit",
     siteName: "Bridge Homies",
     type: "website",
     images: [

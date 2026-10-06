@@ -6,24 +6,24 @@ export const metadata: Metadata = {
   description:
     "Explore the software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
   alternates: {
-    canonical: "https://bridgehomies.com/products",
+    canonical: "https://www.bridgehomies.com/products",
   },
 }
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  "@id": "https://bridgehomies.com/products/#page",
+  "@id": "https://www.bridgehomies.com/products/#page",
   name: "Our Products",
-  url: "https://bridgehomies.com/products",
+  url: "https://www.bridgehomies.com/products",
   description:
     "Software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
-  publisher: { "@id": "https://bridgehomies.com/#organization" },
+  publisher: { "@id": "https://www.bridgehomies.com/#organization" },
   breadcrumb: {
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-      { "@type": "ListItem", position: 2, name: "Products", item: "https://bridgehomies.com/products" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Products", item: "https://www.bridgehomies.com/products" },
     ],
   },
 }

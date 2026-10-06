@@ -7,17 +7,23 @@ import Link from "next/link";
 
 const navLinks = [
   { num: "01", name: "Home", href: "/" },
-  { num: "02", name: "Services", href: "#services" },
-  { num: "03", name: "Work", href: "#work" },
-  { num: "04", name: "Team", href: "#team" },
+  { num: "02", name: "Services", href: "/#services", children: [
+    { name: "Custom Software Development", href: "/software" },
+    { name: "Web Development", href: "/webdev" },
+    { name: "Mobile App Development", href: "/mobile" },
+    { name: "AI & ML Engineering", href: "/ai-ml-development" },
+    { name: "MLOps Consulting", href: "/mlops-consulting-services" },
+    { name: "UI/UX Design", href: "/ui-ux-design" },
+  ] },
+  { num: "03", name: "Work", href: "/#work" },
+  { num: "04", name: "Team", href: "/#team" },
   { num: "05", name: "Products", href: "/products" },
-  { num: "06", name: "Blog", href: "/blog" },
   { num: "07", name: "Testimonials", href: "/testimonials" },
   { num: "08", name: "Design", href: "/design" },
   {
     num: "09",
     name: "Case Studies",
-    href: "#contact",
+    href: "/#work",
     children: [
       { name: "Aierpify", href: "/case-studies/aierpify" },
       { name: "Anosuim", href: "/case-studies/anosuim" },
@@ -48,7 +54,7 @@ const tickerItems = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [expanded, setExpanded] = useState<string | null>(null);
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 10);
@@ -158,7 +164,7 @@ export default function Navbar() {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 + i * 0.06 }}
-                      onClick={() => (link.children ? setExpanded(!expanded) : go(link.href))}
+                      onClick={() => (link.children ? setExpanded(expanded === link.name ? null : link.name) : go(link.href))}
                       className="group flex items-baseline gap-2 sm:gap-3 w-full text-left py-[10px] sm:py-[12px] md:py-[14px] hover:border-t-black/30 transition-colors duration-200"
                     >
                       <span className="text-[9px] sm:text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[20px] sm:min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
@@ -172,14 +178,14 @@ export default function Navbar() {
                       </span>
                       <span className="ml-auto text-sm sm:text-base text-black/60 transition-all duration-300">
                         {link.children
-                          ? expanded ? "↑" : "↓"
+                          ? expanded === link.name ? "↑" : "↓"
                           : <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 hidden sm:inline">↗</span>}
                       </span>
                     </motion.button>
 
                     {link.children && (
                       <AnimatePresence>
-                        {expanded && (
+                        {expanded === link.name && (
                           <motion.div
                             initial={{ height: 0, opacity: 0 }}
                             animate={{ height: "auto", opacity: 1 }}
@@ -188,12 +194,13 @@ export default function Navbar() {
                             className="overflow-hidden pl-5 sm:pl-8 md:pl-10"
                           >
                             {link.children.map((child) => (
-                              <button
+                              <Link
                                 key={child.name}
-                                onClick={() => go(child.href)}
+                                href={child.href}
+                                onClick={() => setIsOpen(false)}
                                 className="block w-full text-left py-2.5 sm:py-2 text-[12px] sm:text-[13px] md:text-[15px] tracking-[0.04em] text-black/50 hover:text-black transition-colors"                              >
                                 {child.name}
-                              </button>
+                              </Link>
                             ))}
                           </motion.div>
                         )}

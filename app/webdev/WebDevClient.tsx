@@ -51,42 +51,9 @@ const StatsCounter: React.FC = () => {
   );
 };
 
-const schema = {
-  "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "WebPage",
-      "@id": "https://bridgehomies.com/webdev/#webpage",
-      url: "https://bridgehomies.com/webdev",
-      name: "Expert Website Development & Web App Services | Bridge Homies",
-      description:
-        "Bridge Homies is a software developer company delivering professional website development, SaaS platforms, web apps, and enterprise software using Next.js and Django.",
-      breadcrumb: {
-        "@type": "BreadcrumbList",
-        itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Website Development", item: "https://bridgehomies.com/webdev" },
-        ],
-      },
-    },
-    {
-      "@type": "Service",
-      "@id": "https://bridgehomies.com/webdev/#service",
-      name: "Website Development & Web Apps",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
-      url: "https://bridgehomies.com/webdev",
-      description:
-        "End-to-end website development, custom web applications, SaaS platforms, and enterprise software architecture built for absolute scalability.",
-      serviceType: "Web Development",
-      areaServed: "Worldwide",
-    },
-  ],
-};
-
 export default function WebDevClient() {
   return (
     <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
       <Navbar />
 
       {/* 1. EDITORIAL HERO SECTION */}
@@ -116,7 +83,7 @@ export default function WebDevClient() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
+                <a href="/contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
                   <span className="relative z-10 flex items-center gap-2">
                     Start Building
                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>

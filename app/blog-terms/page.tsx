@@ -3,6 +3,8 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/blog-terms" },
+  robots: { index: false, follow: true, googleBot: { index: false, follow: true } },
   title: "Editorial Terms & Pricing Policy | Bridge Homies",
   description:
     "Review Bridge Homies editorial publishing terms, guest post pricing, link insertion rates, content guidelines, prohibited niches, and submission process.",
@@ -42,7 +44,7 @@ export default function BlogTermsPage() {
             </p>
             <p>
               <strong>Editorial Queue:</strong>{" "}
-              <a href="https://bridgehomies.com/blog/submit" className="font-medium text-indigo-600 hover:text-indigo-800">
+              <a href="https://www.bridgehomies.com/blog/submit" className="font-medium text-indigo-600 hover:text-indigo-800">
                 bridgehomies.com/blog/submit
               </a>
             </p>
@@ -118,7 +120,7 @@ export default function BlogTermsPage() {
           <section>
             <h2 className="mb-6 text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">5. Turnaround Time (TAT) &amp; Process</h2>
             <ol className="space-y-5">
-              <li className="flex gap-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">1</span><span><strong className="text-slate-950">Submission / Pitch:</strong> Pitch 2–3 technical topics along with target URLs and anchor text, or submit a full draft to our queue at <a href="https://bridgehomies.com/blog/submit" className="font-medium text-indigo-600 hover:text-indigo-800">bridgehomies.com/blog/submit</a>.</span></li>
+              <li className="flex gap-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">1</span><span><strong className="text-slate-950">Submission / Pitch:</strong> Pitch 2–3 technical topics along with target URLs and anchor text, or submit a full draft to our queue at <a href="https://www.bridgehomies.com/blog/submit" className="font-medium text-indigo-600 hover:text-indigo-800">bridgehomies.com/blog/submit</a>.</span></li>
               <li className="flex gap-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">2</span><span><strong className="text-slate-950">Technical Review &amp; Publication:</strong> 2–3 business days for technical evaluation, formatting, and publication.</span></li>
               <li className="flex gap-4"><span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-indigo-600 font-bold text-white">3</span><span><strong className="text-slate-950">Verification &amp; Settlement:</strong> Link live confirmation is provided, the client verifies the link, and payment is processed via Wise, Payoneer, or Bank Transfer. Reciprocal links are verified in the same way.</span></li>
             </ol>

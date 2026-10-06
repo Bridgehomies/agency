@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "Anosuim Healthcare SaaS | Bridge Homies" },
   description:
     "How Bridge Homies designed Anosuim, a multi-tenant healthcare SaaS with clinic operations, billing, patient engagement, and AI-powered appointment automation.",
-  alternates: { canonical: "https://bridgehomies.com/case-studies/anosuim" },
+  alternates: { canonical: "https://www.bridgehomies.com/case-studies/anosuim" },
 }
 
 const data: CaseStudyData = {

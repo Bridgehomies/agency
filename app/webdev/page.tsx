@@ -6,13 +6,13 @@ export const metadata: Metadata = {
   description:
     "Bridge Homies delivers website development using Next.js, React, and Django — scalable, AI-powered SaaS, web apps, and enterprise software.",
   alternates: {
-    canonical: "https://bridgehomies.com/webdev",
+    canonical: "https://www.bridgehomies.com/webdev",
   },
   openGraph: {
     title: "Website Development Services — Next.js, React & Django | Bridge Homies",
     description:
       "Expert website development, web apps, SaaS platforms, and enterprise software. Bridge Homies is your trusted software developer company.",
-    url: "https://bridgehomies.com/webdev",
+    url: "https://www.bridgehomies.com/webdev",
     type: "website",
     images: [
       {
@@ -30,25 +30,25 @@ const schema = {
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://bridgehomies.com/webdev/#webpage",
-      url: "https://bridgehomies.com/webdev",
+      "@id": "https://www.bridgehomies.com/webdev/#webpage",
+      url: "https://www.bridgehomies.com/webdev",
       name: "Website Development Services — Next.js, React & Django | Bridge Homies",
       description:
         "Expert website development, web apps, SaaS, and enterprise software development from Bridge Homies — a leading software developer company.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Website Development", item: "https://bridgehomies.com/webdev" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+          { "@type": "ListItem", position: 2, name: "Website Development", item: "https://www.bridgehomies.com/webdev" },
         ],
       },
     },
     {
       "@type": "Service",
-      "@id": "https://bridgehomies.com/webdev/#service",
+      "@id": "https://www.bridgehomies.com/webdev/#service",
       name: "Website Development",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
-      url: "https://bridgehomies.com/webdev",
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
+      url: "https://www.bridgehomies.com/webdev",
       description:
         "Custom website development, web apps, SaaS platforms, and enterprise software built with Next.js, React, and Django. Bridge Homies is a software developer company serving clients worldwide.",
       serviceType: "Website Development",

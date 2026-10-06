@@ -139,7 +139,7 @@ Write your article body in Markdown. Use headings, short paragraphs, and lists t
 - The problem your reader is searching for
 - Your practical answer or approach
 - Real examples, steps, or a mini case study
-- Link your backlinks naturally, e.g. [Bridge Homies](https://bridgehomies.com)
+- Link your backlinks naturally, e.g. [Bridge Homies](https://www.bridgehomies.com)
 `;
 
 const jsonTemplate = `{

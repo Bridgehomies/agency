@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "Mail Hauler Pro Automation SaaS | Bridge Homies" },
   description:
     "How Bridge Homies built Mail Hauler Pro, a multi-inbox cold email SaaS with campaign automation, warm-up, deliverability monitoring, and analytics.",
-  alternates: { canonical: "https://bridgehomies.com/case-studies/mail-hauler-pro" },
+  alternates: { canonical: "https://www.bridgehomies.com/case-studies/mail-hauler-pro" },
 }
 
 const data: CaseStudyData = {

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "Aierpify FBR Invoicing SaaS | Bridge Homies" },
   description:
     "How Bridge Homies built Aierpify, a cloud-based FBR e-invoicing SaaS platform for Pakistani businesses covering invoicing, FBR integration, and subscriptions.",
-  alternates: { canonical: "https://bridgehomies.com/case-studies/aierpify" },
+  alternates: { canonical: "https://www.bridgehomies.com/case-studies/aierpify" },
 }
 
 const data: CaseStudyData = {

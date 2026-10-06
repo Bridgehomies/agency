@@ -205,13 +205,13 @@ function ArticleSchema({ post }: { post: BlogPost }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://bridgehomies.com/blog" },
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+      { "@type": "ListItem", position: 2, name: "Blog", item: "https://www.bridgehomies.com/blog" },
       {
         "@type": "ListItem",
         position: 3,
         name: post.title,
-        item: `https://bridgehomies.com/blog/${post.slug}`,
+        item: `https://www.bridgehomies.com/blog/${post.slug}`,
       },
     ],
   };

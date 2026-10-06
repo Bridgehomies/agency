@@ -18,18 +18,15 @@ import { fontVariables } from "./fonts";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
+    default: "Software Development Agency | Bridge Homies",
     template: "%s | Bridge Homies",
   },
   description:
-    "Bridge Homies is a machine learning agency and AI/ML engineering provider in Lahore, Pakistan. We build RAG pipelines, LLM integrations, and SaaS platforms.",
-  alternates: {
-    canonical: "/", // ponytail: relative — metadataBase resolves to www.bridgehomies.com/
-  },
+    "Software development agency in Lahore building custom software, SaaS, web and mobile apps, and AI systems for businesses worldwide. Discuss your project.",
   // ponytail: keywords removed — Next.js renders this as <meta name="keywords">, same stuffing issue
   authors: [{ name: "Bridge Homies", url: SITE_URL }],
   openGraph: {
-    title: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
+    title: "Software Development Agency | Bridge Homies",
     description:
       "AI/ML engineering, RAG pipelines, LLM integration, custom software, and SaaS — built by Bridge Homies, Lahore.",
     url: "/",
@@ -47,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI ML Engineering Services | Machine Learning Agency | Bridge Homies",
+    title: "Software Development Agency | Bridge Homies",
     description:
       "AI/ML engineering agency in Lahore — RAG pipelines, LLM integration, custom software, SaaS.",
     images: ["/og-image.png"],
@@ -141,7 +138,7 @@ export default function RootLayout({
                   url: SITE_URL,
                   image: `${SITE_URL}/og-image.png`,
                   description:
-                    "AI/ML engineering agency in Lahore, Pakistan — RAG pipelines, LLM integration, MLOps, custom software, and SaaS development.",
+                    "Software development agency in Lahore, Pakistan building custom software, SaaS platforms, web and mobile apps, and production AI systems.",
                   priceRange: "$$",
                   address: {
                     "@type": "PostalAddress",
@@ -162,10 +159,10 @@ export default function RootLayout({
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "ML Model Engineering" } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps Consulting Services", url: `${SITE_URL}/mlops-consulting-services` } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Application Development" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Product Development" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "UI/UX Design" } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Application Development", url: `${SITE_URL}/webdev` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development", url: `${SITE_URL}/mobile` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Software and SaaS Development", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "UI/UX Design", url: `${SITE_URL}/ui-ux-design` } },
                     ],
                   },
                 },

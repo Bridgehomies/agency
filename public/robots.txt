@@ -1,39 +1,36 @@
-# AI-search crawlers: explicitly allowed to discover citable public pages.
-# Training-crawler permissions are intentionally not inferred from this policy.
+# OAI-SearchBot
 User-agent: OAI-SearchBot
 Allow: /
 Disallow: /admin
 Disallow: /admin/*
 Disallow: /api/*
-Disallow: /blog/submit
 Disallow: /testimonials/submit
 Disallow: /write
 
+# Claude-SearchBot
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /admin
 Disallow: /admin/*
 Disallow: /api/*
-Disallow: /blog/submit
 Disallow: /testimonials/submit
 Disallow: /write
 
+# PerplexityBot
 User-agent: PerplexityBot
 Allow: /
 Disallow: /admin
 Disallow: /admin/*
 Disallow: /api/*
-Disallow: /blog/submit
 Disallow: /testimonials/submit
 Disallow: /write
 
-# General search crawlers
+# *
 User-agent: *
 Allow: /
 Disallow: /admin
 Disallow: /admin/*
 Disallow: /api/*
-Disallow: /blog/submit
 Disallow: /testimonials/submit
 Disallow: /write
 

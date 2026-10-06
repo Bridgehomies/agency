@@ -22,13 +22,13 @@ export const metadata: Metadata = {
     siteName: "Bridge Homies",
     type: "website",
     locale: "en_US",
-    images: [{ url: "/og/blog.jpg", width: 1200, height: 630, alt: "Bridge Homies Blog — SaaS, Web Dev & AI Engineering" }],
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Bridge Homies Blog — SaaS, Web Dev & AI Engineering" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Engineering & SaaS Development Blog | Bridge Homies",
     description: "Practical articles on SaaS, AI engineering, automation, and custom software. Written for builders and founders.",
-    images: ["/og/blog.jpg"],
+    images: ["/og-image.png"],
     site: "@bridgehomies",
   },
 };

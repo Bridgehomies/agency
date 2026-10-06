@@ -552,8 +552,9 @@ export default function HeroSectionSpatial() {
           style={{ y: statsY, willChange: "transform" }}
         >
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
-            AI/ML engineering and custom software, built for <span className="text-primary italic">scale.</span>
+            Custom software and AI engineering, built for <span className="text-primary italic">scale.</span>
           </h1>
+          <p className="text-muted-foreground leading-relaxed mb-6">We’re a software development agency in Lahore, building SaaS platforms, web and mobile apps, and AI systems for businesses worldwide.</p>
           <Button
             size="lg"
             className="rounded-full h-14 px-8 text-lg group bg-foreground text-background hover:bg-foreground/90 transition-all"

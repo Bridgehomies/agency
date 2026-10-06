@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: { absolute: "IHFP Community Platform | Bridge Homies" },
   description:
     "How Bridge Homies built IHFP, a role-based platform for pigeon lofts, clubs, tournaments, judging, real-time scoring, and community messaging.",
-  alternates: { canonical: "https://bridgehomies.com/case-studies/ihfp" },
+  alternates: { canonical: "https://www.bridgehomies.com/case-studies/ihfp" },
 }
 
 const data: CaseStudyData = {

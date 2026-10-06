@@ -6,7 +6,7 @@ import BlogSubmitPortal from "@/components/blog/BlogSubmitPortal";
 export const metadata: Metadata = {
   title: "Write for Us | SaaS, Web Dev & AI Guest Posts",
   description: "Write for Bridge Homies on SaaS, web development, AI, and software automation. Submit a guest post for editorial review.",
-  robots: { index: true, follow: true },
+  robots: { index: false, follow: true, googleBot: { index: false, follow: true } },
   alternates: { canonical: "/blog/submit" },
   openGraph: {
     title: "Write for Us | SaaS & Web Dev Guest Posts | Bridge Homies",

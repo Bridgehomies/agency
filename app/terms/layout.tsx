@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "The terms and conditions governing the use of Bridge Homies' products and services.",
   alternates: {
-    canonical: "https://bridgehomies.com/terms",
+    canonical: "https://www.bridgehomies.com/terms",
   },
   openGraph: {
     title: "Terms & Conditions | Bridge Homies",
     description:
       "The terms and conditions governing the use of Bridge Homies' products and services.",
-    url: "https://bridgehomies.com/terms",
+    url: "https://www.bridgehomies.com/terms",
     siteName: "Bridge Homies",
     type: "website",
     images: [

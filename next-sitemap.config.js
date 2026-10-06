@@ -30,6 +30,7 @@ const STATIC_PAGE_SOURCES = {
   "/contact": "app/contact/page.tsx",
   "/design": "app/design/page.tsx",
   "/mobile": "app/mobile/page.tsx",
+  "/mlops-consulting-services": "app/mlops-consulting-services/page.tsx",
   "/privacy": "app/privacy/page.tsx",
   "/products": "app/products/page.tsx",
   "/software": "app/software/page.tsx",
@@ -88,17 +89,17 @@ module.exports = {
       {
         userAgent: "OAI-SearchBot",
         allow: "/",
-        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+        disallow: ["/admin", "/admin/*", "/api/*", "/testimonials/submit", "/write"],
       },
       {
         userAgent: "Claude-SearchBot",
         allow: "/",
-        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+        disallow: ["/admin", "/admin/*", "/api/*", "/testimonials/submit", "/write"],
       },
       {
         userAgent: "PerplexityBot",
         allow: "/",
-        disallow: ["/admin", "/admin/*", "/api/*", "/blog/submit", "/testimonials/submit", "/write"],
+        disallow: ["/admin", "/admin/*", "/api/*", "/testimonials/submit", "/write"],
       },
       {
         userAgent: "*",
@@ -110,7 +111,6 @@ module.exports = {
           "/admin",
           "/admin/*",
           "/api/*",
-          "/blog/submit",
           "/testimonials/submit",
           "/write",
         ],
@@ -118,9 +118,8 @@ module.exports = {
     ],
   },
 
-  // Same pattern as before, plus the routes that shouldn't be publicly
-  // indexed. next-sitemap's `exclude` only keeps these out of the sitemap
-  // file itself — the `disallow` above is what actually stops crawling.
+  // Submission and policy pages are noindex but crawlable so search engines
+  // can see their robots metadata. Keep them out of the sitemap.
   exclude: [
     "/server-sitemap.xml", // kept from original — adjust if this was a placeholder
     "/admin",
@@ -142,8 +141,6 @@ module.exports = {
     await config.transform(config, "/ui-ux-design"),
     await config.transform(config, "/ai-ml-development"),
     await config.transform(config, "/case-studies/opleo"),
-    await config.transform(config, "/blog-terms"),
-    await config.transform(config, "/blog/where-can-i-find-websites-that-say-write-for-us"),
   ],
 
   transform: async (config, url) => {
@@ -164,7 +161,7 @@ module.exports = {
     return {
       loc: url,
       changefreq: config.changefreq,
-      priority: config.priority,
+      priority: routePath === "/" ? 1 : routePath.startsWith("/blog") ? 0.3 : 0.8,
       lastmod,
     };
   },

@@ -5,13 +5,13 @@ export const metadata: Metadata = {
   description:
     "Bridge Homies designs SaaS, web, and enterprise product interfaces — UI/UX design, prototyping, wireframing, and design systems built to convert.",
   alternates: {
-    canonical: "https://bridgehomies.com/ui-ux-design",
+    canonical: "https://www.bridgehomies.com/ui-ux-design",
   },
   openGraph: {
     title: "UI/UX Design Services | Bridge Homies",
     description:
       "Bridge Homies designs SaaS, web, and enterprise product interfaces — UI/UX design, prototyping, wireframing, and design systems built to convert.",
-    url: "https://bridgehomies.com/ui-ux-design",
+    url: "https://www.bridgehomies.com/ui-ux-design",
     siteName: "Bridge Homies",
     type: "website",
     images: [

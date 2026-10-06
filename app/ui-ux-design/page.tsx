@@ -55,25 +55,25 @@ const schema = {
   "@graph": [
     {
       "@type": "WebPage",
-      "@id": "https://bridgehomies.com/ui-ux-design/#webpage",
-      url: "https://bridgehomies.com/ui-ux-design",
+      "@id": "https://www.bridgehomies.com/ui-ux-design/#webpage",
+      url: "https://www.bridgehomies.com/ui-ux-design",
       name: "UI/UX Design Services for Web Apps, SaaS & Enterprise Software | Bridge Homies",
       description:
         "Bridge Homies delivers user-first UI/UX design for website development, SaaS platforms, web apps, and enterprise software. A software developer company that designs for conversion.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "UI/UX Design", item: "https://bridgehomies.com/ui-ux-design" },
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
+          { "@type": "ListItem", position: 2, name: "UI/UX Design", item: "https://www.bridgehomies.com/ui-ux-design" },
         ],
       },
     },
     {
       "@type": "Service",
-      "@id": "https://bridgehomies.com/ui-ux-design/#service",
+      "@id": "https://www.bridgehomies.com/ui-ux-design/#service",
       name: "UI/UX Design",
-      provider: { "@id": "https://bridgehomies.com/#organization" },
-      url: "https://bridgehomies.com/ui-ux-design",
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
+      url: "https://www.bridgehomies.com/ui-ux-design",
       description:
         "User-first UI/UX design for website development, SaaS, web apps, and enterprise software. Bridge Homies prototypes fast, tests early, and ships interfaces users love.",
       serviceType: "UI/UX Design",
@@ -128,7 +128,7 @@ export default function UiUxPage() {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
+                <a href="/contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600">
                   <span className="relative z-10 flex items-center gap-2">
                     Prototype Now
                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>

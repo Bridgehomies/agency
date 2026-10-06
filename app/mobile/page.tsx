@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-mobile.jpg",
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Mobile App Development Services Bridge Homies",
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Mobile App Development Services | Bridge Homies",
     description:
       "Native iOS, Android & cross-platform mobile apps with AI automation.",
-    images: ["/og-mobile.jpg"],
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,
@@ -188,7 +188,7 @@ export default function MobilePage() {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
-                  href="#contact"
+                  href="/contact"
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600"
                 >
                   <span className="relative z-10 flex items-center gap-2">

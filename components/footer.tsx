@@ -20,15 +20,14 @@ const NAV_LEFT = [
   { label: "Our Team", href: "/#team" },
   { label: "Products", href: "/products" },
   { label: "Blog", href: "/blog" },
-  { label: "Submit Blog", href: "/blog/submit" },
   { label: "Testimonials", href: "/testimonials" },
 ];
 
 const NAV_RIGHT = [
-  { label: "Web Dev", href: "/webdev" },
-  { label: "Mobile Dev", href: "/mobile" },
+  { label: "Web Development", href: "/webdev" },
+  { label: "Mobile App Development", href: "/mobile" },
   { label: "UI/UX", href: "/ui-ux-design" },
-  { label: "Software", href: "/software" },
+  { label: "Custom Software Development", href: "/software" },
   { label: "AI & ML engineering services", href: "/ai-ml-development" },
   { label: "MLOps Consulting", href: "/mlops-consulting-services" },
   { label: "Design", href: "/design" },
