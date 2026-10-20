@@ -132,17 +132,6 @@ module.exports = {
     "/write",
   ],
 
-  // Unchanged from your original — kept in case these two routes weren't
-  // being auto-detected from the build output for some reason. Worth
-  // double-checking your generated sitemap-0.xml doesn't now list
-  // /ui-ux-design and /ai-ml-development twice, since next-sitemap should
-  // already be picking both up automatically as static pages.
-  additionalPaths: async (config) => [
-    await config.transform(config, "/ui-ux-design"),
-    await config.transform(config, "/ai-ml-development"),
-    await config.transform(config, "/case-studies/opleo"),
-  ],
-
   transform: async (config, url) => {
     const routePath = url.replace(SITE_URL, "") || "/";
     let lastmod;

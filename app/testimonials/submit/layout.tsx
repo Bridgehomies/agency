@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.bridgehomies.com/testimonials/submit",
   },
+  robots: {
+    index: false,
+    follow: true,
+  },
   openGraph: {
     title: "Share Your Experience | Bridge Homies",
     description:

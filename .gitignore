@@ -27,6 +27,9 @@ yarn-error.log*
 next-env.d.ts
 
 bridgehomies.com-audit/
+seo-output/ 
+
+.codex
 
 # Ignore all .zip files in any directory
 *.zip

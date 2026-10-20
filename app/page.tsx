@@ -63,35 +63,6 @@ const homeSchema = {
         ],
       },
     },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What AI ML engineering services does Bridge Homies offer?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Bridge Homies offers end-to-end AI ML engineering services including RAG pipeline development, LLM integration, machine learning model deployment, predictive analytics, and AI automation for businesses of all sizes.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Is Bridge Homies a machine learning agency?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes, Bridge Homies is a dedicated machine learning agency based in Lahore, Pakistan. We serve clients worldwide with AI ML engineering services, website development, SaaS, and enterprise software.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Does Bridge Homies build SaaS and web apps?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes. We design and develop SaaS platforms, web apps, and enterprise software using Next.js, React, Django, and Python — with AI automation integrated at every layer.",
-          },
-        },
-      ],
-    },
   ],
 }
 
