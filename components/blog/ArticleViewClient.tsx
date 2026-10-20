@@ -819,24 +819,6 @@ export default function ArticleViewClient({
                 </section>
               )}
 
-              {/* Contribute CTA */}
-              <div className="mt-14 border border-[#d4cfc6] bg-[#f5f1ea] px-8 py-7 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                <div>
-                  <p className="font-bebas text-[1.1rem] tracking-[0.06em] text-[#0a0a0a] mb-1">
-                    WRITE FOR BRIDGE HOMIES
-                  </p>
-                  <p className="font-sans text-[0.82rem] text-[#6b6560] m-0">
-                    Share your expertise on SaaS, web development, or AI. Earn dofollow backlinks.
-                  </p>
-                </div>
-                <Link
-                  href="/blog/submit"
-                  className="font-mono text-[0.7rem] tracking-[0.14em] uppercase text-[#f5f1ea] bg-[#c8401a] px-5 py-2.5 no-underline hover:bg-[#0a0a0a] transition-colors whitespace-nowrap shrink-0"
-                >
-                  Submit a Guest Post →
-                </Link>
-              </div>
-
               <div className="pb-16" />
             </div>
 

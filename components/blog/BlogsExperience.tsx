@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, Clock, Eye, Search, PenLine } from "lucide-react";
+import { ArrowRight, Clock, Eye, Search } from "lucide-react";
 import type { BlogPost } from "@/lib/blog";
 
 const PAGE_SIZE = 15;
@@ -189,34 +189,6 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
         </div>
       </div>
 
-      {/* ── WRITE FOR US BANNER (mid-page, not hero) ── */}
-      <div className="mx-auto max-w-[1340px] px-6 md:px-12 pt-10 pb-2">
-        <Link
-          href="/blog/submit"
-          className="group flex items-center justify-between gap-4 border border-[#d4cfc6] bg-white px-6 py-5 transition hover:border-violet-600"
-        >
-          <div className="flex items-center gap-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center bg-[#f5f1ea]">
-              <PenLine className="h-4 w-4 text-violet-500" />
-            </div>
-            <div>
-              <p className="text-sm font-bold text-[#0a0a0a]" style={{ fontFamily: F_SANS }}>
-                Write for Us Submit a Guest Post
-              </p>
-              <p className="text-[0.72rem] text-[#6b6560]" style={{ fontFamily: F_MONO }}>
-                Share your expertise · earn 1–2 dofollow backlinks · get a permanent author profile
-              </p>
-            </div>
-          </div>
-          <span
-            className="flex shrink-0 items-center gap-1.5 bg-violet-600 px-4 py-1.5 text-[0.65rem] uppercase tracking-[0.1em] text-[#f5f1ea] transition group-hover:bg-[#0a0a0a]"
-            style={{ fontFamily: F_MONO }}
-          >
-            Start writing <ArrowRight className="h-3.5 w-3.5 transition group-hover:translate-x-0.5" />
-          </span>
-        </Link>
-      </div>
-
       {/* ── POST GRID ── */}
       <section className="mx-auto max-w-[1340px] px-6 md:px-12 py-10 pb-24">
         {filteredPosts.length === 0 ? (
@@ -227,14 +199,6 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
             <p className="mt-3 text-sm text-[#6b6560]" style={{ fontFamily: F_SANS }}>
               Adjust the category or search query to find a post.
             </p>
-            <Link
-              href="/blog/submit"
-              className="mt-8 inline-flex items-center gap-2 bg-[#c8401a] px-5 py-2.5 text-[0.7rem] uppercase tracking-[0.1em] text-[#f5f1ea] transition hover:bg-[#0a0a0a]"
-              style={{ fontFamily: F_MONO }}
-            >
-              <PenLine className="h-4 w-4" />
-              Be the first to write about this
-            </Link>
           </div>
         ) : (
           <>
@@ -287,28 +251,6 @@ export default function BlogsExperience({ posts }: { posts: BlogPost[] }) {
           </div>
         )}
 
-        {/* ── BOTTOM WRITE FOR US CALLOUT ── */}
-        <div className="mt-14 border border-[#d4cfc6] bg-[#f5f1ea] px-8 py-10 text-center">
-          <p className="mb-3 text-[0.65rem] uppercase tracking-[0.24em] text-violet-500" style={{ fontFamily: F_MONO }}>
-            Write for Us
-          </p>
-          <h2 className="mx-auto max-w-md text-[1.8rem] uppercase leading-tight text-[#0a0a0a]" style={{ fontFamily: F_BEBAS }}>
-            Got something worth reading? <span className="text-violet-500">Publish it here.</span>
-          </h2>
-          <p className="mx-auto mt-3 max-w-sm text-[0.8rem] leading-relaxed text-[#6b6560]" style={{ fontFamily: F_SANS }}>
-            Submit a guest post and earn up to 1–2 dofollow backlinks plus a permanent author profile page. $15/placement, $0 for link exchanges pay after live.
-          </p>
-          <div className="mt-7 flex flex-wrap items-center justify-center gap-3">
-            <Link
-              href="/blog/submit"
-              className="inline-flex items-center gap-2 bg-violet-600 px-6 py-3 text-[0.7rem] uppercase tracking-[0.1em] text-white transition hover:bg-[#0a0a0a]"
-              style={{ fontFamily: F_MONO }}
-            >
-              <PenLine className="h-4 w-4" />
-              Submit a guest post
-            </Link>
-          </div>
-        </div>
       </section>
     </div>
   );

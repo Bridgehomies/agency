@@ -2,11 +2,20 @@ import type { Metadata } from "next"
 import ProductsClient from "./ProductsClient"
 
 export const metadata: Metadata = {
-  title: "Our Products — Software We've Built",
+  title: { absolute: "Software Products Built by Bridge Homies | AI, SaaS & FinTech" },
   description:
-    "Explore the software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
+    "Explore software products built by Bridge Homies, including FBR e-invoicing, fintech systems, AI platforms, and production SaaS applications.",
   alternates: {
     canonical: "https://www.bridgehomies.com/products",
+  },
+  openGraph: {
+    title: "Software Products Built by Bridge Homies | AI, SaaS & FinTech",
+    description:
+      "Explore FBR e-invoicing, fintech systems, AI platforms, and production SaaS applications built by Bridge Homies.",
+    url: "https://www.bridgehomies.com/products",
+    siteName: "Bridge Homies",
+    type: "website",
+    images: [{ url: "/og-image.png", width: 1200, height: 630, alt: "Software products built by Bridge Homies" }],
   },
 }
 
