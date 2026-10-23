@@ -3,7 +3,6 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
 import Link from "next/link";
-import { StatsCounter } from "./stats-counter";
 
 const schema = {
   "@context": "https://schema.org",
@@ -12,18 +11,18 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/software/#webpage",
       url: "https://www.bridgehomies.com/software",
-      name: "Premium Custom Software Development | Bridge Homies Software House",
+      name: "Custom Software Development | Bridge Homies",
       description:
-        "Bridge Homies builds custom software for startups and enterprises: SaaS platforms, AI-assisted workflows, integrations, and scalable business systems.",
+        "Bridge Homies plans and builds custom software, SaaS products, business systems, web and mobile applications, APIs, and integrations.",
     },
     {
       "@type": "Service",
       "@id": "https://www.bridgehomies.com/software/#service",
-      name: "Enterprise Software Solutions & Software Engineering",
+      name: "Custom Software Development",
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/software",
       description:
-        "Custom software development for startups and enterprises, including SaaS platforms, AI-assisted workflows, and complex integrations.",
+        "Custom software development for SaaS products, business systems, web and mobile applications, workflow automation, APIs, integrations, deployment, and ongoing support.",
       serviceType: "Custom Software Development",
       areaServed: "Worldwide",
     },
@@ -34,14 +33,14 @@ export const metadata = {
   alternates: { canonical: "/software" },
   openGraph: {
     title: "Custom Software Development | Bridge Homies",
-    description: "Build SaaS platforms, internal tools, and business integrations with our software agency in Lahore. Discuss your project with Bridge Homies.",
+    description: "Bridge Homies builds custom software, SaaS products, ERP and CRM systems, web and mobile apps, workflow automation, APIs, and integrations.",
     url: "/software",
     type: "website",
     images: ["/og-image.png"],
   },
   title: { absolute: "Custom Software Development | Bridge Homies" },
   description:
-    "Custom software development for startups and enterprises: SaaS platforms, AI integration, and scalable business systems built by Bridge Homies in Lahore.",
+    "Custom software for business systems, SaaS products, web and mobile apps, automation, APIs, integrations, and deployment from Bridge Homies in Lahore.",
 };
 
 export default function SoftwarePage() {
@@ -59,7 +58,7 @@ export default function SoftwarePage() {
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Premium Software House</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Software Engineering</span>
               </div>
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
                 Custom Software <br />
@@ -70,8 +69,7 @@ export default function SoftwarePage() {
             </div>
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We provide exclusive <strong className="text-gray-900">custom software development</strong> and{" "}
-                <strong className="text-gray-900">enterprise software solutions</strong> designed for market leaders.
+                We build custom software for business operations and digital products, including SaaS platforms, internal systems, integrations, and workflow automation.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -137,8 +135,6 @@ export default function SoftwarePage() {
         </div>
       </section>
 
-      <StatsCounter />
-
       {/* FULL-WIDTH ARCHITECTURAL IMAGE BREAKER */}
       <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
         <img
@@ -165,11 +161,12 @@ export default function SoftwarePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
             {[
-              { num: "01", title: "Enterprise Solutions", desc: "High-performance enterprise software solutions tailored to handle complex logic, integrations, and massive global datasets securely." },
-              { num: "02", title: "Custom SaaS", desc: "End-to-end custom software development. We architect multitenant platforms that scale flawlessly from day one." },
-              { num: "03", title: "AI / ML Integration", desc: "Intelligent automation and predictive pipelines seamlessly integrated into your core web architecture." },
-              { num: "04", title: "Web Architecture", desc: "Next.js and React ecosystems built with strict PEP 8 compliance and flawless UI/UX methodologies." },
-              { num: "05", title: "Cloud Infrastructure", desc: "Robust DevOps, containerization, and serverless deployments ensuring 99.99% uptime for your products." },
+              { num: "01", title: "Business Software", desc: "Plan and build ERP, CRM, HR, inventory, billing, portals, dashboards, and operational systems around your team's workflows." },
+              { num: "02", title: "SaaS & Product Development", desc: "Product discovery, MVP planning, SaaS architecture, multi-tenant applications, subscription flows, and product improvements." },
+              { num: "03", title: "Workflow Automation", desc: "Connect approval, lead, recruitment, invoice, and notification workflows using software, APIs, and automation tools that fit the process." },
+              { num: "04", title: "APIs & System Integrations", desc: "Develop REST APIs and connect payment, tax, CRM, ERP, messaging, Google, and other services based on project requirements." },
+              { num: "05", title: "Deployment & Ongoing Support", desc: "Plan cloud infrastructure, application deployment, CI/CD, monitoring, backup and recovery, maintenance, and post-launch improvements." },
+              { num: "06", title: "AI & ML Integration", desc: "Assess and integrate AI, ML, RAG, and language-model capabilities where they fit the product workflow and data requirements." },
             ].map((service, index) => (
               <div key={index} className={`relative group ${index % 2 !== 0 ? "md:mt-24" : ""}`}>
                 <div className="text-7xl font-black text-gray-200 absolute -top-12 -left-6 z-0 transition-colors group-hover:text-purple-100">
@@ -194,15 +191,14 @@ export default function SoftwarePage() {
               <div className="relative z-10">
                 <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Agency Standard</div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Not just another <br />{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">software house</span>.
+                  Software for business workflows <br />{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">and digital products</span>.
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  When looking for <strong className="text-white">software houses near me</strong>, you want partners, not just typists. Bridge Homies treats code as craft. We blend uncompromising minimalist design with rigorous{" "}
-                  <strong className="text-white">software engineering</strong> to deliver digital products that dominate markets.
+                  Bridge Homies is a Lahore-based software engineering and AI company serving businesses, startups, agencies, and organizations internationally. We develop custom business systems, SaaS products, web and mobile applications, APIs, integrations, workflow automation, and AI/ML software.
                 </p>
               </div>
-              <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
+              <a href="/aboutus" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
                 Meet the Homies{" "}
                 <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -220,7 +216,7 @@ export default function SoftwarePage() {
                 <div className="absolute inset-0 bg-gray-900/30"></div>
                 <div className="absolute bottom-6 left-6 right-6">
                   <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Clean Architecture</h3>
-                  <p className="text-gray-200 text-sm">PEP 8 compliance and strict ecosystems.</p>
+                  <p className="text-gray-200 text-sm">Architecture, integrations, and operating needs planned around the project.</p>
                 </div>
               </div>
             </div>
@@ -251,16 +247,16 @@ export default function SoftwarePage() {
               <div className="border-t-2 border-gray-900">
                 {[
                   {
-                    q: "Why is software engineering crucial for custom enterprise solutions?",
-                    a: "Standard programming makes a feature work once. Proper software engineering ensures it operates securely and efficiently for millions of users over years. We architect scalable systems utilizing Python and Next.js to ensure absolute longevity and zero technical debt.",
+                    q: "What custom software can Bridge Homies build?",
+                    a: "We build business systems such as ERP, CRM, HR, inventory, billing, portals, and dashboards, as well as SaaS products and custom web and mobile applications. Scope depends on the workflows, users, integrations, and operating requirements.",
                   },
                   {
-                    q: "How do you differ from other software houses near me?",
-                    a: "Bridge Homies prioritizes complex business logic and aesthetic minimalism over basic coding. We don't just take orders; we consult, strategize, and implement enterprise software solutions that act as a definitive bridge between your operational bottlenecks and your future goals.",
+                    q: "Can you integrate with our existing systems?",
+                    a: "Yes. Projects can include REST APIs and integrations with payment gateways, tax systems, CRM or ERP tools, messaging, Google services, and other platforms. Feasibility depends on the available APIs, permissions, and system constraints.",
                   },
                   {
-                    q: "Do you offer ongoing maintenance post-launch?",
-                    a: "Yes. Premium software requires premium upkeep. We offer dedicated retainers ensuring your cloud infrastructure, CI/CD pipelines, and security protocols remain at the bleeding edge of industry standards.",
+                    q: "Do you provide cloud deployment and software maintenance?",
+                    a: "Project scope can include deployment, CI/CD, monitoring, backups, security updates, bug fixes, upgrades, and ongoing feature work. We agree on the support responsibilities and service scope for each engagement.",
                   },
                 ].map((faq, i) => (
                   <div key={i} className="py-10 border-b border-gray-200 group">
@@ -282,30 +278,18 @@ export default function SoftwarePage() {
           <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Discover More Capabilities</h2>
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
-              { label: "AI/ML engineering services", link: "/ai-ml-development" },
-              { label: "React & Next.js", link: "/webdev" },
-              { label: "Native Mobile", link: "/mobile" },
-              { label: "FBR ERP Suite", link: "/products" },
+              { label: "AI/ML engineering", link: "/ai-ml-development" },
+              { label: "MLOps consulting", link: "/mlops-consulting-services" },
+              { label: "Web application development", link: "/webdev" },
+              { label: "Mobile app development", link: "/mobile" },
+              { label: "UI/UX design", link: "/ui-ux-design" },
+              { label: "Software products", link: "/products" },
             ].map((item, idx) => (
               <Link key={idx} href={item.link} className="group flex items-center space-x-2 text-xl font-bold text-gray-400 hover:text-gray-900 transition-colors">
                 <span>{item.label}</span>
                 <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-purple-600 text-2xl leading-none">↗</span>
               </Link>
             ))}
-          </div>
-          <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
-            <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase">
-              Our software developer team follows{" "}
-              <a
-                href="https://peps.python.org/pep-0008/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-900 border-b border-gray-900 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-all duration-300"
-              >
-                PEP 8 Python coding standards
-              </a>{" "}
-              to ensure clean, maintainable enterprise software.
-            </p>
           </div>
         </div>
       </section>

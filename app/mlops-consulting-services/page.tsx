@@ -8,12 +8,12 @@ const pageUrl = "https://www.bridgehomies.com/mlops-consulting-services";
 export const metadata: Metadata = {
   title: { absolute: "MLOps Consulting Services & Implementation | Bridge Homies" },
   description:
-    "MLOps consulting services for production ML: CI/CD, deployment, monitoring, model registries, retraining, governance, and cloud implementation.",
+    "Need MLOps consulting or implementation? Bridge Homies helps teams build ML pipelines, deployment controls, monitoring, retraining, and runbooks.",
   alternates: { canonical: pageUrl },
   openGraph: {
     title: "MLOps Consulting Services & Implementation | Bridge Homies",
     description:
-      "Design and implement reliable ML operations across deployment, monitoring, retraining, governance, and production infrastructure.",
+      "Need MLOps consulting or implementation? Bridge Homies helps teams build ML pipelines, deployment controls, monitoring, retraining, and runbooks.",
     url: pageUrl,
     siteName: "Bridge Homies",
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MLOps Consulting Services & Implementation | Bridge Homies",
     description:
-      "Production MLOps consulting and implementation for deployment pipelines, monitoring, retraining, governance, and cloud infrastructure.",
+      "Need MLOps consulting or implementation? Bridge Homies helps teams build ML pipelines, deployment controls, monitoring, retraining, and runbooks.",
     images: ["/og-image.png"],
   },
 };

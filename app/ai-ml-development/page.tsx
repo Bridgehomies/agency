@@ -5,17 +5,14 @@ import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
-import StatsCounter from "@/components/StatsCounter";
 
 // ─── SEO Metadata ────────────────────────────────────────────────────────────
-// FIX 1: Title now leads with "ML Model Engineering Services" — highest-volume
-// query (197 impressions) that was previously buried mid-page with no title/H1 weight.
 
 export const metadata: Metadata = {
   title: { absolute: "ML Model Engineering Services | Bridge Homies" },
 
   description:
-    "Bridge Homies delivers ML model engineering, RAG pipeline development, LLM integration, and MLOps for startups and enterprises.",
+    "Need ML model engineering for your product? Bridge Homies scopes model, RAG, LLM, and AI integration work around your data, systems, and production needs.",
 
   alternates: {
     canonical: "https://www.bridgehomies.com/ai-ml-development",
@@ -24,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ML Model Engineering Services | Bridge Homies",
     description:
-      "ML model engineering, RAG pipelines, LLM integration and MLOps for startups and enterprises.",
+      "ML model engineering, RAG pipelines, LLM integration, and AI integration scoped around your product and systems.",
     url: "https://www.bridgehomies.com/ai-ml-development",
     siteName: "Bridge Homies",
     type: "website",
@@ -42,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ML Model Engineering Services | Bridge Homies",
     description:
-      "ML model engineering, RAG pipelines, LLM integration and MLOps for startups and enterprises.",
+      "ML model engineering, RAG pipelines, LLM integration, and AI integration scoped around your product and systems.",
     images: ["/og-image.png"],
   },
 
@@ -70,9 +67,9 @@ const schema = {
       url: "https://www.bridgehomies.com/ai-ml-development",
       name: "ML Model Engineering Services | AI/ML Engineering Service Providers | Bridge Homies",
       description:
-        "Bridge Homies is an AI/ML engineering service provider delivering ML model engineering services, RAG pipeline development, LLM integration, AI automation, and MLOps for enterprises worldwide.",
+        "Bridge Homies is a software agency in Lahore, Pakistan, offering AI/ML engineering, RAG pipeline development, LLM integration, and MLOps services.",
       inLanguage: "en-US",
-      dateModified: "2026-07-06",
+      dateModified: "2026-10-23",
       isPartOf: { "@id": "https://www.bridgehomies.com/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
@@ -99,7 +96,7 @@ const schema = {
       url: "https://www.bridgehomies.com",
       foundingDate: "2025",
       description:
-        "Bridge Homies is an AI/ML engineering service provider based in Lahore, Pakistan, delivering ML model engineering services, RAG pipeline development, LLM integration, AI automation, and MLOps to enterprise clients worldwide.",
+        "Bridge Homies is a software agency based in Lahore, Pakistan, offering AI/ML engineering, RAG pipeline development, LLM integration, and MLOps services.",
       address: {
         "@type": "PostalAddress",
         addressLocality: "Lahore",
@@ -125,7 +122,7 @@ const schema = {
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/ai-ml-development",
       description:
-        "ML model engineering services covering architecture design, RAG pipeline development, LLM integration, AI automation for business, MLOps, computer vision, NLP, and scalable AI pipeline engineering.",
+        "AI/ML engineering services covering model architecture, RAG pipelines, LLM integration, software integration, and MLOps.",
       serviceType: "AI & Machine Learning Engineering",
       areaServed: [
         { "@type": "Country", name: "Pakistan" },
@@ -167,76 +164,6 @@ const schema = {
         ],
       },
     },
-    {
-      "@type": "FAQPage",
-      "@id": "https://www.bridgehomies.com/ai-ml-development/#faq",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "What are ML model engineering services?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "ML model engineering services cover the full technical lifecycle of building and running a machine learning model in production: data pipeline design, model architecture selection, training infrastructure, inference optimization, deployment, and ongoing monitoring. Bridge Homies delivers production-ready ML model engineering not research prototypes.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What makes Bridge Homies different from other AI/ML engineering service providers?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "As an AI/ML engineering service provider, we don't just wrap ChatGPT APIs. We build secure RAG pipelines, fine-tune open-source models, and set up robust MLOps to keep your data proprietary and your inferences fast. We focus on production-ready systems, not prototypes.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What do your RAG pipeline development services include?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Our RAG pipeline development services go beyond simple vector search. We build context-aware retrieval systems with hybrid search, re-ranking, query decomposition, and guardrails integrated directly into your existing tech stack. Every pipeline is production-ready with observability and failover built in.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What does LLM integration services mean in practice?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Our LLM integration services connect large language models whether hosted (OpenAI, Anthropic, Gemini) or open-source (Llama, Mistral) into your existing applications, APIs, and databases. We handle prompt engineering, context management, rate limiting, cost control, and fallback logic so you ship a stable product, not an experiment.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "How does AI automation for business actually work?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "AI automation for business replaces rule-based workflows with intelligent agents that can handle dynamic, context-dependent tasks like processing unstructured documents, routing customer support tickets, extracting data from invoices, and making real-time inventory decisions. We design, build, and deploy these systems end-to-end, including the monitoring layer to catch drift before it costs you.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "Do you offer engineering services for AI and ML integration into existing systems?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Yes this is one of our core specialties. Our engineering services for AI and ML integration cover connecting ML inference layers to existing databases, APIs, ERP systems, and SaaS platforms without requiring a full rebuild. We design integration architectures that are modular, observable, and production-ready from day one.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What MLOps services do you provide?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Our MLOps services cover the full post-training lifecycle: feature stores, model registries, CI/CD pipelines for ML, A/B deployment, performance monitoring, and automated retraining triggers. We set up infrastructure so your models don't just deploy once they stay accurate, observable, and cost-efficient over time.",
-          },
-        },
-        {
-          "@type": "Question",
-          name: "What industries do you build machine learning models for?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "Our core expertise spans Fintech, Healthcare, Logistics, and SaaS. Whether it is algorithmic trading models, patient data analysis, or supply chain route optimization, our engineering principles remain universally robust.",
-          },
-        },
-      ],
-    },
   ],
 };
 
@@ -246,63 +173,55 @@ const SERVICES = [
   {
     num: "01",
     title: "ML Model Architecture & Engineering",
-    desc: "We design and engineer the model itself the architecture, training approach, and evaluation strategy matched to your data, latency, and budget constraints, before a single line of production code is written.",
+    desc: "We assess the use case, available data, latency needs, and budget before recommending a model architecture, training approach, and evaluation plan.",
   },
   {
     num: "02",
     title: "RAG Pipeline Development Services",
-    desc: "Production-ready RAG pipeline development services that go beyond simple vector search. We build context-aware retrieval systems with hybrid search, re-ranking, and guardrails integrated directly into your existing tech stack.",
+    desc: "We design retrieval pipelines around your data and application, which may include hybrid search, reranking, access controls, and evaluation depending on the use case.",
   },
   {
     num: "03",
     title: "LLM Integration Services",
-    desc: "Our LLM integration services connect large language models hosted or open-source into your existing applications, APIs, and databases. We handle prompt engineering, context management, rate limiting, cost control, and fallback logic so your product ships stable, not experimental.",
+    desc: "We connect hosted or open-source language models with existing applications and APIs, with scope for prompts, context management, rate limits, cost controls, and fallback behavior.",
   },
   {
     num: "04",
     title: "AI Automation for Business",
-    desc: "Replace mundane workflows with intelligent agents built for real business operations. We deploy AI automation for business that handles document processing, data categorization, and multi-step logic autonomously saving thousands of manual labor hours across your enterprise.",
+    desc: "We assess workflows such as document processing and data categorization to determine where automation can help, then design the required integrations and human review points.",
   },
   {
     num: "05",
     title: "MLOps Services & Model Deployment",
-    desc: "End-to-end MLOps services covering data ingestion, feature stores, model serving, CI/CD for ML, and performance monitoring. Machine learning model deployment that stays reliable at scale with automated retraining and observability built in.",
+    desc: "We help teams plan and implement model versioning, deployment pipelines, monitoring, rollback procedures, and retraining workflows where they fit the system.",
   },
   {
     num: "06",
     title: "AI & ML Integration into Existing Systems",
-    desc: "Our engineering services for AI and ML integration connect inference layers to your existing databases, APIs, ERP systems, and SaaS platforms no full rebuild required. Modular, observable, and production-ready from day one.",
+    desc: "We assess how an AI or ML component can fit into existing applications, databases, ERP systems, or APIs, and define an integration approach that matches the current architecture.",
   },
 ];
 
 const FAQS = [
   {
     q: "What are ML model engineering services?",
-    a: "ML model engineering services cover the full technical lifecycle of building and running a machine learning model in production: data pipeline design, model architecture selection, training infrastructure, inference optimization, deployment, and ongoing monitoring. It's the discipline of turning a working model into a reliable, scalable product component.",
+    a: "ML model engineering covers the work needed to evaluate, build, integrate, and operate a model in a software product. Depending on the use case, this can include data pipelines, model selection or training, evaluation, deployment, and monitoring.",
   },
   {
-    q: "What makes Bridge Homies different from other AI/ML engineering service providers?",
-    a: "We don't just wrap ChatGPT APIs. We build secure RAG pipeline development services, fine-tune open-source models, and set up robust MLOps services to ensure your data stays proprietary and your inferences run fast. As an AI/ML engineering service provider, we focus on production-ready systems not prototypes.",
+    q: "Can you integrate AI into our existing software?",
+    a: "Often, AI capabilities can be added through APIs or integration services, but feasibility depends on your architecture, data access, security requirements, and vendor constraints. We review those factors before recommending an approach.",
   },
   {
-    q: "What do your RAG pipeline development services include?",
-    a: "Our RAG pipeline development services go beyond simple vector search. We build context-aware retrieval systems with hybrid search, re-ranking, query decomposition, and guardrails integrated directly into your existing tech stack. Every pipeline is production-ready with observability and failover built in.",
+    q: "What does RAG pipeline development include?",
+    a: "A RAG project may include document ingestion, retrieval, access controls, answer generation, and evaluation. The components depend on the content sources, user permissions, and quality requirements for your product.",
   },
   {
-    q: "What does LLM integration services mean in practice?",
-    a: "Our LLM integration services connect large language models whether hosted (OpenAI, Anthropic, Gemini) or open-source (Llama, Mistral) into your existing applications, APIs, and databases. We handle prompt engineering, context management, rate limiting, cost control, and fallback logic so you ship a stable product, not an experiment.",
+    q: "What MLOps work can you help with?",
+    a: "MLOps scope can include model and data versioning, deployment workflows, monitoring, rollback planning, and retraining criteria. We define the operating process to fit the team's infrastructure and ownership model.",
   },
   {
-    q: "How does AI automation for business actually work?",
-    a: "AI automation for business replaces rule-based workflows with intelligent agents that handle dynamic, context-dependent tasks like processing unstructured documents, routing customer support tickets, extracting invoice data, and making real-time inventory decisions. We build and deploy these systems end-to-end, including the monitoring layer to catch drift before it costs you.",
-  },
-  {
-    q: "What MLOps services do you provide?",
-    a: "Our MLOps services cover the full post-training lifecycle: feature stores, model registries, CI/CD pipelines for ML, A/B deployment, performance monitoring, and automated retraining triggers. Your models don't just deploy once they stay accurate, observable, and cost-efficient over time.",
-  },
-  {
-    q: "What industries do you build machine learning models for?",
-    a: "Our core expertise spans Fintech, Healthcare, Logistics, and SaaS. Whether it is algorithmic trading models, patient data analysis, or supply chain route optimization, our engineering principles remain universally robust.",
+    q: "How long does an AI/ML project take?",
+    a: "Timing depends on the use case, data readiness, integrations, evaluation needs, and deployment environment. After an initial assessment, we can propose phases and a delivery estimate for the agreed scope.",
   },
 ];
 
@@ -311,16 +230,6 @@ const INTERNAL_LINKS = [
   { label: "React & Next.js", link: "/webdev" },
   { label: "Native Mobile", link: "/mobile" },
   { label: "FBR ERP Suite", link: "/products" },
-];
-
-const KEYWORD_TAGS = [
-  "ML Model Engineering",
-  "RAG Pipeline Development",
-  "LLM Integration Services",
-  "MLOps Services",
-  "AI Automation for Business",
-  "Machine Learning Model Deployment",
-  "AI Pipeline Engineering",
 ];
 
 // ─── Page (Server Component) ─────────────────────────────────────────────────
@@ -335,10 +244,6 @@ export default function AiMlPage() {
       <Navbar />
 
       {/* ── 1. EDITORIAL HERO ─────────────────────────────────────────────── */}
-      {/* FIX: H1 now leads with "ML Model Engineering Services" — the exact
-          highest-volume query (197 impressions / pos 48). Sub-head folds in
-          "AI/ML engineering service providers" naturally, the second target
-          query with zero prior coverage on the page. */}
       <section
         className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-[90vh] flex flex-col justify-center"
         aria-label="Hero"
@@ -363,21 +268,17 @@ export default function AiMlPage() {
               </h1>
 
               <h2 className="mt-6 text-xl md:text-2xl font-semibold text-gray-500 tracking-tight">
-                A trusted AI/ML engineering service provider for RAG pipelines,
-                LLM integration, AI automation, and MLOps production-ready,
-                end to end.
+                AI/ML engineering for product teams building models, RAG
+                applications, LLM integrations, and production workflows.
               </h2>
             </div>
 
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We engineer{" "}
-                <strong className="text-gray-900">production-ready ML models</strong>{" "}
-                for companies that need results, not experiments. From{" "}
-                <strong className="text-gray-900">RAG pipelines</strong> and{" "}
-                <strong className="text-gray-900">LLM integration</strong> to full{" "}
-                <strong className="text-gray-900">MLOps</strong> we turn raw data
-                into dominant market leverage.
+                We help product and engineering teams scope and build ML model
+                features, RAG pipelines, LLM integrations, and the software
+                needed to operate them. The approach depends on your use case,
+                data, existing systems, and deployment requirements.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -409,9 +310,6 @@ export default function AiMlPage() {
         </div>
       </section>
 
-      {/* ── STATS COUNTER ─────────────────────────────────────────────────── */}
-      <StatsCounter />
-
       {/* ── FULL-WIDTH IMAGE BREAKER ──────────────────────────────────────── */}
       <section
         className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900"
@@ -427,9 +325,7 @@ export default function AiMlPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent" />
       </section>
 
-      {/* ── ML MODEL ENGINEERING SERVICES SECTION (moved up, given the H2 the
-          winning "engineering services for AI and ML integration" section
-          already proves works — position 1.75 vs page average ~30) ───────── */}
+      {/* ── ML MODEL ENGINEERING SERVICES SECTION ─────────────────────────── */}
       <section
         className="py-24 bg-gray-900 text-white"
         aria-label="ML Model Engineering Services"
@@ -455,21 +351,19 @@ export default function AiMlPage() {
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
                 Our{" "}
                 <strong className="text-white">ML model engineering services</strong>{" "}
-                cover everything from initial architecture decisions through to
-                production deployment and long-term model maintenance. Unlike
-                generic dev shops, we treat model engineering as a discipline
-                with the same rigor, observability, and reliability standards you
-                expect from any critical system.
+                cover architecture, data and training pipelines, evaluation,
+                deployment, and maintenance planning. We scope each engagement
+                around the model's role, available data, latency needs, and
+                operating constraints.
               </p>
               <p className="text-gray-500 leading-relaxed">
-                As one of the{" "}
+                For teams evaluating{" "}
                 <strong className="text-gray-300">
                   AI/ML engineering service providers
-                </strong>{" "}
-                trusted by startups and enterprises alike, our outcome is always
-                the same: models that perform reliably in production, integrated
-                cleanly into your existing stack, with clear observability into
-                their behaviour over time.
+                </strong>, Bridge Homies can support model engineering and
+                integration work from initial assessment through implementation
+                and handover. The scope and operating model are agreed for each
+                project.
               </p>
             </div>
 
@@ -478,27 +372,27 @@ export default function AiMlPage() {
                 {[
                   {
                     title: "Model Architecture Design",
-                    desc: "We select and design ML architectures appropriate to your data, compute budget, and latency requirements avoiding over-engineering from the start.",
+                    desc: "We compare suitable model approaches against your data, compute budget, latency requirements, and maintenance capacity.",
                   },
                   {
                     title: "Training Infrastructure",
-                    desc: "Reproducible, versioned training pipelines with experiment tracking, hyperparameter management, and compute optimisation built in.",
+                    desc: "Where custom training is needed, we can plan reproducible pipelines, experiment tracking, and resource management around the project requirements.",
                   },
                   {
                     title: "Inference Optimisation",
-                    desc: "Model quantization, batching strategies, and serving infrastructure tuned for your throughput and cost targets not just benchmark scores.",
+                    desc: "We can assess options such as quantization, batching, and serving infrastructure against measured latency, throughput, and cost needs.",
                   },
                   {
                     title: "Production Deployment",
-                    desc: "Blue-green and canary deployments, rollback strategies, and health monitoring so every release is a controlled, low-risk event.",
+                    desc: "Deployment options can include staged releases, rollback procedures, and health checks, depending on the existing platform.",
                   },
                   {
                     title: "Post-Deployment Monitoring",
-                    desc: "Data drift detection, performance degradation alerts, and automated retraining triggers to maintain model quality over time.",
+                    desc: "Monitoring can track input changes and model quality; retraining triggers should be based on evaluation criteria agreed for the use case.",
                   },
                   {
                     title: "Legacy System Integration",
-                    desc: "We wire ML capabilities directly into your existing ERP, CRM, or API layer no full rebuild, no downtime, no disruption.",
+                    desc: "We assess integration with existing ERP, CRM, and API layers, including dependencies and rollout constraints.",
                   },
                 ].map((item, i) => (
                   <div
@@ -517,9 +411,7 @@ export default function AiMlPage() {
         </div>
       </section>
 
-      {/* ── DEFINITIONAL BLOCK (kept as-is — this section's exact phrase
-          "engineering services for AI and ML integration" ranks position 1.75,
-          the page's only real winner. Don't touch the wording.) ───────────── */}
+      {/* ── AI/ML INTEGRATION ──────────────────────────────────────────────── */}
       <section
         className="py-20 bg-white border-b border-gray-100"
         aria-label="What are engineering services for AI and ML integration"
@@ -540,24 +432,19 @@ export default function AiMlPage() {
 
             <div className="lg:col-span-8 lg:pt-16">
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                Engineering services for AI and ML integration connect machine
-                learning inference layers to existing applications, databases, ERP
-                systems, and APIs without requiring a full platform rebuild. These
-                services cover architecture design, model deployment, API integration,
-                and ongoing MLOps support to keep models accurate and cost-efficient in
-                production.
+                Engineering services for AI and ML integration connect model
+                capabilities to existing applications, databases, ERP systems, and
+                APIs. The right approach depends on the current architecture, data
+                access, security requirements, and deployment constraints.
               </p>
               <p className="text-base text-gray-500 leading-relaxed mb-8">
                 As an{" "}
                 <strong className="text-gray-900">
                   AI/ML engineering service provider
                 </strong>
-                , our work spans the full ML lifecycle: from selecting the right
-                model architecture and building training pipelines, to deploying
-                inference endpoints and monitoring production performance.
-                Whether you need us for a greenfield product or to extend a legacy
-                system, we deliver production-ready systems not research
-                prototypes.
+                , we help assess model options, plan data and training pipelines,
+                integrate inference into software, and define monitoring and release
+                requirements for the environment.
               </p>
 
               <div
@@ -568,11 +455,9 @@ export default function AiMlPage() {
                   <strong className="text-gray-900 text-base">
                     ML model engineering services
                   </strong>{" "}
-                  encompass data pipeline design, model architecture selection, training
-                  infrastructure, inference optimization, and post-deployment monitoring.
-                  Bridge Homies delivers end-to-end coverage with full observability,
-                  automated retraining pipelines, and rollback strategies built in from
-                  day one.
+                  can include data pipeline design, model selection, training,
+                  inference, deployment, and monitoring. Project scope is based on
+                  the team's goals, data, and operating environment.
                 </p>
               </div>
             </div>
@@ -594,8 +479,8 @@ export default function AiMlPage() {
             <div className="text-right mt-8 md:mt-0 max-w-sm">
               <p className="text-gray-500 font-medium">
                 Bespoke <strong className="text-gray-900">ML model engineering</strong>,{" "}
-                RAG pipelines, LLM integration, and MLOps. Production-ready from
-                day one.
+                RAG pipelines, LLM integration, and MLOps scoped to your product
+                and existing systems.
               </p>
             </div>
           </div>
@@ -664,184 +549,6 @@ export default function AiMlPage() {
         </div>
       </section>
 
-      {/* ── COMMON QUESTIONS ──────────────────────────────────────────────── */}
-      <section
-        className="py-32 bg-white border-t border-gray-100"
-        aria-label="Common questions about our ML model engineering services"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mb-20">
-            <div className="inline-flex items-center space-x-3 mb-8">
-              <div className="h-px w-8 bg-purple-600" />
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">
-                ML Engineering FAQ
-              </span>
-            </div>
-
-            <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-gray-900 mb-8">
-              Common Questions <br /> About Our ML <br /> Model Engineering.
-            </h2>
-
-            <p className="max-w-3xl text-lg text-gray-500 leading-relaxed">
-              Answers to the most common questions about{" "}
-              <strong className="text-gray-900">ML model engineering services</strong>,
-              RAG pipelines, LLM integration, AI automation, and MLOps.
-            </p>
-          </div>
-
-          <div className="space-y-16">
-            <div className="border-t-2 border-gray-900 pt-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                What is the difference between RAG and fine-tuning a model?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  RAG (Retrieval-Augmented Generation) and fine-tuning solve different
-                  problems. A RAG pipeline allows an AI model to retrieve information
-                  from your company's documents, databases, or knowledge base before
-                  generating a response, allowing the system to use current information
-                  without retraining.
-                </p>
-                <p>
-                  Fine-tuning modifies the model itself by training it on additional
-                  examples to improve behavior, formatting, classification, or
-                  domain-specific reasoning. It changes how the model responds rather
-                  than what information it can access.
-                </p>
-                <p>
-                  In most enterprise environments, RAG is the preferred starting point
-                  because knowledge can be updated instantly without retraining costs.
-                  Many mature AI systems eventually combine both approaches to achieve
-                  maximum performance.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 pt-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                How long does a typical ML project take from kickoff to deployment?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  The timeline depends on project complexity, data availability, and
-                  integration requirements. Smaller AI automation projects can often be
-                  launched within 4 to 8 weeks, while enterprise-grade machine learning
-                  systems may require 3 to 6 months.
-                </p>
-                <p>
-                  Our process typically includes discovery, data assessment, architecture
-                  design, model development, testing, deployment, and monitoring setup.
-                  Each phase is designed to reduce risk while maintaining delivery speed.
-                </p>
-                <p>
-                  Projects involving LLM integration and RAG pipelines often move faster
-                  because they can leverage proven foundation models rather than
-                  requiring extensive custom model training from scratch.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 pt-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                Do you work with companies outside Pakistan?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  Yes. We work with startups, SMEs, and enterprise organizations
-                  worldwide. Our development process is built around remote
-                  collaboration, structured communication, and transparent project
-                  management.
-                </p>
-                <p>
-                  We provide regular progress updates, technical documentation, milestone
-                  reviews, and direct communication throughout the project lifecycle.
-                  Time zone differences are managed through planned workflows and
-                  overlapping collaboration windows.
-                </p>
-                <p>
-                  Whether the engagement involves AI automation, ML model engineering,
-                  or long-term MLOps support, our delivery process is designed to
-                  support international clients efficiently.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 pt-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                What does "production-ready" mean for an ML model?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  A production-ready ML model is more than a model that performs well
-                  during testing. It includes deployment infrastructure, monitoring,
-                  security controls, scalability planning, version management, and
-                  failure recovery mechanisms.
-                </p>
-                <p>
-                  The model must continue delivering reliable performance after launch as
-                  real-world data, traffic, and business requirements evolve. Accuracy
-                  alone is not enough for enterprise deployment.
-                </p>
-                <p>
-                  Our MLOps services include observability, automated deployment
-                  pipelines, model monitoring, rollback strategies, and performance
-                  tracking to ensure long-term stability and business value.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-gray-200 pt-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                Can you integrate AI into our existing software without rebuilding it?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  In most cases, yes. Our engineering services for AI and ML integration
-                  are specifically designed to work with existing applications, databases,
-                  ERP systems, CRMs, APIs, and internal business platforms.
-                </p>
-                <p>
-                  Rather than replacing your software, we typically create integration
-                  layers that connect AI capabilities directly into your current
-                  architecture. This significantly reduces implementation risk and
-                  development costs.
-                </p>
-                <p>
-                  Whether the project involves document processing, predictive analytics,
-                  workflow automation, or LLM integration, we focus on extending
-                  existing systems instead of rebuilding them from scratch.
-                </p>
-              </div>
-            </div>
-
-            <div className="border-t border-b border-gray-200 pt-10 pb-10">
-              <h3 className="text-3xl font-bold text-gray-900 mb-6 uppercase tracking-tight">
-                What industries have you built ML systems for?
-              </h3>
-              <div className="max-w-4xl space-y-4 text-gray-600 leading-relaxed">
-                <p>
-                  Our experience spans SaaS, enterprise software, eCommerce, logistics,
-                  automation platforms, finance, and document-intensive business
-                  operations. We have worked on intelligent search systems, workflow
-                  automation, recommendation engines, and AI-powered decision-support
-                  tools.
-                </p>
-                <p>
-                  We also build solutions involving RAG pipelines, intelligent document
-                  processing, predictive analytics, custom machine learning models, and
-                  large language model integrations for operational efficiency.
-                </p>
-                <p>
-                  Regardless of industry, successful ML systems depend on strong data
-                  foundations, scalable architecture, measurable business outcomes, and
-                  ongoing monitoring. Those principles guide every project we deliver.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── BENTO / ABOUT ─────────────────────────────────────────────────── */}
       <section
         className="py-32 bg-white"
@@ -856,29 +563,23 @@ export default function AiMlPage() {
                   Why Bridge Homies
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Not just another <br />
+                  Engineering software <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">
-                    machine learning agency
+                    with AI and ML
                   </span>
-                  .
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-8">
-                  Many can run a Python script; few can deploy it securely at scale.
-                  As an{" "}
-                  <strong className="text-white">
-                    AI/ML engineering service provider
-                  </strong>{" "}
-                  founded in Lahore in 2025, we deliver{" "}
-                  <strong className="text-white">ML model engineering</strong>, RAG
-                  pipelines, LLM integration, AI automation, and complete MLOps to
-                  enterprise clients worldwide. You're not bolting on intelligence
-                  you're building it into the architecture from the start.
+                  Bridge Homies is a software agency based in Lahore, Pakistan.
+                  We work with product teams on ML model engineering, RAG
+                  pipelines, LLM integration, AI automation, and MLOps, with the
+                  scope shaped around their existing software and operating needs.
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-12">
-                  Led by engineers with hands-on experience in ML model
-                  architecture, RAG pipeline development, LLM integration, and
-                  machine learning model deployment across Fintech, Healthcare,
-                  and SaaS verticals.
+                  Selected work includes Emotion Detect, an English text
+                  classification project using ML and NLP, and Onyx Fintech, an
+                  AI loan matchmaking platform. The portfolio describes their
+                  functionality and technology; it does not publish performance
+                  results.
                 </p>
               </div>
               <a
@@ -918,7 +619,8 @@ export default function AiMlPage() {
                     Data Integrity
                   </h3>
                   <p className="text-gray-200 text-sm">
-                    Strict adherence to enterprise data security compliance.
+                    Data access, retention, and security requirements should be
+                    defined for each system and deployment environment.
                   </p>
                 </div>
               </div>
@@ -990,28 +692,6 @@ export default function AiMlPage() {
         </div>
       </section>
 
-      {/* ── KEYWORD TAG STRIP ─────────────────────────────────────────────── */}
-      <section
-        aria-label="ML model engineering core capabilities"
-        className="py-16 bg-white border-y border-gray-100"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase text-center mb-8">
-            What We Do
-          </p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {KEYWORD_TAGS.map((kw, i) => (
-              <span
-                key={i}
-                className="text-xs font-bold tracking-[0.12em] uppercase px-3 py-2 border border-gray-200 text-gray-500 hover:border-purple-600 hover:text-purple-600 transition-colors cursor-default"
-              >
-                {kw}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── FINAL CTA (new — closes the loop toward a booked call) ────────── */}
       <section
         id="contact"
@@ -1023,9 +703,9 @@ export default function AiMlPage() {
             Let's Engineer <br /> Your ML Model.
           </h2>
           <p className="text-gray-400 text-lg mb-10">
-            Tell us what you're building or what's broken. We'll map the
-            fastest path from idea or existing system to a working, production
-            ML deployment no long planning cycles required.
+            Tell us what you're building, the systems and data involved, and
+            the constraints you need to work within. We can discuss possible
+            approaches and agree on a practical next step.
           </p>
           <Link
             href="/#contact"
@@ -1079,8 +759,7 @@ export default function AiMlPage() {
 
           <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase">
-              Our ML model engineering and RAG pipeline development strictly
-              adhere to{" "}
+              We use{" "}
               <a
                 href="https://developers.google.com/machine-learning/guides/rules-of-ml"
                 target="_blank"
