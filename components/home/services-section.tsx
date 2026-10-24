@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion"
 import { Code, Smartphone, Globe, Layers, Rocket, Sparkles, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 
@@ -65,12 +65,15 @@ function ServiceCard({
 }) {
   const Icon = service.icon
   const cardRef = useRef<HTMLDivElement>(null)
-  const [mouse, setMouse] = useState({ x: 50, y: 50 })
+  const mouseX = useMotionValue(50)
+  const mouseY = useMotionValue(50)
+  const spotlight = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(168,85,247,0.09) 0%, transparent 60%)`
 
   const handleMouseMove = (e: React.MouseEvent) => {
     const rect = cardRef.current?.getBoundingClientRect()
     if (!rect) return
-    setMouse({ x: ((e.clientX - rect.left) / rect.width) * 100, y: ((e.clientY - rect.top) / rect.height) * 100 })
+    mouseX.set(((e.clientX - rect.left) / rect.width) * 100)
+    mouseY.set(((e.clientY - rect.top) / rect.height) * 100)
   }
 
   return (
@@ -84,11 +87,11 @@ function ServiceCard({
     >
       {!isActive && (
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: `radial-gradient(circle at ${mouse.x}% ${mouse.y}%, rgba(168,85,247,0.09) 0%, transparent 60%)` }} />
+          style={{ background: spotlight }} />
       )}
 
       <span className={`absolute top-4 right-5 font-black leading-none select-none pointer-events-none text-[clamp(28px,4vw,44px)] ${isActive ? "text-white/10" : "text-[#151515]"}`}
-        style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+        style={{ fontFamily: "var(--font-bebas), sans-serif" }}>
         {service.num}
       </span>
 
@@ -102,7 +105,7 @@ function ServiceCard({
       </p>
 
       <h3 className={`leading-none mb-2.5 transition-colors duration-300 text-[clamp(20px,2.5vw,26px)] ${isActive ? "text-white" : "text-[#e0e0e0]"}`}
-        style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}>
+        style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "1px" }}>
         {service.name}
       </h3>
 
@@ -168,13 +171,6 @@ export default function ServicesSection() {
   const [active, setActive] = useState<number | null>(null)
   const toggle = (i: number) => setActive(active === i ? null : i)
 
-  useEffect(() => {
-    const link = document.createElement("link")
-    link.href = "https://fonts.googleapis.com/css2?family=Bebas+Neue&family=JetBrains+Mono:wght@400;700&display=swap"
-    link.rel = "stylesheet"
-    document.head.appendChild(link)
-  }, [])
-
   return (
     <section className="min-h-screen px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-12">
       {/* Header */}
@@ -182,7 +178,7 @@ export default function ServicesSection() {
         <div>
           <p className="font-mono text-[11px] text-[#333] tracking-[.2em] uppercase mb-3">Expertise</p>
           <h2 className="leading-[.9] text-back/80"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 7vw, 96px)", letterSpacing: "2px" }}>
+            style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(44px, 7vw, 96px)", letterSpacing: "2px" }}>
             What<br />We <span className="text-purple-500">Build</span>
           </h2>
           <div className="flex items-center gap-2 mt-4 border border-[#1f1f1f] rounded-full px-4 py-2 w-fit">
@@ -192,7 +188,7 @@ export default function ServicesSection() {
         </div>
         <div className="text-right flex-shrink-0">
           <div className="leading-none text-[#111] select-none"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(44px, 7vw, 72px)", WebkitTextStroke: "1px #222", letterSpacing: "-2px" }}>
+            style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(44px, 7vw, 72px)", WebkitTextStroke: "1px #222", letterSpacing: "-2px" }}>
             06
           </div>
           <p className="font-mono text-[11px] text-[#333] tracking-[.15em] uppercase mt-1">Services</p>
@@ -216,7 +212,7 @@ export default function ServicesSection() {
           </span>
         </div>
         <div className="bg-purple-500 hover:bg-purple-600 transition-colors duration-300 rounded-sm flex items-center justify-between px-5 sm:px-7 py-5 cursor-pointer group">
-          <span className="text-white" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "clamp(18px, 2.5vw, 22px)", letterSpacing: "1px" }}>
+          <span className="text-white" style={{ fontFamily: "var(--font-bebas), sans-serif", fontSize: "clamp(18px, 2.5vw, 22px)", letterSpacing: "1px" }}>
             Start a project
           </span>
           <div className="w-9 h-9 bg-white rounded-full flex items-center justify-center text-purple-500 group-hover:rotate-45 transition-transform duration-300 flex-shrink-0">

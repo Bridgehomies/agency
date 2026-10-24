@@ -511,6 +511,8 @@ export default function HeroSectionSpatial() {
             <img
               src="/team.png"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
+              width={1408}
+              height={768}
               className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               fetchPriority="high"
             />

@@ -101,6 +101,8 @@ export default function TeamSection() {
                     <img
                       src={member.image}
                       alt={member.imageAlt}
+                      width={750}
+                      height={750}
                       className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-110"
                       loading="lazy"
                     />
