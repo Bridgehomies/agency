@@ -57,13 +57,13 @@ export default function FeaturedProduct() {
                 </a>
                 
                 <button
-                  onClick={() => setIsMailExpanded(!isMailExpanded)}
-                  aria-expanded={isMailExpanded ? "true" : "false"}
-                  aria-controls="mail-hauler-pro-drawer"
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  aria-expanded={isExpanded ? "true" : "false"}
+                  aria-controls="aierpify-details-drawer"
                   className="group flex items-center gap-4 px-8 py-4 bg-gray-900 hover:bg-black text-white font-bold text-lg rounded-none transition-all w-full sm:w-auto justify-center"
                 >
-                  {isMailExpanded ? 'Hide Details' : 'See How It Works'}
-                  <ChevronDown className={`w-6 h-6 transition-transform duration-300 ${isMailExpanded ? 'rotate-180' : ''}`} />
+                  {isExpanded ? 'Hide Details' : 'See How It Works'}
+                  <ChevronDown className={`w-6 h-6 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} />
                 </button>
               </div>
             </div>
@@ -93,7 +93,7 @@ export default function FeaturedProduct() {
 
           {/* AIERPIFY DRAWER */}
           <div 
-            id="seo-compliance-drawer"
+            id="aierpify-details-drawer"
             className={`transition-all duration-500 ease-in-out overflow-hidden w-full ${
               isExpanded ? 'max-h-[10000px] opacity-100 my-12' : 'max-h-0 opacity-0 pointer-events-none'
             }`}

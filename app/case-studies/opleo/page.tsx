@@ -3,9 +3,9 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate";
 import type { CaseStudyData } from "@/lib/case-study-types";
 
 export const metadata: Metadata = {
-  title: { absolute: "OPleo HR & Operations Platform | Bridge Homies" },
+  title: { absolute: "OPleo Case Study: HR & Operations Platform | Bridge Homies" },
   description:
-    "How Bridge Homies built OPleo, an operations platform that connects attendance, payroll, leave, remote work, invoicing, and employee self-service.",
+    "See how Bridge Homies built OPleo, a people-operations platform for attendance, payroll, leave, remote work, invoicing, and employee self-service.",
   alternates: { canonical: "https://www.bridgehomies.com/case-studies/opleo" },
 };
 

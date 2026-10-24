@@ -1,6 +1,4 @@
 import {
-  ShoppingCart,
-  Filter,
   MessageSquare,
   Scale,
   Clock,
@@ -40,30 +38,10 @@ export default function UpcomingProducts() {
 
     const upcomingProducts = [
     {
-      icon: ShoppingCart,
-      title: 'E-commerce Platform',
-      description: 'Complete online store solution with payment gateway integration, inventory management, and customer analytics.',
-      status: 'In Development',
-      color: 'from-blue-500 to-purple-600',
-      bgColor: 'bg-blue-50',
-      iconColor: 'text-blue-600',
-      features: ['Multi-vendor support', 'Mobile responsive', 'Payment integration', 'Analytics dashboard']
-    },
-    {
-      icon: Filter,
-      title: 'CV Filtering System',
-      description: 'AI-powered recruitment tool that automatically filters and ranks CVs based on job requirements and qualifications.',
-      status: 'Beta Testing',
-      color: 'from-green-500 to-teal-600',
-      bgColor: 'bg-green-50',
-      iconColor: 'text-green-600',
-      features: ['AI-powered matching', 'Skills assessment', 'Bulk processing', 'Custom criteria']
-    },
-    {
       icon: MessageSquare,
       title: 'TikTok Message Automation',
       description: 'Automated messaging system for TikTok that helps businesses engage with their audience and manage communications.',
-      status: 'Coming Q2 2025',
+      status: 'In Development',
       color: 'from-pink-500 to-rose-600',
       bgColor: 'bg-pink-50',
       iconColor: 'text-pink-600',

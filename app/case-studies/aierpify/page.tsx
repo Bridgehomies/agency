@@ -3,9 +3,9 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: { absolute: "Aierpify FBR Invoicing SaaS | Bridge Homies" },
+  title: { absolute: "Aierpify Case Study: FBR E-Invoicing SaaS | Bridge Homies" },
   description:
-    "How Bridge Homies built Aierpify, a cloud-based FBR e-invoicing SaaS platform for Pakistani businesses covering invoicing, FBR integration, and subscriptions.",
+    "See how Bridge Homies built Aierpify, a cloud-based FBR e-invoicing platform for Pakistani businesses, with invoice creation, validation, submission, and tracking.",
   alternates: { canonical: "https://www.bridgehomies.com/case-studies/aierpify" },
 }
 
