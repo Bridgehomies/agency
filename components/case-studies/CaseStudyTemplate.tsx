@@ -2,6 +2,7 @@ import Link from "next/link"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import type { CaseStudyData } from "@/lib/case-study-types"
+import { SITE_URL } from "@/lib/config"
 
 const ArrowIcon = ({ className = "w-4 h-4" }: { className?: string }) => (
   <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -17,8 +18,29 @@ const Eyebrow = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
+  const productUrl = `${SITE_URL}/case-studies/${data.slug}`
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "@id": `${productUrl}#product`,
+    name: data.name,
+    description: data.tagline,
+    url: productUrl,
+    category: data.category,
+    ...(data.coverImage
+      ? { image: new URL(data.coverImage, SITE_URL).toString() }
+      : {}),
+    manufacturer: { "@id": `${SITE_URL}/#organization` },
+  }
+
   return (
     <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productSchema).replace(/</g, "\\u003c"),
+        }}
+      />
       <Navbar />
 
       {/* HERO */}
