@@ -65,11 +65,10 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/ai-ml-development/#webpage",
       url: "https://www.bridgehomies.com/ai-ml-development",
-      name: "ML Model Engineering Services | AI/ML Engineering Service Providers | Bridge Homies",
+      name: "ML Model Engineering Services | Bridge Homies",
       description:
         "Bridge Homies is a software agency in Lahore, Pakistan, offering AI/ML engineering, RAG pipeline development, LLM integration, and MLOps services.",
       inLanguage: "en-US",
-      dateModified: "2026-10-23",
       isPartOf: { "@id": "https://www.bridgehomies.com/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
@@ -88,25 +87,6 @@ const schema = {
           },
         ],
       },
-    },
-    {
-      "@type": "Organization",
-      "@id": "https://www.bridgehomies.com/#organization",
-      name: "Bridge Homies",
-      url: "https://www.bridgehomies.com",
-      foundingDate: "2025",
-      description:
-        "Bridge Homies is a software agency based in Lahore, Pakistan, offering AI/ML engineering, RAG pipeline development, LLM integration, and MLOps services.",
-      address: {
-        "@type": "PostalAddress",
-        addressLocality: "Lahore",
-        addressRegion: "Punjab",
-        addressCountry: "PK",
-      },
-      sameAs: [
-        "https://www.linkedin.com/company/bridge-homies",
-        "https://github.com/bridgehomies",
-      ],
     },
     {
       "@type": "Service",
@@ -287,7 +267,7 @@ export default function AiMlPage() {
                   className="group relative inline-flex items-center justify-center px-8 py-4 bg-gray-900 text-white font-bold rounded-none overflow-hidden transition-all hover:bg-purple-600"
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    Book a Free Strategy Call
+                    Discuss Your Project
                     <svg
                       className="w-4 h-4 group-hover:translate-x-1 transition-transform"
                       fill="none"
@@ -586,7 +566,7 @@ export default function AiMlPage() {
                 href="/#contact"
                 className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit"
               >
-                Book a Free Strategy Call{" "}
+                Discuss Your Project{" "}
                 <svg
                   className="w-5 h-5 ml-2"
                   fill="none"
@@ -656,7 +636,7 @@ export default function AiMlPage() {
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-bold text-sm uppercase tracking-wide hover:bg-purple-600 transition-colors"
               >
-                Book a Free Strategy Call
+                    Discuss Your Project
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -711,7 +691,7 @@ export default function AiMlPage() {
             href="/#contact"
             className="inline-flex items-center gap-2 px-10 py-5 bg-white text-gray-900 font-black uppercase tracking-wide hover:bg-purple-500 hover:text-white transition-colors"
           >
-            Book a Free Strategy Call
+            Discuss Your Project
             <svg
               className="w-5 h-5"
               fill="none"

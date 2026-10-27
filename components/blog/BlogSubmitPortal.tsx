@@ -27,7 +27,7 @@ import {
 
 type Step = 1 | 2 | 3 | 4 | 5;
 type ContentFormat = "markdown" | "json";
-type PublishOption = "" | "exchange" | "paid";
+type PublishOption = "" | "paid";
 type PaidPlan = "" | "advance" | "after_live";
 
 type FormData = {
@@ -48,7 +48,6 @@ type FormData = {
   coverImagePreview: string;
   // ── Publishing / payment choice ──
   publishOption: PublishOption;
-  exchangeUrl: string; // required when publishOption === "exchange"
   paidPlan: PaidPlan; // required when publishOption === "paid"
   paymentProofFile: File | null; // required when paidPlan === "advance"
   paymentProofPreview: string;
@@ -99,12 +98,12 @@ const WE_DONT = [
 // FAQ data rendered as semantic <dl> for crawlers (mirrors JSON-LD)
 const FAQ_ITEMS = [
   {
-    q: "Is it free to write for Bridge Homies?",
-    a: "Reciprocal link exchanges are $0. Paid placements are $10 if you pay in advance, or $12 if you'd rather pay after your piece is verified live.",
+    q: "Does Bridge Homies accept guest articles?",
+    a: "We review original, technically useful submissions about software engineering, SaaS, AI/ML, cloud and DevOps, and web or mobile development. Publication is not guaranteed.",
   },
   {
-    q: "Do I get a dofollow backlink?",
-    a: "Every accepted article includes up to 1–2 permanent dofollow links, placed naturally in the body.",
+    q: "How are external links handled?",
+    a: "External links are reviewed for relevance. Links in accepted paid placements are disclosed and qualified as sponsored.",
   },
   {
     q: "What is the minimum word count?",
@@ -112,7 +111,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How long does review take?",
-    a: "2–3 business days for technical review, formatting, and publication.",
+    a: "We’ll contact you after editorial review. Review times can vary, so submission does not guarantee a publication date.",
   },
   {
     q: "What topics can I write about?",
@@ -120,7 +119,15 @@ const FAQ_ITEMS = [
   },
   {
     q: "Will I get an author profile?",
-    a: "Yes every published contributor gets a permanent author profile page with their bio and backlinks.",
+    a: "Accepted articles display the approved byline. A separate author profile may not be provided.",
+  },
+  {
+    q: "Are paid editorial placements available?",
+    a: "Paid editorial placements may be available. The applicable fee and payment timing are shown before you confirm.",
+  },
+  {
+    q: "What does a paid placement cost?",
+    a: "The current fee and payment timing are shown in the submission form before confirmation. Use the displayed terms for your submission; do not rely on older copied rates.",
   },
   {
     q: "What niches are excluded?",
@@ -139,7 +146,7 @@ Write your article body in Markdown. Use headings, short paragraphs, and lists t
 - The problem your reader is searching for
 - Your practical answer or approach
 - Real examples, steps, or a mini case study
-- Link your backlinks naturally, e.g. [Bridge Homies](https://www.bridgehomies.com)
+- Cite primary documentation where relevant. Include external links only when they help readers understand the article.
 `;
 
 const jsonTemplate = `{
@@ -388,7 +395,6 @@ const initialForm: FormData = {
   coverImageFile: null,
   coverImagePreview: "",
   publishOption: "",
-  exchangeUrl: "",
   paidPlan: "",
   paymentProofFile: null,
   paymentProofPreview: "",
@@ -458,7 +464,7 @@ const textareaCls = "bh-input bh-textarea";
 // PERF FIX: removed the @import('fonts.googleapis.com/...') that used to
 // open this string. @import inside a client-rendered <style> tag forces a
 // 4-hop chain (HTML -> parse <style> -> discover @import -> fetch CSS ->
-// fetch font files) before the H1 ("Write for Us / Publish on Bridge
+// fetch font files) before the H1 ("Submit an Article"
 // Homies" — the LCP element on this page) can paint in its final font.
 // That chain is what PageSpeed flagged as "render-blocking requests" and
 // "network dependency tree", and the fallback-to-webfont swap it caused
@@ -644,7 +650,7 @@ function Step1({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
       </Field>
       <div style={{ gridColumn: "1/-1" }}>
-        <Field label="Short Bio" required hint="2–3 sentences. Appears on your published author profile page.">
+        <Field label="Short Bio" required hint="2–3 sentences to accompany your approved byline.">
           <textarea className={textareaCls} placeholder="I'm a software engineer specialising in custom SaaS platforms and AI-integrated dashboards for mid-market businesses." value={form.bio} onChange={(e) => update("bio", e.target.value)} required />
         </Field>
       </div>
@@ -662,7 +668,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
       <div className="bh-notice bh-notice-gold">
-        <strong style={{ fontWeight: 700 }}>Your dofollow backlinks (up to 1–2)</strong> These appear in your permanent author profile on every article you publish here. For the highest SEO value, also weave them naturally into your article body in Step 3.
+        <strong style={{ fontWeight: 700 }}>External links (optional)</strong> Add only links that help readers understand the article. Links included in a paid placement are marked as sponsored.
       </div>
       {form.backlinks.map((bl, i) => (
         <div key={i} className="bh-card">
@@ -682,7 +688,7 @@ function Step2({ form, update }: { form: FormData; update: (k: keyof FormData, v
       ))}
       {filled.length > 0 && (
         <div className="bh-notice bh-notice-blue">
-          <strong style={{ fontWeight: 700 }}>Heads-up for Step 3:</strong> You have {filled.length} backlink{filled.length > 1 ? "s" : ""} queued. Contextual, in-body links rank significantly higher than footer or bio links weave them into your article naturally.
+          <strong style={{ fontWeight: 700 }}>Editorial review:</strong> You have {filled.length} external link{filled.length > 1 ? "s" : ""} to include. Each link is reviewed for relevance and accuracy; paid-placement links are marked as sponsored.
         </div>
       )}
     </div>
@@ -732,8 +738,8 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         <div className="bh-notice bh-notice-gold" style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
           <Link2 size={15} style={{ marginTop: 2, flexShrink: 0 }} />
           <div style={{ flex: 1 }}>
-            <strong style={{ fontWeight: 700 }}>Include your backlinks in the article body</strong><br />
-            <span style={{ fontSize: 12 }}>Click a link to insert it at your cursor, or type it manually as <code style={{ background: "#fff", borderRadius: 0, padding: "1px 6px", fontFamily: "var(--font-plex-mono), monospace", fontSize: 11 }}>[anchor text](url)</code>.</span>
+            <strong style={{ fontWeight: 700 }}>Add useful external references</strong><br />
+            <span style={{ fontSize: 12 }}>Include a link only when it supports the reader’s understanding. Links in accepted paid placements are marked as sponsored.</span>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
               {filled.map((bl, i) => (
                 <button
@@ -840,7 +846,6 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
             {form.contentFormat === "json"
               ? "Use JSON blocks. Supported JSON can be an array of blocks or an object with `blocks`, `content`, or `body`."
               : "Use Markdown or MDX. Minimum 1,000 words."}{" "}
-            <strong style={{ color: "#7c3aed", fontWeight: 600 }}>Remember to embed your backlinks naturally.</strong>
           </p>
         </div>
 
@@ -866,7 +871,7 @@ function Step3({ form, update }: { form: FormData; update: (k: keyof FormData, v
         </div>
 
         <div style={{ gridColumn: "1/-1" }}>
-          <Field label="FAQ Pairs" hint={<span>Optional boosts AEO/SEO. One per line: <code style={{ background: "#f5f1ea", borderRadius: 0, padding: "1px 6px", fontFamily: "var(--font-plex-mono), monospace", fontSize: 11 }}>Question::Answer</code></span>}>
+          <Field label="FAQ Pairs" hint={<span>Optional. One per line: <code style={{ background: "#f5f1ea", borderRadius: 0, padding: "1px 6px", fontFamily: "var(--font-plex-mono), monospace", fontSize: 11 }}>Question::Answer</code></span>}>
             <textarea className={textareaCls} style={{ minHeight: 100 }} placeholder={"What is a custom web app?::A custom web app is tailored specifically to your business needs.\nHow long does a dashboard take?::Most take 4–12 weeks depending on complexity."} value={form.faqText} onChange={(e) => update("faqText", e.target.value)} />
           </Field>
         </div>
@@ -977,18 +982,17 @@ function Step4({ form, update }: { form: FormData; update: (k: keyof FormData, v
   }
 
   const options: { id: PublishOption; title: string; price: string; desc: string }[] = [
-    { id: "exchange", title: "Reciprocal Link Exchange", price: "$0", desc: "You link to us from a live page on your site — we publish your guest post free." },
-    { id: "paid", title: "Paid Placement", price: "$10–$12", desc: "No link exchange needed. Pay a small placement fee instead." },
+    { id: "paid", title: "Paid editorial placement", price: "Fee shown before confirmation", desc: "Paid submissions are subject to editorial review and acceptance. External links in accepted paid articles are disclosed and marked as sponsored." },
   ];
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
       <div className="bh-notice bh-notice-gold">
-        <strong style={{ fontWeight: 700 }}>Choose how you'd like to publish.</strong> Pick a reciprocal link exchange (free) or a paid placement.
+        <strong style={{ fontWeight: 700 }}>Choose a paid editorial review.</strong> The fee and payment timing are displayed before you confirm. Publication is not guaranteed; editorial approval is required.
       </div>
 
       {/* ── Publish option cards ── */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 14 }}>
+      <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: 14 }}>
         {options.map((opt) => {
           const active = form.publishOption === opt.id;
           return (
@@ -1014,27 +1018,6 @@ function Step4({ form, update }: { form: FormData; update: (k: keyof FormData, v
           );
         })}
       </div>
-
-      {/* ── Reciprocal link exchange ── */}
-      {form.publishOption === "exchange" && (
-        <div className="bh-card">
-          <p className="bh-section-label">Where did you add our link?</p>
-          <Field label="URL of the page where you added our company link" required hint="Please add a link to our company on a live page before submitting.">
-            <div style={{ position: "relative" }}>
-              <Globe size={14} style={{ position: "absolute", left: 14, top: "50%", transform: "translateY(-50%)", color: "#a39d94", pointerEvents: "none" }} />
-              <input
-                type="url"
-                className={inputCls}
-                style={{ paddingLeft: 36 }}
-                placeholder="https://yoursite.com/page-with-our-link"
-                value={form.exchangeUrl}
-                onChange={(e) => update("exchangeUrl", e.target.value)}
-                required
-              />
-            </div>
-          </Field>
-        </div>
-      )}
 
       {/* ── Paid placement ── */}
       {form.publishOption === "paid" && (
@@ -1111,16 +1094,14 @@ function Step5({ form }: { form: FormData }) {
   const filled = form.backlinks.filter(bl => bl.url.trim());
   const wordCount = getWordCount(form.content, form.contentFormat);
   const paymentSummary =
-    form.publishOption === "exchange"
-      ? "Reciprocal link exchange (free)"
-      : form.publishOption === "paid"
-      ? form.paidPlan === "advance" ? "Paid — $10, pay in advance" : form.paidPlan === "after_live" ? "Paid — $12, pay after live" : "Paid — plan not selected"
+    form.publishOption === "paid"
+      ? form.paidPlan === "advance" ? "Paid editorial placement — $10, pay in advance" : form.paidPlan === "after_live" ? "Paid editorial placement — $12, pay after publication" : "Paid editorial placement — choose a payment plan"
       : "Not selected";
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
       <div className="bh-notice bh-notice-green">
-        <strong style={{ fontWeight: 700 }}>Ready to submit your guest post.</strong> Review everything below, then hit <em>Submit for Review</em>. We'll respond within 2–3 business days.
+        <strong style={{ fontWeight: 700 }}>Ready to submit your article.</strong> Review everything below, then submit it for editorial review. Publication is not guaranteed.
       </div>
       <div className="bh-card">
         <p className="bh-section-label">Author</p>
@@ -1134,7 +1115,7 @@ function Step5({ form }: { form: FormData }) {
       </div>
       {filled.length > 0 && (
         <div className="bh-card">
-          <p className="bh-section-label">Backlinks</p>
+          <p className="bh-section-label">External links</p>
           <div style={{ display: "flex", flexDirection: "column", gap: 8, fontSize: 13 }}>
             {filled.map((bl, i) => (
               <div key={i} style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -1162,9 +1143,6 @@ function Step5({ form }: { form: FormData }) {
         <p className="bh-section-label">Publishing option</p>
         <div style={{ fontSize: 13, color: "#0a0a0a" }}>
           <span style={{ fontWeight: 600, color: "#6b6560" }}>Plan </span>{paymentSummary}
-          {form.publishOption === "exchange" && form.exchangeUrl && (
-            <div style={{ marginTop: 6 }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Link exchange URL </span>{form.exchangeUrl}</div>
-          )}
           {form.publishOption === "paid" && form.paidPlan === "advance" && (
             <div style={{ marginTop: 6 }}><span style={{ fontWeight: 600, color: "#6b6560" }}>Transfer proof </span>{form.paymentProofFile?.name || "Not attached"}</div>
           )}
@@ -1184,16 +1162,16 @@ function SuccessScreen() {
       </div>
       <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "2.6rem", color: "#0a0a0a", margin: "0 0 14px" }}>You're in the queue!</h2>
       <p style={{ fontSize: 14, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 440, margin: "0 0 10px" }}>
-        Your guest post has been received. Our editorial team will review it and get back to you within <strong style={{ color: "#0a0a0a" }}>2–3 business days</strong>.
+        Your article has been received for editorial review. Review times can vary; we’ll email you when a decision is made.
       </p>
       <p style={{ fontSize: 13, lineHeight: 1.8, color: "#a39d94", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 400, margin: "0 0 32px" }}>
-        Once accepted, your article will be published with your author profile and all backlinks live.
+        We’ll email you after editorial review. Accepted paid placements are identified as sponsored, and their outbound links are qualified as sponsored.
       </p>
       <div style={{ display: "flex", gap: 12 }}>
         <a href="/blog" style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "#0a0a0a", color: "#f5f1ea", borderRadius: 0, padding: "12px 24px", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textDecoration: "none", fontFamily: "var(--font-plex-mono), monospace" }}>
           Browse the blog <ArrowRight size={14} />
         </a>
-        <a href="/blog/write-for-us" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#6b6560", border: "1px solid #d4cfc6", borderRadius: 0, padding: "12px 24px", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textDecoration: "none", fontFamily: "var(--font-plex-mono), monospace" }}>
+        <a href="/blog/submit" onClick={() => window.location.reload()} style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "transparent", color: "#6b6560", border: "1px solid #d4cfc6", borderRadius: 0, padding: "12px 24px", fontSize: "0.65rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.1em", textDecoration: "none", fontFamily: "var(--font-plex-mono), monospace" }}>
           Submit another post
         </a>
       </div>
@@ -1280,10 +1258,7 @@ export default function BlogSubmitPortal() {
       if (!form.coverImageFile) return "Please upload a featured image.";
     }
     if (s === 4) {
-      if (!form.publishOption) return "Please choose how you'd like to publish — link exchange or paid placement.";
-      if (form.publishOption === "exchange" && !form.exchangeUrl.trim()) {
-        return "Please share the URL of the page where you added our company link.";
-      }
+      if (form.publishOption !== "paid") return "Choose the paid editorial option to continue. The applicable fee and payment timing are shown before confirmation.";
       if (form.publishOption === "paid") {
         if (!form.paidPlan) return "Please choose a payment plan.";
         if (form.paidPlan === "advance" && !form.paymentProofFile) {
@@ -1330,7 +1305,6 @@ export default function BlogSubmitPortal() {
         if (form.coverImageFile) data.append("coverImage", form.coverImageFile);
         data.append("publishOption", form.publishOption);
         data.append("paidPlan", form.paidPlan);
-        data.append("exchangeUrl", form.exchangeUrl);
         if (form.paymentProofFile) data.append("paymentProof", form.paymentProofFile);
 
         const res = await fetch("/api/blog/submit", { method: "POST", body: data });
@@ -1345,7 +1319,7 @@ export default function BlogSubmitPortal() {
     });
   }
 
-  const STEP_LABELS = ["About You", "Your Links", "The Article", "Payment", "Review"];
+  const STEP_LABELS = ["About You", "External Links", "The Article", "Payment", "Review"];
 
   if (submitted) return (
     <div className="bh-root" style={{ minHeight: "100vh", background: "#f5f1ea", padding: "160px 24px 80px" }}>
@@ -1381,7 +1355,7 @@ export default function BlogSubmitPortal() {
             </li>
             <li style={{ color: "#d4cfc6" }}>/</li>
             <li itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
-              <span itemProp="name" style={{ color: "#0a0a0a" }}>Write for Us</span>
+              <span itemProp="name" style={{ color: "#0a0a0a" }}>Submit an Article</span>
               <meta itemProp="position" content="3" />
             </li>
           </ol>
@@ -1393,28 +1367,24 @@ export default function BlogSubmitPortal() {
           <div style={{ marginBottom: 14, display: "flex", alignItems: "center", gap: 12 }}>
             <div style={{ height: 6, width: 6, background: "#7c3aed" }} aria-hidden="true" />
             <p style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.2em", textTransform: "uppercase", color: "#6b6560", margin: 0, fontFamily: "var(--font-plex-mono), monospace" }}>
-              Write for Us — Guest Post Submission Portal
+              Editorial Article Submission
             </p>
           </div>
 
           <div style={{ marginBottom: 24, height: 2, width: 64, background: "#0a0a0a" }} />
 
           {/*
-            SEO CRITICAL: H1 must contain the exact keyword "Write for Us".
-            This is the primary ranking signal on-page.
-
             PERF: this H1 is the page's LCP element. It now paints against
             next/font's self-hosted, preloaded Bebas Neue instead of
             waiting on the old @import chain — see the sharedStyles comment
             above for the full explanation.
           */}
           <h1 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", fontSize: "clamp(2.4rem, 6vw, 4.2rem)", lineHeight: 0.95, letterSpacing: "0.01em", color: "#0a0a0a", margin: "0 0 20px", maxWidth: 640 }}>
-            Write for Us <span style={{ color: "#7c3aed" }}>Publish on Bridge Homies</span>
+            Submit a Guest Article <span style={{ color: "#7c3aed" }}>to Bridge Homies</span>
           </h1>
 
           <p style={{ fontSize: "1.02rem", lineHeight: 1.85, color: "#6b6560", fontFamily: "var(--font-baskerville), serif", fontStyle: "italic", maxWidth: 560, margin: "0 0 16px" }}>
-            We publish guest posts from developers, architects, product managers, and founders who build real software for real businesses.
-            Submit an article and reach thousands of readers plus earn up to <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>1–2 dofollow backlinks</strong> and a <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>permanent author profile</strong>. Paid placements are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$10</strong> paid in advance or <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$12</strong> paid after your piece is live — reciprocal link exchanges are <strong style={{ fontStyle: "normal", color: "#0a0a0a" }}>$0</strong>.
+            We review original, technically useful articles about software engineering, SaaS, AI/ML, cloud and DevOps, and web or mobile development. Every submission is reviewed; submission does not guarantee publication. Paid editorial placements may be available. We disclose paid placements and mark their outbound links as sponsored. The applicable fee and payment timing are shown before you confirm a paid submission.
           </p>
           <p style={{ fontSize: 13.5, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", maxWidth: 560, margin: "0 0 36px" }}>
             We cover <strong style={{ color: "#0a0a0a" }}>custom web apps</strong>, <strong style={{ color: "#0a0a0a" }}>admin dashboards</strong>, <strong style={{ color: "#0a0a0a" }}>automation tools</strong>, <strong style={{ color: "#0a0a0a" }}>AI integrations</strong>, <strong style={{ color: "#0a0a0a" }}>SaaS platforms</strong>, <strong style={{ color: "#0a0a0a" }}>eCommerce systems</strong>, and software built for growing businesses everything beyond what WordPress handles.
@@ -1433,10 +1403,10 @@ export default function BlogSubmitPortal() {
           {/* Trust badges */}
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {[
-              "$10–$12 per placement ($0 link exchange)",
-              "Up to 1–2 dofollow backlinks",
-              "Editorial review in 2–3 days",
-              "Permanent author profile",
+              "Paid editorial placements may be available",
+              "Sponsored outbound links",
+              "Editorial approval required",
+              "Approved byline shown",
               "1,000+ words minimum",
               "No AI filler accepted",
               "Pay in advance or after live",
@@ -1472,10 +1442,10 @@ export default function BlogSubmitPortal() {
               </p>
               {/*
                 H2 inside the form secondary heading, not competing with H1.
-                Uses "write for us" adjacent copy at step 3 naturally.
+                Keep step headings descriptive and aligned with editorial review.
               */}
               <h2 style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "2rem", color: "#0a0a0a", margin: 0 }}>
-                {["Tell us about yourself", "Add your dofollow backlinks", "Write your article", "How would you like to publish?", "Review & submit your guest post"][step - 1]}
+                {["Tell us about yourself", "Add relevant references", "Write your article", "Review publishing options", "Review and submit"][step - 1]}
               </h2>
             </div>
 
@@ -1514,10 +1484,10 @@ export default function BlogSubmitPortal() {
         {/* ── Guest post guidelines (semantic, crawlable) ── */}
         <section aria-labelledby="guidelines-heading" style={{ marginTop: 32, background: "#f2eaf5ff", border: "1px solid #d4cfc6", borderRadius: 0, padding: "28px 32px" }}>
           <h2 id="guidelines-heading" style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "1.7rem", color: "#0a0a0a", margin: "0 0 10px" }}>
-            Guest Post Guidelines — Who Should Write for Us?
+            Editorial Guidelines
           </h2>
           <p style={{ fontSize: 13, lineHeight: 1.8, color: "#6b6560", fontFamily: "var(--font-plex-sans), sans-serif", margin: "0 0 20px" }}>
-            We welcome practitioners developers, architects, product managers, and founders who work hands-on with custom web applications, admin dashboards, SaaS platforms, AI/ML integrations, automation tooling, eCommerce systems, and lead generation software. If you build real software for real businesses, your experience belongs here. Guest posts must be original, not published elsewhere, and a minimum of 1,000 words. Strictly software engineering, SaaS architecture, AI/ML, cloud/DevOps, or web/mobile development — we do not accept casino, CBD/pharma, crypto/forex, adult, or general non-technical content at any price.
+            We review submissions for relevance, originality, accuracy, and usefulness to readers. Articles should be original, technically useful, and at least 1,000 words. We do not accept casino, CBD/pharma, crypto/forex, adult, or general non-technical content. External links are reviewed for relevance and accuracy; paid-placement links are marked as sponsored. Accepted articles show the approved byline; a separate author-profile page is not guaranteed.
           </p>
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
             <div>
@@ -1542,7 +1512,7 @@ export default function BlogSubmitPortal() {
         {/* ── FAQ section (semantic <dl>, mirrors JSON-LD FAQPage) ── */}
         <section aria-labelledby="faq-heading" style={{ marginTop: 24, background: "#f5f1ea", border: "1px solid #d4cfc6", borderRadius: 0, padding: "28px 32px" }}>
           <h2 id="faq-heading" style={{ fontFamily: "var(--font-bebas), sans-serif", textTransform: "uppercase", letterSpacing: "0.01em", fontSize: "1.7rem", color: "#0a0a0a", margin: "0 0 20px" }}>
-            Frequently Asked Questions — Write for Us
+            Frequently Asked Questions — Editorial Submissions
           </h2>
           <dl style={{ margin: 0 }}>
             {FAQ_ITEMS.map(({ q, a }, i) => (
@@ -1555,7 +1525,7 @@ export default function BlogSubmitPortal() {
         </section>
 
         <p style={{ textAlign: "center", fontSize: 11.5, color: "#a39d94", marginTop: 24, lineHeight: 1.7, fontFamily: "var(--font-plex-sans), sans-serif" }}>
-          By submitting your guest post you agree to our editorial guidelines. We respond within 2–3 business days. Your email is never shared publicly.
+          By submitting your article you agree to our editorial guidelines. Review times vary. Your email is not shown publicly.
         </p>
       </div>
     </div>

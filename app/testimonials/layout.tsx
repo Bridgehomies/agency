@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Client Testimonials | Bridge Homies",
+  title: "Client Feedback | Bridge Homies",
   description:
-    "Real feedback from clients who've worked with Bridge Homies on web, mobile, AI/ML, and SaaS projects — no cherry-picking, just honest reviews.",
+    "Client feedback shared with Bridge Homies. Reviews appear here after they are submitted and approved.",
   alternates: {
     canonical: "https://www.bridgehomies.com/testimonials",
   },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: { index: false, follow: true },
+  },
   openGraph: {
-    title: "Client Testimonials | Bridge Homies",
-    description:
-      "Real feedback from clients who've worked with Bridge Homies on web, mobile, AI/ML, and SaaS projects — no cherry-picking, just honest reviews.",
+    title: "Client Feedback | Bridge Homies",
+    description: "Client feedback shared with Bridge Homies. Reviews appear here after they are submitted and approved.",
     url: "https://www.bridgehomies.com/testimonials",
     siteName: "Bridge Homies",
     type: "website",

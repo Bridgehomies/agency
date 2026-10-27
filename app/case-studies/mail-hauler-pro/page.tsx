@@ -5,7 +5,7 @@ import type { CaseStudyData } from "@/lib/case-study-types"
 export const metadata: Metadata = {
   title: { absolute: "Mail Hauler Pro Case Study: Cold Email SaaS | Bridge Homies" },
   description:
-    "See how Bridge Homies built Mail Hauler Pro, a private-beta cold email platform for multi-inbox campaigns, warm-up, deliverability monitoring, and analytics.",
+    "Explore Mail Hauler Pro, a cold email platform for multi-inbox campaigns, warm-up, deliverability monitoring, and analytics.",
   alternates: { canonical: "https://www.bridgehomies.com/case-studies/mail-hauler-pro" },
 }
 
@@ -16,8 +16,6 @@ const data: CaseStudyData = {
   tagline:
     "Helping marketing teams manage multiple inboxes, automate campaigns, and monitor email deliverability from one central platform.",
   targetUsers: "Marketing teams, agencies, sales teams, and lead-generation businesses",
-  status: "Live and scaling through private beta",
-  liveUrl: "https://mailhaulerpro.com",
   coverImage: "/Mail Hauler Pro.png",
   heroSummary:
     "Mail Hauler Pro is a cold email automation platform built for marketing teams, lead-generation agencies, and businesses running outbound email campaigns across multiple inboxes. Bridge Homies designed and developed it as a complete email operations platform, combining inbox management, campaign automation, warm-up, lead handling, deliverability monitoring, and analytics.",
@@ -145,7 +143,6 @@ const data: CaseStudyData = {
     { label: "Queue & Workers", value: "Redis-backed background processing" },
     { label: "Email Sending", value: "SMTP" },
     { label: "Inbox Sync", value: "IMAP" },
-    { label: "Status", value: "Live and scaling through private beta" },
   ],
   finalOutcome:
     "Bridge Homies turned a fragmented cold email workflow into a centralized SaaS platform for campaign automation, inbox management, deliverability monitoring, and outbound operations — demonstrating experience building multi-account infrastructure, background workers, scheduling systems, and analytics.",

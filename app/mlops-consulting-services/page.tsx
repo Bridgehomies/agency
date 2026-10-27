@@ -94,15 +94,13 @@ const process = [
   ["Operate", "Document runbooks, ownership, retraining decisions, cost controls, and the ongoing maintenance model your internal team or ours will follow."],
 ];
 
-const stack = [
-  ["Cloud", "AWS · Azure · Google Cloud"],
-  ["Lifecycle", "MLflow · Kubeflow · cloud-native registries"],
-  ["Orchestration", "Airflow · Prefect · managed workflow services"],
-  ["Containers", "Docker · Kubernetes · KServe"],
-  ["Infrastructure", "Terraform · CI/CD environments · secrets management"],
-  ["Monitoring", "Prometheus · Grafana · Evidently · cloud observability"],
-  ["Delivery", "GitHub Actions · GitLab CI · controlled release pipelines"],
-  ["ML & Serving", "Python · PyTorch · TensorFlow · FastAPI"],
+const deliveryAreas = [
+  ["Lifecycle", "Model and data versioning"],
+  ["Pipelines", "Training, deployment, and retraining workflows"],
+  ["Serving", "Model serving and inference"],
+  ["Observability", "Monitoring for model quality, performance, and cost"],
+  ["Release controls", "Validation, rollback, ownership, and handover"],
+  ["Governance", "Access, audit trails, documentation, and runbooks"],
 ];
 
 const faqs = [
@@ -367,30 +365,30 @@ export default function MLOpsConsultingServicesPage() {
         </div>
       </section>
 
-      <section className="py-28 md:py-36 bg-white" aria-labelledby="stack-heading">
+      <section className="py-28 md:py-36 bg-white" aria-labelledby="delivery-areas-heading">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-12 mb-16 items-end">
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-7">
                 <div className="h-px w-8 bg-purple-600" />
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-700">Technology Fit</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-700">Implementation Scope</span>
               </div>
-              <h2 id="stack-heading" className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95]">
-                MLOps tools chosen for the system, not for the logo list.
+              <h2 id="delivery-areas-heading" className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95]">
+                MLOps work shaped around your system.
               </h2>
             </div>
             <div className="lg:col-span-4">
               <p className="text-gray-600 leading-relaxed">
-                We use cloud-native and open-source tooling where it makes operational sense. Existing infrastructure is reused when replacing it would add more risk than value.
+                We scope delivery around your requirements, existing environment, ownership model, and operational needs.
               </p>
             </div>
           </div>
 
           <div className="border-t-2 border-gray-900">
-            {stack.map(([area, tools]) => (
+            {deliveryAreas.map(([area, scope]) => (
               <div key={area} className="grid md:grid-cols-12 gap-4 py-5 border-b border-gray-200 items-center">
                 <div className="md:col-span-4 font-bold text-gray-900">{area}</div>
-                <div className="md:col-span-8 text-gray-600">{tools}</div>
+                <div className="md:col-span-8 text-gray-600">{scope}</div>
               </div>
             ))}
           </div>

@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 const INFO_ITEMS = [
   { label: "Address", value: "164 Block G1, Johar Town" },
   { label: "City", value: "Lahore, Punjab" },
-  { label: "Hours", value: "Mon-Sat, 10am-8pm PST" },
-  { label: "Team", value: "15+ members" },
 ];
 
 export default function InteractiveMap() {
@@ -132,19 +130,6 @@ export default function InteractiveMap() {
                   Headquarters
                 </p>
               </div>
-              {/* Live dot */}
-              <span className="ml-auto flex items-center gap-1.5">
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-500 opacity-60" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500" />
-                </span>
-                <span
-                  className="text-[10px] text-purple-500 tracking-wider"
-                  style={{ fontFamily: "'DM Mono', monospace" }}
-                >
-                  OPEN
-                </span>
-              </span>
             </div>
 
             {/* Info rows */}
@@ -179,7 +164,7 @@ export default function InteractiveMap() {
                   className="text-xs text-purple-500 tracking-wider uppercase"
                   style={{ fontFamily: "'DM Mono', monospace" }}
                 >
-                  Book a visit
+                  Contact us
                 </span>
                 <span className="text-purple-500 text-sm transition-transform group-hover:translate-x-1">
                   {"\u2192"}
@@ -188,27 +173,6 @@ export default function InteractiveMap() {
             </div>
           </motion.div>
 
-          {/* Coordinates badge - top-right corner of map */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5, delay: 0.7 }}
-            className="absolute top-4 right-4 z-10"
-            style={{
-              background: "rgba(0,0,0,0.7)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              borderRadius: "8px",
-              padding: "6px 12px",
-            }}
-          >
-            <p
-              className="text-[10px] text-white/50 tracking-widest"
-              style={{ fontFamily: "'DM Mono', monospace" }}
-            >
-              31.4787N, 74.2810E
-            </p>
-          </motion.div>
         </motion.div>
 
         {/* Bottom spacer for floating card overflow */}

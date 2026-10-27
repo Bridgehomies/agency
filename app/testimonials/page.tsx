@@ -289,14 +289,13 @@ export default function TestimonialsPage() {
             className="hero-line text-[52px] md:text-[76px] leading-[1.0] tracking-[-0.03em] font-bold mb-6 max-w-3xl text-black"
             style={{ fontFamily: "'DM Serif Display', serif" }}
           >
-            What our clients
+            Client
             <br />
-            <em className="text-violet-600 not-italic">actually say</em>
+            <em className="text-violet-600 not-italic">feedback</em>
           </h1>
 
           <p className="hero-line text-black/45 text-base leading-relaxed max-w-xl mb-14">
-            Every review below is from a real client who worked with us. No
-            cherry-picking, no marketing copy — just honest takes on the work.
+            Client reviews are published here after they are submitted and approved.
           </p>
 
           {/* Stats */}
@@ -336,7 +335,7 @@ export default function TestimonialsPage() {
             </div>
           ) : filtered.length === 0 ? (
             <div className="py-24 text-center">
-              <p className="text-black/25 text-sm">No reviews yet for this service.</p>
+              <p className="text-black/25 text-sm">No approved reviews are currently available.</p>
             </div>
           ) : (
             <div className="columns-1 md:columns-2 lg:columns-3 gap-5 space-y-5">

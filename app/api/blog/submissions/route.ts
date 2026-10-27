@@ -35,6 +35,9 @@ export async function PATCH(req: NextRequest) {
     if (adminNotes) submission.adminNotes = adminNotes;
 
     if (action === "approve") {
+      const now = new Date().toISOString();
+      submission.approvedAt ||= now;
+      submission.dateModified = now;
       const ADMIN_ENDPOINT = process.env.BLOG_ADMIN_URL || "http://localhost:3001";
 
       const parsedFaq = submission.faqText
@@ -64,7 +67,12 @@ export async function PATCH(req: NextRequest) {
             coverImage:     submission.coverImagePath,
             seoTitle:       submission.title,
             seoDescription: submission.excerpt,
+            date:           submission.approvedAt,
+            dateModified:   submission.dateModified,
             published:      true,
+            // The portal is a paid editorial placement; qualify outbound links
+            // when its Markdown/HTML body is rendered.
+            isSponsoredContent: true,
             content:        submission.content,
             faq:            parsedFaq,
           }),

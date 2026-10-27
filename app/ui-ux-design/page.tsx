@@ -1,53 +1,31 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
+import type { Metadata } from "next";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
 import Link from "next/link";
 
-const StatsCounter: React.FC = () => {
-  const animateCounter = (id: string, endValue: number, suffix: string = "") => {
-    const element = document.getElementById(id);
-    if (!element) return;
-    let current = 0;
-    const increment = Math.ceil(endValue / 50);
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= endValue) {
-        clearInterval(timer);
-        element.textContent = `${endValue}${suffix}`;
-      } else {
-        element.textContent = `${current}${suffix}`;
-      }
-    }, 30);
-  };
-
-  useEffect(() => {
-    animateCounter("counter-projects", 20, "+");
-    animateCounter("counter-feedback", 98, "%");
-    animateCounter("counter-team", 15, "+");
-    animateCounter("counter-launched", 2025, "");
-  }, []);
-
-  return (
-    <div className="py-12 border-y border-gray-200/60 bg-gray-50/50 backdrop-blur-xl relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap justify-between items-center gap-8 divide-x divide-gray-200/50">
-          {[
-            { id: "counter-projects", label: "Design Projects Completed" },
-            { id: "counter-feedback", label: "Client Satisfaction" },
-            { id: "counter-team", label: "Experienced Designers" },
-            { id: "counter-launched", label: "Founded" },
-          ].map((stat, i) => (
-            <div key={i} className={`flex-1 ${i !== 0 ? 'pl-8' : ''}`}>
-              <div id={stat.id} className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-1">0</div>
-              <div className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: { absolute: "UI/UX Design for Software & Digital Products | Bridge Homies" },
+  description:
+    "UI/UX design for software and digital products, including user flows, wireframes, interface layouts, prototypes, and design systems.",
+  alternates: { canonical: "https://www.bridgehomies.com/ui-ux-design" },
+  openGraph: {
+    title: "UI/UX Design for Software & Digital Products | Bridge Homies",
+    description:
+      "Plan user flows and software interfaces with Bridge Homies, from wireframes and prototypes to reusable design systems.",
+    url: "https://www.bridgehomies.com/ui-ux-design",
+    siteName: "Bridge Homies",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Bridge Homies — UI/UX Design for Software & Digital Products",
+      },
+    ],
+  },
 };
 
 const schema = {
@@ -57,9 +35,9 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/ui-ux-design/#webpage",
       url: "https://www.bridgehomies.com/ui-ux-design",
-      name: "UI/UX Design Services for Web Apps, SaaS & Enterprise Software | Bridge Homies",
+      name: "UI/UX Design for Software and Digital Products | Bridge Homies",
       description:
-        "Bridge Homies delivers user-first UI/UX design for website development, SaaS platforms, web apps, and enterprise software. A software developer company that designs for conversion.",
+        "UI/UX design for software and digital products, including interface layouts, user flows, wireframes, prototypes, and design systems.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -75,22 +53,9 @@ const schema = {
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/ui-ux-design",
       description:
-        "User-first UI/UX design for website development, SaaS, web apps, and enterprise software. Bridge Homies prototypes fast, tests early, and ships interfaces users love.",
+        "UI/UX design for software and digital products, including interface layouts, user flows, wireframes, prototypes, and design systems.",
       serviceType: "UI/UX Design",
       areaServed: "Worldwide",
-    },
-    {
-      "@type": "FAQPage",
-      mainEntity: [
-        {
-          "@type": "Question",
-          name: "Why is UI/UX design important for software development?",
-          acceptedAnswer: {
-            "@type": "Answer",
-            text: "UI/UX design directly impacts how users interact with your website, SaaS, web apps, or enterprise software. Good design builds trust, reduces churn, and increases conversions.",
-          },
-        },
-      ],
     },
   ],
 };
@@ -111,7 +76,7 @@ export default function UiUxPage() {
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Premium Design Studio</span>
+              <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">UI/UX and interface design</span>
               </div>
 
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
@@ -124,7 +89,7 @@ export default function UiUxPage() {
 
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                As a leading <strong className="text-gray-900">software developer company</strong>, we deliver user-first <strong className="text-gray-900">UI/UX design</strong> for website development, SaaS platforms, web apps, and enterprise software.
+                Bridge Homies designs interfaces and user flows for software, websites, web apps, and digital products, from early wireframes through detailed interface plans.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -140,8 +105,6 @@ export default function UiUxPage() {
           </div>
         </div>
       </section>
-
-      <StatsCounter />
 
       {/* FULL-WIDTH ABSTRACT DESIGN IMAGE BREAKER */}
       <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
@@ -162,7 +125,7 @@ export default function UiUxPage() {
               How <br /> We Design.
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
-              <p className="text-gray-500 font-medium">Flawless <strong className="text-gray-900">UI/UX design</strong> bridging the gap between human psychology and complex digital architectures.</p>
+              <p className="text-gray-500 font-medium">UI/UX design that makes software tasks, navigation, and interface behavior easier to understand.</p>
             </div>
           </div>
 
@@ -171,27 +134,27 @@ export default function UiUxPage() {
               {
                 num: "01",
                 title: "SaaS & Web Apps",
-                desc: "We design multi-tenant SaaS platforms and dynamic web apps focused on intuitive onboarding, low churn, and seamless user retention.",
+                desc: "Interface layouts and user flows for SaaS products and web applications.",
               },
               {
                 num: "02",
                 title: "Enterprise Software",
-                desc: "Simplifying the complex. We transform dense, feature-heavy enterprise software into clean, accessible, and highly efficient interfaces.",
+                desc: "Organize complex software screens and tasks into clear interface structures.",
               },
               {
                 num: "03",
-                title: "Website Development UI",
-                desc: "Bespoke website development UI/UX that prioritizes conversion rates, lightning-fast load perception, and immersive brand storytelling.",
+                title: "Website Interfaces",
+                desc: "Plan page structures, navigation, and interface details for websites and digital services.",
               },
               {
                 num: "04",
                 title: "Prototyping & Wireframing",
-                desc: "We test early. High-fidelity wireframes and interactive prototypes allow us to validate user journeys before a single line of code is written.",
+                desc: "Use wireframes and prototypes to make user journeys and screen behavior concrete for review.",
               },
               {
                 num: "05",
                 title: "Design Systems",
-                desc: "Scalable component libraries built in Figma, ensuring absolute consistency across your entire product ecosystem as your software grows.",
+                desc: "Document reusable interface patterns and components for consistent product screens.",
               }
             ].map((service, index) => (
               <div key={index} className={`relative group ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
@@ -217,12 +180,12 @@ export default function UiUxPage() {
             <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10">
-                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Design Standard</div>
+                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">Interface design</div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Design-Driven <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">Software Developer Company</span>.
+                  Clear Interfaces for <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">Software Products.</span>
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  We don't just make things look pretty. Bridge Homies is a <strong className="text-white">software developer company</strong> with a militant design-first philosophy. We create <strong className="text-white">UI/UX design</strong> for website development, SaaS platforms, and enterprise software that users actually enjoy navigating—eliminating friction and driving measurable business impact.
+                  Bridge Homies plans <strong className="text-white">UI/UX design</strong> for websites, SaaS platforms, web apps, and other digital products. The work can include user flows, wireframes, prototypes, interface layouts, and reusable design patterns.
                 </p>
               </div>
               <a href="#work" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
@@ -267,7 +230,7 @@ export default function UiUxPage() {
                 Clear <br /> Context.
               </h2>
               <p className="text-gray-500 font-medium max-w-sm mb-12">
-                Understanding the impact of world-class UI/UX design on enterprise scale and retention.
+                Common questions about interface design for software and digital products.
               </p>
             </div>
 
@@ -278,15 +241,15 @@ export default function UiUxPage() {
                 {[
                   {
                     q: "Why is UI/UX design important for software development?",
-                    a: "Because a product is only as good as its usability. UI/UX design directly dictates how users interact with your website, SaaS, web apps, or enterprise software. Superior design builds instant trust, drastically reduces customer churn, and directly increases conversion rates."
+                    a: "UI/UX design helps define how people navigate a product, understand its screens, and complete key tasks. The work can include user flows, wireframes, prototypes, and interface layouts."
                   },
                   {
                     q: "How does UI/UX impact enterprise software specifically?",
-                    a: "Enterprise software is notoriously cluttered. By applying strict UI/UX methodologies, we streamline complex workflows, reduce employee training times, and mitigate costly user errors, ultimately saving organizations thousands of hours in lost productivity."
+                    a: "Interface design can map complex tasks and information into screen structures and navigation that are easier to review and implement."
                   },
                   {
                     q: "Do you offer UI/UX for both new products and redesigns?",
-                    a: "Absolutely. Whether we are architecting a SaaS platform from scratch or overhauling legacy enterprise software to meet modern aesthetic and functional standards, our software developer company handles the entire lifecycle."
+                    a: "Yes. UI/UX work can support a new product, an existing product, or a redesign. Scope depends on the product, users, and workflows involved."
                   }
                 ].map((faq, i) => (
                   <div key={i} className="py-10 border-b border-gray-200 group">
@@ -346,4 +309,4 @@ export default function UiUxPage() {
       <Footer />
     </main>
   );
-} 
+}

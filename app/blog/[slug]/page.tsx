@@ -11,6 +11,49 @@ import ArticleViewClient from "@/components/blog/ArticleViewClient";
 import { getPublishedBlogByIdentifier, getPublishedBlogs } from "@/lib/blog";
 import { blogSeoDescription, blogSeoTitle } from "@/lib/seo";
 
+type HastNode = {
+  type?: string;
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  children?: HastNode[];
+};
+
+// Qualify paid links after Markdown and HTML have become HAST nodes. This
+// covers Markdown, GFM/autolinks, and raw HTML anchors uniformly.
+function qualifySponsoredExternalLinks() {
+  return (tree: any) => {
+    const visit = (node: HastNode) => {
+      if (node.type === "element" && node.tagName === "a") {
+        const href = node.properties?.href;
+        if (typeof href === "string") {
+          try {
+            const url = new URL(href, "https://www.bridgehomies.com");
+            const host = url.hostname.toLowerCase();
+            if (
+              (url.protocol === "http:" || url.protocol === "https:") &&
+              host !== "bridgehomies.com" &&
+              host !== "www.bridgehomies.com"
+            ) {
+              const oldRel = node.properties?.rel;
+              const rel = Array.isArray(oldRel)
+                ? oldRel.map(String)
+                : typeof oldRel === "string" ? oldRel.split(/\s+/) : [];
+              node.properties = {
+                ...node.properties,
+                rel: [...new Set([...rel, "sponsored", "nofollow"])],
+              };
+            }
+          } catch {
+            // Leave malformed href values to the content renderer.
+          }
+        }
+      }
+      node.children?.forEach(visit);
+    };
+    visit(tree as HastNode);
+  };
+}
+
 function escapeInline(value: string) {
   return value.replace(/\n/g, " ").trim();
 }
@@ -111,6 +154,7 @@ export async function generateMetadata({
       url,
       type: "article",
       publishedTime: blog.date,
+      modifiedTime: blog.dateModified || undefined,
       authors: [blog.author],
       tags: blog.tags,
       images: blog.coverImage ? [{ url: blog.coverImage, alt: title }] : undefined,
@@ -122,6 +166,12 @@ export async function generateMetadata({
       images: blog.coverImage ? [blog.coverImage] : undefined,
     },
     alternates: { canonical: url },
+    // Keep the guest-post opportunity guide available to readers who follow
+    // internal links, but do not target search traffic that is unrelated to
+    // the agency's software services. Other published articles remain indexable.
+    ...(blog.slug === "where-can-i-find-websites-that-say-write-for-us"
+      ? { robots: { index: false, follow: true, googleBot: { index: false, follow: true } } }
+      : {}),
   };
 }
 
@@ -170,6 +220,7 @@ export default async function BlogPostPage({
           rehypeSlug,
           [rehypeAutolinkHeadings, { behavior: "append" }],
           rehypeHighlight,
+          ...(blog.isSponsoredContent ? [qualifySponsoredExternalLinks] : []),
         ],
         format: isHtml ? "mdx" : "mdx",
       },
@@ -195,11 +246,11 @@ export default async function BlogPostPage({
     // fall back to the site OG image instead of omitting the field entirely.
     image: blog.coverImage || "https://www.bridgehomies.com/og-image.png",
     datePublished: blog.date,
-    dateModified: blog.date,
+    dateModified: blog.dateModified || undefined,
     author: {
       "@type": "Person",
       name: blog.author,
-      jobTitle: blog.authorRole,
+      ...(blog.authorRole?.trim() ? { jobTitle: blog.authorRole } : {}),
     },
     publisher: {
       "@type": "Organization",

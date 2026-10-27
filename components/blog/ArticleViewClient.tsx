@@ -240,6 +240,10 @@ export default function ArticleViewClient({
   const [calculatedReadTime, setCalculatedReadTime] = useState(0);
   const [views, setViews] = useState(post.views);
   const relevantServices = getRelevantServiceLinks(post.tags);
+  const verifiedInternalAuthor = ["Bridge Homies", "Bridge Homies Team"].includes(post.author.trim());
+  const authorRoleLabel = post.authorRole?.trim()
+    ? `${post.authorRole.trim()}${verifiedInternalAuthor ? " · Bridge Homies" : ""}`
+    : verifiedInternalAuthor ? "Bridge Homies" : "";
 
   useEffect(() => {
     setMounted(true);
@@ -469,7 +473,7 @@ export default function ArticleViewClient({
         <meta itemProp="headline"       content={post.seoTitle || post.title} />
         <meta itemProp="description"    content={post.seoDescription || post.excerpt} />
         <meta itemProp="datePublished"  content={post.date} />
-        <meta itemProp="dateModified"   content={post.date} />
+        {post.dateModified && <meta itemProp="dateModified" content={post.dateModified} />}
         <meta itemProp="author"         content={post.author} />
         <meta itemProp="keywords"       content={post.tags.join(", ")} />
         {post.coverImage && <meta itemProp="image" content={post.coverImage} />}
@@ -518,7 +522,22 @@ export default function ArticleViewClient({
               >
                 PUBLISHED // {formatDate(post.date)}
               </time>
+              {post.dateModified && new Date(post.dateModified).toISOString().slice(0, 10) !==
+                new Date(post.date).toISOString().slice(0, 10) && (
+                <time
+                  dateTime={post.dateModified}
+                  className="font-mono text-[0.64rem] tracking-[0.12em] uppercase text-[#6b6560]"
+                >
+                  UPDATED // {formatDate(post.dateModified)}
+                </time>
+              )}
             </div>
+
+            {post.isSponsoredContent && (
+              <p className="font-mono text-[0.65rem] tracking-[0.12em] uppercase text-[#6b6560] mb-4">
+                Sponsored article
+              </p>
+            )}
 
             <div className="hero-dynamic-line h-[2px] bg-[#0a0a0a] mb-8 hero-line" />
 
@@ -561,9 +580,11 @@ export default function ArticleViewClient({
                   <div className="font-sans text-[0.85rem] font-semibold text-[#0a0a0a]" itemProp="name">
                     {post.author}
                   </div>
-                  <div className="font-mono text-[0.62rem] text-[#6b6560] uppercase tracking-wider" itemProp="jobTitle">
-                    {post.authorRole}
-                  </div>
+                  {authorRoleLabel && (
+                    <div className="font-mono text-[0.62rem] text-[#6b6560] uppercase tracking-wider" itemProp="jobTitle">
+                      {authorRoleLabel}
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -757,12 +778,11 @@ export default function ArticleViewClient({
                     <p className="font-bebas text-[1.2rem] tracking-[0.04em] text-[#0a0a0a] mb-0.5" itemProp="name">
                       {post.author}
                     </p>
-                    <p className="font-mono text-[0.65rem] text-[#c8401a] tracking-[0.12em] uppercase mb-3" itemProp="jobTitle">
-                      {post.authorRole} · Bridge Homies
-                    </p>
-                    <p className="font-sans text-[0.87rem] text-[#6b6560] leading-[1.65] m-0">
-                      Passionate about building scalable applications and sharing knowledge with the developer community.
-                    </p>
+                    {authorRoleLabel && (
+                      <p className="font-mono text-[0.65rem] text-[#c8401a] tracking-[0.12em] uppercase mb-3" itemProp="jobTitle">
+                        {authorRoleLabel}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>

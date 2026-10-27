@@ -3,26 +3,24 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: { absolute: "Aierpify Case Study: FBR E-Invoicing SaaS | Bridge Homies" },
+  title: { absolute: "Aierpify Case Study: FBR & PRAL E-Invoicing | Bridge Homies" },
   description:
-    "See how Bridge Homies built Aierpify, a cloud-based FBR e-invoicing platform for Pakistani businesses, with invoice creation, validation, submission, and tracking.",
+    "See how Bridge Homies built Aierpify, a Pakistani FBR and PRAL e-invoicing platform with invoice creation, validation, submission workflows, QR and IRN generation, and status tracking.",
   alternates: { canonical: "https://www.bridgehomies.com/case-studies/aierpify" },
 }
 
 const data: CaseStudyData = {
   slug: "aierpify",
   name: "Aierpify",
-  category: "FBR E-Invoicing SaaS",
+  category: "FBR & PRAL E-Invoicing Platform",
   tagline:
-    "Helping Pakistani businesses create, manage, and submit compliant digital invoices — from invoice creation to FBR integration, subscriptions, and admin controls.",
-  targetUsers: "Pakistani businesses and taxpayers",
-  status: "Live production platform",
-  liveUrl: "https://aierpify.com",
+    "Digital invoice creation, validation and submission workflows for Pakistani businesses using FBR and PRAL e-invoicing systems.",
+  targetUsers: "Pakistani businesses",
   coverImage: "/work/aierpify.png",
   heroSummary:
-    "Aierpify is a cloud-based FBR e-invoicing platform built for Pakistani businesses that need a simpler way to generate tax invoices, manage billing records, and submit invoice data digitally. Bridge Homies designed and developed Aierpify as a complete SaaS product — from invoice creation and customer management to FBR integration, subscriptions, reporting, and administrative controls.",
+    "Aierpify is a Pakistani FBR and PRAL e-invoicing and tax-compliance platform. Bridge Homies developed the product to support digital invoice creation, validation and submission workflows, QR and IRN generation, sales-tax calculations, invoice status and rejection handling, product imports, multi-user access, and business reporting.",
   challengeIntro:
-    "Many Pakistani businesses still manage invoices manually through paper records, spreadsheets, or disconnected billing tools. The goal was to build a practical digital invoicing platform that could simplify daily billing while supporting Pakistan's evolving FBR e-invoicing requirements.",
+    "Many Pakistani businesses manage invoice information across paper records, spreadsheets, or disconnected billing tools. The goal was to build a digital invoicing platform that organizes invoice data and supports FBR and PRAL e-invoicing workflows.",
   challengePoints: [
     "Slow invoice preparation",
     "Repeated data entry",
@@ -33,16 +31,16 @@ const data: CaseStudyData = {
     "No central system for managing invoices and business data",
   ],
   solutionIntro:
-    "Bridge Homies developed Aierpify as an end-to-end digital invoicing SaaS platform, designed for simplicity, accuracy, and repeatable business workflows so users can manage invoices without depending on technical expertise.",
+    "Bridge Homies developed Aierpify around invoice creation, validation and submission workflows, with records and status details available in one platform.",
   solutionPoints: [
     "Create professional digital and tax invoices",
     "Manage customers and buyer information",
-    "Maintain product and HS-code records",
-    "Apply relevant tax fields and invoice details",
-    "Submit invoice data to FBR systems",
+    "Manage customer, product, and inventory-related records",
+    "Handle sales tax, withholding, extra, and further tax details",
+    "Prepare and submit invoice data through FBR and PRAL workflows",
     "Generate printable invoice documents",
     "Track invoice references and validation responses",
-    "Manage subscriptions and account access",
+    "Review invoice reports and business analytics with multi-user access",
   ],
   features: [
     {
@@ -51,14 +49,14 @@ const data: CaseStudyData = {
         "Create invoices by entering seller, buyer, product, pricing, tax, and transaction details, with structured tax-invoice data for digital submission.",
     },
     {
-      title: "FBR Integration",
+      title: "FBR & PRAL E-Invoicing Workflows",
       description:
-        "Connects with FBR invoice validation and submission endpoints — payload preparation, submission responses, reference numbers, and validation statuses.",
+        "Supports invoice validation and submission workflows, including response handling, invoice reference numbers, and validation statuses.",
     },
     {
       title: "Product & HS-Code Management",
       description:
-        "Maintain product records with relevant HS codes and tax info, including similarity-based HS-code assistance for classification.",
+        "Maintain product records with HS/PCT-code support, inventory-related records, and Excel product import.",
     },
     {
       title: "Customer Management",
@@ -70,82 +68,62 @@ const data: CaseStudyData = {
     },
     {
       title: "Printable Invoices",
-      description: "Generate professional invoice documents with tax details, QR data, and reference information.",
+      description: "Generate invoice documents with tax details, QR data, and reference information.",
     },
     {
-      title: "Subscription-Based SaaS",
-      description: "Businesses access features according to their selected subscription plan.",
+      title: "Reports & Multi-User Access",
+      description: "Review reports and business analytics, with platform access for multiple users.",
     },
-    {
-      title: "Administrative Dashboard",
-      description: "Monitor total users, invoices, revenue, active subscriptions, and monthly growth.",
-    },
-  ],
-  techStack: [
-    { label: "Frontend", value: "Tanstack Start, React, TypeScript, Tailwind CSS" },
-    { label: "Backend services", value: "FastAPI" },
-    { label: "Database", value: "PostgreSQL (via Server)" },
-    { label: "Hosting & deployment", value: "Google Cloud Platform" },
-    { label: "External integration", value: "FBR invoice submission & validation APIs" },
-    { label: "Authentication", value: "Secure user authentication & account management" },
-    { label: "Document generation", value: "Dynamic invoices with QR and reference data" },
   ],
   engineeringChallenges: [
     {
-      title: "Handling FBR Data Requirements",
+      title: "Handling E-Invoicing Data Requirements",
       description:
-        "FBR invoices require structured fields not normally present in a basic invoice system — seller/buyer info, HS codes, units, quantities, tax values, sale types, SRO details, schedules, and invoice scenarios.",
+        "E-invoicing needs structured seller and buyer details, product information, tax values, and transaction fields. The platform supports these records as part of invoice preparation.",
     },
     {
       title: "Managing API Validation Responses",
       description:
-        "FBR responses may include validation errors, rejected invoices, or temporary service issues. Aierpify stores and presents these in a way users can understand and act on.",
+        "Validation responses and rejected invoices need clear status handling. Aierpify includes invoice status and rejection handling in its workflow.",
     },
     {
       title: "Simplifying a Complex Workflow",
       description:
-        "The interface converts a complex tax-compliance submission process into a guided, small-business-friendly invoice-generation workflow.",
+        "The product organizes invoice creation, validation, submission, and status review into a single digital workflow.",
     },
     {
       title: "Maintaining Accurate Invoice Records",
       description:
-        "The platform preserves invoice details, submission references, tax calculations, and generated documents for reliable billing records.",
+        "The platform preserves invoice details, submission references, tax calculations, and generated documents for review.",
     },
   ],
   resultIntro:
-    "Aierpify became a production-oriented FBR digital invoicing platform bringing invoice generation, customer handling, product records, tax information, FBR submission, and subscription management into one system.",
+    "Aierpify brings digital invoice creation, tax fields, FBR and PRAL validation and submission workflows, QR and IRN generation, and invoice status handling into one platform.",
   resultPoints: [
-    "Complex business rules",
-    "Government API integration",
-    "Tax and invoice data structures",
-    "Subscription management",
-    "Role-based administration",
-    "Dynamic document generation",
-    "Production deployment and ongoing updates",
+    "Digital invoice creation and tax details",
+    "FBR and PRAL validation and submission workflows",
+    "QR and IRN generation",
+    "Multi-user access and business reporting",
+    "Invoice status and rejection handling",
   ],
   businessValue: [
-    "Faster invoice preparation",
-    "Centralized customer and product records",
-    "Reduced repetitive data entry",
-    "Structured FBR invoice submission",
-    "Better visibility into invoice activity",
-    "Easier access to printable invoice documents",
-    "A scalable foundation for future financial tools",
+    "Create digital invoices with tax details",
+    "Manage customer, product, and inventory-related records",
+    "Use FBR and PRAL validation and submission workflows",
+    "Review invoice statuses, rejections, and references",
+    "Generate QR and IRN details and printable invoices",
+    "Review reports and business analytics",
   ],
   summaryTable: [
     { label: "Product", value: "Aierpify" },
-    { label: "Category", value: "FBR E-Invoicing SaaS" },
-    { label: "Target Users", value: "Pakistani businesses and taxpayers" },
-    { label: "Primary Function", value: "Digital invoice creation and FBR submission" },
+    { label: "Category", value: "FBR and PRAL e-invoicing platform" },
+    { label: "Target Users", value: "Pakistani businesses" },
+    { label: "Primary Function", value: "Digital invoice creation, validation, and submission workflows" },
     { label: "Platform", value: "Web-based SaaS" },
-    { label: "Frontend", value: "Tanstack Start, React, TypeScript" },
-    { label: "Backend & Database", value: "FastAPI, PostgreSQL" },
-    { label: "Deployment", value: "Google Cloud Platform" },
-    { label: "Key Integration", value: "FBR invoice submission & validation APIs" },
-    { label: "Status", value: "Live production platform" },
+    { label: "Key Workflows", value: "FBR and PRAL e-invoicing, validation, and submission" },
   ],
   finalOutcome:
-    "Bridge Homies transformed a complex FBR invoicing requirement into a user-focused SaaS platform that businesses can use to create, manage, validate, and track digital invoices from one place — demonstrating our ability to build serious business software including compliance systems, SaaS platforms, API integrations, dashboards, and billing workflows.",
+    "Bridge Homies developed Aierpify as a Pakistani FBR and PRAL e-invoicing platform for digital invoice creation, validation, submission, and status tracking. The project demonstrates our experience building business software, API integrations, and invoice workflows.",
 }
 
 export default function AierpifyCaseStudy() {

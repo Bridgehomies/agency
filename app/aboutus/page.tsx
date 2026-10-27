@@ -7,8 +7,9 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
-  title: "About Bridge Homies AI/ML Engineering Team in Lahore, Pakistan",
-  description: "Meet the team behind Bridge Homies an AI/ML engineering agency founded in Lahore in 2025 by Muhammad Bin Asif and Muhammad Talha.",
+  title: "About Bridge Homies | Software Engineering & AI",
+  description:
+    "Meet Bridge Homies, a Lahore-based software engineering and AI company building custom software, SaaS platforms, web and mobile apps, and automation.",
   alternates: { canonical: "/aboutus" },
   openGraph: { url: "/aboutus", type: "website" },
 };
@@ -17,7 +18,7 @@ export default function AboutPage() {
   return (
     <>
       <Navbar />
-      <main className="container mx-auto px-4 py-12 md:pt-28">
+      <main className="min-h-screen overflow-hidden bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white">
         <HeroSection />
         <StorySection />
         <TeamSection />
@@ -27,4 +28,4 @@ export default function AboutPage() {
       <Footer />
     </>
   );
-} 
+}

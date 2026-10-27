@@ -1,85 +1,39 @@
-import { FaLinkedin } from "react-icons/fa";
-
-const TEAM = [
+const engagementStages = [
   {
-    img: "/team/bini-1.png",
-    alt: "MBA",
-    name: "Muhammad Bin Asif",
-    role: "Founder & Director",
-    bio: "Visionary leader with 2+ years in digital transformation and strategic innovation.",
-    color: "blue",
-    linkedin: "https://www.linkedin.com/in/mbinasif/",
+    title: "Understand the workflow",
+    description: "Clarify business needs, current processes, and project requirements.",
   },
   {
-    img: "/team/tal.png",
-    alt: "MT",
-    name: "Muhammad Talha",
-    role: "Co-Founder & Director",
-    bio: "Experienced software engineer specialising in full-stack development and scalable application architecture.",
-    color: "purple",
-    linkedin: "https://www.linkedin.com/in/muhammad-talha-100949260/",
+    title: "Define the solution",
+    description: "Plan product scope, software architecture, and implementation priorities.",
   },
   {
-    img: "/team/ddani.png",
-    alt: "DM",
-    name: "Danyaal Majid",
-    role: "CTO & Director",
-    bio: "Technology architect building scalable, future-proof digital solutions with deep expertise in cloud and AI.",
-    color: "blue",
-    linkedin: "https://www.linkedin.com/in/danyaal-majid/",
-  },
-  {
-    img: "/team/zain.jpg",
-    alt: "Z",
-    name: "Zain",
-    role: "Video Editor Head",
-    bio: "Creative video editor with a passion for storytelling and visual effects. Expert in Adobe Premiere Pro and After Effects.",
-    color: "blue",
-    linkedin: null,
+    title: "Build and support",
+    description: "Develop the software and integrations, then plan maintenance around project needs.",
   },
 ];
 
-const colors: Record<string, { border: string; bg: string; text: string; hover: string }> = {
-  blue:   { border: "border-blue-500",   bg: "bg-blue-100",   text: "text-blue-600",   hover: "group-hover:bg-blue-600" },
-  purple: { border: "border-purple-500", bg: "bg-purple-100", text: "text-purple-600", hover: "group-hover:bg-purple-600" },
-};
-
 export default function TeamSection() {
   return (
-    <section className="mb-24 md:mb-32 mx-8">
-      <div className="text-center mb-16">
-        <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-4 text-gray-800">
-          The <span className="text-gradient">Minds</span> Behind
+    <section className="mb-24 border-y border-gray-200 bg-white px-4 py-16 sm:px-6 sm:py-20 lg:px-8" aria-labelledby="engagement-heading">
+      <div className="mx-auto mb-12 max-w-7xl md:mb-16">
+        <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-purple-700">02 / Our approach</p>
+        <h2 id="engagement-heading" className="mb-4 text-5xl font-black uppercase leading-[.9] tracking-tighter sm:text-6xl md:text-7xl">
+          How we <span className="text-purple-800">work.</span>
         </h2>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          A diverse collective of thinkers, makers, and problem-solvers united by a shared passion for excellence.
+        <p className="max-w-2xl text-base leading-7 text-gray-600">
+          Bridge Homies works with businesses on software planning, engineering, integrations, and ongoing maintenance.
         </p>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
-        {TEAM.map(({ img, alt, name, role, bio, color, linkedin }) => {
-          const c = colors[color];
-          return (
-            <div
-              key={name}
-              className={`bg-white p-8 rounded-xl shadow-lg hover-scale transition-all duration-300 border-t-4 ${c.border} group hover:bg-gradient-to-b hover:from-${color}-50 hover:to-white`}
-            >
-              <div className={`w-24 h-24 rounded-full ${c.bg} mb-6 mx-auto flex items-center justify-center ${c.text} text-3xl font-bold transition-all duration-300 ${c.hover} group-hover:text-white`}>
-                <img src={img} alt={alt} className="w-full h-full rounded-full object-cover" />
-              </div>
-              <h3 className="text-2xl font-bold text-center mb-2 text-gray-800">{name}</h3>
-              <p className={`${c.text} text-center mb-4`}>{role}</p>
-              <p className="text-gray-600 text-center mb-4">{bio}</p>
-              {linkedin && (
-                <div className="flex justify-center">
-                  <a href={linkedin} target="_blank" rel="noopener noreferrer">
-                    <FaLinkedin className="text-blue-600 hover:text-blue-800 text-xl" />
-                  </a>
-                </div>
-              )}
-            </div>
-          );
-        })}
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-0 md:grid-cols-3">
+        {engagementStages.map((stage, index) => (
+          <article key={stage.title} className="border-t border-gray-200 px-0 py-7 md:px-7 md:py-8 md:first:pl-0 md:last:pr-0 md:[&:not(:first-child)]:border-l md:[&:not(:first-child)]:border-gray-200">
+            <p className="mb-8 text-xs font-bold uppercase tracking-[0.16em] text-purple-700">0{index + 1} / Step</p>
+            <h3 className="mb-3 text-2xl font-bold text-gray-900 sm:text-3xl">{stage.title}</h3>
+            <p className="max-w-sm text-sm leading-7 text-gray-600">{stage.description}</p>
+          </article>
+        ))}
       </div>
     </section>
   );

@@ -162,11 +162,12 @@ export default function SoftwarePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
             {[
               { num: "01", title: "Business Software", desc: "Plan and build ERP, CRM, HR, inventory, billing, portals, dashboards, and operational systems around your team's workflows." },
-              { num: "02", title: "SaaS & Product Development", desc: "Product discovery, MVP planning, SaaS architecture, multi-tenant applications, subscription flows, and product improvements." },
+              { num: "02", title: "SaaS Product Engineering", desc: "SaaS architecture, multi-tenant applications, subscription flows, product implementation, and ongoing software improvements." },
               { num: "03", title: "Workflow Automation", desc: "Connect approval, lead, recruitment, invoice, and notification workflows using software, APIs, and automation tools that fit the process." },
               { num: "04", title: "APIs & System Integrations", desc: "Develop REST APIs and connect payment, tax, CRM, ERP, messaging, Google, and other services based on project requirements." },
               { num: "05", title: "Deployment & Ongoing Support", desc: "Plan cloud infrastructure, application deployment, CI/CD, monitoring, backup and recovery, maintenance, and post-launch improvements." },
               { num: "06", title: "AI & ML Integration", desc: "Assess and integrate AI, ML, RAG, and language-model capabilities where they fit the product workflow and data requirements." },
+              { num: "07", title: "Technical Consulting & Software Architecture", desc: "Assess AI feasibility, plan software architecture and technology choices, review existing systems, and define an implementation roadmap." },
             ].map((service, index) => (
               <div key={index} className={`relative group ${index % 2 !== 0 ? "md:mt-24" : ""}`}>
                 <div className="text-7xl font-black text-gray-200 absolute -top-12 -left-6 z-0 transition-colors group-hover:text-purple-100">

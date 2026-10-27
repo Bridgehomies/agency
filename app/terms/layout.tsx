@@ -3,14 +3,18 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Terms & Conditions | Bridge Homies",
   description:
-    "The terms and conditions governing the use of Bridge Homies' products and services.",
+    "Current terms are not published on this page yet. Contact Bridge Homies to request the terms for a specific product or engagement.",
   alternates: {
     canonical: "https://www.bridgehomies.com/terms",
+  },
+  robots: {
+    index: false,
+    follow: true,
   },
   openGraph: {
     title: "Terms & Conditions | Bridge Homies",
     description:
-      "The terms and conditions governing the use of Bridge Homies' products and services.",
+      "Current terms are not published on this page yet. Contact Bridge Homies to request the terms for a specific product or engagement.",
     url: "https://www.bridgehomies.com/terms",
     siteName: "Bridge Homies",
     type: "website",

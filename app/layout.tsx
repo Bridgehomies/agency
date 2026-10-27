@@ -81,7 +81,7 @@ export default function RootLayout({
     // to each rule's fallback (serif/sans-serif/monospace) — the components
     // were fixed, but weren't switched from the visible fallback font.
     <html lang="en" className={fontVariables}>
-      <body>
+      <body suppressHydrationWarning>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -138,8 +138,7 @@ export default function RootLayout({
                   url: SITE_URL,
                   image: `${SITE_URL}/og-image.png`,
                   description:
-                    "Software development agency in Lahore, Pakistan building custom software, SaaS platforms, web and mobile apps, and production AI systems.",
-                  priceRange: "$$",
+                    "Lahore-based software engineering and AI company providing custom software, SaaS, web and mobile apps, AI/ML systems, workflow automation, integrations, cloud and DevOps, technical consulting, and ongoing support.",
                   address: {
                     "@type": "PostalAddress",
                     streetAddress: "164, Block G-1, Phase-1, Johar Town",
@@ -155,14 +154,21 @@ export default function RootLayout({
                     "@type": "OfferCatalog",
                     name: "Services",
                     itemListElement: [
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "ML Model Engineering" } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps Consulting Services", url: `${SITE_URL}/mlops-consulting-services` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI and Machine Learning Engineering", url: `${SITE_URL}/ai-ml-development` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Software Development", url: `${SITE_URL}/software` } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Web Application Development", url: `${SITE_URL}/webdev` } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "Mobile App Development", url: `${SITE_URL}/mobile` } },
-                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Software and SaaS Development", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS and Product Development", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Business Workflow Automation", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "API and System Integrations", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Cloud, DevOps, and Deployment", url: `${SITE_URL}/software` } },
                       { "@type": "Offer", itemOffered: { "@type": "Service", name: "UI/UX Design", url: `${SITE_URL}/ui-ux-design` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Product Discovery and Planning", url: `${SITE_URL}/design` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Technical Consulting", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "Software Support and Maintenance", url: `${SITE_URL}/software` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "MLOps Consulting Services", url: `${SITE_URL}/mlops-consulting-services` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "RAG Pipeline Development", url: `${SITE_URL}/ai-ml-development` } },
+                      { "@type": "Offer", itemOffered: { "@type": "Service", name: "LLM Integration", url: `${SITE_URL}/ai-ml-development` } },
                     ],
                   },
                 },

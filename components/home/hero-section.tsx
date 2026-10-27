@@ -494,7 +494,7 @@ export default function HeroSectionSpatial() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
           </div>
-          <span className="text-sm font-semibold tracking-wide uppercase text-foreground">Next-Gen AI/ML Services</span>
+          <span className="text-sm font-semibold tracking-wide uppercase text-foreground">Software Engineering & AI/ML</span>
         </motion.div>
 
         {/* 3D SPATIAL IMAGE WRAPPER */}
@@ -524,8 +524,8 @@ export default function HeroSectionSpatial() {
             style={{ transform: "translateZ(50px)" }}
           >
             <Cpu className="h-6 w-6 text-primary mb-2" />
-            <div className="text-2xl font-bold tracking-tight">Production</div>
-            <div className="text-sm text-muted-foreground font-medium">Ready ML Models</div>
+            <div className="text-2xl font-bold tracking-tight">AI & ML</div>
+            <div className="text-sm text-muted-foreground font-medium">Engineering Services</div>
           </motion.div>
 
           {/* FLOATING GLASS STAT 2 (Z-axis offset) */}
@@ -534,8 +534,8 @@ export default function HeroSectionSpatial() {
             style={{ transform: "translateZ(80px)" }}
           >
             <Activity className="h-6 w-6 mb-2" />
-            <div className="text-2xl font-bold tracking-tight">Fewer Flops.</div>
-            <div className="text-sm opacity-90 font-medium">More Wins.</div>
+            <div className="text-2xl font-bold tracking-tight">Custom Software</div>
+            <div className="text-sm opacity-90 font-medium">Built Around Your Workflows</div>
           </motion.div>
 
           {/* CUSTOM CURSOR FOLLOWER */}
@@ -554,7 +554,7 @@ export default function HeroSectionSpatial() {
           style={{ y: statsY, willChange: "transform" }}
         >
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
-            Custom software and AI engineering, built for <span className="text-primary italic">scale.</span>
+            Custom software and AI engineering for <span className="text-primary italic">business workflows.</span>
           </h1>
           <p className="text-muted-foreground leading-relaxed mb-6">We’re a software development agency in Lahore, building SaaS platforms, web and mobile apps, and AI systems for businesses worldwide.</p>
           <Button

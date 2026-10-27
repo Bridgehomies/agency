@@ -15,7 +15,6 @@ const PROJECTS = [
     category: "WEB",
     image: "/work/Logo-Square.png",
     imageAlt: "OPleo HR and operations platform interface",
-    year: "2026",
     color: "#7C3AED",
     bg: "#F5F0FF",
     longDescription: "A unified HR and operations platform that brings employee workflows, attendance, payroll, and day-to-day business operations into one connected product.",
@@ -25,15 +24,14 @@ const PROJECTS = [
   {
     id: 13, index: "02",
     title: "ANOSUIM", titleShort: "AN",
-    subtitle: "Healthcare Management SaaS",
+    subtitle: "Business Operations Software",
     category: "WEB",
     image: "/work/anosuim.png",
-    imageAlt: "Anosuim healthcare management SaaS dashboard",
-    year: "2026",
+    imageAlt: "Anosuim business operations software interface",
     color: "#0F766E",
     bg: "#F0FDFA",
-    longDescription: "A multi-tenant healthcare SaaS for clinic operations, patient records, appointments, billing, and AI-assisted lead capture and scheduling.",
-    technologies: ["Multi-tenant SaaS", "Healthcare", "AI Automation", "Role-based Access"],
+    longDescription: "Business operations software for workflow management and operational tools, with a web frontend and API backend.",
+    technologies: ["Business Operations", "Workflow Management", "Web Frontend", "API Backend"],
     link: "/case-studies/anosuim",
   },
   {
@@ -46,33 +44,33 @@ const PROJECTS = [
     year: "2025",
     color: "#8B5CF6",
     bg: "#F3EEFF",
-    longDescription: "International High Flying Pigeon connects racing and breeding enthusiasts worldwide, offering community tools for tracking pedigrees, race results, and fancier profiles.",
+    longDescription: "International High Flying Pigeon is a tournament and community platform for pigeon fanciers, with race management, results, judge assignments, event notifications, and community features.",
     technologies: ["React", "Tanstack Start", "Tailwind", "PostgreSQL", "FastAPI"],
     link: "https://ihfp.io",
   },
   {
     id: 9, index: "04",
     title: "MAIL\nHAULER PRO", titleShort: "MH",
-    subtitle: "Email Infrastructure SaaS",
+    subtitle: "Cold Email Outreach Platform",
     category: "WEB",
     image: "/work/white.png",
     year: "2025",
     color: "#7C3AED",
     bg: "#F5F0FF",
-    longDescription: "SaaS email infrastructure platform for mailbox warmup, deliverability management, and inbox operations at scale, built for teams running high-volume outbound.",
+    longDescription: "Cold-email outreach and email infrastructure software with mailbox management, warmup, deliverability monitoring, campaign sequences, a unified inbox, and analytics.",
     technologies: ["React", "TypeScript", "TanStack Query", "Tailwind"],
     link: "https://mailhaulerpro.com",
   },
   {
     id: 4, index: "05",
     title: "AIERPIFY", titleShort: "AI",
-    subtitle: "FBR Invoicing Software",
+    subtitle: "FBR & PRAL E-Invoicing Platform",
     category: "WEB",
     image: "/work/aierpify.png",
     year: "2025",
     color: "#6D28D9",
     bg: "#EDE9FE",
-    longDescription: "Digital invoicing software designed to streamline billing for businesses. Invoice creation, payment tracking, and financial reporting—all FBR compliant.",
+    longDescription: "A Pakistani FBR and PRAL e-invoicing and tax-compliance platform for invoice creation, validation and submission, QR and IRN generation, and tax workflows.",
     technologies: ["Next.js", "Tailwind", "Supabase"],
     link: "https://aierpify.com",
   },
@@ -85,7 +83,7 @@ const PROJECTS = [
     year: "2025",
     color: "#6D28D9",
     bg: "#EDE9FE",
-    longDescription: "Event management platform streamlining planning, bookings, and coordination for organizers, with tools built for a smooth end-to-end event experience.",
+    longDescription: "Event management platform.",
     technologies: ["Next.js", "Node.js", "PostgreSQL"],
     link: "https://premiumstringz.net",
   },
@@ -98,7 +96,7 @@ const PROJECTS = [
     year: "2025",
     color: "#9333EA",
     bg: "#FAF5FF",
-    longDescription: "Ecommerce storefront for peptide and supplement products, with clean product catalog browsing, secure checkout, and compliance-aware content presentation.",
+    longDescription: "Ecommerce storefront for peptide and supplement products, with product catalog browsing and checkout.",
     technologies: ["Vite", "Stripe", "Tailwind", "Medusa.js"],
     link: "https://trinitypeptidegroup.com",
   },
@@ -111,20 +109,20 @@ const PROJECTS = [
     year: "2025",
     color: "#7C3AED",
     bg: "#F5F0FF",
-    longDescription: "Developed a user-friendly ecommerce platform specializing in fashion and lifestyle products, featuring secure payment gateways and a seamless shopping experience.",
+    longDescription: "Ecommerce platform for fashion and lifestyle products.",
     technologies: ["Next.js", "Fast API", "Supabase"],
     link: "https://www.nabeerabareera.com/",
   },
   {
     id: 1, index: "09",
     title: "CV\nJET", titleShort: "CV",
-    subtitle: "Smart Resume Platform",
+    subtitle: "AI Resume & Career Platform",
     category: "WEB",
     image: "/work/cvjet.png",
     year: "2023",
     color: "#8B5CF6",
     bg: "#F3EEFF",
-    longDescription: "Comprehensive CV selector solution with resume parsing, job matching, advanced filtering, and a responsive design for optimal cross-device experience.",
+    longDescription: "Resume and career platform.",
     technologies: ["Next.js"],
     link: "https://cvjet.com",
   },
@@ -137,8 +135,8 @@ const PROJECTS = [
     year: "2023",
     color: "#5B21B6",
     bg: "#EDE9FE",
-    longDescription: "Detects human emotions—Joy, Sadness, Anger, Fear, Surprise, Neutral—from English text using NLP and machine learning. Built for customer feedback analysis at scale.",
-    technologies: ["Python", "ML", "NLP", "Streamlit"],
+    longDescription: "Text analysis project.",
+    technologies: [],
     link: "https://text-sentiments-detector.streamlit.app/",
   },
   {
@@ -150,7 +148,7 @@ const PROJECTS = [
     year: "2023",
     color: "#7C3AED",
     bg: "#F5F0FF",
-    longDescription: "Professional vehicle transport service with real-time tracking, booking management, shipment oversight, and enterprise-grade data protection.",
+    longDescription: "Vehicle transport platform for booking management and shipment oversight.",
     technologies: ["React", "Bootstrap", "JavaScript"],
     link: "https://movexautoshipping.com",
   },
@@ -163,28 +161,22 @@ const PROJECTS = [
     year: "2025",
     color: "#9333EA",
     bg: "#FAF5FF",
-    longDescription: "Comprehensive automation tool for Facebook posts, comments, and messages—streamlining social media management and amplifying engagement.",
+    longDescription: "Facebook automation software.",
     technologies: ["React", "Node.js", "Facebook API"],
     link: "https://facebook-automations.com",
   },
   {
     id: 6, index: "13",
     title: "ONYX\nFINTECH", titleShort: "OX",
-    subtitle: "AI Loan Matchmaking",
+    subtitle: "Loan Matching Platform",
     category: "WEB",
     image: "/work/fin.webp",
     year: "2025",
     color: "#6D28D9",
     bg: "#EDE9FE",
-    longDescription: "Enterprise loan-matching platform connecting borrowers with optimal lenders via AI algorithms. Manages client networks, deal tracking, and financial reporting.",
-    technologies: ["React", "TypeScript", "Django", "PostgreSQL", "AI/ML", "AWS"],
+    longDescription: "Loan-matching platform.",
+    technologies: [],
     link: "https://onyxfintech.com",
-    keyFeatures: [
-      { icon: "sparkles", title: "AI Matchmaking", description: "Algorithms predict optimal borrower-lender pairings from profile analysis" },
-      { icon: "trending", title: "Deal Dashboard", description: "Centralized deal creation, progress tracking, and interaction oversight" },
-      { icon: "shield", title: "Secure Infra", description: "PostgreSQL + load balancing + real-time server monitoring" },
-    ],
-    highlights: ["Data Visualization", "Email Campaigns", "CI/CD Pipeline", "Server Monitoring", "Dynamic Forms"],
   },
   
 ];
@@ -344,7 +336,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
           <div className="flex items-start justify-between gap-2 mb-2">
             <div>
               <p className="text-[10px] mb-2 font-mono uppercase" style={{ color: project.color, letterSpacing: "0.25em" }}>
-                {project.category} — {project.year}
+                {project.year ? `${project.category} — ${project.year}` : project.category}
               </p>
               <h3
                 className="font-black leading-tight"
@@ -509,7 +501,7 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
               className="text-[10px] sm:text-xs mb-4 uppercase font-mono"
               style={{ color: project.color, letterSpacing: "0.2em" }}
             >
-              {project.year} — {project.subtitle}
+              {project.year ? `${project.year} — ${project.subtitle}` : project.subtitle}
             </motion.p>
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
@@ -650,7 +642,7 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
                 boxShadow: `0 10px 40px ${project.color}40`,
               }}
             >
-              VISIT LIVE SITE
+              OPEN PROJECT LINK
               <ExternalLink className="h-4 w-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
             </motion.a>
           </div>
@@ -806,7 +798,7 @@ export default function WorkSection() {
           className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mt-10"
         >
           <p className="text-sm sm:text-base max-w-md" style={{ color: "rgba(30,10,60,0.6)", lineHeight: 1.8, fontWeight: 400 }}>
-            Crafted digital experiences from the ground up — each project a commitment to precision, performance, and scale.
+            Selected software projects across business operations, AI, commerce, and community platforms.
           </p>
           <div className="flex flex-wrap gap-2">
             {categories.map((cat) => (

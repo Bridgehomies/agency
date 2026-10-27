@@ -5,7 +5,7 @@ import { SITE_URL } from "@/lib/config";
 import { Mail, MapPin, Phone } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Contact Bridge Homies",
+  title: "Contact",
   description:
     "Contact Bridge Homies in Lahore for AI/ML engineering, custom software, web, mobile, and SaaS projects.",
   alternates: { canonical: "/contact" },

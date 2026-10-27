@@ -1,31 +1,28 @@
 export default function HeroSection() {
   return (
-    <section className="mb-24 md:mb-32 pl-12">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-12">
-        <div className="md:w-1/2 space-y-8">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-playfair font-bold leading-tight">
-            <span className="text-gradient animate__animated animate__fadeInDown">We Craft</span><br />
-            <span className="text-blue-600 animate__animated animate__fadeInDown animate__delay-1s">Digital</span><br />
-            <span className="text-purple-600 animate__animated animate__fadeInDown animate__delay-2s">Experiences</span>
+    <section className="relative flex min-h-[72vh] flex-col justify-center px-4 pb-20 pt-32 sm:px-6 lg:px-8 lg:pb-28 lg:pt-40">
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.035]" />
+      <div className="relative mx-auto grid w-full max-w-7xl grid-cols-1 items-end gap-10 lg:grid-cols-12 lg:gap-8">
+        <div className="lg:col-span-8">
+          <div className="mb-7 inline-flex items-center gap-3">
+            <span className="h-px w-8 bg-purple-600" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-purple-700">About Bridge Homies</span>
+          </div>
+          <h1 className="text-6xl font-black uppercase leading-[.9] tracking-tighter sm:text-7xl md:text-8xl lg:text-[7rem]">
+            Software<br />
+            <span className="bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500 bg-clip-text text-transparent">Engineering.</span>
           </h1>
-          <p className="text-lg md:text-xl text-gray-600 max-w-lg">
-            Redefining boundaries in the digital landscape with innovative solutions that blend creativity and technology.
-          </p>
         </div>
-        <div className="md:w-1/2 flex justify-center">
-          <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center floating shadow-2xl">
-            <div className="absolute inset-0 bg-[url(' https://grainy-gradients.vercel.app/noise.svg ')] opacity-10 rounded-full"></div>
-            <div className="absolute inset-0 rounded-full border-8 border-white opacity-20 animate-spin-slow"></div>
-            <div className="absolute inset-8 rounded-full border-8 border-white opacity-10 animate-spin-slow-reverse"></div>
-            <div className="bg-white rounded-full w-3/4 h-3/4 flex items-center justify-center shadow-xl hover-scale">
-              <div className="text-center p-6">
-                <span className="text-4xl md:text-5xl font-playfair font-bold text-blue-600">Since</span>
-                <span className="block text-6xl md:text-7xl font-playfair font-bold text-purple-600">2025</span>
-              </div>
-            </div>
+        <div className="lg:col-span-4 lg:pb-2">
+          <p className="max-w-xl text-lg font-medium leading-relaxed text-gray-600 sm:text-xl">
+            Bridge Homies is a Lahore-based software engineering and AI company building custom business systems, SaaS products, web and mobile applications, and AI/ML software.
+          </p>
+          <div className="mt-7 flex items-center gap-3 text-xs font-bold uppercase tracking-[0.16em] text-gray-500">
+            <span className="h-px w-8 bg-purple-600" />
+            Lahore, Pakistan <span className="text-purple-600">/</span> Est. 2025
           </div>
         </div>
       </div>
     </section>
   );
-} 
+}

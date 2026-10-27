@@ -17,7 +17,6 @@ const NAV_LEFT = [
   { label: "Contact", href: "/contact" },
   { label: "Privacy", href: "/privacy" },
   { label: "Careers", href: "", disabled: true },
-  { label: "Our Team", href: "/#team" },
   { label: "Products", href: "/products" },
   { label: "Blog", href: "/blog" },
   { label: "Testimonials", href: "/testimonials" },
@@ -30,7 +29,7 @@ const NAV_RIGHT = [
   { label: "Custom Software Development", href: "/software" },
   { label: "AI & ML engineering services", href: "/ai-ml-development" },
   { label: "MLOps Consulting", href: "/mlops-consulting-services" },
-  { label: "Design", href: "/design" },
+  { label: "Product Discovery", href: "/design" },
 ];
 
 const SOCIALS = [

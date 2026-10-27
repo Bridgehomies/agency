@@ -3,9 +3,9 @@ import CaseStudyTemplate from "@/components/case-studies/CaseStudyTemplate"
 import type { CaseStudyData } from "@/lib/case-study-types"
 
 export const metadata: Metadata = {
-  title: { absolute: "IHFP Community Platform | Bridge Homies" },
+  title: { absolute: "IHFP Case Study: Pigeon Community Platform | Bridge Homies" },
   description:
-    "How Bridge Homies built IHFP, a role-based platform for pigeon lofts, clubs, tournaments, judging, real-time scoring, and community messaging.",
+    "See how Bridge Homies built IHFP, a pigeon community and tournament platform with user profiles, judge assignments, manual time submissions, admin approvals, dashboards, and notifications.",
   alternates: { canonical: "https://www.bridgehomies.com/case-studies/ihfp" },
 }
 
@@ -14,152 +14,109 @@ const data: CaseStudyData = {
   name: "IHFP",
   category: "Pigeon Community & Tournament Platform",
   tagline:
-    "Bringing pigeon management, competitions, judging, and community interaction into one digital platform for lofts, clubs, judges, and organizers.",
-  targetUsers: "Loft owners, pigeon enthusiasts, clubs, judges, organizers, and administrators",
-  status: "Deployed production platform",
-  liveUrl: "https://ihfp.io",
+    "A pigeon community and tournament platform with user profiles, judge assignments, manual time submissions, approval workflows, dashboards, and notifications.",
+  targetUsers: "Pigeon community members, judges, organizers, and administrators",
   coverImage: "/work/hfp.png",
   heroSummary:
-    "IHFP is a web-based platform built for pigeon enthusiasts, loft owners, clubs, tournament organizers, judges, and administrators. Bridge Homies developed IHFP as a structured digital ecosystem where users can manage pigeon lofts, organize tournaments, communicate with other members, submit entries, record race results, and manage competition workflows from one platform.",
+    "IHFP is a pigeon community and tournament platform for members, judges, organizers, and administrators. Its listed capabilities include user profiles, activity feeds, tournament management, judge assignments, manual time submissions, admin approvals, dashboards, notifications, and API integrations.",
   challengeIntro:
-    "Pigeon clubs and tournament organizers often depend on manual records, WhatsApp groups, spreadsheets, and disconnected communication. IHFP needed to bring these workflows into one centralized platform while supporting different user roles and approval requirements.",
+    "Tournament and community workflows bring together participants, judges, submitted times, and administrative review. IHFP provides platform features for managing these activities.",
   challengePoints: [
-    "Manage loft and pigeon information",
-    "Organize tournament entries",
-    "Track deadlines and payments",
-    "Assign judges",
-    "Record race timings",
-    "Approve results and publish rankings",
-    "Coordinate clubs and participants",
-    "Maintain reliable competition records",
+    "Manage tournament and community activity",
+    "Assign judges to competitions",
+    "Record departure and landing times manually",
+    "Review submissions through admin approval workflows",
+    "Provide public and private dashboards",
   ],
   solutionIntro:
-    "Bridge Homies developed IHFP as a role-based pigeon community and tournament management platform supporting the complete competition workflow — from registration and loft management to judging, scoring, results, messaging, and administration.",
+    "Bridge Homies developed IHFP as a pigeon community and tournament management platform with user profiles, activity feeds, tournament administration, judge assignments, manual time submissions, approval workflows, dashboards, notifications, and API integrations.",
   solutionPoints: [
-    "User profiles and account verification",
-    "Loft management with co-owners and approval workflows",
-    "Ustad–Shaagird mentorship relationships",
-    "Clubs and membership management",
-    "Tournament creation, registration, and check-in",
-    "Judge panel with controlled, assigned access",
-    "Results, scoring, and live leaderboards",
-    "Platform messaging and admin console",
+    "User profiles and activity feeds",
+    "Tournament management and community features",
+    "Judge management and assignments",
+    "Departure and landing records with manual time submission",
+    "Admin approval workflows",
+    "Public and private dashboards",
+    "Notifications and API integrations",
   ],
   features: [
     {
-      title: "Loft Management",
+      title: "User Profiles & Activity Feeds",
       description:
-        "Loft ownership, co-owners, pigeon records, visibility controls, safe deletion workflows, and approval-based administration.",
+        "Community profiles and activity feeds for platform members.",
     },
     {
       title: "Judge Panel",
       description:
-        "Assigned competition listings, departure/landing recording, manual time entry, and admin approval — only approved judges access the workflow.",
+        "Judge management and assignments, with manual departure and landing time submissions routed through admin approval workflows.",
     },
     {
       title: "Tournament Management",
       description:
-        "Creation, registration, check-in, entry deadlines, sub-admins, payment records, judge assignments, and competition status.",
+        "Tournament management features for competition organizers and participants.",
     },
     {
-      title: "Results & Leaderboards",
+      title: "Competition Records",
       description:
-        "Result processing, scoring, rankings, and live scoreboards, reviewed through administrative workflows before finalizing.",
+        "Record competition times and route entries through the platform's administrative approval workflows.",
     },
     {
-      title: "Messaging",
-      description: "Conversation-based platform messaging for communication between users and community participants.",
+      title: "Dashboards, Notifications & Integrations",
+      description: "Public and private dashboards, notifications, and API integrations for platform workflows.",
     },
-    {
-      title: "Awards & Sponsorships",
-      description: "Organizers manage awards and sponsorship information tied to competitions.",
-    },
-    {
-      title: "Admin Console",
-      description:
-        "Manage users, roles, lofts, clubs, tournaments, judges, results, approvals, notifications, and activity logs.",
-    },
-    {
-      title: "Notifications & Localization",
-      description: "Platform notifications, localization support, and weather info within relevant workflows.",
-    },
-  ],
-  techStack: [
-    { label: "Frontend", value: "React, TypeScript, TanStack Router/Start, TanStack Query" },
-    { label: "Backend", value: "FastAPI, Pydantic, SQLModel, SQLAlchemy" },
-    { label: "Database", value: "PostgreSQL" },
-    { label: "Authentication", value: "Better Auth" },
-    { label: "Background processing", value: "TaskIQ and Redis" },
-    { label: "Real-time", value: "WebSockets and Redis Pub/Sub" },
-    { label: "Messaging", value: "Matrix-based infrastructure" },
-    { label: "File storage", value: "S3-compatible object storage" },
-    { label: "Hosting", value: "Google Cloud Platform" },
-    { label: "Edge & DNS", value: "Cloudflare" },
   ],
   engineeringChallenges: [
     {
-      title: "Multiple User Roles",
+      title: "Member and Judge Workflows",
       description:
-        "Users, loft owners, club owners, Ustad, judges, tournament organizers, sub-admins, and administrators each need role-based access to only their relevant workflows.",
+        "The platform includes user profiles, judge management, assigned judges, and administrative workflows.",
     },
     {
-      title: "Competition Approval Workflows",
+      title: "Competition Review Workflows",
       description:
-        "Tournament and judging data can't always publish immediately — IHFP includes administrative approval steps for judges, timings, scoring, and results.",
+        "Manual time submissions and competition records can pass through administrative approval workflows.",
     },
     {
-      title: "Real-Time Competition Updates",
+      title: "Competition Record Approvals",
       description:
-        "Race and scoring workflows require timely updates, handled through WebSockets and Redis Pub/Sub for real-time scoreboard updates.",
+        "Manual time submissions and competition records can pass through administrative approval steps before publication.",
     },
     {
-      title: "Complex Data Relationships",
+      title: "Tournament and Community Management",
       description:
-        "The platform connects users, lofts, pigeons, clubs, tournaments, judges, entries, results, awards, and sponsorships in a structured, traceable data model.",
+        "Tournament management sits alongside user profiles, community activity feeds, dashboards, and notifications.",
     },
     {
-      title: "Reliable Administrative Control",
+      title: "Administrative Review",
       description:
-        "Because competition records require trust, the system includes controlled approvals, permissions, logs, and administrative oversight.",
+        "Admin approval workflows are available for competition submissions and records.",
     },
   ],
   resultIntro:
-    "IHFP became a centralized web platform for managing pigeon communities and tournaments, deployed to production on Google Cloud Platform with the live application at ihfp.io.",
+    "IHFP brings pigeon community features and tournament workflows together, including profiles, judge assignments, manual time submissions, admin approvals, dashboards, and notifications.",
   resultPoints: [
-    "Loft and pigeon management",
-    "Club workflows and Ustad–Shaagird relationships",
-    "Tournament registration and entry records",
-    "Judge assignments and race timing",
-    "Scoring, results, and leaderboards",
-    "Messaging, notifications, and awards",
+    "User profiles and activity feeds",
+    "Tournament management and community features",
+    "Judge management and assignments",
+    "Departure and landing records with manual time submissions",
+    "Public and private dashboards, notifications, and API integrations",
   ],
   businessValue: [
-    "Replace scattered manual records",
-    "Manage participants and entries centrally",
-    "Control judge access and approvals",
-    "Maintain structured pigeon and loft data",
-    "Publish competition results more reliably",
-    "Improve communication between members",
-    "Reduce administrative repetition",
-    "Create a foundation for future digital services",
+    "Manage tournament and community activity",
+    "Record departure and landing times manually",
+    "Route submissions through admin approval workflows",
+    "Provide public and private dashboards",
+    "Share notifications within platform workflows",
+    "Connect competition data with API integrations",
   ],
   summaryTable: [
     { label: "Product", value: "IHFP" },
     { label: "Category", value: "Pigeon Community and Tournament Platform" },
-    { label: "Target Users", value: "Loft owners, clubs, judges, organizers, administrators" },
+    { label: "Target Users", value: "Community members, judges, organizers, administrators" },
     { label: "Platform", value: "Role-based web application" },
-    { label: "Frontend", value: "React, TypeScript, TanStack" },
-    { label: "Backend", value: "FastAPI, Pydantic, SQLModel" },
-    { label: "Database", value: "PostgreSQL" },
-    { label: "Real-Time", value: "WebSockets, Redis Pub/Sub" },
-    { label: "Messaging", value: "Matrix" },
-    { label: "Storage", value: "S3-compatible storage" },
-    { label: "Hosting", value: "Google Cloud Platform" },
-    { label: "Edge Layer", value: "Cloudflare" },
-    { label: "Status", value: "Deployed production platform" },
   ],
   finalOutcome:
-    "Bridge Homies transformed a complex pigeon competition workflow into a structured digital platform connecting community management, loft records, tournament operations, judging, scoring, messaging, and administration — demonstrating our ability to build complex role-based platforms with real-time features, approval workflows, and scalable modular architecture.",
+    "IHFP is a pigeon community and tournament platform with user profiles, activity feeds, judge assignments, manual time submissions, approval workflows, dashboards, notifications, and API integrations.",
 }
 
 export default function IhfpCaseStudy() {

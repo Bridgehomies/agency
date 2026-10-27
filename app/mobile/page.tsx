@@ -1,27 +1,27 @@
 // app/mobile/page.tsx
-// ponytail: removed "use client" page is a Server Component so metadata exports work.
-// StatsCounter stays as the existing @/components/StatsCounter client component (same as ai-ml-development).
+// Server Component so metadata and JSON-LD are rendered with the page.
 
 import type { Metadata } from "next";
 import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
-import StatsCounter from "@/components/StatsCounter";
+
+const pageTitle = "Mobile App Development Services | Bridge Homies";
+const pageDescription =
+  "Build Android, iOS, and cross-platform mobile apps for customer, employee, field, delivery, booking, commerce, finance, and community workflows.";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 
 export const metadata: Metadata = {
-  title: { absolute: "Mobile App Development Services | iOS, Android & AI | Bridge Homies" },
-  description:
-    "Bridge Homies builds intelligent iOS and Android apps with AI automation. Native, cross-platform, and enterprise mobile solutions, production-ready.",
+  title: { absolute: pageTitle },
+  description: pageDescription,
   alternates: {
     canonical: "https://www.bridgehomies.com/mobile",
   },
   openGraph: {
-    title: "Mobile App Development Services iOS, Android & AI | Bridge Homies",
-    description:
-      "Native iOS, Android, and cross-platform mobile apps with embedded AI automation. Built for scale.",
+    title: pageTitle,
+    description: pageDescription,
     url: "https://www.bridgehomies.com/mobile",
     siteName: "Bridge Homies",
     type: "website",
@@ -36,9 +36,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mobile App Development Services | Bridge Homies",
-    description:
-      "Native iOS, Android & cross-platform mobile apps with AI automation.",
+    title: pageTitle,
+    description: pageDescription,
     images: ["/og-image.png"],
   },
   robots: {
@@ -63,11 +62,9 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/mobile/#webpage",
       url: "https://www.bridgehomies.com/mobile",
-      name: "Mobile App Development Services iOS, Android & AI | Bridge Homies",
-      description:
-        "Bridge Homies builds intelligent mobile apps for iOS and Android with AI automation and machine learning. Native, cross-platform, and enterprise mobile solutions delivered production-ready.",
+      name: pageTitle,
+      description: pageDescription,
       inLanguage: "en-US",
-      dateModified: "2026-06-28",
       isPartOf: { "@id": "https://www.bridgehomies.com/#website" },
       breadcrumb: {
         "@type": "BreadcrumbList",
@@ -100,7 +97,7 @@ const schema = {
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/mobile",
       description:
-        "Custom iOS and Android mobile app development with AI automation and ML integration. Fast, intuitive apps built to scale with your business.",
+        "Android, iOS, and cross-platform mobile applications for customer, employee, field-worker, delivery, booking, e-commerce, finance, and community use cases.",
       serviceType: "Mobile App Development",
       areaServed: "Worldwide",
     },
@@ -110,26 +107,26 @@ const schema = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "Why does my business need a mobile app?",
+          name: "What types of mobile applications can you build?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "A mobile app provides direct access to your customers with a personalised experience. With AI automation and machine learning integration, your app can predict user behaviour, personalise content, and drive growth.",
+            text: "Projects can include customer-facing, employee, field-worker, delivery, booking, e-commerce, marketplace, finance, social, community, and dashboard applications.",
           },
         },
         {
           "@type": "Question",
-          name: "Do you integrate AI automation directly into mobile apps?",
+          name: "Can mobile apps connect to APIs and existing systems?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. We embed predictive analytics, natural language processing, and autonomous agents directly into the iOS and Android applications we develop.",
+            text: "Mobile apps can connect to APIs, business systems, and third-party services when required by the project. Integration scope and synchronization behavior are defined for each project.",
           },
         },
         {
           "@type": "Question",
-          name: "How does mobile integrate with our existing enterprise software?",
+          name: "Can you maintain or upgrade an existing mobile app?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "We architect custom API bridges. Your new mobile application will sync seamlessly in real-time with your existing web apps, SaaS platforms, and internal enterprise software databases, ensuring zero data fragmentation.",
+            text: "Yes. Mobile app maintenance and upgrades can be scoped around the existing application, its platform, and the changes required.",
           },
         },
       ],
@@ -171,19 +168,13 @@ export default function MobilePage() {
               </h1>
 
               <h2 className="mt-6 text-xl md:text-2xl font-semibold text-gray-500 tracking-tight">
-                Native iOS, Android, and cross-platform apps with AI automation
-                and machine learning built in from day one.
+                Android, iOS, and cross-platform applications for customer, employee, and field-team workflows.
               </h2>
             </div>
 
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We build intelligent{" "}
-                <strong className="text-gray-900">mobile apps</strong> for iOS and
-                Android, supercharged by{" "}
-                <strong className="text-gray-900">AI automation</strong> and{" "}
-                <strong className="text-gray-900">machine learning</strong> for
-                companies that need results, not prototypes.
+                We build <strong className="text-gray-900">mobile apps</strong> for Android, iOS, and cross-platform projects, including customer, employee, field-worker, delivery, booking, commerce, finance, and community applications.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -215,8 +206,6 @@ export default function MobilePage() {
         </div>
       </section>
 
-      <StatsCounter />
-
       {/* ── IMAGE BREAKER ────────────────────────────────────────────────── */}
       <section
         className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900"
@@ -241,9 +230,7 @@ export default function MobilePage() {
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
               <p className="text-gray-500 font-medium">
-                Native architectures,{" "}
-                <strong className="text-gray-900">AI automation</strong>, and
-                flawless mobile UX designed for global scale.
+                Mobile applications shaped around the users, devices, and workflows your product needs to support.
               </p>
             </div>
           </div>
@@ -252,28 +239,28 @@ export default function MobilePage() {
             {[
               {
                 num: "01",
-                title: "Native iOS Development",
-                desc: "High-performance Swift and Objective-C architectures built specifically for the Apple ecosystem, ensuring fluid animations and maximum hardware utilization.",
+                title: "iOS Applications",
+                desc: "Develop iOS applications for customer-facing products, employees, field workers, and business workflows.",
               },
               {
                 num: "02",
-                title: "Native Android Development",
-                desc: "Robust Kotlin and Java applications designed to operate flawlessly across the highly fragmented Android device landscape.",
+                title: "Android Applications",
+                desc: "Develop Android applications for customer-facing products, employees, field workers, and business workflows.",
               },
               {
                 num: "03",
-                title: "AI Automation & ML Integration",
-                desc: "We embed on-device machine learning and cloud-based AI automation directly into your mobile app for predictive analytics and intelligent user flows.",
+                title: "Cross-Platform Applications",
+                desc: "Build cross-platform mobile applications. React Native and Flutter are available options when they fit the project requirements.",
               },
               {
                 num: "04",
-                title: "Enterprise Mobile Software",
-                desc: "Secure, scalable mobile portals that integrate directly with your existing enterprise software, web apps, and internal SaaS ecosystems.",
+                title: "Business and Employee Apps",
+                desc: "Support employee and field-worker workflows with mobile access to tasks, records, and operational tools.",
               },
               {
                 num: "05",
-                title: "Cross-Platform Development",
-                desc: "React Native and Flutter frameworks deployed when time-to-market is critical, without sacrificing the premium native feel.",
+                title: "Mobile App Maintenance",
+                desc: "Maintain and upgrade existing mobile applications as requirements, devices, and connected services change.",
               },
             ].map((service, index) => (
               <div
@@ -306,19 +293,13 @@ export default function MobilePage() {
                   The Mobile Standard
                 </div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
-                  Intelligent apps. <br />
+                  Mobile products. <br />
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">
-                    Built to scale.
+                    Built for your workflows.
                   </span>
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  Building an app is easy. Engineering a scalable mobile ecosystem that
-                  retains users is not. Bridge Homies merges elite{" "}
-                  <strong className="text-white">mobile app development</strong> with
-                  deep{" "}
-                  <strong className="text-white">machine learning</strong> capabilities,
-                  deploying products that actively learn, adapt, and drive your business
-                  forward.
+                  Bridge Homies develops mobile applications around product requirements and user workflows. Projects can include customer-facing apps, employee and field-worker tools, delivery, booking, commerce, finance, and community applications.
                 </p>
               </div>
               <Link
@@ -347,7 +328,7 @@ export default function MobilePage() {
               <div className="bg-gray-100 flex-1 relative overflow-hidden group min-h-[300px]">
                 <img
                   src="https://images.unsplash.com/photo-1618761714954-0b8cd0026356?q=80&w=800&auto=format&fit=crop"
-                  alt="Native mobile precision iOS and Android app engineering"
+                  alt="Mobile application interface displayed on a smartphone"
                   className="absolute inset-0 w-full h-full object-cover filter grayscale contrast-125 group-hover:scale-110 transition-transform duration-700"
                   loading="lazy"
                   decoding="async"
@@ -355,10 +336,10 @@ export default function MobilePage() {
                 <div className="absolute inset-0 bg-gray-900/40" />
                 <div className="absolute bottom-6 left-6 right-6">
                   <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">
-                    Native Precision
+                    Mobile Interfaces
                   </h3>
                   <p className="text-gray-200 text-sm">
-                    Strict adherence to OS-level design paradigms.
+                    Interface planning for Android, iOS, and cross-platform products.
                   </p>
                 </div>
               </div>
@@ -384,8 +365,7 @@ export default function MobilePage() {
                 Clear <br /> Context.
               </h2>
               <p className="text-gray-500 font-medium max-w-sm mb-12">
-                Understanding the mechanics of integrating AI automation and native
-                mobile architecture.
+                Common questions about planning and building Android, iOS, and cross-platform applications.
               </p>
             </div>
 
@@ -393,16 +373,16 @@ export default function MobilePage() {
               <div className="border-t-2 border-gray-900">
                 {[
                   {
-                    q: "Why does my business need a mobile app?",
-                    a: "A mobile app provides zero-friction, direct access to your customers. Combined with AI automation and machine learning integration, your app doesn't just display information it actively predicts user behavior, personalizes content, and drives localized growth.",
+                    q: "What types of mobile applications can you build?",
+                    a: "Projects can include customer-facing, employee, field-worker, delivery, booking, e-commerce, marketplace, finance, social, community, and dashboard applications.",
                   },
                   {
-                    q: "Do you integrate AI automation directly into mobile apps?",
-                    a: "Yes. We embed predictive analytics, natural language processing, and autonomous agents directly into the iOS and Android applications we develop.",
+                    q: "Can mobile apps connect to APIs and existing systems?",
+                    a: "Mobile apps can connect to APIs, business systems, and third-party services when required by the project. AI features can be considered where they fit the product and workflow.",
                   },
                   {
-                    q: "How does mobile integrate with our existing enterprise software?",
-                    a: "We architect custom API bridges. Your new mobile application will sync seamlessly in real-time with your existing web apps, SaaS platforms, and internal enterprise software databases, ensuring zero data fragmentation.",
+                    q: "Can you maintain or upgrade an existing mobile app?",
+                    a: "Yes. Mobile app maintenance and upgrades can be scoped around the existing application, its platform, and the changes required.",
                   },
                 ].map((faq, i) => (
                   <div key={i} className="py-10 border-b border-gray-200 group">
@@ -451,16 +431,7 @@ export default function MobilePage() {
 
           <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase leading-relaxed">
-              Our native mobile architectures strictly comply with{" "}
-              <a
-                href="https://developer.apple.com/app-store/review/guidelines/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-900 border-b border-gray-900 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-all duration-300"
-              >
-                Apple App Store Review Guidelines
-              </a>{" "}
-              and Google Play deployment standards.
+              Mobile platform, API, and release requirements are assessed as part of project planning.
             </p>
           </div>
         </div>

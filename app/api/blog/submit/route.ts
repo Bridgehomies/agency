@@ -6,10 +6,13 @@ import { resolveAmountUsd } from "@/lib/payment-info";
 
 export type GuestSubmission = {
   id: string; submittedAt: string; status: "pending" | "approved" | "rejected";
+  approvedAt?: string; dateModified?: string;
   name: string; email: string; phone: string; occupation: string; bio: string;
   backlinks: { label: string; url: string }[]; title: string; slug: string;
   category: string; excerpt: string; tags: string[]; content: string; faqText: string;
   coverImagePath: string; adminNotes?: string;
+  // Retain exchange as a historical value for stored submissions only.
+  isSponsoredContent?: boolean;
   publishOption: "exchange" | "paid" | ""; exchangeUrl: string;
   paidPlan: "advance" | "after_live" | ""; amountUsd: number;
   paymentProofPath: string; paymentVerified: boolean;
@@ -51,8 +54,9 @@ export async function POST(req: NextRequest) {
     const proofFile = formData.get("paymentProof") as File | null;
 
     if (!name || !email || !title || !excerpt || !content) return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
-    if (publishOption !== "exchange" && publishOption !== "paid") return NextResponse.json({ error: "Please choose a publishing option." }, { status: 400 });
-    if (publishOption === "exchange" && !exchangeUrl.trim()) return NextResponse.json({ error: "Please provide the URL where you added our link." }, { status: 400 });
+    // New submissions may use paid placement only. Continue accepting old
+    // exchange records from KV at read/render time for backwards compatibility.
+    if (publishOption !== "paid") return NextResponse.json({ error: "Please choose an available publishing option." }, { status: 400 });
     if (publishOption === "paid" && paidPlan !== "advance" && paidPlan !== "after_live") return NextResponse.json({ error: "Please choose a payment plan." }, { status: 400 });
     if (publishOption === "paid" && paidPlan === "advance" && (!proofFile || proofFile.size === 0)) return NextResponse.json({ error: "Please attach your money transfer proof before submitting." }, { status: 400 });
 
@@ -68,7 +72,8 @@ export async function POST(req: NextRequest) {
       id, submittedAt: new Date().toISOString(), status: "pending", name, email, phone, occupation, bio,
       backlinks: JSON.parse(backlinksRaw), title, slug: slugify(title), category, excerpt,
       tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean), content, faqText,
-      coverImagePath: await upload(imageFile, "submissions"), publishOption, exchangeUrl, paidPlan,
+      coverImagePath: await upload(imageFile, "submissions"), isSponsoredContent: true,
+      publishOption, exchangeUrl: "", paidPlan,
       amountUsd: resolveAmountUsd(publishOption, paidPlan), paymentProofPath: await upload(proofFile, "payment-proofs"), paymentVerified: false,
     };
 

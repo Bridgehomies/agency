@@ -244,17 +244,17 @@ export default function Hero() {
                 <span className="flex items-center justify-center w-5 h-5 rounded-full bg-gradient-to-br from-fuchsia-400 to-purple-600">
                   <Sparkles className="w-3 h-3 text-white" />
                 </span>
-                ERP Software with FBR Integration Now Live!
+                Software products by Bridge Homies
                 <span className="ml-1 inline-block w-2 h-2 rounded-full bg-fuchsia-400 animate-pulse" />
               </div>
             </div>
 
             {/* Heading */}
             <h1 className="hero-heading anim-h1 text-5xl md:text-6xl lg:text-7xl font-extrabold text-gray-900 leading-[1.08] tracking-tight mb-6">
-              Innovative Software
+              Software Products
               <br />
               <span className="relative inline-block">
-                <span className="shimmer-text">Solutions</span>
+                <span className="shimmer-text">for Business</span>
                 {/* Underline accent */}
                 <svg className="absolute -bottom-2 left-0 w-full" height="8" viewBox="0 0 400 8" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M0 6 Q100 0 200 5 Q300 10 400 4" stroke="url(#underlineGrad)" strokeWidth="3" fill="none" strokeLinecap="round"/>
@@ -266,17 +266,13 @@ export default function Hero() {
                   </defs>
                 </svg>
               </span>
-              {' '}for
               <br className="hidden md:block" />
-              <span className="text-gray-900"> Modern Businesses</span>
+              <span className="text-gray-900">Workflows</span>
             </h1>
 
             {/* Subheading */}
             <p className="anim-sub text-lg md:text-xl text-gray-500 max-w-2xl mx-auto leading-relaxed mb-12 font-light">
-              We build next-generation software to{' '}
-              <span className="text-gray-700 font-medium">automate workflows</span>,{' '}
-              <span className="text-gray-700 font-medium">enhance visibility</span>, and drive real growth
-              across <span className="text-gray-700 font-medium">Pakistan and beyond</span>.
+              Explore products developed by Bridge Homies for digital invoicing, HR and operations, inventory management, email outreach, AI resume tools, and other business workflows.
             </p>
 
             {/* CTA */}
@@ -296,27 +292,7 @@ export default function Hero() {
 
             {/* Stats row */}
             <div className="anim-stats flex flex-wrap justify-center gap-4 md:gap-6">
-              {[
-                { value: '500+', label: 'Businesses Served' },
-                { value: '99.9%', label: 'Uptime SLA' },
-                { value: 'FBR', label: 'Certified Integration' },
-                { value: '24/7', label: 'Dedicated Support' },
-              ].map((stat) => (
-                <div key={stat.label} className="stat-card flex flex-col items-center px-7 py-4 rounded-2xl min-w-[120px]">
-                  <span
-                    className="hero-heading text-2xl font-extrabold"
-                    style={{
-                      background: 'linear-gradient(135deg, #d946ef, #9333ea)',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text',
-                    }}
-                  >
-                    {stat.value}
-                  </span>
-                  <span className="text-xs text-gray-500 mt-0.5 font-medium tracking-wide uppercase">{stat.label}</span>
-                </div>
-              ))}
+              <a href="#products" className="stat-card inline-flex items-center px-7 py-4 rounded-2xl font-semibold text-purple-800">Browse featured products <ArrowRight className="ml-2 h-4 w-4" /></a>
             </div>
 
           </div>

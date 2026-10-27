@@ -16,12 +16,11 @@ const navLinks = [
     { name: "UI/UX Design", href: "/ui-ux-design" },
   ] },
   { num: "03", name: "Work", href: "/#work" },
-  { num: "04", name: "Team", href: "/#team" },
-  { num: "05", name: "Products", href: "/products" },
-  { num: "07", name: "Testimonials", href: "/testimonials" },
-  { num: "08", name: "Design", href: "/design" },
+  { num: "04", name: "Products", href: "/products" },
+  { num: "05", name: "Testimonials", href: "/testimonials" },
+  { num: "06", name: "Product Discovery", href: "/design" },
   {
-    num: "09",
+    num: "07",
     name: "Case Studies",
     href: "/#work",
     children: [

@@ -53,19 +53,25 @@ export default function TestimonialsSection() {
 
   useGSAP(
     () => {
-      gsap.from(".tmn-heading", {
+      const section = sectionRef.current;
+      if (!section) return;
+
+      const headings = section.querySelectorAll<HTMLElement>(".tmn-heading");
+      if (!headings.length) return;
+
+      gsap.from(headings, {
         y: 40,
         opacity: 0,
         duration: 0.9,
         ease: "power3.out",
         stagger: 0.12,
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: "top 80%",
         },
       });
     },
-    { scope: sectionRef }
+    { scope: sectionRef, dependencies: [loading, testimonials.length] }
   );
 
   useGSAP(

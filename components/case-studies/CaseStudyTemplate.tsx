@@ -48,18 +48,15 @@ export default function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
             <span className="px-4 py-2 border border-gray-300 text-xs font-bold tracking-wide uppercase text-gray-500">
               {data.targetUsers}
             </span>
-            <span className="px-4 py-2 border border-gray-300 text-xs font-bold tracking-wide uppercase text-gray-500">
-              {data.status}
-            </span>
-            {data.liveUrl && (
+            {data.productUrl && (
               <a
-                href={data.liveUrl}
+                href={data.productUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-2 px-6 py-2.5 bg-gray-900 text-white font-bold text-xs uppercase tracking-wide hover:bg-purple-600 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-gray-900 text-xs font-bold tracking-wide uppercase text-white hover:bg-purple-700 transition-colors"
               >
-                Visit Live Site
-                <ArrowIcon className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                Visit {data.name}
+                <ArrowIcon />
               </a>
             )}
           </div>
@@ -160,7 +157,7 @@ export default function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
       </section>
 
       {/* TECH STACK — dark bento block */}
-      <section className="py-32 bg-white">
+      {data.techStack?.length ? <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gray-900 text-white p-12 md:p-16 relative overflow-hidden group">
             <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -181,7 +178,7 @@ export default function CaseStudyTemplate({ data }: { data: CaseStudyData }) {
             </div>
           </div>
         </div>
-      </section>
+      </section> : null}
 
       {/* ENGINEERING CHALLENGES — editorial FAQ style */}
       <section className="py-32 bg-gray-50">

@@ -19,8 +19,7 @@ export interface CaseStudyData {
   category: string
   tagline: string
   targetUsers: string
-  status: string
-  liveUrl?: string
+  productUrl?: string
   coverImage?: string
   heroSummary: string
   challengeIntro: string
@@ -28,7 +27,7 @@ export interface CaseStudyData {
   solutionIntro: string
   solutionPoints: string[]
   features: CaseStudyFeature[]
-  techStack: { label: string; value: string }[]
+  techStack?: { label: string; value: string }[]
   engineeringChallenges: CaseStudyFeature[]
   resultIntro: string
   resultPoints: string[]

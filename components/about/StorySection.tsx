@@ -1,40 +1,39 @@
+const facts = [
+  ["Based in", "Lahore, Pakistan"],
+  ["Working with", "Businesses and product teams"],
+  ["Software", "Custom systems, SaaS, web, and mobile"],
+  ["Engineering", "AI/ML, automation, and integrations"],
+];
+
 export default function StorySection() {
   return (
-    <section className="mb-24 md:mb-32 px-8">
-      <div className="flex flex-col md:flex-row-reverse items-center gap-12">
-        <div className="md:w-1/2">
-          <h2 className="text-4xl md:text-5xl font-playfair font-bold mb-8 text-gray-800">
-            Our <span className="text-blue-600">Story</span>
+    <section className="mx-auto mb-24 max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="grid items-start gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <p className="mb-4 text-xs font-bold uppercase tracking-[0.2em] text-purple-700">01 / Our story</p>
+          <h2 className="mb-7 text-5xl font-black uppercase leading-[.9] tracking-tighter sm:text-6xl md:text-7xl">
+            Built around<br /><span className="text-purple-800">the work.</span>
           </h2>
-          <div className="space-y-6 text-gray-600">
-            <p className="text-lg text-justify">
-              Founded in a small studio with just three people, we've grown into a team of creative professionals across continents.
+          <div className="space-y-5 text-gray-600">
+            <p className="text-base leading-8">
+              Bridge Homies is a Lahore-based software engineering and AI company. We work with businesses and teams to plan and build custom software, SaaS products, web and mobile applications, AI/ML systems, workflow automation, and integrations.
             </p>
-            <p className="text-lg text-justify">
-              What began as a passion project has transformed into an award-winning digital agency recognized for pushing boundaries.
+            <p className="text-base leading-8">
+              Projects start with the workflow, users, existing systems, and constraints. We use that context to shape the scope and technical approach, then build software to fit the product and the people who will use it.
             </p>
-            <p className="text-lg text-justify">
-              Our journey reflects our commitment to innovation, quality, and meaningful relationships with our clients.
+            <p className="text-base leading-8">
+              Our work spans product discovery, architecture, engineering, integration, deployment, and ongoing improvements, depending on what each project needs.
             </p>
           </div>
         </div>
-        <div className="md:w-1/2">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="bg-blue-50 p-6 rounded-xl hover-scale transition-all duration-300">
-              <div className="text-blue-600 text-4xl font-bold mb-2">1+</div>
-              <div className="text-gray-600">Years in business</div>
+        <dl className="grid w-full grid-cols-1 gap-x-8 sm:grid-cols-2 lg:col-span-7">
+          {facts.map(([label, value]) => (
+            <div key={label} className="min-h-32 border-t border-gray-200 py-5">
+              <dt className="mb-3 text-xs font-bold uppercase tracking-[0.16em] text-purple-700">{label}</dt>
+              <dd className="text-sm leading-6 text-gray-700">{value}</dd>
             </div>
-            <div className="bg-purple-50 p-6 rounded-xl hover-scale transition-all duration-300">
-              <div className="text-purple-600 text-4xl font-bold mb-2">30+</div>
-              <div className="text-gray-600">Projects delivered</div>
-            </div>
-            <div className="bg-purple-50 p-6 rounded-xl hover-scale transition-all duration-300">
-              <div className="text-purple-600 text-4xl font-bold mb-2">98%</div>
-              <div className="text-gray-600">Client retention</div>
-            </div>
-            
-          </div>
-        </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

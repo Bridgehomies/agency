@@ -58,6 +58,7 @@ export async function sendSubmissionNotification(sub: GuestSubmission) {
 
 export async function sendApprovalEmail(sub: GuestSubmission) {
   const postUrl = `${SITE_URL}/blog/${sub.slug}`;
+  const paymentPlanLabel = sub.paidPlan === "advance" ? "Pay in advance" : sub.paidPlan === "after_live" ? "Pay after publication" : "Selected payment plan";
 
   await resend.emails.send({
     from: FROM,
@@ -67,33 +68,20 @@ export async function sendApprovalEmail(sub: GuestSubmission) {
       <div style="font-family: sans-serif; max-width: 600px; color: #111;">
         <h2 style="font-size: 22px;">Congratulations, ${sub.name}!</h2>
         <p style="font-size: 15px; line-height: 1.7; color: #444;">
-          We're thrilled to let you know that your article <strong>"${sub.title}"</strong> has been 
-          approved and is now live on the Bridge Homies blog.
+          Your article <strong>"${sub.title}"</strong> has been approved as sponsored editorial content and is now live on the Bridge Homies blog. Its outbound links are qualified as sponsored.
         </p>
 
         <a href="${postUrl}" style="display: inline-block; background: #f6c27a; color: #111; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 700; text-decoration: none; margin: 16px 0;">
           Read your published article →
         </a>
 
-        <p style="font-size: 14px; line-height: 1.7; color: #555; margin-top: 20px;">
-          Don't forget to share it with your audience! Tag us or link back — we'd love to amplify your post.
-        </p>
-
-        <div style="background: #faf7f2; border: 1px solid #eee; border-radius: 8px; padding: 18px 20px; margin: 24px 0; font-size: 13px; line-height: 1.7; color: #444;">
-          <p style="margin: 0 0 10px; font-weight: 700; color: #111;">Payment terms & pricing</p>
-          <p style="margin: 0 0 10px;">
-            We operate on a strict <strong>pay-after-live</strong> policy — since your placement is confirmed live above, payment can now be processed.
-          </p>
-          <table style="width: 100%; border-collapse: collapse; margin: 10px 0;">
-            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Standard rate</td><td><strong>$15</strong> / placement</td></tr>
-            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Bulk / reseller rate</td><td><strong>$12</strong> / placement (5+ orders)</td></tr>
-            <tr><td style="padding: 4px 10px 4px 0; color: #777;">Link exchange</td><td>$0 (reciprocal DoFollow swap)</td></tr>
-          </table>
-          <p style="margin: 10px 0 0;">
-            Accepted payment methods: <strong>Wise, Payoneer, or direct bank transfer</strong>. Full terms:
-            <a href="${SITE_URL}/blog-terms" style="color: #b06a00;">bridgehomies.com/blog-terms</a>.
-          </p>
-        </div>
+        ${sub.amountUsd > 0 ? `
+          <div style="background: #faf7f2; border: 1px solid #eee; border-radius: 8px; padding: 18px 20px; margin: 24px 0; font-size: 13px; line-height: 1.7; color: #444;">
+            <p style="margin: 0 0 10px; font-weight: 700; color: #111;">Payment details</p>
+            <p style="margin: 0 0 10px;">Payment plan: <strong>${paymentPlanLabel}</strong>. Amount: <strong>$${sub.amountUsd}</strong>.</p>
+            <p style="margin: 10px 0 0;">Please follow the payment instructions shown for your submission. Current editorial terms: <a href="${SITE_URL}/blog-terms" style="color: #b06a00;">Editorial Publishing Policy</a>.</p>
+          </div>
+        ` : ""}
 
         <hr style="border: none; border-top: 1px solid #eee; margin: 24px 0;" />
 
@@ -115,8 +103,7 @@ export async function sendRejectionEmail(sub: GuestSubmission, notes?: string) {
       <div style="font-family: sans-serif; max-width: 600px; color: #111;">
         <h2 style="font-size: 22px;">Hi ${sub.name},</h2>
         <p style="font-size: 15px; line-height: 1.7; color: #444;">
-          Thank you for taking the time to submit <strong>"${sub.title}"</strong> to Bridge Homies. 
-          After review, we won't be moving forward with this article at this time.
+          Thank you for submitting <strong>"${sub.title}"</strong> to Bridge Homies. After editorial review, we won't publish this article at this time.
         </p>
 
         ${
@@ -128,8 +115,7 @@ export async function sendRejectionEmail(sub: GuestSubmission, notes?: string) {
         }
 
         <p style="font-size: 14px; line-height: 1.7; color: #555;">
-          We appreciate your interest and encourage you to submit again in the future. 
-          Feel free to refine your article and resubmit — we'd love to hear from you again.
+          You may revise the article and submit it again if it meets the current guidelines. Publication is not guaranteed.
         </p>
 
         <a href="${SITE_URL}/blog/submit" style="display: inline-block; background: #111; color: #f5efe5; padding: 12px 24px; border-radius: 100px; font-size: 14px; font-weight: 600; text-decoration: none; margin-top: 16px;">

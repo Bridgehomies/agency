@@ -16,6 +16,7 @@ type PortalPost = {
   author: string;
   authorRole: string;
   date: string;
+  dateModified?: string;
   readTime: string;
   category: string;
   tags: string[];

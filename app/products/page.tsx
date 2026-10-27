@@ -2,16 +2,16 @@ import type { Metadata } from "next"
 import ProductsClient from "./ProductsClient"
 
 export const metadata: Metadata = {
-  title: { absolute: "Software Products Built by Bridge Homies | AI, SaaS & FinTech" },
+  title: { absolute: "Software Products | Aierpify, OPleo & More | Bridge Homies" },
   description:
-    "Explore software products built by Bridge Homies, including FBR e-invoicing, fintech systems, AI platforms, and production SaaS applications.",
+    "Explore Aierpify e-invoicing, OPleo people operations, Mail Hauler Pro outreach, Stockhale inventory, and CV JET resume tools from Bridge Homies.",
   alternates: {
     canonical: "https://www.bridgehomies.com/products",
   },
   openGraph: {
-    title: "Software Products Built by Bridge Homies | AI, SaaS & FinTech",
+    title: "Software Products | Aierpify, OPleo & More | Bridge Homies",
     description:
-      "Explore FBR e-invoicing, fintech systems, AI platforms, and production SaaS applications built by Bridge Homies.",
+      "Explore Aierpify e-invoicing, OPleo people operations, Mail Hauler Pro outreach, Stockhale inventory, and CV JET resume tools from Bridge Homies.",
     url: "https://www.bridgehomies.com/products",
     siteName: "Bridge Homies",
     type: "website",
@@ -23,10 +23,10 @@ const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
   "@id": "https://www.bridgehomies.com/products/#page",
-  name: "Our Products",
+  name: "Software Products by Bridge Homies",
   url: "https://www.bridgehomies.com/products",
   description:
-    "Software products built by Bridge Homies — from FBR-approved invoicing tools to fintech systems and AI-powered platforms.",
+    "Aierpify e-invoicing, OPleo people operations, Mail Hauler Pro outreach, Stockhale inventory, and CV JET resume tools from Bridge Homies.",
   publisher: { "@id": "https://www.bridgehomies.com/#organization" },
   breadcrumb: {
     "@type": "BreadcrumbList",

@@ -1,46 +1,46 @@
-import { Shield, Zap, Users, Globe, Lock, HeadphonesIcon } from 'lucide-react'
+import { Workflow, ReceiptText, Users, Package, BrainCircuit, Code2 } from 'lucide-react'
 
 export default function Features() {
   const features = [
     {
-      icon: Shield,
-      title: 'Enterprise Security',
-      description: 'Bank-level security with end-to-end encryption and compliance with international standards.',
+      icon: ReceiptText,
+      title: 'Digital Invoicing',
+      description: 'Aierpify provides digital invoicing and tax workflow capabilities for businesses.',
       color: 'text-blue-600',
       bgColor: 'bg-blue-100'
     },
     {
-      icon: Zap,
-      title: 'Lightning Fast',
-      description: 'Optimized performance with cloud infrastructure ensuring quick response times.',
+      icon: Users,
+      title: 'HR and Operations',
+      description: 'OPleo supports human resources and company operations workflows.',
       color: 'text-yellow-600',
       bgColor: 'bg-yellow-100'
     },
     {
-      icon: Users,
-      title: 'Team Collaboration',
-      description: 'Built-in collaboration tools with real-time updates and role-based access control.',
+      icon: Package,
+      title: 'Inventory Management',
+      description: 'Stockhale is a business inventory and management platform.',
       color: 'text-green-600',
       bgColor: 'bg-green-100'
     },
     {
-      icon: Globe,
-      title: 'Global Reach',
-      description: 'Multi-language support and localization for businesses operating internationally.',
+      icon: BrainCircuit,
+      title: 'AI Resume Tools',
+      description: 'CV JET provides AI resume and CV tools.',
       color: 'text-purple-600',
       bgColor: 'bg-purple-100'
     },
     {
-      icon: Lock,
-      title: 'Data Privacy',
-      description: 'GDPR compliant with advanced data protection and privacy controls.',
+      icon: Workflow,
+      title: 'Business Workflows',
+      description: 'Products across the portfolio support company operations, communication, and workflow management.',
       color: 'text-red-600',
       bgColor: 'bg-red-100'
     },
     {
-      icon: HeadphonesIcon,
-      title: '24/7 Support',
-      description: 'Round-the-clock technical support with dedicated account managers.',
+      icon: Code2,
+      title: 'Software Products',
+      description: 'Bridge Homies develops web platforms, SaaS products, and software tools.',
       color: 'text-indigo-600',
       bgColor: 'bg-indigo-100'
     }
@@ -55,7 +55,7 @@ export default function Features() {
             Why Choose BRIDGE HOMIES?
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Our solutions are built with the latest technology and best practices to ensure your business stays ahead of the competition.
+            The portfolio includes products for distinct business and software use cases. Availability and features vary by product.
           </p>
         </div>
 

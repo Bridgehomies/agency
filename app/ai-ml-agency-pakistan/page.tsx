@@ -1,201 +1,172 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 
+const pageUrl = "https://www.bridgehomies.com/ai-ml-agency-pakistan";
+const title = "AI Development Company in Pakistan | Bridge Homies";
+const description =
+  "Lahore-based AI development company in Pakistan. Bridge Homies builds AI/ML software, RAG applications, LLM integrations, and workflow automation.";
+
 export const metadata: Metadata = {
-    title: { absolute: "AI Development Company in Pakistan" },
-    description: "Partner with Pakistan's AI/ML engineers to build RAG pipelines, custom LLMs, and automated workflow solutions.",
-    alternates: { canonical: "https://www.bridgehomies.com/ai-ml-agency-pakistan" },
-    openGraph: {
-        title: "AI Development Company in Pakistan | Bridge Homies",
-        description: "Partner with Pakistan's AI/ML engineers to build RAG pipelines, custom LLMs, and automated workflow solutions.",
-        url: "https://www.bridgehomies.com/ai-ml-agency-pakistan",
-        type: "website",
-        images: [
-            {
-                url: "/og-image.png",
-                width: 1200,
-                height: 630,
-                alt: "Bridge Homies — AI Development Company in Pakistan",
-            },
-        ],
-    },
+  title: { absolute: title },
+  description,
+  alternates: { canonical: pageUrl },
+  openGraph: {
+    title,
+    description,
+    url: pageUrl,
+    siteName: "Bridge Homies",
+    type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI development services in Pakistan from Bridge Homies",
+      },
+    ],
+  },
+  twitter: { card: "summary_large_image", title, description, images: ["/og-image.png"] },
 };
 
-export default function AiMlAgencyPakistan() {
-    const jsonLd = {
-        "@context": "https://schema.org",
-        "@type": ["Organization", "LocalBusiness"],
-        "name": "Bridge Homies",
-        "description": "AI/ML engineering agency delivering RAG pipelines, LLM integration, MLOps, and custom software from Lahore, Pakistan.",
-        "url": "https://www.bridgehomies.com",
-        "foundingDate": "2025",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "164, Block G-1, Phase-1, Johar Town",
-            "addressLocality": "Lahore",
-            "addressRegion": "Punjab",
-            "postalCode": "54782",
-            "addressCountry": "PK"
-        },
-        "telephone": "+92-342-9263395",
-        "email": "info@bridgehomies.com",
-        "sameAs": [
-            "https://www.linkedin.com/company/bridge-homies",
-            "https://github.com/Bridgehomies"
+const schema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${pageUrl}/#webpage`,
+      url: pageUrl,
+      name: title,
+      description,
+      inLanguage: "en-PK",
+      isPartOf: { "@id": "https://www.bridgehomies.com/#website" },
+      about: { "@id": `${pageUrl}/#service` },
+      breadcrumb: {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com/" },
+          { "@type": "ListItem", position: 2, name: "AI Development Company in Pakistan", item: pageUrl },
         ],
-        "areaServed": { "@type": "Country", "name": "Pakistan" }
-    };
+      },
+    },
+    {
+      "@type": "Service",
+      "@id": `${pageUrl}/#service`,
+      name: "AI Development Services",
+      serviceType: [
+        "AI and machine learning engineering",
+        "Generative AI and LLM integration",
+        "RAG application development",
+        "AI workflow automation",
+      ],
+      provider: { "@id": "https://www.bridgehomies.com/#organization" },
+      url: pageUrl,
+      areaServed: [
+        { "@type": "City", name: "Lahore" },
+        { "@type": "Country", name: "Pakistan" },
+        { "@type": "AdministrativeArea", name: "Worldwide" },
+      ],
+      description,
+    },
+  ],
+};
 
-    const capabilities = [
-        {
-            title: "RAG Pipelines & LLM Integration",
-            body: "We connect large language models to your data  documents, databases, APIs  so they retrieve real facts instead of hallucinating. Deployed with sub-200ms latency in production.",
-        },
-        {
-            title: "Custom ML Model Engineering",
-            body: "From dataset preparation to model training, evaluation, and MLOps, we own the full cycle. PyTorch, scikit-learn, Hugging Face  whatever fits the problem.",
-        },
-        {
-            title: "Full-Stack AI Applications",
-            body: "Next.js frontends wired to Python ML backends. We ship the entire product  not just the model  so your team can use it from day one.",
-        },
-    ];
+const capabilities = [
+  {
+    title: "Generative AI and LLM integration",
+    body: "Connect language models with applications, APIs, and business data. Scope can include assistants, document search, and RAG workflows based on the use case.",
+  },
+  {
+    title: "AI and machine-learning engineering",
+    body: "Assess model approaches, data, evaluation needs, and system constraints, then build the components that fit the product and its operating environment.",
+  },
+  {
+    title: "AI workflow automation",
+    body: "Identify suitable tasks such as document processing, data extraction, classification, or summarization, with integrations and human review where needed.",
+  },
+  {
+    title: "AI features in business software",
+    body: "Integrate AI capabilities into existing software, portals, and internal workflows through APIs and the surrounding application engineering.",
+  },
+];
 
-    return (
-        <>
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-            />
+export default function AiMlAgencyPakistan() {
+  return (
+    <main className="min-h-screen overflow-x-hidden bg-background text-foreground">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <Navbar />
 
-            <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
-                <Navbar />
-
-                {/* Hero */}
-                <section className="relative overflow-hidden pt-32 pb-24 lg:pt-40 lg:pb-32">
-                    <div className="bg-grid-pattern absolute inset-0 opacity-50" />
-                    <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-12 lg:gap-12 items-center">
-                            <div className="lg:col-span-8 flex flex-col items-start space-y-6">
-                                <div className="inline-block rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary ring-1 ring-inset ring-primary/20">
-                                    Enterprise-Grade AI Architecture
-                                </div>
-                                <h1 className="text-4xl font-bold tracking-tight sm:text-6xl max-w-3xl leading-[1.1]">
-                                    The Premier{" "}
-                                    <span className="text-primary">
-                                        AI Development Company
-                                    </span>{" "}
-                                    in Pakistan.
-                                </h1>
-                                <p className="text-lg text-muted-foreground max-w-2xl leading-relaxed">
-                                    We engineer RAG pipelines, custom ML models, and LLM integrations that generate measurable business value  built by a Lahore-based team with production deployments across logistics, fintech, and SaaS.
-                                </p>
-                                <div className="pt-4">
-                                    <a
-                                        href="#contact"
-                                        className="rounded-md bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring transition-all duration-200"
-                                    >
-                                        Book a Discovery Call
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* Capabilities */}
-                <section className="border-t border-border bg-muted/30 py-24">
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="mx-auto max-w-2xl lg:mx-0">
-                            <p className="text-base font-semibold leading-7 text-primary">What we build</p>
-                            <h2 className="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">
-                                Engineered for Production
-                            </h2>
-                        </div>
-                        <dl className="mx-auto mt-16 grid max-w-xl grid-cols-1 gap-x-8 gap-y-8 lg:mt-24 lg:max-w-none lg:grid-cols-3">
-                            {capabilities.map(({ title, body }) => (
-                                <div
-                                    key={title}
-                                    className="flex flex-col rounded-2xl border border-border bg-card p-8 hover:border-primary/40 transition-all duration-200"
-                                >
-                                    <dt className="text-xl font-semibold leading-7 text-card-foreground">{title}</dt>
-                                    <dd className="mt-4 flex-auto text-base leading-7 text-muted-foreground">{body}</dd>
-                                </div>
-                            ))}
-                        </dl>
-                    </div>
-                </section>
-
-                {/* Case Study */}
-                <section className="border-t border-border py-24">
-                    <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                        <div className="mx-auto max-w-3xl text-center">
-                            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AI in Production: Case Study</h2>
-                            <p className="mt-4 text-lg text-muted-foreground">
-                                Automated e-invoicing and compliance engine for a logistics operator.
-                            </p>
-                        </div>
-                        <div className="mx-auto mt-16 max-w-5xl rounded-2xl border border-border bg-card p-8 lg:p-12">
-                            <div className="flex flex-col md:flex-row md:items-center md:justify-between border-b border-border pb-6 gap-4">
-                                <div>
-                                    <h3 className="text-xl font-semibold">Automated E-Invoicing & Compliance Engine</h3>
-                                    <p className="text-muted-foreground mt-1 text-sm">Logistics Sector  Pakistan</p>
-                                </div>
-                                <div className="flex gap-3">
-                                    <span className="rounded-md bg-primary/10 px-3 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">99.4% Accuracy</span>
-                                    <span className="rounded-md bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground ring-1 ring-inset ring-border">&lt;200ms Latency</span>
-                                </div>
-                            </div>
-                            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
-                                <div className="md:col-span-2 space-y-4">
-                                    <h4 className="text-sm font-semibold uppercase tracking-wider text-primary">What We Built</h4>
-                                    <p className="text-foreground leading-relaxed">
-                                        A parallelized document processing pipeline linking custom layout models with deep learning-driven error routing. The system extracts ledger fields from unstructured international billing data and validates tax structures against government API nodes  all in under 200ms.
-                                    </p>
-                                </div>
-                                <div className="rounded-xl bg-muted p-6 flex flex-col justify-between border border-border">
-                                    <div className="space-y-4">
-                                        <span className="text-xs font-bold text-muted-foreground uppercase tracking-widest">Result</span>
-                                        <div className="text-4xl font-extrabold">82%</div>
-                                        <p className="text-xs text-muted-foreground leading-normal">
-                                            Reduction in manual compliance exceptions within 90 days of deployment.
-                                        </p>
-                                    </div>
-                                    <div className="pt-6 border-t border-border mt-6">
-                                        <a href="#contact" className="text-sm font-medium text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
-                                            Discuss your project <span>&rarr;</span>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                {/* CTA */}
-                <section id="contact" className="relative border-t border-border bg-muted/30 py-24 overflow-hidden">
-                    <div className="absolute inset-0 bg-primary/5 pointer-events-none" />
-                    <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8 space-y-8">
-                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                            Ready to build your AI system?
-                        </h2>
-                        <p className="mx-auto max-w-xl text-lg leading-8 text-muted-foreground">
-                            Talk to our ML engineers about your pipeline. We'll scope it, price it, and tell you honestly if you need it.
-                        </p>
-                        <div className="flex items-center justify-center pt-4">
-                            <a
-                                href="mailto:info@bridgehomies.com"
-                                className="rounded-md bg-primary px-6 py-3 text-base font-semibold text-primary-foreground shadow-sm hover:bg-primary/90 transition-all duration-200"
-                            >
-                                Get in touch
-                            </a>
-                        </div>
-                    </div>
-                </section>
-
-                <Footer />
+      <section className="relative overflow-hidden border-b border-border bg-muted/30 pt-32 pb-24 lg:pt-40 lg:pb-32">
+        <div className="bg-grid-pattern absolute inset-0 opacity-30" aria-hidden="true" />
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <p className="mb-6 text-sm font-semibold uppercase tracking-[0.18em] text-primary">
+              Lahore, Pakistan · Serving teams internationally
+            </p>
+            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+              AI development company in Pakistan
+            </h1>
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-muted-foreground sm:text-xl">
+              Bridge Homies is a Lahore-based software engineering and AI company. We help businesses plan and build AI/ML software, RAG applications, LLM integrations, and workflow automation around their data and existing systems.
+            </p>
+            <div className="mt-9 flex flex-wrap gap-4">
+              <Link href="/contact" className="rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
+                Discuss an AI project
+              </Link>
+              <Link href="/ai-ml-development" className="rounded-md border border-border bg-background px-6 py-3 font-semibold hover:border-primary hover:text-primary">
+                Explore AI/ML engineering services
+              </Link>
             </div>
-        </>
-    );
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="max-w-3xl">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">AI development shaped around the use case</h2>
+            <p className="mt-5 text-lg leading-8 text-muted-foreground">
+              Start with the workflow, users, available data, and systems involved. From there, we can assess whether an AI component is appropriate, how it should be evaluated, and what application or integration work it requires.
+            </p>
+          </div>
+          <div className="mt-12 grid gap-5 sm:grid-cols-2">
+            {capabilities.map((item) => (
+              <article key={item.title} className="rounded-xl border border-border bg-card p-7 sm:p-8">
+                <h3 className="text-xl font-semibold">{item.title}</h3>
+                <p className="mt-3 leading-7 text-muted-foreground">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-y border-border bg-muted/30 py-20 sm:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
+          <div>
+            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-primary">A practical starting point</p>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">From discovery to a scoped engineering plan</h2>
+          </div>
+          <div className="space-y-5 text-lg leading-8 text-muted-foreground">
+            <p>We review the problem, data access, current software, and constraints before recommending a model or integration pattern.</p>
+            <p>Project work can include technical discovery, architecture, model and RAG components, APIs, application development, evaluation, and deployment planning. The scope depends on what the system needs.</p>
+            <p>For the detailed service scope, see our <Link href="/ai-ml-development" className="font-semibold text-primary underline underline-offset-4">ML model engineering and AI/ML services</Link>. For a broader software project, visit <Link href="/software" className="font-semibold text-primary underline underline-offset-4">custom software development</Link>.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 sm:py-24">
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Planning an AI project in Pakistan?</h2>
+          <p className="mx-auto mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
+            Share the workflow you want to improve, the systems involved, and what you need the software to do. We can discuss a suitable next step with our Lahore-based team.
+          </p>
+          <Link href="/contact" className="mt-8 inline-flex rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:bg-primary/90">
+            Contact Bridge Homies
+          </Link>
+        </div>
+      </section>
+      <Footer />
+    </main>
+  );
 }

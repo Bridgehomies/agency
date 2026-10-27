@@ -16,8 +16,6 @@ const data: CaseStudyData = {
   tagline:
     "Connecting attendance, payroll, leave, remote work, invoicing, and employee self-service in one operational workspace.",
   targetUsers: "Operations, HR, finance teams, and employees",
-  status: "Live product",
-  liveUrl: "https://www.opleo.dev/",
   coverImage: "/uploads/blog/opleo.png",
   heroSummary:
     "OPleo is an operational people platform built by Bridge Homies to bring the business events that affect employees, attendance, payroll, and finance into a connected workflow rather than a patchwork of spreadsheets, WhatsApp messages, and disconnected tools.",
@@ -82,7 +80,6 @@ const data: CaseStudyData = {
     { label: "Category", value: "HR & operations platform" },
     { label: "Core users", value: "HR, operations, finance, and employees" },
     { label: "Key workflows", value: "Attendance, payroll, leave, remote work, invoicing" },
-    { label: "Live product", value: "opleo.dev" },
   ],
   finalOutcome:
     "OPleo demonstrates how connected operational software can replace manual reconciliation with shared, policy-aware workflows for people and business operations.",

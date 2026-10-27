@@ -13,6 +13,7 @@ export interface BlogPostMeta {
   author: string;
   authorRole: string;
   date: string;
+  dateModified?: string;
   readTime: string;
   category: string;
   tags: string[];
@@ -22,6 +23,8 @@ export interface BlogPostMeta {
   seoTitle: string;
   seoDescription: string;
   schemaType: "Article" | "BlogPosting" | "TechArticle";
+  /** True when publication or outbound link placement is compensated. */
+  isSponsoredContent?: boolean;
   faq?: BlogFaqItem[];
 }
 
@@ -50,6 +53,8 @@ type GuestSubmission = {
   name: string;
   occupation: string;
   faqText: string;
+  publishOption?: "exchange" | "paid" | ""; // historical KV records
+  isSponsoredContent?: boolean;
 };
 
 // ─── MDX helpers ─────────────────────────────────────────────────────────────
@@ -61,6 +66,7 @@ if (!fs.existsSync(contentDir)) {
 }
 
 function normalizeMeta(data: Record<string, any>, fallback: string): BlogPostMeta {
+  const date = data.date || new Date().toISOString();
   return {
     id: data.id || fallback,
     slug: data.slug || fallback,
@@ -68,7 +74,9 @@ function normalizeMeta(data: Record<string, any>, fallback: string): BlogPostMet
     excerpt: data.excerpt || '',
     author: data.author || '',
     authorRole: data.authorRole || '',
-    date: data.date || new Date().toISOString(),
+    date,
+    // Legacy articles without this field have no verified modification date.
+    dateModified: data.dateModified || undefined,
     readTime: data.readTime || '1 min',
     category: data.category || 'General',
     tags: Array.isArray(data.tags) ? data.tags : [],
@@ -78,6 +86,7 @@ function normalizeMeta(data: Record<string, any>, fallback: string): BlogPostMet
     seoTitle: data.seoTitle || '',
     seoDescription: data.seoDescription || '',
     schemaType: data.schemaType || 'BlogPosting',
+    isSponsoredContent: data.isSponsoredContent === true,
     faq: Array.isArray(data.faq)
       ? data.faq
           .map((item: any) => ({
@@ -137,6 +146,9 @@ export function saveBlog(post: BlogPostMeta, content: string): boolean {
   try {
     const slug = post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const filePath = path.join(contentDir, `${slug}.mdx`);
+    const existingData = fs.existsSync(filePath)
+      ? matter(fs.readFileSync(filePath, 'utf8')).data
+      : {};
     const fileContent = matter.stringify(content, {
       id: post.id || slug,
       slug,
@@ -144,7 +156,8 @@ export function saveBlog(post: BlogPostMeta, content: string): boolean {
       excerpt: post.excerpt,
       author: post.author,
       authorRole: post.authorRole,
-      date: post.date,
+      date: existingData.date || post.date,
+      dateModified: new Date().toISOString(),
       readTime: post.readTime,
       category: post.category,
       tags: post.tags,
@@ -154,6 +167,9 @@ export function saveBlog(post: BlogPostMeta, content: string): boolean {
       seoTitle: post.seoTitle,
       seoDescription: post.seoDescription,
       schemaType: post.schemaType,
+      // If an editor payload omits the optional flag, preserve existing frontmatter.
+      isSponsoredContent:
+        post.isSponsoredContent ?? (existingData.isSponsoredContent === true),
       faq: post.faq || [],
     });
     fs.writeFileSync(filePath, fileContent, 'utf8');
@@ -203,7 +219,8 @@ function submissionToPost(s: GuestSubmission): BlogPost {
     excerpt: s.excerpt,
     author: s.name,
     authorRole: s.occupation,
-    date: s.submittedAt,
+    date: s.approvedAt || s.submittedAt,
+    dateModified: s.dateModified || s.approvedAt || undefined,
     readTime: estimateReadTime(s.content),
     category: s.category,
     tags: s.tags,
@@ -213,6 +230,9 @@ function submissionToPost(s: GuestSubmission): BlogPost {
     seoTitle: s.title,
     seoDescription: s.excerpt,
     schemaType: 'BlogPosting',
+    // Preserve the sponsorship state of historical submissions from KV.
+    isSponsoredContent:
+      s.isSponsoredContent === true || s.publishOption === 'paid' || s.publishOption === 'exchange',
     faq: parseFaq(s.faqText),
     content: s.content,
   };

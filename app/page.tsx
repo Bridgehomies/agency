@@ -78,13 +78,62 @@ export default function Home() {
       <main>
         <HeroSection />
         <ServicesSection />
-        <section className="container px-4 sm:px-6 py-16 space-y-5 text-muted-foreground leading-relaxed" aria-label="Bridge Homies overview">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">A software development agency for your next product</h2>
-          <p>Bridge Homies is a Lahore-based software engineering and AI company serving businesses, startups, agencies, and organizations internationally. We build custom business systems, SaaS products, web and mobile applications, AI/ML systems, RAG applications, workflow automation, APIs, and integrations.</p>
-          <h3 className="text-xl font-semibold text-foreground">From business workflow to working software</h3>
-          <p>Engage us for product discovery, MVP planning, software architecture, application development, deployment, or ongoing maintenance. We also help connect payment, tax, messaging, CRM, ERP, and other systems where project requirements and available integrations allow.</p>
-          <h3 className="text-xl font-semibold text-foreground">Explore our software development services</h3>
-          <p>Explore <a href="/software">custom software and business systems</a>, <a href="/webdev">web development</a>, <a href="/mobile">mobile app development</a>, <a href="/ai-ml-development">AI/ML engineering</a>, <a href="/mlops-consulting-services">MLOps consulting</a>, and <a href="/ui-ux-design">UI/UX design</a>. Browse our <a href="/products">software products</a> and <a href="/case-studies/aierpify">project case studies</a>, or <a href="/contact">contact Bridge Homies</a>.</p>
+        <section
+          className="relative overflow-hidden border-y border-[#171717] bg-[#080808] px-4 py-16 sm:px-6 sm:py-20 lg:px-10"
+          aria-label="Bridge Homies overview"
+        >
+          <div className="pointer-events-none absolute -right-24 top-0 h-80 w-80 rounded-full bg-purple-600/[0.07] blur-3xl" />
+          <div className="relative mx-auto max-w-7xl">
+            <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+              <div>
+                <p className="mb-4 font-mono text-[10px] uppercase tracking-[.25em] text-purple-400">
+                  Bridge Homies / Lahore, Pakistan
+                </p>
+                <h2
+                  className="max-w-xl text-[clamp(42px,6vw,76px)] leading-[.88] tracking-wide text-white"
+                  style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+                >
+                  Software for <span className="text-purple-500">what&apos;s next.</span>
+                </h2>
+                <p className="mt-6 max-w-md text-sm leading-7 text-[#777]">
+                  We turn business workflows and product ideas into dependable software, from the first technical plan through launch and ongoing support.
+                </p>
+              </div>
+
+              <div className="grid gap-0 sm:grid-cols-2 sm:gap-x-8">
+                <div className="border-t border-[#222] py-5 sm:col-span-2">
+                  <p className="font-mono text-[10px] uppercase tracking-[.2em] text-purple-400/80">01 / What we build</p>
+                  <p className="mt-3 text-sm leading-7 text-[#999]">
+                    Custom business systems, SaaS products, web and mobile applications, AI/ML and RAG systems, workflow automation, APIs, and integrations for teams in Lahore and internationally.
+                  </p>
+                </div>
+                <div className="border-t border-[#222] py-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[.2em] text-purple-400/80">02 / How we help</p>
+                  <p className="mt-3 text-sm leading-7 text-[#777]">
+                    Product discovery, MVP planning, architecture, development, deployment, and maintenance, shaped around your requirements.
+                  </p>
+                </div>
+                <div className="border-t border-[#222] py-5">
+                  <p className="font-mono text-[10px] uppercase tracking-[.2em] text-purple-400/80">03 / Explore</p>
+                  <p className="mt-3 text-sm leading-7 text-[#777]">
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/software">Custom software</a>,{" "}
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/webdev">web</a>,{" "}
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/mobile">mobile</a>,{" "}
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/ai-ml-development">AI/ML</a>,{" "}
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/mlops-consulting-services">MLOps</a>, and{" "}
+                    <a className="text-[#bbb] transition-colors hover:text-purple-400" href="/ui-ux-design">product design</a>.
+                  </p>
+                </div>
+                <div className="border-t border-[#222] py-5 sm:col-span-2">
+                  <div className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[.12em]">
+                    <a className="text-[#666] transition-colors hover:text-purple-400" href="/products">Products ↗</a>
+                    <a className="text-[#666] transition-colors hover:text-purple-400" href="/case-studies/aierpify">Case studies ↗</a>
+                    <a className="text-[#666] transition-colors hover:text-purple-400" href="/contact">Start a project ↗</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </section>
 
         <WorkSection />

@@ -1,56 +1,56 @@
 "use client"
 
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { motion, AnimatePresence, useMotionValue, useMotionTemplate } from "framer-motion"
 import { Code, Smartphone, Globe, Layers, Rocket, Sparkles, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 
 const services = [
   {
-    num: "01", icon: Code, name: "Web Dev",
-    desc: "Blazing-fast web apps built with React, Next.js and Node. From idea to production.",
-    tags: ["Next.js", "React", "Node", "APIs"],
-    skills: [["React / Next", 95], ["Node / Express", 90], ["UI Engineering", 85]] as [string, number][],
+    num: "01", icon: Code, name: "Web Applications",
+    desc: "Business websites, custom web apps, SaaS platforms, portals, e-commerce, marketplaces, and API-driven systems.",
+    tags: ["Web Apps", "SaaS", "Portals", "Marketplaces"],
+    focusAreas: ["Custom web applications", "Customer and vendor portals", "E-commerce and marketplaces"],
     span: "lg:col-span-5", tall: false,
     href: "/webdev"
   },
   {
-    num: "02", icon: Smartphone, name: "Mobile",
-    desc: "Native & cross-platform apps that feel genuinely at home on every device.",
-    tags: ["React Native", "Swift", "Flutter"],
-    skills: [["React Native", 92], ["SwiftUI", 88], ["Flutter", 85]] as [string, number][],
+    num: "02", icon: Smartphone, name: "Mobile Apps",
+    desc: "Android, iOS, and cross-platform apps for customers, employees, field teams, delivery, booking, commerce, and community.",
+    tags: ["Android", "iOS", "React Native", "Flutter"],
+    focusAreas: ["Customer and employee applications", "Delivery and booking workflows", "App maintenance and upgrades"],
     span: "lg:col-span-4", tall: false,
     href: "/mobile"
   },
   {
-    num: "03", icon: Globe, name: "UI/UX",
-    desc: "Research-driven design that converts. Every pixel earns its place.",
-    tags: ["Research", "Figma", "Systems", "Motion"],
-    skills: [["User Research", 90], ["Prototyping", 95], ["Visual Design", 92]] as [string, number][],
+    num: "03", icon: Globe, name: "UI/UX & Product Design",
+    desc: "Product design for software, including user flows, wireframes, web and mobile interfaces, prototypes, and design systems.",
+    tags: ["User Flows", "Wireframes", "Prototypes", "Design Systems"],
+    focusAreas: ["SaaS dashboards and admin panels", "Responsive interface design", "Product redesign and usability improvements"],
     span: "lg:col-span-3 lg:row-span-2", tall: true,
     href: "/ui-ux-design"
   },
   {
-    num: "04", icon: Layers, name: "Software",
-    desc: "Custom enterprise solutions engineered for your exact scale and logic.",
-    tags: ["Cloud", "Enterprise", "DB"],
-    skills: [["Architecture", 90], ["Cloud", 88], ["DB Design", 85]] as [string, number][],
+    num: "04", icon: Layers, name: "Custom Software",
+    desc: "Business systems, SaaS products, workflow automation, APIs, integrations, cloud deployment, and ongoing maintenance.",
+    tags: ["ERP & CRM", "Automation", "APIs", "Cloud & DevOps"],
+    focusAreas: ["Business and operations software", "Workflow automation and system integrations", "Deployment, support, and maintenance"],
     span: "lg:col-span-4", tall: false,
     href: "/software"
   },
   {
-    num: "05", icon: Rocket, name: "Strategy",
-    desc: "Roadmaps and transformation plans that cut through noise and move fast.",
-    tags: ["Consulting", "Roadmaps", "GTM"],
-    skills: [["Market Analysis", 92], ["Transformation", 88], ["Growth", 90]] as [string, number][],
+    num: "05", icon: Rocket, name: "Technical Consulting",
+    desc: "Technical assessment, AI feasibility, software architecture, technology selection, legacy modernization, and technical roadmaps.",
+    tags: ["Technical Assessment", "Architecture", "AI Feasibility", "Roadmaps"],
+    focusAreas: ["MVP technical planning and estimation", "Code and architecture review", "Technology and implementation guidance"],
     span: "lg:col-span-5", tall: false,
-    href: "#contact" // Added a default routing for Strategy
+    href: "/software#services"
   },
   {
-    num: "06", icon: Sparkles, name: "AI & ML",
-    desc: "End-to-end ML engineering. Turn raw data into your sharpest competitive edge.",
-    tags: ["LLMs", "Vision", "NLP", "MLOps"],
-    skills: [["Machine Learning", 94], ["NLP", 90], ["Computer Vision", 88]] as [string, number][],
+    num: "06", icon: Sparkles, name: "AI & ML Engineering",
+    desc: "AI/ML engineering, generative AI, LLM integration, RAG applications, AI agents, computer vision, and MLOps.",
+    tags: ["LLMs", "RAG", "AI Agents", "MLOps"],
+    focusAreas: ["RAG and knowledge-base systems", "AI workflow automation and document processing", "Model deployment and MLOps"],
     span: "lg:col-span-3", tall: false,
     href: "/ai-ml-development"
   },
@@ -131,18 +131,13 @@ function ServiceCard({
             transition={{ duration: 0.3 }}
             className="mt-auto space-y-2.5 overflow-hidden flex flex-col"
           >
-            {service.skills.map(([label, val], si) => (
-              <div key={label} className="flex items-center gap-2.5">
-                <span className="font-mono text-[9px] text-white/50 uppercase tracking-widest w-20 sm:w-24 flex-shrink-0">{label}</span>
-                <div className="flex-1 h-[2px] bg-white/20 rounded-full overflow-hidden">
-                  <motion.div className="h-full bg-white rounded-full"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${val}%` }}
-                    transition={{ duration: 0.9, delay: si * 0.1, ease: [0.16, 1, 0.3, 1] }} />
-                </div>
-                <span className="font-mono text-[9px] text-white/70 w-7 text-right">{val}%</span>
-              </div>
-            ))}
+            <ul className="flex flex-wrap gap-2">
+              {service.focusAreas.map((area) => (
+                <li key={area} className="rounded-sm border border-white/20 px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-wide text-white/70">
+                  {area}
+                </li>
+              ))}
+            </ul>
 
             {/* Added Link Button */}
             <motion.div 
@@ -183,7 +178,7 @@ export default function ServicesSection() {
           </h2>
           <div className="flex items-center gap-2 mt-4 border border-[#1f1f1f] rounded-full px-4 py-2 w-fit">
             <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-pulse flex-shrink-0" />
-            <span className="font-mono text-[10px] sm:text-[11px] text-[#444]">6 active disciplines — tap to inspect</span>
+            <span className="font-mono text-[10px] sm:text-[11px] text-[#444]">Explore software engineering services</span>
           </div>
         </div>
         <div className="text-right flex-shrink-0">

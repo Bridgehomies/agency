@@ -34,6 +34,7 @@ function getAllPosts() {
         author: data.author || '',
         authorRole: data.authorRole || '',
         date: data.date || '',
+        dateModified: data.dateModified || undefined,
         readTime: data.readTime || '1 min',
         category: data.category || 'General',
         tags: Array.isArray(data.tags) ? data.tags : [],
@@ -43,6 +44,7 @@ function getAllPosts() {
         seoTitle: data.seoTitle || '',
         seoDescription: data.seoDescription || '',
         schemaType: data.schemaType || 'BlogPosting',
+        isSponsoredContent: data.isSponsoredContent === true,
         faq: Array.isArray(data.faq) ? data.faq : [],
         content,
       };
@@ -173,6 +175,19 @@ const server = http.createServer((req, res) => {
         const post = JSON.parse(body);
         const slug = post.slug || post.id || `post-${Date.now()}`;
         const filePath = path.join(CONTENT_DIR, `${slug}.mdx`);
+        const existingData = fs.existsSync(filePath)
+          ? matter(fs.readFileSync(filePath, 'utf8')).data
+          : {};
+        // BlogWriterPortal may omit this field from an edit payload. Preserve
+        // explicit changes when supplied; otherwise retain persisted metadata.
+        const isSponsoredContent = Object.prototype.hasOwnProperty.call(post, 'isSponsoredContent')
+          ? post.isSponsoredContent === true
+          : existingData.isSponsoredContent === true;
+        const now = new Date().toISOString();
+        // Keep the original publish date when an editor changes an article.
+        // New articles use the supplied publish date or the current timestamp.
+        const publishedAt = existingData.date || post.date || now;
+        const modifiedAt = now;
 
         const frontmatter = `---
 id: "${post.id}"
@@ -181,7 +196,8 @@ title: "${escapeQuotes(post.title)}"
 excerpt: "${escapeQuotes(post.excerpt)}"
 author: "${escapeQuotes(post.author)}"
 authorRole: "${escapeQuotes(post.authorRole)}"
-date: "${post.date || new Date().toISOString()}"
+date: "${publishedAt}"
+dateModified: "${modifiedAt}"
 readTime: "${escapeQuotes(post.readTime || '1 min')}"
 category: "${escapeQuotes(post.category || 'General')}"
 tags: ${JSON.stringify(post.tags || [])}
@@ -191,6 +207,7 @@ published: ${post.published ? 'true' : 'false'}
 seoTitle: "${escapeQuotes(post.seoTitle)}"
 seoDescription: "${escapeQuotes(post.seoDescription)}"
 schemaType: "${escapeQuotes(post.schemaType || 'BlogPosting')}"
+isSponsoredContent: ${isSponsoredContent ? 'true' : 'false'}
 faq: ${JSON.stringify(post.faq || [])}
 ---
 `;

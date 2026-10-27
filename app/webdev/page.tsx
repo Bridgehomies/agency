@@ -2,16 +2,16 @@ import type { Metadata } from "next"
 import WebDevClient from "./WebDevClient"
 
 export const metadata: Metadata = {
-  title: { absolute: "Web Development Services | Next.js, React & Django | Bridge Homies" },
+  title: { absolute: "Web Application Development Services | Bridge Homies" },
   description:
-    "Bridge Homies delivers website development using Next.js, React, and Django — scalable, AI-powered SaaS, web apps, and enterprise software.",
+    "Bridge Homies builds business websites, SaaS platforms, custom web apps, customer and vendor portals, marketplaces, and API-driven systems.",
   alternates: {
     canonical: "https://www.bridgehomies.com/webdev",
   },
   openGraph: {
-    title: "Website Development Services — Next.js, React & Django | Bridge Homies",
+    title: "Web Application Development Services | Bridge Homies",
     description:
-      "Expert website development, web apps, SaaS platforms, and enterprise software. Bridge Homies is your trusted software developer company.",
+      "Web development for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
     url: "https://www.bridgehomies.com/webdev",
     type: "website",
     images: [
@@ -32,9 +32,9 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/webdev/#webpage",
       url: "https://www.bridgehomies.com/webdev",
-      name: "Website Development Services — Next.js, React & Django | Bridge Homies",
+      name: "Web Application Development Services | Bridge Homies",
       description:
-        "Expert website development, web apps, SaaS, and enterprise software development from Bridge Homies — a leading software developer company.",
+        "Web development for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
@@ -50,18 +50,18 @@ const schema = {
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/webdev",
       description:
-        "Custom website development, web apps, SaaS platforms, and enterprise software built with Next.js, React, and Django. Bridge Homies is a software developer company serving clients worldwide.",
+        "Custom web applications, SaaS platforms, business websites, customer and vendor portals, marketplaces, e-commerce, and API-driven web systems.",
       serviceType: "Website Development",
       areaServed: "Worldwide",
       hasOfferCatalog: {
         "@type": "OfferCatalog",
         name: "Website Development Services",
         itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Next.js Website Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "React Web Apps Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Django Enterprise Software" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Web Applications and SaaS Platforms" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Customer and Vendor Portals" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "E-commerce and Marketplace Platforms" } },
           { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Automation Integration" } },
+          { "@type": "Offer", itemOffered: { "@type": "Service", name: "API Development and System Integrations" } },
         ],
       },
     },
@@ -70,18 +70,26 @@ const schema = {
       mainEntity: [
         {
           "@type": "Question",
-          name: "What website development technologies does Bridge Homies use?",
+          name: "Do you build SaaS and custom enterprise software?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Bridge Homies builds websites and web apps using Next.js, React, and Django. We specialize in SaaS platforms, enterprise software, and AI automation-powered web applications.",
+            text: "Yes. Web development projects can include SaaS platforms, custom web applications, customer and vendor portals, marketplaces, e-commerce sites, and dashboards.",
           },
         },
         {
           "@type": "Question",
-          name: "Can Bridge Homies build enterprise software and SaaS?",
+          name: "How long does a typical website development project take?",
           acceptedAnswer: {
             "@type": "Answer",
-            text: "Yes. As a software developer company, Bridge Homies designs and builds SaaS platforms, enterprise software, and web apps tailored to your business workflows.",
+            text: "Project timelines depend on scope, integrations, content, and review needs. We define milestones during project planning.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Can a web application connect with my existing systems?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Web applications can connect to existing APIs, payment services, CRMs, ERPs, messaging platforms, and other systems based on project requirements.",
           },
         },
       ],

@@ -1,55 +1,10 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
 import Link from "next/link";
-
-const StatsCounter: React.FC = () => {
-  const animateCounter = (id: string, endValue: number, suffix: string = "") => {
-    const element = document.getElementById(id);
-    if (!element) return;
-    let current = 0;
-    const increment = Math.ceil(endValue / 50);
-    const timer = setInterval(() => {
-      current += increment;
-      if (current >= endValue) {
-        clearInterval(timer);
-        element.textContent = `${endValue}${suffix}`;
-      } else {
-        element.textContent = `${current}${suffix}`;
-      }
-    }, 30);
-  };
-
-  useEffect(() => {
-    animateCounter("counter-projects", 10, "+");
-    animateCounter("counter-feedback", 95, "%");
-    animateCounter("counter-team", 10, "+");
-    animateCounter("counter-launched", 2025, "");
-  }, []);
-
-  return (
-    <div className="py-12 border-y border-gray-200/60 bg-gray-50/50 backdrop-blur-xl relative z-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-wrap justify-between items-center gap-8 divide-x divide-gray-200/50">
-          {[
-            { id: "counter-projects", label: "Web Apps Shipped" },
-            { id: "counter-feedback", label: "Client Satisfaction" },
-            { id: "counter-team", label: "Software Developers" },
-            { id: "counter-launched", label: "Founded" },
-          ].map((stat, i) => (
-            <div key={i} className={`flex-1 ${i !== 0 ? 'pl-8' : ''}`}>
-              <div id={stat.id} className="text-4xl md:text-5xl font-black text-gray-900 tracking-tighter mb-1">0</div>
-              <div className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">{stat.label}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
-};
 
 export default function WebDevClient() {
   return (
@@ -79,7 +34,7 @@ export default function WebDevClient() {
 
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We are a dedicated <strong className="text-gray-900">software developer company</strong> specializing in high-performance <strong className="text-gray-900">website development</strong>, complex web apps, and bespoke SaaS platforms.
+                Bridge Homies builds business websites, custom web applications, SaaS platforms, customer and vendor portals, marketplaces, and API-driven web systems.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -95,8 +50,6 @@ export default function WebDevClient() {
           </div>
         </div>
       </section>
-
-      <StatsCounter />
 
       {/* FULL-WIDTH STRUCTURAL IMAGE BREAKER */}
       <section className="w-full h-[50vh] md:h-[70vh] relative overflow-hidden bg-gray-900">
@@ -117,7 +70,7 @@ export default function WebDevClient() {
               What <br /> We Build.
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
-              <p className="text-gray-500 font-medium">End-to-end <strong className="text-gray-900">website development</strong> engineered for speed, security, and enterprise scale.</p>
+              <p className="text-gray-500 font-medium">Web development for business websites, SaaS products, portals, marketplaces, and API-driven applications.</p>
             </div>
           </div>
 
@@ -125,28 +78,28 @@ export default function WebDevClient() {
             {[
               {
                 num: "01",
-                title: "Custom Web Apps",
-                desc: "We leverage React and Next.js to build dynamic, lightning-fast web applications. No templates, just pure, scalable frontend architecture.",
+                title: "Custom Web Applications",
+                desc: "Build custom web applications, customer and vendor portals, real-time dashboards, and API-driven systems around product workflows.",
               },
               {
                 num: "02",
-                title: "SaaS Platforms",
-                desc: "Full-stack SaaS development encompassing complex billing engines, multi-tenant databases, and seamless user onboarding flows.",
+                title: "SaaS and Subscription Platforms",
+                desc: "Plan and build multi-user SaaS products, subscription platforms, and multi-tenant applications.",
               },
               {
                 num: "03",
-                title: "Enterprise Software",
-                desc: "Robust backend infrastructure built with Python and Django. We deliver secure, API-driven enterprise software that integrates with your legacy systems.",
+                title: "Marketplaces and E-commerce",
+                desc: "Develop e-commerce websites and marketplace platforms for products, services, and specialized industries.",
               },
               {
                 num: "04",
-                title: "E-Commerce Ecosystems",
-                desc: "High-conversion commerce platforms featuring bespoke checkout flows, advanced inventory routing, and headless CMS integrations.",
+                title: "APIs and System Integrations",
+                desc: "Connect web applications with REST APIs, payment services, CRM and ERP systems, messaging tools, and other third-party services.",
               },
               {
                 num: "05",
-                title: "SEO & Performance",
-                desc: "A beautiful site means nothing if it doesn't load. We engineer for perfect Core Web Vitals, ensuring dominant technical SEO and rapid perceived load times.",
+                title: "Business Websites and CMS",
+                desc: "Build business websites and CMS-based sites, with page structure and implementation planned around the site's content and search needs.",
               }
             ].map((service, index) => (
               <div key={index} className={`relative group ${index % 2 !== 0 ? 'md:mt-24' : ''}`}>
@@ -177,10 +130,10 @@ export default function WebDevClient() {
                   Not your average <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">software developer company</span>.
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  We don't use page builders or bloated plugins. Bridge Homies treats <strong className="text-white">website development</strong> as serious computer science. We deploy clean architecture, strict typing, and scalable cloud hosting to ensure your <strong className="text-white">web apps</strong> run flawlessly from day one to year ten.
+                  Bridge Homies develops web applications, SaaS products, portals, marketplaces, and business websites. Project scope can include APIs and integrations, deployment, maintenance, and post-launch improvements.
                 </p>
               </div>
-              <a href="/about" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
+              <a href="/aboutus" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
                 Meet the Engineers <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
               </a>
             </div>
@@ -222,7 +175,7 @@ export default function WebDevClient() {
                 Clear <br /> Context.
               </h2>
               <p className="text-gray-500 font-medium max-w-sm mb-12">
-                Understanding the mechanics of enterprise-grade website development and cloud architecture.
+                Common questions about web applications, SaaS products, portals, and marketplace development.
               </p>
             </div>
 
@@ -233,15 +186,15 @@ export default function WebDevClient() {
                 {[
                   {
                     q: "Do you build SaaS and custom enterprise software?",
-                    a: "Yes. Bridge Homies is a full-stack software developer company. We specialize in complex logic, building custom SaaS platforms, intricate data dashboards, and enterprise software using robust frameworks like Next.js and Django."
+                    a: "Yes. Web development projects can include SaaS platforms, custom web applications, customer and vendor portals, marketplaces, e-commerce sites, and dashboards."
                   },
                   {
                     q: "How long does a typical website development project take?",
-                    a: "Precision takes time. While a high-performance marketing site may take 4–6 weeks, architecting complex web apps or enterprise SaaS platforms generally spans 3–6 months. We map out strict deployment milestones during our initial architecture phase."
+                    a: "Project timelines depend on scope, integrations, content, and review needs. We define milestones during project planning."
                   },
                   {
-                    q: "Can you integrate AI automation into my existing website?",
-                    a: "Absolutely. We routinely augment legacy systems. Whether you need autonomous support agents, dynamic recommendation engines, or predictive AI automation workflows, we can build custom API bridges directly into your current platform."
+                    q: "Can a web application connect with my existing systems?",
+                    a: "Web applications can connect to existing APIs, payment services, CRMs, ERPs, messaging platforms, and other systems based on project requirements."
                   }
                 ].map((faq, i) => (
                   <div key={i} className="py-10 border-b border-gray-200 group">
@@ -283,15 +236,7 @@ export default function WebDevClient() {
           {/* External Link with Premium Styling */}
           <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase leading-relaxed">
-              Our website development pipeline strictly adheres to <br className="hidden md:block" />
-              <a
-                href="https://web.dev/performance/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-900 border-b border-gray-900 pb-0.5 hover:text-purple-600 hover:border-purple-600 transition-all duration-300"
-              >
-                Google Web Performance best practices
-              </a>.
+              Technical performance and search requirements can be scoped to each website and application project.
             </p>
           </div>
 
@@ -301,4 +246,4 @@ export default function WebDevClient() {
       <Footer />
     </main>
   );
-} 
+}

@@ -7,26 +7,26 @@ import { Badge } from "@/components/ui/badge"
 
 const features = [
   {
-    title: "Responsive Design",
-    description: "Beautiful designs that work perfectly on all devices",
+    title: "Product Discovery",
+    description: "Map workflows, define requirements, and prioritize features before development.",
     icon: "📱",
     color: "from-blue-500 to-cyan-400",
   },
   {
-    title: "Performance Optimized",
-    description: "Lightning-fast loading times and smooth interactions",
+    title: "Custom Software",
+    description: "Build business systems, portals, dashboards, and workflow tools around project needs.",
     icon: "⚡",
     color: "from-green-500 to-emerald-400",
   },
   {
-    title: "SEO Friendly",
-    description: "Built with best practices for search engine optimization",
+    title: "APIs & Integrations",
+    description: "Connect applications and business systems through APIs and service integrations.",
     icon: "🎯",
     color: "from-purple-500 to-pink-400",
   },
   {
-    title: "Scalable Architecture",
-    description: "Designed to grow with your business needs",
+    title: "Ongoing Maintenance",
+    description: "Plan software updates, maintenance, and support after launch.",
     icon: "🚀",
     color: "from-orange-500 to-amber-400",
   },
@@ -55,13 +55,13 @@ export default function StickyTransformSection() {
         {/* Heading Section */}
         <motion.div className="text-center mb-12 sm:mb-16" style={{ opacity }}>
           <motion.h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ scale: springScale }}>
-            Why Choose Our Solutions
+            Software Engineering Services
           </motion.h2>
           <motion.p
             className="text-base sm:text-lg text-muted-foreground"
             style={{ y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
           >
-            Experience the difference with our cutting-edge approach
+            Support for product planning, software delivery, integrations, and ongoing maintenance.
           </motion.p>
         </motion.div>
 
@@ -90,7 +90,7 @@ export default function StickyTransformSection() {
                   </motion.div>
                   <h3 className="text-base sm:text-lg font-semibold mb-2">{feature.title}</h3>
                   <p className="text-sm sm:text-base text-muted-foreground mb-4">{feature.description}</p>
-                  <Badge className={`bg-gradient-to-r ${feature.color} text-white border-none`}>Featured</Badge>
+                  <Badge className={`bg-gradient-to-r ${feature.color} text-white border-none`}>Service</Badge>
                 </CardContent>
               </Card>
             </motion.div>

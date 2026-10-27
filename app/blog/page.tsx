@@ -33,7 +33,7 @@ export const metadata: Metadata = {
   },
 };
 
-function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date: string }[]) {
+function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date: string; dateModified?: string }[]) {
   return {
     "@context": "https://schema.org",
     "@graph": [
@@ -70,6 +70,7 @@ function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date
           name: post.title,
           description: post.excerpt,
           datePublished: post.date,
+          dateModified: post.dateModified,
         })),
       },
     ],
