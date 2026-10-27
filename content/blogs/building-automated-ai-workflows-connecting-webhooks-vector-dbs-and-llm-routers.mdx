@@ -277,19 +277,19 @@ def classify_and_route_event(event_summary: str) -> str:
     classification_prompt = f"""
     Analyze the following event and classify its complexity:
     Event: {event_summary}
-    
+
     Return JSON:
     - intent: (e.g. classification, data_extraction, complex_reasoning, policy_decision)
     - complexity_score: 1 to 5
     """
-    
+
     response = openai_client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[{"role": "user", "content": classification_prompt}],
         response_format={"type": "json_object"},
         temperature=0.0
     )
-    
+
     decision = json.loads(response.choices[0].message.content)
     complexity = decision.get("complexity_score", 3)
 
@@ -379,3 +379,5 @@ Before deploying your event-driven AI workflow to live production environments, 
 ## Conclusion
 
 Building automated AI workflows in 2026 is an exercise in distributed systems engineering. By treating LLMs not as conversational endpoints, but as intelligent routing and reasoning components embedded within asynchronous message queues and vector retrieval pipelines, engineering teams can build software that scales reliably to millions of events with rock-solid predictability.
+
+For teams evaluating this kind of work, see Bridge Homies’ [AI and machine-learning engineering](/ai-ml-development).

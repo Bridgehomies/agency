@@ -17,9 +17,6 @@ seoDescription: "Avoid the mistakes that turn a 15-minute marketplace listing fi
 schemaType: "BlogPosting"
 faq: [{"question":"Should I delete and recreate a rejected marketplace listing?","answer":"No, not unless it's unavoidable. Deleting and recreating a listing can create duplicate catalog entries, break historical performance data, reset reviews, confuse inventory synchronization, and sometimes trigger duplicate-product flags. Repairing the existing listing is almost always safer."},{"question":"Is it safe to generate a random UPC or GTIN to satisfy a marketplace validation error?","answer":"No. A fake barcode may resolve today's error but tends to create permanent catalog conflicts later. Check first whether the marketplace actually requires a GTIN for your product category, since many handmade, custom, private-label, or vintage products qualify for identifier exemptions."},{"question":"Does disconnecting and reconnecting a marketplace integration fix synchronization errors?","answer":"Usually not. Most synchronization issues come from product data failing validation after it reaches the marketplace, not from a broken connection. Repeatedly disconnecting integrations mostly forces unnecessary feed rebuilds without fixing the underlying data."},{"question":"What questions should I ask before changing any product data after a listing rejection?","answer":"Start by identifying which marketplace is rejecting the listing, whether the issue happens inside your store platform or only after synchronization, how many products are affected, whether the issue followed a bulk import or category change, and what the exact error message and code say. These questions eliminate entire categories of causes before you touch any data."},{"question":"How can automation help prevent marketplace listing errors at scale?","answer":"Validation scripts can inspect catalog data, such as barcodes, product types, SKUs, images, pricing, and variant relationships, before it ever reaches the marketplace. This catches obvious data quality issues before publishing instead of after a rejection, which matters once a catalog grows into the thousands of products."}]
 ---
-
-
-
 {
   "blocks": [
     {
@@ -155,7 +152,7 @@ faq: [{"question":"Should I delete and recreate a rejected marketplace listing?"
     },
     {
       "type": "paragraph",
-      "text": "One client maintained a Shopify catalog of more than 18,000 products. Reviewing listings manually wasn't realistic. Instead of waiting for marketplaces to reject products, we built validation scripts using the Shopify Admin API that inspected catalog data before synchronization began. The system automatically flagged missing barcodes, empty product types, duplicate SKUs, missing product images, invalid pricing, and broken variant relationships. Instead of discovering problems after publishing, the catalog was validated before products ever reached Google Shopping or Meta Commerce. What used to require multiple staff members reviewing spreadsheets became an automated process completed in minutes."
+      "text": "For a large catalog, teams can validate required fields, identifiers, images, prices, and variant relationships before synchronization. The checks should follow the destination marketplace’s current rules and report errors for review. This is a general implementation pattern, not a client case study."
     },
     {
       "type": "paragraph",
@@ -186,6 +183,10 @@ faq: [{"question":"Should I delete and recreate a rejected marketplace listing?"
     {
       "type": "paragraph",
       "text": "Think of this like unit testing for a product catalog. Developers don't wait until production to discover syntax errors. Marketplace teams shouldn't wait until products are rejected to discover missing attributes. The earlier validation happens, the cheaper and faster it is to fix."
+    },
+    {
+      "type": "paragraph",
+      "text": "For teams evaluating this kind of work, see Bridge Homies’ [software and integration engineering](/software)."
     }
   ]
 }

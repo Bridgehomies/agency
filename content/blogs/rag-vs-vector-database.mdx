@@ -17,7 +17,6 @@ seoDescription: "RAG is an AI architecture; a vector database is an optional ret
 schemaType: "TechArticle"
 faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is an architecture that retrieves information before an LLM generates an answer. A vector database is one possible tool for semantic retrieval within that architecture."},{"question":"Can I build RAG without a vector database?","answer":"Yes. RAG can use SQL queries, APIs, conventional search, hybrid search, file retrieval, or other retrieval methods. The right choice depends on the data and user task."},{"question":"When is SQL better than RAG?","answer":"SQL is better when the answer is a structured, deterministic fact such as a status, date, count, balance, ID, or validated transactional record."},{"question":"Does RAG stop hallucinations?","answer":"No. RAG can reduce unsupported answers when retrieval and evaluation are well designed, but source quality, authority, versioning, permissions, and citations still matter."},{"question":"Do I need a dedicated vector database?","answer":"Not always. PostgreSQL with pgvector can be a practical option for moderate semantic-retrieval needs; dedicated infrastructure becomes more useful when scale or specialised retrieval requirements justify it."}]
 ---
-
 {
   "blocks": [
     {
@@ -35,8 +34,43 @@ faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is a
     },
     {
       "type": "table",
-      "headers": ["Question", "RAG", "Vector database"],
-      "rows": [["What is it?", "A pattern for grounding LLM answers in retrieved information", "A database or index for similarity search over vectors"], ["Main job", "Retrieve context, then help an LLM answer with it", "Find items whose meaning is similar to a query"], ["Does it require an LLM?", "Usually", "No"], ["Does it require a vector database?", "No", "Not applicable"], ["Can it use SQL or APIs?", "Yes", "Usually alongside metadata, not instead of it"], ["Main risk", "Poor retrieval, stale sources, hallucinated answers, permission leaks", "Returning similar but irrelevant, stale, or unauthorised records"]]
+      "headers": [
+        "Question",
+        "RAG",
+        "Vector database"
+      ],
+      "rows": [
+        [
+          "What is it?",
+          "A pattern for grounding LLM answers in retrieved information",
+          "A database or index for similarity search over vectors"
+        ],
+        [
+          "Main job",
+          "Retrieve context, then help an LLM answer with it",
+          "Find items whose meaning is similar to a query"
+        ],
+        [
+          "Does it require an LLM?",
+          "Usually",
+          "No"
+        ],
+        [
+          "Does it require a vector database?",
+          "No",
+          "Not applicable"
+        ],
+        [
+          "Can it use SQL or APIs?",
+          "Yes",
+          "Usually alongside metadata, not instead of it"
+        ],
+        [
+          "Main risk",
+          "Poor retrieval, stale sources, hallucinated answers, permission leaks",
+          "Returning similar but irrelevant, stale, or unauthorised records"
+        ]
+      ]
     },
     {
       "type": "paragraph",
@@ -108,7 +142,7 @@ faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is a
     },
     {
       "type": "paragraph",
-      "text": "The project produced an approximate <strong>60–70% reduction in research and search time</strong>; some searches that had taken around 20 minutes could be completed in under five. The more important lesson was why it worked: retrieval was treated as a governed knowledge problem rather than a model-selection exercise."
+      "text": "A vector database can support retrieval, but system quality also depends on source preparation, permissions, retrieval settings, and answer evaluation. Test it against representative questions and a documented baseline."
     },
     {
       "type": "paragraph",
@@ -184,7 +218,15 @@ faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is a
     },
     {
       "type": "list",
-      "items": ["Is the answer a structured fact in a database or API? Use SQL or API retrieval first.", "Does exact wording, an identifier, a product code or a known phrase matter most? Start with lexical search.", "Is the user locating unstructured information by concept or meaning? Consider embeddings and semantic retrieval.", "Do exact terminology and semantic meaning both matter? Consider hybrid search.", "Does knowledge change frequently? Prefer retrieval and re-indexing over baking the information into a model.", "Does the user need an LLM-generated explanation or summary? If not, stop before adding RAG.", "Can you enforce authority, versioning, permissions and evaluation? If not, solve those requirements first."]
+      "items": [
+        "Is the answer a structured fact in a database or API? Use SQL or API retrieval first.",
+        "Does exact wording, an identifier, a product code or a known phrase matter most? Start with lexical search.",
+        "Is the user locating unstructured information by concept or meaning? Consider embeddings and semantic retrieval.",
+        "Do exact terminology and semantic meaning both matter? Consider hybrid search.",
+        "Does knowledge change frequently? Prefer retrieval and re-indexing over baking the information into a model.",
+        "Does the user need an LLM-generated explanation or summary? If not, stop before adding RAG.",
+        "Can you enforce authority, versioning, permissions and evaluation? If not, solve those requirements first."
+      ]
     },
     {
       "type": "heading",
@@ -206,7 +248,14 @@ faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is a
     },
     {
       "type": "list",
-      "items": ["<strong>Source quality and OCR:</strong> poor scans can alter names, numbers, dates and clauses before retrieval even begins.", "<strong>Metadata and authority:</strong> tenant, department, jurisdiction, effective date, version, approval status and confidentiality determine whether a source is usable.", "<strong>Chunking:</strong> a fixed chunk size can work for FAQs and destroy meaning in legal clauses, tables or technical procedures.", "<strong>Re-indexing:</strong> teams need rules for old embeddings, approved updates, partial ingestion failures and stale-content reporting.", "<strong>Permissions:</strong> filters must be applied before retrieved context reaches the model, especially in multi-tenant or sensitive environments; the <a href='https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf'>OWASP Top 10 for LLM Applications</a> is a useful security baseline.", "<strong>Evaluation:</strong> measure retrieval quality, context relevance and final-answer accuracy separately so the real failure can be fixed."]
+      "items": [
+        "<strong>Source quality and OCR:</strong> poor scans can alter names, numbers, dates and clauses before retrieval even begins.",
+        "<strong>Metadata and authority:</strong> tenant, department, jurisdiction, effective date, version, approval status and confidentiality determine whether a source is usable.",
+        "<strong>Chunking:</strong> a fixed chunk size can work for FAQs and destroy meaning in legal clauses, tables or technical procedures.",
+        "<strong>Re-indexing:</strong> teams need rules for old embeddings, approved updates, partial ingestion failures and stale-content reporting.",
+        "<strong>Permissions:</strong> filters must be applied before retrieved context reaches the model, especially in multi-tenant or sensitive environments; the <a href='https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf'>OWASP Top 10 for LLM Applications</a> is a useful security baseline.",
+        "<strong>Evaluation:</strong> measure retrieval quality, context relevance and final-answer accuracy separately so the real failure can be fixed."
+      ]
     },
     {
       "type": "heading",
@@ -215,7 +264,13 @@ faq: [{"question":"Is RAG the same as a vector database?","answer":"No. RAG is a
     },
     {
       "type": "list",
-      "items": ["<strong>‘A vector database makes the model knowledgeable about our documents.’</strong> No. It only helps find potentially relevant material.", "<strong>‘We should fine-tune the model on all company documents.’</strong> Usually not when the information changes regularly.", "<strong>‘RAG eliminates hallucinations.’</strong> No. It can still retrieve an obsolete source, use corrupt OCR, lack context or ignore evidence.", "<strong>‘Embeddings replace normal search.’</strong> Not always. Exact identifiers and references often need lexical or structured retrieval.", "<strong>‘Every AI application needs a vector database.’</strong> No. SQL, APIs, conventional search, hybrid retrieval or no AI layer may be the better answer."]
+      "items": [
+        "<strong>‘A vector database makes the model knowledgeable about our documents.’</strong> No. It only helps find potentially relevant material.",
+        "<strong>‘We should fine-tune the model on all company documents.’</strong> Usually not when the information changes regularly.",
+        "<strong>‘RAG eliminates hallucinations.’</strong> No. It can still retrieve an obsolete source, use corrupt OCR, lack context or ignore evidence.",
+        "<strong>‘Embeddings replace normal search.’</strong> Not always. Exact identifiers and references often need lexical or structured retrieval.",
+        "<strong>‘Every AI application needs a vector database.’</strong> No. SQL, APIs, conventional search, hybrid retrieval or no AI layer may be the better answer."
+      ]
     },
     {
       "type": "heading",
