@@ -7,9 +7,9 @@ import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import WorkSection from "@/components/home/work-section";
 
-const pageTitle = "Mobile App Development Services | Bridge Homies";
+const pageTitle = "Mobile App Development in Lahore | Bridge Homies";
 const pageDescription =
-  "Build Android, iOS, and cross-platform mobile apps for customer, employee, field, delivery, booking, commerce, finance, and community workflows.";
+  "Build Android, iOS, Flutter, and React Native apps for customer, employee, delivery, booking, commerce, finance, and community workflows with a Lahore-based team.";
 
 // ─── SEO Metadata ─────────────────────────────────────────────────────────────
 
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Mobile App Development Services Bridge Homies",
+        alt: "Mobile app development in Lahore by Bridge Homies",
       },
     ],
   },
@@ -160,21 +160,27 @@ export default function MobilePage() {
               </div>
 
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
-                Mobile App{" "}
-                <br />
+                Mobile App <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
                   Development.
                 </span>
               </h1>
 
               <h2 className="mt-6 text-xl md:text-2xl font-semibold text-gray-500 tracking-tight">
-                Android, iOS, and cross-platform applications for customer, employee, and field-team workflows.
+                Android, iOS, and cross-platform applications for customer,
+                employee, and field-team workflows.
               </h2>
             </div>
 
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We build <strong className="text-gray-900">mobile apps</strong> for Android, iOS, and cross-platform projects, including customer, employee, field-worker, delivery, booking, commerce, finance, and community applications.
+                Our Lahore-based team provides{" "}
+                <strong className="text-gray-900">
+                  mobile app development
+                </strong>{" "}
+                for Android, iOS, Flutter, and React Native projects, including
+                customer, employee, field-worker, delivery, booking, commerce,
+                finance, and community applications.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
@@ -230,7 +236,8 @@ export default function MobilePage() {
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
               <p className="text-gray-500 font-medium">
-                Mobile applications shaped around the users, devices, and workflows your product needs to support.
+                Mobile applications shaped around the users, devices, and
+                workflows your product needs to support.
               </p>
             </div>
           </div>
@@ -274,7 +281,9 @@ export default function MobilePage() {
                   <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm">{service.desc}</p>
+                  <p className="text-gray-600 leading-relaxed text-sm">
+                    {service.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -299,7 +308,11 @@ export default function MobilePage() {
                   </span>
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  Bridge Homies develops mobile applications around product requirements and user workflows. Projects can include customer-facing apps, employee and field-worker tools, delivery, booking, commerce, finance, and community applications.
+                  Bridge Homies develops mobile applications around product
+                  requirements and user workflows. Projects can include
+                  customer-facing apps, employee and field-worker tools,
+                  delivery, booking, commerce, finance, and community
+                  applications.
                 </p>
               </div>
               <Link
@@ -339,7 +352,8 @@ export default function MobilePage() {
                     Mobile Interfaces
                   </h3>
                   <p className="text-gray-200 text-sm">
-                    Interface planning for Android, iOS, and cross-platform products.
+                    Interface planning for Android, iOS, and cross-platform
+                    products.
                   </p>
                 </div>
               </div>
@@ -365,7 +379,8 @@ export default function MobilePage() {
                 Clear <br /> Context.
               </h2>
               <p className="text-gray-500 font-medium max-w-sm mb-12">
-                Common questions about planning and building Android, iOS, and cross-platform applications.
+                Common questions about planning and building Android, iOS, and
+                cross-platform applications.
               </p>
             </div>
 
@@ -411,7 +426,10 @@ export default function MobilePage() {
             <div className="flex flex-wrap justify-center gap-4 md:gap-8 mb-16">
               {[
                 { label: "Website Development", link: "/webdev" },
-                { label: "ML Engineering Services", link: "/ai-ml-development" },
+                {
+                  label: "ML Engineering Services",
+                  link: "/ai-ml-development",
+                },
                 { label: "Enterprise Software", link: "/software" },
                 { label: "UI/UX Design", link: "/ui-ux-design" },
               ].map((item) => (
@@ -431,7 +449,8 @@ export default function MobilePage() {
 
           <div className="pt-8 border-t border-gray-100 max-w-2xl mx-auto">
             <p className="text-xs font-bold tracking-[0.15em] text-gray-400 uppercase leading-relaxed">
-              Mobile platform, API, and release requirements are assessed as part of project planning.
+              Mobile platform, API, and release requirements are assessed as
+              part of project planning.
             </p>
           </div>
         </div>

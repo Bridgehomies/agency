@@ -37,16 +37,32 @@ const STATIC_PAGE_SOURCES = {
   "/ai-ml-agency-pakistan": "app/ai-ml-agency-pakistan/page.tsx",
   "/ai-ml-development": "app/ai-ml-development/page.tsx",
   "/blog": "app/blog/page.tsx",
+  "/business-automation": [
+    "app/business-automation/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
   "/case-studies/aierpify": "app/case-studies/aierpify/page.tsx",
   "/case-studies/anosuim": "app/case-studies/anosuim/page.tsx",
   "/case-studies/ihfp": "app/case-studies/ihfp/page.tsx",
   "/case-studies/mail-hauler-pro": "app/case-studies/mail-hauler-pro/page.tsx",
   "/case-studies/opleo": "app/case-studies/opleo/page.tsx",
   "/contact": "app/contact/page.tsx",
+  "/api-system-integration": [
+    "app/api-system-integration/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
+  "/cloud-devops": [
+    "app/cloud-devops/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
   "/design": "app/design/page.tsx",
   "/mobile": "app/mobile/page.tsx",
   "/mlops-consulting-services": "app/mlops-consulting-services/page.tsx",
   "/privacy": "app/privacy/page.tsx",
+  "/saas-product-development": [
+    "app/saas-product-development/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
   "/products": [
     "app/products/page.tsx",
     "app/products/ProductsClient.tsx",
@@ -59,6 +75,14 @@ const STATIC_PAGE_SOURCES = {
   ],
   "/software": "app/software/page.tsx",
   "/terms": "app/terms/page.tsx",
+  "/technical-consulting": [
+    "app/technical-consulting/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
+  "/software-support-maintenance": [
+    "app/software-support-maintenance/page.tsx",
+    "components/service-detail-page.tsx",
+  ],
   "/testimonials": "app/testimonials/page.tsx",
   "/ui-ux-design": "app/ui-ux-design/page.tsx",
   "/webdev": ["app/webdev/page.tsx", "app/webdev/WebDevClient.tsx"],
@@ -74,13 +98,17 @@ const SHARED_PAGE_SOURCES = [
 const gitDateCache = new Map();
 
 function getGitLastModified(relativeFilePath) {
-  if (gitDateCache.has(relativeFilePath)) return gitDateCache.get(relativeFilePath);
+  if (gitDateCache.has(relativeFilePath))
+    return gitDateCache.get(relativeFilePath);
 
   try {
-    const status = execSync(`git status --porcelain --untracked-files=no -- "${relativeFilePath}"`, {
-      cwd: __dirname,
-      encoding: "utf-8",
-    }).trim();
+    const status = execSync(
+      `git status --porcelain --untracked-files=no -- "${relativeFilePath}"`,
+      {
+        cwd: __dirname,
+        encoding: "utf-8",
+      },
+    ).trim();
 
     // During local generation, Git's last commit date predates uncommitted
     // content edits. Use the edited source file's mtime in that case. Clean
@@ -120,7 +148,9 @@ function getStaticPageLastModified(sourceFiles) {
 }
 
 function getBlogFrontmatterDate(slug) {
-  const candidates = [`${slug}.mdx`, `${slug}.md`].map((file) => path.join(BLOG_DIR, file));
+  const candidates = [`${slug}.mdx`, `${slug}.md`].map((file) =>
+    path.join(BLOG_DIR, file),
+  );
   const filePath = candidates.find((candidate) => fs.existsSync(candidate));
   if (!filePath) return new Date().toISOString();
 
@@ -168,10 +198,7 @@ module.exports = {
         allow: "/",
         // The public /admin login shell is noindexed so crawlers can read that
         // directive. Private admin subroutes and APIs remain blocked.
-        disallow: [
-          "/admin/*",
-          "/api/*",
-        ],
+        disallow: ["/admin/*", "/api/*"],
       },
     ],
   },
@@ -210,7 +237,8 @@ module.exports = {
     return {
       loc: url,
       changefreq: config.changefreq,
-      priority: routePath === "/" ? 1 : routePath.startsWith("/blog") ? 0.3 : 0.8,
+      priority:
+        routePath === "/" ? 1 : routePath.startsWith("/blog") ? 0.3 : 0.8,
       lastmod,
     };
   },

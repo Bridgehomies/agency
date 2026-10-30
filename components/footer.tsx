@@ -23,13 +23,19 @@ const NAV_LEFT = [
 ];
 
 const NAV_RIGHT = [
+  { label: "AI & ML Engineering", href: "/ai-ml-development" },
+  { label: "Custom Software Development", href: "/software" },
   { label: "Web Development", href: "/webdev" },
   { label: "Mobile App Development", href: "/mobile" },
+  { label: "SaaS & Product Development", href: "/saas-product-development" },
+  { label: "Business Automation", href: "/business-automation" },
+  { label: "API & System Integrations", href: "/api-system-integration" },
+  { label: "Cloud, DevOps & Deployment", href: "/cloud-devops" },
   { label: "UI/UX", href: "/ui-ux-design" },
-  { label: "Custom Software Development", href: "/software" },
-  { label: "AI & ML engineering services", href: "/ai-ml-development" },
   { label: "MLOps Consulting", href: "/mlops-consulting-services" },
-  { label: "Product Discovery", href: "/design" },
+  { label: "Technical Consulting", href: "/technical-consulting" },
+  { label: "Product Discovery & Planning", href: "/design" },
+  { label: "Support & Maintenance", href: "/software-support-maintenance" },
 ];
 
 const SOCIALS = [
@@ -42,7 +48,9 @@ const SOCIALS = [
 export default function Footer() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState<null | "loading" | "success" | "error">(null);
+  const [status, setStatus] = useState<null | "loading" | "success" | "error">(
+    null,
+  );
 
   const handleSubmit = async () => {
     if (!name.trim() || !email.includes("@")) {
@@ -95,8 +103,7 @@ export default function Footer() {
             </p>
             <h2 className="font-serif italic text-[34px] leading-[1.15] font-normal text-white">
               Let&apos;s build something{" "}
-              <em className="text-violet-400 italic">remarkable</em>{" "}
-              together.
+              <em className="text-violet-400 italic">remarkable</em> together.
             </h2>
           </div>
           <Link
@@ -135,7 +142,7 @@ export default function Footer() {
                     >
                       {item.label}
                     </Link>
-                  )
+                  ),
                 )}
               </div>
               <div className="flex flex-col">
@@ -238,4 +245,4 @@ export default function Footer() {
       </div>
     </footer>
   );
-} 
+}

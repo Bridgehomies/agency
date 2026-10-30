@@ -1,17 +1,19 @@
-import type { Metadata } from "next"
-import WebDevClient from "./WebDevClient"
+import type { Metadata } from "next";
+import WebDevClient from "./WebDevClient";
 
 export const metadata: Metadata = {
-  title: { absolute: "Web Application Development Services | Bridge Homies" },
+  title: {
+    absolute: "Web Application Development Services in Lahore | Bridge Homies",
+  },
   description:
-    "Bridge Homies builds business websites, SaaS platforms, custom web apps, customer and vendor portals, marketplaces, and API-driven systems.",
+    "Web application development services in Lahore for business websites, SaaS platforms, custom web apps, customer and vendor portals, marketplaces, and API-driven systems.",
   alternates: {
     canonical: "https://www.bridgehomies.com/webdev",
   },
   openGraph: {
-    title: "Web Application Development Services | Bridge Homies",
+    title: "Web Application Development Services in Lahore | Bridge Homies",
     description:
-      "Web development for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
+      "Web application development services in Lahore for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
     url: "https://www.bridgehomies.com/webdev",
     type: "website",
     images: [
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-}
+};
 
 const schema = {
   "@context": "https://schema.org",
@@ -32,36 +34,73 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/webdev/#webpage",
       url: "https://www.bridgehomies.com/webdev",
-      name: "Web Application Development Services | Bridge Homies",
+      name: "Web Application Development Services in Lahore | Bridge Homies",
       description:
-        "Web development for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
+        "Web application development services in Lahore for business websites, SaaS products, custom applications, portals, e-commerce, and marketplaces.",
       breadcrumb: {
         "@type": "BreadcrumbList",
         itemListElement: [
-          { "@type": "ListItem", position: 1, name: "Home", item: "https://www.bridgehomies.com" },
-          { "@type": "ListItem", position: 2, name: "Website Development", item: "https://www.bridgehomies.com/webdev" },
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: "https://www.bridgehomies.com",
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Website Development",
+            item: "https://www.bridgehomies.com/webdev",
+          },
         ],
       },
     },
     {
       "@type": "Service",
       "@id": "https://www.bridgehomies.com/webdev/#service",
-      name: "Website Development",
+      name: "Web Application Development Services",
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/webdev",
       description:
-        "Custom web applications, SaaS platforms, business websites, customer and vendor portals, marketplaces, e-commerce, and API-driven web systems.",
-      serviceType: "Website Development",
+        "Web application development services for custom web applications, SaaS platforms, business websites, customer and vendor portals, marketplaces, e-commerce, and API-driven web systems.",
+      serviceType: "Web Application Development Services",
       areaServed: "Worldwide",
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "Website Development Services",
+        name: "Web Application Development Services",
         itemListElement: [
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Custom Web Applications and SaaS Platforms" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "Customer and Vendor Portals" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "E-commerce and Marketplace Platforms" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "SaaS Development" } },
-          { "@type": "Offer", itemOffered: { "@type": "Service", name: "API Development and System Integrations" } },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Custom Web Applications and SaaS Platforms",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Customer and Vendor Portals",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "E-commerce and Marketplace Platforms",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: { "@type": "Service", name: "SaaS Development" },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "API Development and System Integrations",
+            },
+          },
         ],
       },
     },
@@ -95,7 +134,7 @@ const schema = {
       ],
     },
   ],
-}
+};
 
 export default function WebDevPage() {
   return (
@@ -106,5 +145,5 @@ export default function WebDevPage() {
       />
       <WebDevClient />
     </>
-  )
+  );
 }

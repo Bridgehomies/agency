@@ -7,20 +7,31 @@ import Link from "next/link";
 
 const navLinks = [
   { num: "01", name: "Home", href: "/" },
-  { num: "02", name: "Services", href: "/#services", children: [
-    { name: "Custom Software Development", href: "/software" },
-    { name: "Web Development", href: "/webdev" },
-    { name: "Mobile App Development", href: "/mobile" },
-    { name: "AI & ML Engineering", href: "/ai-ml-development" },
-    { name: "MLOps Consulting", href: "/mlops-consulting-services" },
-    { name: "UI/UX Design", href: "/ui-ux-design" },
-  ] },
+  {
+    num: "02",
+    name: "Services",
+    href: "/#services",
+    children: [
+      { name: "AI & ML Engineering", href: "/ai-ml-development" },
+      { name: "Custom Software Development", href: "/software" },
+      { name: "Web Development", href: "/webdev" },
+      { name: "Mobile App Development", href: "/mobile" },
+      { name: "SaaS & Product Development", href: "/saas-product-development" },
+      { name: "Business Automation", href: "/business-automation" },
+      { name: "API & System Integrations", href: "/api-system-integration" },
+      { name: "Cloud, DevOps & Deployment", href: "/cloud-devops" },
+      { name: "MLOps Consulting", href: "/mlops-consulting-services" },
+      { name: "UI/UX Design", href: "/ui-ux-design" },
+      { name: "Technical Consulting", href: "/technical-consulting" },
+      { name: "Product Discovery & Planning", href: "/design" },
+      { name: "Support & Maintenance", href: "/software-support-maintenance" },
+    ],
+  },
   { num: "03", name: "Work", href: "/#work" },
   { num: "04", name: "Products", href: "/products" },
   { num: "05", name: "Testimonials", href: "/testimonials" },
-  { num: "06", name: "Product Discovery", href: "/design" },
   {
-    num: "07",
+    num: "06",
     name: "Case Studies",
     href: "/#work",
     children: [
@@ -49,7 +60,6 @@ const tickerItems = [
   "Digital Strategy",
 ];
 
-
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -73,14 +83,21 @@ export default function Navbar() {
     setIsOpen(false);
     if (href.startsWith("#")) {
       setTimeout(() => {
-        document.getElementById(href.slice(1))?.scrollIntoView({ behavior: "smooth" });
+        document
+          .getElementById(href.slice(1))
+          ?.scrollIntoView({ behavior: "smooth" });
       }, 400);
     } else {
       window.location.href = href;
     }
   };
 
-  const repeated = [...tickerItems, ...tickerItems, ...tickerItems, ...tickerItems];
+  const repeated = [
+    ...tickerItems,
+    ...tickerItems,
+    ...tickerItems,
+    ...tickerItems,
+  ];
 
   return (
     <>
@@ -103,11 +120,16 @@ export default function Navbar() {
       <header
         className={cn(
           "fixed top-6 sm:top-7 left-0 right-0 z-40 h-[60px] sm:h-[68px] flex items-center justify-between px-4 sm:px-6 md:px-10 transition-all duration-300 bg-white",
-          scrolled && !isOpen ? "border-b border-black/10" : "border-b border-transparent"
+          scrolled && !isOpen
+            ? "border-b border-black/10"
+            : "border-b border-transparent",
         )}
       >
         {/* Logo */}
-        <button onClick={() => go("/")} className="flex items-center gap-3 group shrink-0">
+        <button
+          onClick={() => go("/")}
+          className="flex items-center gap-3 group shrink-0"
+        >
           <img
             src="/logo-bg.png"
             alt="Bridge Homies"
@@ -132,13 +154,17 @@ export default function Navbar() {
           <span
             className={cn(
               "block h-px bg-black transition-all duration-500 origin-center",
-              isOpen ? "w-5 sm:w-6 translate-y-[3px] sm:translate-y-[3.5px] rotate-45" : "w-6 sm:w-7"
+              isOpen
+                ? "w-5 sm:w-6 translate-y-[3px] sm:translate-y-[3.5px] rotate-45"
+                : "w-6 sm:w-7",
             )}
           />
           <span
             className={cn(
               "block h-px bg-black transition-all duration-500 origin-center ml-auto",
-              isOpen ? "w-5 sm:w-6 -translate-y-[3px] sm:-translate-y-[3.5px] -rotate-45" : "w-4 sm:w-5"
+              isOpen
+                ? "w-5 sm:w-6 -translate-y-[3px] sm:-translate-y-[3.5px] -rotate-45"
+                : "w-4 sm:w-5",
             )}
           />
         </button>
@@ -158,12 +184,21 @@ export default function Navbar() {
             <div className="flex flex-col justify-between px-5 sm:px-8 mt-4 md:px-10 pb-8 md:pb-12 border-b md:border-b-0 md:border-r border-black/10">
               <nav className="flex flex-col">
                 {navLinks.map((link, i) => (
-                  <div key={link.name} className="border-t border-black/10 last:border-b">
+                  <div
+                    key={link.name}
+                    className="border-t border-black/10 last:border-b"
+                  >
                     <motion.button
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.2 + i * 0.06 }}
-                      onClick={() => (link.children ? setExpanded(expanded === link.name ? null : link.name) : go(link.href))}
+                      onClick={() =>
+                        link.children
+                          ? setExpanded(
+                              expanded === link.name ? null : link.name,
+                            )
+                          : go(link.href)
+                      }
                       className="group flex items-baseline gap-2 sm:gap-3 w-full text-left py-[10px] sm:py-[12px] md:py-[14px] hover:border-t-black/30 transition-colors duration-200"
                     >
                       <span className="text-[9px] sm:text-[10px] text-black/50 tracking-[0.1em] font-light min-w-[20px] sm:min-w-[24px] tabular-nums group-hover:text-black/80 transition-colors">
@@ -176,9 +211,17 @@ export default function Navbar() {
                         {link.name}
                       </span>
                       <span className="ml-auto text-sm sm:text-base text-black/60 transition-all duration-300">
-                        {link.children
-                          ? expanded === link.name ? "↑" : "↓"
-                          : <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 hidden sm:inline">↗</span>}
+                        {link.children ? (
+                          expanded === link.name ? (
+                            "↑"
+                          ) : (
+                            "↓"
+                          )
+                        ) : (
+                          <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 hidden sm:inline">
+                            ↗
+                          </span>
+                        )}
                       </span>
                     </motion.button>
 
@@ -197,7 +240,8 @@ export default function Navbar() {
                                 key={child.name}
                                 href={child.href}
                                 onClick={() => setIsOpen(false)}
-                                className="block w-full text-left py-2.5 sm:py-2 text-[12px] sm:text-[13px] md:text-[15px] tracking-[0.04em] text-black/50 hover:text-black transition-colors"                              >
+                                className="block w-full text-left py-2.5 sm:py-2 text-[12px] sm:text-[13px] md:text-[15px] tracking-[0.04em] text-black/50 hover:text-black transition-colors"
+                              >
                                 {child.name}
                               </Link>
                             ))}

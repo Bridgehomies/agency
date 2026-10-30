@@ -11,19 +11,19 @@ const schema = {
       "@type": "WebPage",
       "@id": "https://www.bridgehomies.com/software/#webpage",
       url: "https://www.bridgehomies.com/software",
-      name: "Custom Software Development | Bridge Homies",
+      name: "Custom Software Development Services in Lahore | Bridge Homies",
       description:
-        "Bridge Homies plans and builds custom software, SaaS products, business systems, web and mobile applications, APIs, and integrations.",
+        "Bridge Homies provides custom software development services in Lahore and builds SaaS products, business systems, web and mobile applications, APIs, and integrations for international teams.",
     },
     {
       "@type": "Service",
       "@id": "https://www.bridgehomies.com/software/#service",
-      name: "Custom Software Development",
+      name: "Custom Software Development Services",
       provider: { "@id": "https://www.bridgehomies.com/#organization" },
       url: "https://www.bridgehomies.com/software",
       description:
-        "Custom software development for SaaS products, business systems, web and mobile applications, workflow automation, APIs, integrations, deployment, and ongoing support.",
-      serviceType: "Custom Software Development",
+        "Custom software development services in Lahore for SaaS products, business systems, web and mobile applications, workflow automation, APIs, integrations, deployment, and ongoing support.",
+      serviceType: "Custom Software Development Services",
       areaServed: "Worldwide",
     },
   ],
@@ -32,21 +32,27 @@ const schema = {
 export const metadata = {
   alternates: { canonical: "/software" },
   openGraph: {
-    title: "Custom Software Development | Bridge Homies",
-    description: "Bridge Homies builds custom software, SaaS products, ERP and CRM systems, web and mobile apps, workflow automation, APIs, and integrations.",
+    title: "Custom Software Development Services in Lahore | Bridge Homies",
+    description:
+      "Custom software development services in Lahore for SaaS products, ERP and CRM systems, web and mobile apps, workflow automation, APIs, and integrations.",
     url: "/software",
     type: "website",
     images: ["/og-image.png"],
   },
-  title: { absolute: "Custom Software Development | Bridge Homies" },
+  title: {
+    absolute: "Custom Software Development Services in Lahore | Bridge Homies",
+  },
   description:
-    "Custom software for business systems, SaaS products, web and mobile apps, automation, APIs, integrations, and deployment from Bridge Homies in Lahore.",
+    "Custom software development services in Lahore for business systems, SaaS products, web and mobile apps, automation, APIs, integrations, and deployment.",
 };
 
 export default function SoftwarePage() {
   return (
     <main className="font-sans bg-gray-50 text-gray-900 selection:bg-purple-900 selection:text-white overflow-hidden">
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Navbar />
 
       {/* 1. EDITORIAL HERO SECTION */}
@@ -58,18 +64,23 @@ export default function SoftwarePage() {
             <div className="lg:col-span-8">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Software Engineering</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">
+                  Software Engineering
+                </span>
               </div>
               <h1 className="text-6xl md:text-8xl lg:text-[7rem] font-black tracking-tighter leading-[0.9] text-gray-900 uppercase">
                 Custom Software <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-900 via-purple-800 to-gray-500">
-                  Development.
+                  Development Services.
                 </span>
               </h1>
             </div>
             <div className="lg:col-span-4 pb-4">
               <p className="text-lg text-gray-600 font-medium leading-relaxed mb-8">
-                We build custom software for business operations and digital products, including SaaS platforms, internal systems, integrations, and workflow automation.
+                Bridge Homies provides custom software development in Lahore for
+                business operations and digital products, including SaaS
+                platforms, internal systems, integrations, and workflow
+                automation for local and international teams.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <a
@@ -78,8 +89,18 @@ export default function SoftwarePage() {
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     Start Building
-                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    <svg
+                      className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"
+                      />
                     </svg>
                   </span>
                 </a>
@@ -90,22 +111,33 @@ export default function SoftwarePage() {
       </section>
 
       {/* STARTUP-SPECIFIC SOFTWARE DEVELOPMENT */}
-      <section id="startups" className="py-24 md:py-32 bg-gray-900 text-white relative overflow-hidden">
+      <section
+        id="startups"
+        className="py-24 md:py-32 bg-gray-900 text-white relative overflow-hidden"
+      >
         <div className="absolute -right-32 -top-32 h-96 w-96 rounded-full bg-purple-700/20 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start">
             <div className="lg:col-span-5">
               <div className="inline-flex items-center space-x-3 mb-7">
                 <div className="h-px w-8 bg-purple-400" />
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">For Startup Teams</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">
+                  For Startup Teams
+                </span>
               </div>
               <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-7">
                 Custom software built around the risk worth testing first.
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed max-w-xl">
-                Startups do not need a large platform on day one. They need a focused release that proves a real customer workflow, leaves room to learn, and does not create expensive rework when the product gains traction.
+                Startups do not need a large platform on day one. They need a
+                focused release that proves a real customer workflow, leaves
+                room to learn, and does not create expensive rework when the
+                product gains traction.
               </p>
-              <Link href="/contact" className="mt-10 inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3.5 font-bold hover:bg-purple-300 transition-colors">
+              <Link
+                href="/contact"
+                className="mt-10 inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3.5 font-bold hover:bg-purple-300 transition-colors"
+              >
                 Discuss your product idea
                 <span aria-hidden="true">↗</span>
               </Link>
@@ -113,24 +145,55 @@ export default function SoftwarePage() {
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-gray-700 border border-gray-700">
               {[
-                ["Find the right first release", "We map the customer, workflow, decision, and success signal before proposing features. The aim is a usable product, not a polished demo."],
-                ["Build the product core", "We design the SaaS, web app, mobile workflow, dashboard, or API foundation that users will actually rely on—then add AI where it earns its place."],
-                ["Integrate without locking you in", "Payments, CRMs, internal tools, data sources, and third-party APIs are planned as part of the product architecture, with project-specific code and accounts made clear."],
-                ["Prepare for the next stage", "Clear milestones, documented decisions, observability, and maintainable code help your team improve the product after real users expose what needs to change."],
+                [
+                  "Find the right first release",
+                  "We map the customer, workflow, decision, and success signal before proposing features. The aim is a usable product, not a polished demo.",
+                ],
+                [
+                  "Build the product core",
+                  "We design the SaaS, web app, mobile workflow, dashboard, or API foundation that users will actually rely on—then add AI where it earns its place.",
+                ],
+                [
+                  "Integrate without locking you in",
+                  "Payments, CRMs, internal tools, data sources, and third-party APIs are planned as part of the product architecture, with project-specific code and accounts made clear.",
+                ],
+                [
+                  "Prepare for the next stage",
+                  "Clear milestones, documented decisions, observability, and maintainable code help your team improve the product after real users expose what needs to change.",
+                ],
               ].map(([title, description], index) => (
-                <article key={title} className="bg-gray-900 p-7 md:p-9 min-h-56 hover:bg-gray-800 transition-colors">
-                  <span className="block text-purple-300 text-xs font-bold tracking-[0.16em] mb-8">0{index + 1}</span>
+                <article
+                  key={title}
+                  className="bg-gray-900 p-7 md:p-9 min-h-56 hover:bg-gray-800 transition-colors"
+                >
+                  <span className="block text-purple-300 text-xs font-bold tracking-[0.16em] mb-8">
+                    0{index + 1}
+                  </span>
                   <h3 className="text-xl font-bold mb-4">{title}</h3>
-                  <p className="text-gray-400 leading-relaxed text-sm">{description}</p>
+                  <p className="text-gray-400 leading-relaxed text-sm">
+                    {description}
+                  </p>
                 </article>
               ))}
             </div>
           </div>
 
           <div className="mt-12 pt-8 border-t border-gray-700 grid md:grid-cols-3 gap-6 text-sm text-gray-300">
-            <p><strong className="text-white">Good fit:</strong> founders with a specific customer problem, an accountable product owner, and willingness to release in focused stages.</p>
-            <p><strong className="text-white">AI when useful:</strong> document processing, retrieval, classification, drafting, and workflow assistance—not AI added just to satisfy a trend.</p>
-            <p><strong className="text-white">What stays clear:</strong> scope assumptions, acceptance criteria, data ownership, third-party costs, and the support needed after launch.</p>
+            <p>
+              <strong className="text-white">Good fit:</strong> founders with a
+              specific customer problem, an accountable product owner, and
+              willingness to release in focused stages.
+            </p>
+            <p>
+              <strong className="text-white">AI when useful:</strong> document
+              processing, retrieval, classification, drafting, and workflow
+              assistance—not AI added just to satisfy a trend.
+            </p>
+            <p>
+              <strong className="text-white">What stays clear:</strong> scope
+              assumptions, acceptance criteria, data ownership, third-party
+              costs, and the support needed after launch.
+            </p>
           </div>
         </div>
       </section>
@@ -154,28 +217,66 @@ export default function SoftwarePage() {
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
               <p className="text-gray-500 font-medium">
-                Bespoke <strong className="text-gray-900">software engineering</strong> spanning across architecture, AI, and scalable SaaS infrastructures.
+                Bespoke{" "}
+                <strong className="text-gray-900">software engineering</strong>{" "}
+                spanning across architecture, AI, and scalable SaaS
+                infrastructures.
               </p>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-24">
             {[
-              { num: "01", title: "Business Software", desc: "Plan and build ERP, CRM, HR, inventory, billing, portals, dashboards, and operational systems around your team's workflows." },
-              { num: "02", title: "SaaS Product Engineering", desc: "SaaS architecture, multi-tenant applications, subscription flows, product implementation, and ongoing software improvements." },
-              { num: "03", title: "Workflow Automation", desc: "Connect approval, lead, recruitment, invoice, and notification workflows using software, APIs, and automation tools that fit the process." },
-              { num: "04", title: "APIs & System Integrations", desc: "Develop REST APIs and connect payment, tax, CRM, ERP, messaging, Google, and other services based on project requirements." },
-              { num: "05", title: "Deployment & Ongoing Support", desc: "Plan cloud infrastructure, application deployment, CI/CD, monitoring, backup and recovery, maintenance, and post-launch improvements." },
-              { num: "06", title: "AI & ML Integration", desc: "Assess and integrate AI, ML, RAG, and language-model capabilities where they fit the product workflow and data requirements." },
-              { num: "07", title: "Technical Consulting & Software Architecture", desc: "Assess AI feasibility, plan software architecture and technology choices, review existing systems, and define an implementation roadmap." },
+              {
+                num: "01",
+                title: "Business Software",
+                desc: "Plan and build ERP, CRM, HR, inventory, billing, portals, dashboards, and operational systems around your team's workflows.",
+              },
+              {
+                num: "02",
+                title: "SaaS Product Engineering",
+                desc: "SaaS architecture, multi-tenant applications, subscription flows, product implementation, and ongoing software improvements.",
+              },
+              {
+                num: "03",
+                title: "Workflow Automation",
+                desc: "Connect approval, lead, recruitment, invoice, and notification workflows using software, APIs, and automation tools that fit the process.",
+              },
+              {
+                num: "04",
+                title: "APIs & System Integrations",
+                desc: "Develop REST APIs and connect payment, tax, CRM, ERP, messaging, Google, and other services based on project requirements.",
+              },
+              {
+                num: "05",
+                title: "Deployment & Ongoing Support",
+                desc: "Plan cloud infrastructure, application deployment, CI/CD, monitoring, backup and recovery, maintenance, and post-launch improvements.",
+              },
+              {
+                num: "06",
+                title: "AI & ML Integration",
+                desc: "Assess and integrate AI, ML, RAG, and language-model capabilities where they fit the product workflow and data requirements.",
+              },
+              {
+                num: "07",
+                title: "Technical Consulting & Software Architecture",
+                desc: "Assess AI feasibility, plan software architecture and technology choices, review existing systems, and define an implementation roadmap.",
+              },
             ].map((service, index) => (
-              <div key={index} className={`relative group ${index % 2 !== 0 ? "md:mt-24" : ""}`}>
+              <div
+                key={index}
+                className={`relative group ${index % 2 !== 0 ? "md:mt-24" : ""}`}
+              >
                 <div className="text-7xl font-black text-gray-200 absolute -top-12 -left-6 z-0 transition-colors group-hover:text-purple-100">
                   {service.num}
                 </div>
                 <div className="relative z-10 border-l border-gray-300 pl-6 group-hover:border-purple-600 transition-all duration-500">
-                  <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed text-sm">{service.desc}</p>
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-600 leading-relaxed text-sm">
+                    {service.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -190,19 +291,41 @@ export default function SoftwarePage() {
             <div className="lg:col-span-8 bg-gray-900 text-white p-12 md:p-16 flex flex-col justify-between group overflow-hidden relative">
               <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
               <div className="relative z-10">
-                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">The Agency Standard</div>
+                <div className="text-purple-400 text-sm font-bold tracking-[0.2em] uppercase mb-6">
+                  The Agency Standard
+                </div>
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-6">
                   Software for business workflows <br />{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">and digital products</span>.
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">
+                    and digital products
+                  </span>
+                  .
                 </h2>
                 <p className="text-gray-400 max-w-xl text-lg leading-relaxed mb-12">
-                  Bridge Homies is a Lahore-based software engineering and AI company serving businesses, startups, agencies, and organizations internationally. We develop custom business systems, SaaS products, web and mobile applications, APIs, integrations, workflow automation, and AI/ML software.
+                  Bridge Homies is a Lahore-based software engineering and AI
+                  company serving businesses, startups, agencies, and
+                  organizations internationally. We develop custom business
+                  systems, SaaS products, web and mobile applications, APIs,
+                  integrations, workflow automation, and AI/ML software.
                 </p>
               </div>
-              <a href="/aboutus" className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit">
+              <a
+                href="/aboutus"
+                className="relative z-10 inline-flex items-center text-white font-bold hover:text-purple-400 transition-colors w-fit"
+              >
                 Meet the Homies{" "}
-                <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                <svg
+                  className="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
                 </svg>
               </a>
             </div>
@@ -216,8 +339,13 @@ export default function SoftwarePage() {
                 />
                 <div className="absolute inset-0 bg-gray-900/30"></div>
                 <div className="absolute bottom-6 left-6 right-6">
-                  <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">Clean Architecture</h3>
-                  <p className="text-gray-200 text-sm">Architecture, integrations, and operating needs planned around the project.</p>
+                  <h3 className="text-xl font-bold text-white mb-2 uppercase tracking-wide">
+                    Clean Architecture
+                  </h3>
+                  <p className="text-gray-200 text-sm">
+                    Architecture, integrations, and operating needs planned
+                    around the project.
+                  </p>
                 </div>
               </div>
             </div>
@@ -234,13 +362,16 @@ export default function SoftwarePage() {
             <div className="lg:col-span-5 sticky top-32 self-start">
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-600"></div>
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">Inquiries</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-600">
+                  Inquiries
+                </span>
               </div>
               <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none text-gray-900 mb-8">
                 Clear <br /> Context.
               </h2>
               <p className="text-gray-500 font-medium max-w-sm mb-12">
-                Understanding the mechanics of how we approach high-level custom software development.
+                Understanding the mechanics of how we approach high-level custom
+                software development.
               </p>
             </div>
 
@@ -264,7 +395,9 @@ export default function SoftwarePage() {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4 uppercase tracking-tight group-hover:text-purple-600 transition-colors duration-300">
                       {faq.q}
                     </h3>
-                    <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">{faq.a}</p>
+                    <p className="text-gray-500 text-lg leading-relaxed max-w-2xl">
+                      {faq.a}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -276,7 +409,9 @@ export default function SoftwarePage() {
       {/* 5. MINIMALIST INTERNAL LINKS */}
       <section className="py-24 bg-white border-y border-gray-200/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">Discover More Capabilities</h2>
+          <h2 className="text-sm font-bold tracking-[0.2em] text-gray-400 uppercase mb-12">
+            Discover More Capabilities
+          </h2>
           <div className="flex flex-wrap justify-center gap-4 md:gap-8">
             {[
               { label: "AI/ML engineering", link: "/ai-ml-development" },
@@ -286,9 +421,15 @@ export default function SoftwarePage() {
               { label: "UI/UX design", link: "/ui-ux-design" },
               { label: "Software products", link: "/products" },
             ].map((item, idx) => (
-              <Link key={idx} href={item.link} className="group flex items-center space-x-2 text-xl font-bold text-gray-400 hover:text-gray-900 transition-colors">
+              <Link
+                key={idx}
+                href={item.link}
+                className="group flex items-center space-x-2 text-xl font-bold text-gray-400 hover:text-gray-900 transition-colors"
+              >
                 <span>{item.label}</span>
-                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-purple-600 text-2xl leading-none">↗</span>
+                <span className="opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-purple-600 text-2xl leading-none">
+                  ↗
+                </span>
               </Link>
             ))}
           </div>

@@ -12,7 +12,7 @@ export const metadata: Metadata = {
   title: { absolute: "ML Model Engineering Services | Bridge Homies" },
 
   description:
-    "Need ML model engineering for your product? Bridge Homies scopes model, RAG, LLM, and AI integration work around your data, systems, and production needs.",
+    "ML model engineering services and AI/ML integration for product teams, including RAG pipelines and LLM integration for your data, systems, and deployment needs.",
 
   alternates: {
     canonical: "https://www.bridgehomies.com/ai-ml-development",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "ML Model Engineering Services | Bridge Homies",
     description:
-      "ML model engineering, RAG pipelines, LLM integration, and AI integration scoped around your product and systems.",
+      "ML model engineering services and AI/ML integration for product teams, including RAG pipelines and LLM integration for your data, systems, and deployment needs.",
     url: "https://www.bridgehomies.com/ai-ml-development",
     siteName: "Bridge Homies",
     type: "website",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "ML Model Engineering Services Bridge Homies",
+        alt: "ML model engineering services by Bridge Homies",
       },
     ],
   },
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ML Model Engineering Services | Bridge Homies",
     description:
-      "ML model engineering, RAG pipelines, LLM integration, and AI integration scoped around your product and systems.",
+      "ML model engineering services and AI/ML integration for product teams, including RAG pipelines and LLM integration for your data, systems, and deployment needs.",
     images: ["/og-image.png"],
   },
 
@@ -111,27 +111,42 @@ const schema = {
       ],
       hasOfferCatalog: {
         "@type": "OfferCatalog",
-        name: "ML Model Engineering Services",
+        name: "AI/ML Development Services",
         itemListElement: [
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "ML Model Architecture & Custom Model Engineering" },
+            itemOffered: {
+              "@type": "Service",
+              name: "ML Model Architecture & Custom Model Engineering",
+            },
           },
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "RAG Pipeline Development Services" },
+            itemOffered: {
+              "@type": "Service",
+              name: "RAG Pipeline Development Services",
+            },
           },
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "LLM Integration Services" },
+            itemOffered: {
+              "@type": "Service",
+              name: "LLM Integration Services",
+            },
           },
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "AI Automation for Business" },
+            itemOffered: {
+              "@type": "Service",
+              name: "AI Automation for Business",
+            },
           },
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "MLOps Services & Machine Learning Model Deployment" },
+            itemOffered: {
+              "@type": "Service",
+              name: "MLOps Services & Machine Learning Model Deployment",
+            },
           },
           {
             "@type": "Offer",
@@ -139,7 +154,10 @@ const schema = {
           },
           {
             "@type": "Offer",
-            itemOffered: { "@type": "Service", name: "AI Pipeline Engineering" },
+            itemOffered: {
+              "@type": "Service",
+              name: "AI Pipeline Engineering",
+            },
           },
         ],
       },
@@ -305,10 +323,10 @@ export default function AiMlPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-50 via-transparent to-transparent" />
       </section>
 
-      {/* ── ML MODEL ENGINEERING SERVICES SECTION ─────────────────────────── */}
+      {/* ── AI MODEL ENGINEERING SERVICES SECTION ─────────────────────────── */}
       <section
         className="py-24 bg-gray-900 text-white"
-        aria-label="ML Model Engineering Services"
+        aria-label="AI Model Engineering Services"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -316,13 +334,12 @@ export default function AiMlPage() {
               <div className="inline-flex items-center space-x-3 mb-8">
                 <div className="h-px w-8 bg-purple-400" />
                 <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-400">
-                  ML Model Engineering Services
+                  AI Model Engineering Services
                 </span>
               </div>
 
               <h2 className="text-5xl md:text-6xl font-black uppercase tracking-tighter leading-none text-white mb-8">
-                ML Model{" "}
-                <br />
+                AI Model <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-purple-200">
                   Engineering Services.
                 </span>
@@ -330,7 +347,9 @@ export default function AiMlPage() {
 
               <p className="text-gray-400 text-lg leading-relaxed mb-6">
                 Our{" "}
-                <strong className="text-white">ML model engineering services</strong>{" "}
+                <strong className="text-white">
+                  ML model engineering services
+                </strong>{" "}
                 cover architecture, data and training pipelines, evaluation,
                 deployment, and maintenance planning. We scope each engagement
                 around the model's role, available data, latency needs, and
@@ -340,9 +359,10 @@ export default function AiMlPage() {
                 For teams evaluating{" "}
                 <strong className="text-gray-300">
                   AI/ML engineering service providers
-                </strong>, Bridge Homies can support model engineering and
-                integration work from initial assessment through implementation
-                and handover. The scope and operating model are agreed for each
+                </strong>
+                , Bridge Homies can support model engineering and integration
+                work from initial assessment through implementation and
+                handover. The scope and operating model are agreed for each
                 project.
               </p>
             </div>
@@ -382,7 +402,9 @@ export default function AiMlPage() {
                     <h3 className="text-sm font-bold uppercase tracking-widest text-purple-400 mb-3">
                       {item.title}
                     </h3>
-                    <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed">
+                      {item.desc}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -413,18 +435,19 @@ export default function AiMlPage() {
             <div className="lg:col-span-8 lg:pt-16">
               <p className="text-lg text-gray-700 leading-relaxed mb-6">
                 Engineering services for AI and ML integration connect model
-                capabilities to existing applications, databases, ERP systems, and
-                APIs. The right approach depends on the current architecture, data
-                access, security requirements, and deployment constraints.
+                capabilities to existing applications, databases, ERP systems,
+                and APIs. The right approach depends on the current
+                architecture, data access, security requirements, and deployment
+                constraints.
               </p>
               <p className="text-base text-gray-500 leading-relaxed mb-8">
                 As an{" "}
                 <strong className="text-gray-900">
                   AI/ML engineering service provider
                 </strong>
-                , we help assess model options, plan data and training pipelines,
-                integrate inference into software, and define monitoring and release
-                requirements for the environment.
+                , we help assess model options, plan data and training
+                pipelines, integrate inference into software, and define
+                monitoring and release requirements for the environment.
               </p>
 
               <div
@@ -436,8 +459,8 @@ export default function AiMlPage() {
                     ML model engineering services
                   </strong>{" "}
                   can include data pipeline design, model selection, training,
-                  inference, deployment, and monitoring. Project scope is based on
-                  the team's goals, data, and operating environment.
+                  inference, deployment, and monitoring. Project scope is based
+                  on the team's goals, data, and operating environment.
                 </p>
               </div>
             </div>
@@ -458,7 +481,8 @@ export default function AiMlPage() {
             </h2>
             <div className="text-right mt-8 md:mt-0 max-w-sm">
               <p className="text-gray-500 font-medium">
-                Bespoke <strong className="text-gray-900">ML model engineering</strong>,{" "}
+                Bespoke{" "}
+                <strong className="text-gray-900">ML model engineering</strong>,{" "}
                 RAG pipelines, LLM integration, and MLOps scoped to your product
                 and existing systems.
               </p>
@@ -478,7 +502,9 @@ export default function AiMlPage() {
                   <h3 className="text-2xl font-bold mb-4 text-gray-900 uppercase tracking-tight">
                     {service.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed text-sm">{service.desc}</p>
+                  <p className="text-gray-600 leading-relaxed text-sm">
+                    {service.desc}
+                  </p>
                 </div>
               </div>
             ))}
@@ -487,41 +513,78 @@ export default function AiMlPage() {
       </section>
 
       {/* ── MLOPS CONSULTING ──────────────────────────────────────────────── */}
-      <section className="py-28 bg-gray-900 text-white relative overflow-hidden" aria-labelledby="mlops-consulting-heading">
+      <section
+        className="py-28 bg-gray-900 text-white relative overflow-hidden"
+        aria-labelledby="mlops-consulting-heading"
+      >
         <div className="absolute -left-24 -bottom-32 w-96 h-96 rounded-full bg-purple-700/20 blur-3xl" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20">
             <div className="lg:col-span-5">
               <div className="inline-flex items-center space-x-3 mb-7">
                 <div className="h-px w-8 bg-purple-400" />
-                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">Production Operations</span>
+                <span className="text-xs font-bold tracking-[0.2em] uppercase text-purple-300">
+                  Production Operations
+                </span>
               </div>
-              <h2 id="mlops-consulting-heading" className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-7">
+              <h2
+                id="mlops-consulting-heading"
+                className="text-4xl md:text-6xl font-black tracking-tighter leading-[0.95] mb-7"
+              >
                 MLOps Consulting
               </h2>
               <p className="text-gray-300 text-lg leading-relaxed">
-                MLOps consulting makes machine-learning systems repeatable and operable after launch. We help teams version data and models, build controlled release pipelines, monitor quality and cost, and define the rollback and ownership process before a model becomes business-critical.
+                MLOps consulting makes machine-learning systems repeatable and
+                operable after launch. We help teams version data and models,
+                build controlled release pipelines, monitor quality and cost,
+                and define the rollback and ownership process before a model
+                becomes business-critical.
               </p>
               <div className="mt-9 flex flex-col sm:flex-row lg:flex-col xl:flex-row gap-5 items-start">
-                <Link href="/mlops-consulting-services" className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-3 font-bold hover:bg-purple-300 transition-colors">
-                  Explore MLOps consulting services <span aria-hidden="true">↗</span>
+                <Link
+                  href="/mlops-consulting-services"
+                  className="inline-flex items-center gap-2 bg-white text-gray-900 px-5 py-3 font-bold hover:bg-purple-300 transition-colors"
+                >
+                  Explore MLOps consulting services{" "}
+                  <span aria-hidden="true">↗</span>
                 </Link>
-                <Link href="/blog/what-is-mlops-consulting" className="inline-flex items-center gap-2 font-bold text-white border-b border-purple-300 pb-1 hover:text-purple-300 transition-colors sm:mt-3 lg:mt-0 xl:mt-3">
-                  Read the practical MLOps guide <span aria-hidden="true">↗</span>
+                <Link
+                  href="/blog/what-is-mlops-consulting"
+                  className="inline-flex items-center gap-2 font-bold text-white border-b border-purple-300 pb-1 hover:text-purple-300 transition-colors sm:mt-3 lg:mt-0 xl:mt-3"
+                >
+                  Read the practical MLOps guide{" "}
+                  <span aria-hidden="true">↗</span>
                 </Link>
               </div>
             </div>
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-px bg-gray-700 border border-gray-700">
               {[
-                ["Release with control", "Connect code, data, configurations, and model versions to a testable release process with approval and rollback conditions."],
-                ["Monitor what matters", "Track service reliability alongside latency, spend, input changes, and the quality signals that affect the actual business workflow."],
-                ["Keep AI systems governable", "Make access, audit records, retention, incident response, and the owner for model changes explicit from the start."],
-                ["Test RAG as a system", "For retrieval products, evaluate retrieval quality, citations, document-level access filters, and prompt-injection resistance—not just whether the answer sounds convincing."],
+                [
+                  "Release with control",
+                  "Connect code, data, configurations, and model versions to a testable release process with approval and rollback conditions.",
+                ],
+                [
+                  "Monitor what matters",
+                  "Track service reliability alongside latency, spend, input changes, and the quality signals that affect the actual business workflow.",
+                ],
+                [
+                  "Keep AI systems governable",
+                  "Make access, audit records, retention, incident response, and the owner for model changes explicit from the start.",
+                ],
+                [
+                  "Test RAG as a system",
+                  "For retrieval products, evaluate retrieval quality, citations, document-level access filters, and prompt-injection resistance—not just whether the answer sounds convincing.",
+                ],
               ].map(([title, description]) => (
-                <article key={title} className="bg-gray-900 p-7 md:p-9 min-h-52 hover:bg-gray-800 transition-colors">
+                <article
+                  key={title}
+                  className="bg-gray-900 p-7 md:p-9 min-h-52 hover:bg-gray-800 transition-colors"
+                >
                   <h3 className="text-xl font-bold mb-4">{title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-400">{description}</p>
+                  <p className="text-sm leading-relaxed text-gray-400">
+                    {description}
+                  </p>
                 </article>
               ))}
             </div>
@@ -552,7 +615,8 @@ export default function AiMlPage() {
                   Bridge Homies is a software agency based in Lahore, Pakistan.
                   We work with product teams on ML model engineering, RAG
                   pipelines, LLM integration, AI automation, and MLOps, with the
-                  scope shaped around their existing software and operating needs.
+                  scope shaped around their existing software and operating
+                  needs.
                 </p>
                 <p className="text-gray-500 text-sm leading-relaxed mb-12">
                   Selected work includes Emotion Detect, an English text
@@ -636,7 +700,7 @@ export default function AiMlPage() {
                 href="/#contact"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 text-white font-bold text-sm uppercase tracking-wide hover:bg-purple-600 transition-colors"
               >
-                    Discuss Your Project
+                Discuss Your Project
                 <svg
                   className="w-4 h-4"
                   fill="none"
@@ -683,8 +747,8 @@ export default function AiMlPage() {
             Let's Engineer <br /> Your ML Model.
           </h2>
           <p className="text-gray-400 text-lg mb-10">
-            Tell us what you're building, the systems and data involved, and
-            the constraints you need to work within. We can discuss possible
+            Tell us what you're building, the systems and data involved, and the
+            constraints you need to work within. We can discuss possible
             approaches and agree on a practical next step.
           </p>
           <Link
