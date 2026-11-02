@@ -418,15 +418,18 @@ export default function HeroSectionSpatial() {
 
         <div className="relative w-full max-w-4xl">
           <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
-            <img
-              src="/team.webp"
-              alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
-              width={1408}
-              height={768}
-              className="block h-auto w-full object-cover"
-              loading="eager"
-              fetchPriority="high"
-            />
+            <picture>
+              <source media="(max-width: 640px)" srcSet="/team-mobile.webp" type="image/webp" />
+              <img
+                src="/team.webp"
+                alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
+                width={1408}
+                height={768}
+                className="block h-auto w-full object-cover"
+                loading="eager"
+                fetchPriority="high"
+              />
+            </picture>
           </div>
 
           <div className="absolute -left-2 top-1/4 z-20 rounded-2xl border border-border/50 bg-background/85 p-3 shadow-2xl backdrop-blur-xl sm:-left-4 sm:p-4 md:-left-12 md:p-6">
