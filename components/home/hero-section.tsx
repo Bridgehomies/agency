@@ -417,7 +417,7 @@ export default function HeroSectionSpatial() {
           <span className="text-sm font-semibold tracking-wide uppercase text-foreground">Software Engineering &amp; AI/ML</span>
         </div>
 
-        <div className="relative w-full max-w-4xl">
+        <div className="order-3 relative w-full max-w-4xl lg:order-2">
           <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
             <Image
               src="/team.png"
@@ -445,7 +445,7 @@ export default function HeroSectionSpatial() {
           </div>
         </div>
 
-        <div className="z-20 mt-10 max-w-2xl text-center sm:mt-16">
+        <div className="order-2 z-20 mt-10 max-w-2xl text-center sm:mt-16 lg:order-3">
           <h1 className="mb-6 text-3xl font-semibold tracking-tight md:text-5xl">
             Custom software and AI engineering for <span className="text-primary italic">business workflows.</span>
           </h1>
