@@ -418,8 +418,7 @@ export default function HeroSectionSpatial() {
         </div>
 
         <div className="relative w-full max-w-4xl">
-          <div className="relative transform-gpu overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
-            <div aria-hidden="true" className="absolute inset-0 z-10 bg-gradient-to-tr from-background/40 to-transparent mix-blend-overlay" />
+          <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
             <Image
               src="/team.png"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
@@ -428,7 +427,7 @@ export default function HeroSectionSpatial() {
               sizes="(max-width: 896px) 100vw, 896px"
               quality={75}
               preload
-              className="h-auto w-full object-cover grayscale-[20%] transition-[filter] duration-700 hover:grayscale-0"
+              className="block h-auto w-full object-cover"
               fetchPriority="high"
             />
           </div>
