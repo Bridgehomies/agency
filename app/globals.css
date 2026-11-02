@@ -103,12 +103,6 @@
   transform: rotateY(180deg);
 }
 
-/* Smooth transitions for all elements */
-* {
-  transition-property: transform, opacity, scale;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* Performance optimizations */
 .will-change-transform {
   will-change: transform;
