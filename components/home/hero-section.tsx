@@ -394,121 +394,32 @@
 //   );
 // }
 
-"use client";
-
-import { useRef, MouseEvent } from "react";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { useToast } from "@/components/ui/use-toast";
-import { Sparkles, Activity, ArrowRight, Fingerprint, Cpu } from "lucide-react";
-
-// Assuming these remain for ambient background effects
-import ParallaxBackground from "../parallax-background";
-import FloatingElements from "../floating-elements";
+import { Activity, ArrowRight, Cpu } from "lucide-react";
 
 export default function HeroSectionSpatial() {
-  const { toast } = useToast();
-  const containerRef = useRef<HTMLElement | null>(null);
-
-  // --- Scroll Parallax Setup ---
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 150]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, 50]);
-  const statsY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-
-  // --- 3D Hover Effect Setup ---
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  // Smooth springs for the 3D tilt
-  const springConfig = { damping: 20, stiffness: 150, mass: 0.5 };
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), springConfig);
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), springConfig);
-
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseXPos = e.clientX - rect.left;
-    const mouseYPos = e.clientY - rect.top;
-
-    // Calculate normalized position (-0.5 to 0.5)
-    mouseX.set(mouseXPos / width - 0.5);
-    mouseY.set(mouseYPos / height - 0.5);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
-  const handleAction = () => {
-    toast({
-      title: "Systems Online",
-      description: "Routing you to our engineering specialists.",
-      action: (
-        <Button variant="outline" size="sm" onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}>
-          Initialize
-        </Button>
-      ),
-    });
-  };
-
   return (
     <section
       id="home"
-      ref={containerRef}
-      className="relative min-h-screen lg:min-h-[120vh] flex items-center justify-center overflow-hidden bg-background [perspective:1000px]"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background"
     >
-      <ParallaxBackground speed={0.05} className="absolute inset-0 -z-30">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
-      </ParallaxBackground>
-      <FloatingElements />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/5 via-background to-background" />
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-[20%] select-none text-center text-[12vw] font-black uppercase leading-none tracking-tighter text-foreground/[0.035]">
+        Intelligence
+      </div>
 
-      {/* BACKGROUND TYPOGRAPHY LAYER (Moves down on scroll) */}
-      <motion.div
-        className="absolute w-full text-center pointer-events-none -z-10"
-        style={{ y: textY, opacity, willChange: "transform, opacity" }}
-      >
-        {/* Decorative background word — not a heading, so it no longer competes
-            with the real H1 below for the page's single H1 slot. */}
-        <div aria-hidden="true" className="text-[12vw] font-black tracking-tighter text-foreground/5 leading-none select-none uppercase">
-          Intelligence
-        </div>
-      </motion.div>
-
-      <div className="container relative z-10 px-4 max-w-6xl mx-auto flex flex-col items-center mt-8 sm:mt-16 lg:mt-20">
-        {/* HEADER BADGE */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-background/50 backdrop-blur-xl border border-border shadow-2xl mb-8 z-20"
-        >
+      <div className="container relative z-10 mx-auto mt-8 flex max-w-6xl flex-col items-center px-4 sm:mt-16 lg:mt-20">
+        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-4 py-2 shadow-xl backdrop-blur-xl">
           <div className="relative flex h-3 w-3">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
+            <span className="relative inline-flex h-3 w-3 rounded-full bg-primary" />
           </div>
-          <span className="text-sm font-semibold tracking-wide uppercase text-foreground">Software Engineering & AI/ML</span>
-        </motion.div>
+          <span className="text-sm font-semibold tracking-wide uppercase text-foreground">Software Engineering &amp; AI/ML</span>
+        </div>
 
-        {/* 3D SPATIAL IMAGE WRAPPER */}
-        <motion.div
-          className="relative w-full max-w-4xl cursor-none"
-          style={{ y: imageY, rotateX, rotateY, transformStyle: "preserve-3d", willChange: "transform" }}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={handleMouseLeave}
-          onClick={handleAction}
-        >
-          {/* Main Image */}
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 border border-primary/10 bg-muted transform-gpu">
-            <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent mix-blend-overlay z-10" />
+        <div className="relative w-full max-w-4xl">
+          <div className="relative transform-gpu overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
+            <div aria-hidden="true" className="absolute inset-0 z-10 bg-gradient-to-tr from-background/40 to-transparent mix-blend-overlay" />
             <Image
               src="/team.png"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
@@ -517,61 +428,38 @@ export default function HeroSectionSpatial() {
               sizes="(max-width: 896px) 100vw, 896px"
               quality={75}
               preload
-              className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+              className="h-auto w-full object-cover grayscale-[20%] transition-[filter] duration-700 hover:grayscale-0"
               fetchPriority="high"
             />
           </div>
 
-          {/* FLOATING GLASS STAT 1 (Z-axis offset) */}
-          <motion.div
-            className="absolute -left-6 md:-left-12 top-1/4 p-4 md:p-6 bg-background/60 backdrop-blur-2xl border border-border/50 rounded-2xl shadow-2xl z-20"
-            style={{ transform: "translateZ(50px)" }}
-          >
-            <Cpu className="h-6 w-6 text-primary mb-2" />
-            <div className="text-2xl font-bold tracking-tight">AI & ML</div>
-            <div className="text-sm text-muted-foreground font-medium">Engineering Services</div>
-          </motion.div>
+          <div className="absolute -left-2 top-1/4 z-20 rounded-2xl border border-border/50 bg-background/85 p-3 shadow-2xl backdrop-blur-xl sm:-left-4 sm:p-4 md:-left-12 md:p-6">
+            <Cpu className="mb-2 h-6 w-6 text-primary" />
+            <div className="text-2xl font-bold tracking-tight">AI &amp; ML</div>
+            <div className="text-sm font-medium text-muted-foreground">Engineering Services</div>
+          </div>
 
-          {/* FLOATING GLASS STAT 2 (Z-axis offset) */}
-          <motion.div
-            className="absolute -right-6 md:-right-12 bottom-1/4 p-4 md:p-6 bg-primary/90 text-primary-foreground backdrop-blur-2xl border border-primary-foreground/20 rounded-2xl shadow-2xl shadow-primary/30 z-20"
-            style={{ transform: "translateZ(80px)" }}
-          >
-            <Activity className="h-6 w-6 mb-2" />
+          <div className="absolute -right-2 bottom-1/4 z-20 rounded-2xl border border-primary-foreground/20 bg-primary/95 p-3 text-primary-foreground shadow-2xl shadow-primary/30 backdrop-blur-xl sm:-right-4 sm:p-4 md:-right-12 md:p-6">
+            <Activity className="mb-2 h-6 w-6" />
             <div className="text-2xl font-bold tracking-tight">Custom Software</div>
-            <div className="text-sm opacity-90 font-medium">Built Around Your Workflows</div>
-          </motion.div>
+            <div className="text-sm font-medium opacity-90">Built Around Your Workflows</div>
+          </div>
+        </div>
 
-          {/* CUSTOM CURSOR FOLLOWER */}
-          <motion.div
-            className="absolute top-0 left-0 w-24 h-24 bg-primary/20 rounded-full blur-xl pointer-events-none z-30 mix-blend-screen"
-            style={{
-              x: useTransform(mouseX, [-0.5, 0.5], [-100, 100]),
-              y: useTransform(mouseY, [-0.5, 0.5], [-100, 100])
-            }}
-          />
-        </motion.div>
-
-        {/* BOTTOM CONTENT (Moves up on scroll) */}
-        <motion.div
-          className="mt-16 text-center max-w-2xl z-20"
-          style={{ y: statsY, willChange: "transform" }}
-        >
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight mb-6">
+        <div className="z-20 mt-10 max-w-2xl text-center sm:mt-16">
+          <h1 className="mb-6 text-3xl font-semibold tracking-tight md:text-5xl">
             Custom software and AI engineering for <span className="text-primary italic">business workflows.</span>
           </h1>
-          <p className="text-muted-foreground leading-relaxed mb-6">We’re a software development agency in Lahore, building SaaS platforms, web and mobile apps, and AI systems for businesses worldwide.</p>
-          <Button
-            size="lg"
-            className="rounded-full h-14 px-8 text-lg group bg-foreground text-background hover:bg-foreground/90 transition-all"
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
+          <p className="mb-6 leading-relaxed text-muted-foreground">We’re a software development agency in Lahore, building SaaS platforms, web and mobile apps, and AI systems for businesses worldwide.</p>
+          <a
+            href="#work"
+            className="group inline-flex h-14 items-center rounded-full bg-foreground px-8 text-lg text-background transition-colors hover:bg-foreground/90"
           >
             Explore Our Work
             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-2" />
-          </Button>
-        </motion.div>
-
+          </a>
+        </div>
       </div>
     </section>
   );
-} 
+}
