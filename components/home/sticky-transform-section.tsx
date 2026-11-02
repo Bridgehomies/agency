@@ -1,7 +1,3 @@
-"use client"
-
-import { useRef } from "react"
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 
@@ -33,86 +29,33 @@ const features = [
 ]
 
 export default function StickyTransformSection() {
-  const containerRef = useRef(null)
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  })
-
-  const scale = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8])
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360])
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0])
-  const springScale = useSpring(scale, { stiffness: 100, damping: 30 })
-
-  const featureTransforms = features.map((_, index) => ({
-    y: useTransform(scrollYProgress, [0, 1], [0, -(index + 1) * 50]),
-    rotate: useTransform(scrollYProgress, [0, 1], [0, (index + 1) * 5]),
-  }))
-
   return (
-    <section ref={containerRef} className="py-20 sm:py-28 md:py-32 relative overflow-hidden">
+    <section className="relative overflow-hidden py-20 sm:py-28 md:py-32">
       <div className="container px-4 sm:px-6 md:px-8">
-        {/* Heading Section */}
-        <motion.div className="text-center mb-12 sm:mb-16" style={{ opacity }}>
-          <motion.h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4" style={{ scale: springScale }}>
+        <div className="mb-12 text-center sm:mb-16">
+          <h2 className="mb-4 text-2xl font-bold sm:text-3xl md:text-4xl">
             Software Engineering Services
-          </motion.h2>
-          <motion.p
-            className="text-base sm:text-lg text-muted-foreground"
-            style={{ y: useTransform(scrollYProgress, [0, 1], [50, -50]) }}
-          >
+          </h2>
+          <p className="text-base text-muted-foreground sm:text-lg">
             Support for product planning, software delivery, integrations, and ongoing maintenance.
-          </motion.p>
-        </motion.div>
+          </p>
+        </div>
 
-        {/* Feature Cards */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mt-20 sm:mt-28"
-          style={{ scale: springScale }}
-        >
-          {features.map((feature, index) => (
-            <motion.div key={index} style={featureTransforms[index]}>
-              <Card className="h-full border-none shadow-lg hover:shadow-xl transition-all duration-300 group">
-                <CardContent className="p-4 sm:p-6 text-center">
-                  <motion.div
-                    className="text-3xl sm:text-4xl mb-4"
-                    animate={{
-                      scale: [1, 1.2, 1],
-                      rotate: [0, 10, 0],
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Number.POSITIVE_INFINITY,
-                      delay: index * 0.2,
-                    }}
-                  >
-                    {feature.icon}
-                  </motion.div>
-                  <h3 className="text-base sm:text-lg font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-sm sm:text-base text-muted-foreground mb-4">{feature.description}</p>
-                  <Badge className={`bg-gradient-to-r ${feature.color} text-white border-none`}>Service</Badge>
-                </CardContent>
-              </Card>
-            </motion.div>
+        <div className="mt-16 grid grid-cols-1 gap-6 sm:mt-20 sm:grid-cols-2 sm:gap-8 lg:grid-cols-4">
+          {features.map((feature) => (
+            <Card key={feature.title} className="group h-full border-none shadow-lg transition-shadow hover:shadow-xl">
+              <CardContent className="p-4 text-center sm:p-6">
+                <div aria-hidden="true" className="mb-4 text-3xl sm:text-4xl">{feature.icon}</div>
+                <h3 className="mb-2 text-base font-semibold sm:text-lg">{feature.title}</h3>
+                <p className="mb-4 text-sm text-muted-foreground sm:text-base">{feature.description}</p>
+                <Badge className={`border-none bg-gradient-to-r ${feature.color} text-white`}>Service</Badge>
+              </CardContent>
+            </Card>
           ))}
-        </motion.div>
+        </div>
       </div>
 
-      {/* Background Visual Elements */}
-      <motion.div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 sm:w-96 h-72 sm:h-96 border border-primary/20 rounded-full"
-        style={{
-          scale: useTransform(scrollYProgress, [0, 0.5, 1], [0.5, 1.5, 0.5]),
-          rotate,
-        }}
-      />
-      <motion.div
-        className="absolute top-1/4 right-1/4 w-24 sm:w-32 h-24 sm:h-32 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-xl"
-        style={{
-          x: useTransform(scrollYProgress, [0, 1], [0, 100]),
-          y: useTransform(scrollYProgress, [0, 1], [0, -100]),
-        }}
-      />
+      <div aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/10 sm:h-96 sm:w-96" />
     </section>
   )
 }

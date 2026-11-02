@@ -1,12 +1,3 @@
-"use client";
-
-import { useState, useRef } from "react";
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useMotionTemplate,
-} from "framer-motion";
 import {
   Code,
   Smartphone,
@@ -116,139 +107,67 @@ const services = [
   },
 ];
 
-function ServiceCard({
-  service,
-  isActive,
-  onToggle,
-}: {
-  service: (typeof services)[0];
-  isActive: boolean;
-  onToggle: () => void;
-}) {
+function ServiceCard({ service }: { service: (typeof services)[0] }) {
   const Icon = service.icon;
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(50);
-  const mouseY = useMotionValue(50);
-  const spotlight = useMotionTemplate`radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(168,85,247,0.09) 0%, transparent 60%)`;
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const rect = cardRef.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set(((e.clientX - rect.left) / rect.width) * 100);
-    mouseY.set(((e.clientY - rect.top) / rect.height) * 100);
-  };
 
   return (
-    <div
-      ref={cardRef}
-      onClick={onToggle}
-      onMouseMove={handleMouseMove}
-      className={`relative overflow-hidden rounded-sm border cursor-pointer select-none transition-all duration-300 flex flex-col p-5 sm:p-6 min-h-[180px] sm:min-h-[200px] h-full
-        ${service.tall ? "lg:min-h-[408px]" : ""}
-        ${isActive ? "bg-purple-500 border-purple-500" : " border-[#151515] hover:border-[#252525]"}`}
-    >
-      {!isActive && (
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{ background: spotlight }}
-        />
-      )}
+    <details className={`group relative flex h-full min-h-[180px] cursor-pointer select-none flex-col overflow-hidden rounded-sm border border-[#151515] p-5 transition-colors hover:border-[#252525] sm:min-h-[200px] sm:p-6 ${service.tall ? "lg:min-h-[408px]" : ""}`}>
+      <summary className="list-none [&::-webkit-details-marker]:hidden">
+        <span
+          className="pointer-events-none absolute right-5 top-4 select-none text-[clamp(28px,4vw,44px)] font-black leading-none text-[#151515]"
+          style={{ fontFamily: "var(--font-bebas), sans-serif" }}
+        >
+          {service.num}
+        </span>
+        <div className="mb-4 flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg border border-[#1f1f1f] text-[#777]">
+          <Icon size={16} />
+        </div>
+        <p className="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#666]">
+          {service.num} / 06
+        </p>
+        <h3
+          className="mb-2.5 text-[clamp(20px,2.5vw,26px)] leading-none text-[#e0e0e0]"
+          style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "1px" }}
+        >
+          {service.name}
+        </h3>
+        <p className="mb-3 text-[11px] leading-relaxed text-[#777] sm:text-[12px]">
+          {service.desc}
+        </p>
+        <div className="mb-3 flex flex-wrap gap-1.5">
+          {service.tags.map((tag) => (
+            <span key={tag} className="rounded-[2px] border border-[#333] px-2 py-1 font-mono text-[10px] tracking-tight text-[#777]">
+              {tag}
+            </span>
+          ))}
+        </div>
+        <span className="font-mono text-[9px] uppercase tracking-widest text-purple-400">
+          <span className="group-open:hidden">Explore details +</span>
+          <span className="hidden group-open:inline">Close details −</span>
+        </span>
+      </summary>
 
-      <span
-        className={`absolute top-4 right-5 font-black leading-none select-none pointer-events-none text-[clamp(28px,4vw,44px)] ${isActive ? "text-white/10" : "text-[#151515]"}`}
-        style={{ fontFamily: "var(--font-bebas), sans-serif" }}
-      >
-        {service.num}
-      </span>
-
-      <div
-        className={`w-9 h-9 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 border transition-all duration-300
-        ${isActive ? "bg-white/15 text-white border-white/20" : "bg- text-[#444] border-[#1f1f1f]"}`}
-      >
-        <Icon size={16} />
+      <div className="mt-4 space-y-2.5 border-t border-[#252525] pt-4">
+        <ul className="flex flex-wrap gap-2">
+          {service.focusAreas.map((area) => (
+            <li key={area} className="rounded-sm border border-white/20 px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-wide text-white/70">
+              {area}
+            </li>
+          ))}
+        </ul>
+        <Link
+          href={service.href}
+          className="inline-flex w-max items-center gap-2 rounded-[2px] bg-white px-4 py-2 font-mono text-[10px] uppercase tracking-widest text-purple-600 transition-colors hover:bg-white/90"
+        >
+          <span>View {service.name} Page</span>
+          <ArrowUpRight size={14} />
+        </Link>
       </div>
-
-      <p
-        className={`font-mono text-[10px] tracking-widest uppercase mb-2 transition-colors duration-300 ${isActive ? "text-white/40" : "text-[#2a2a2a]"}`}
-      >
-        {service.num} / 06
-      </p>
-
-      <h3
-        className={`leading-none mb-2.5 transition-colors duration-300 text-[clamp(20px,2.5vw,26px)] ${isActive ? "text-white" : "text-[#e0e0e0]"}`}
-        style={{
-          fontFamily: "var(--font-bebas), sans-serif",
-          letterSpacing: "1px",
-        }}
-      >
-        {service.name}
-      </h3>
-
-      <p
-        className={`text-[11px] sm:text-[12px] leading-relaxed mb-3 transition-colors duration-300 ${isActive ? "text-white/65" : "text-[#3a3a3a]"}`}
-      >
-        {service.desc}
-      </p>
-
-      <div className="flex flex-wrap gap-1.5 mb-3">
-        {service.tags.map((tag) => (
-          <span
-            key={tag}
-            className={`font-mono text-[10px] px-2 py-1 rounded-[2px] border tracking-tight transition-all duration-300
-            ${isActive ? "bg-white/12 text-white/60 border-white/15" : " text-[#2d2d2d] border-[#1d1d1d]"}`}
-          >
-            {tag}
-          </span>
-        ))}
-      </div>
-
-      <AnimatePresence>
-        {isActive && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="mt-auto space-y-2.5 overflow-hidden flex flex-col"
-          >
-            <ul className="flex flex-wrap gap-2">
-              {service.focusAreas.map((area) => (
-                <li
-                  key={area}
-                  className="rounded-sm border border-white/20 px-2.5 py-1.5 font-mono text-[9px] uppercase tracking-wide text-white/70"
-                >
-                  {area}
-                </li>
-              ))}
-            </ul>
-
-            {/* Added Link Button */}
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.4 }}
-              className="pt-3"
-            >
-              <Link
-                href={service.href}
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 bg-white text-purple-600 px-4 py-2 rounded-[2px] font-mono text-[10px] uppercase tracking-widest hover:bg-white/90 transition-colors w-max"
-              >
-                <span>View {service.name} Page</span>
-                <ArrowUpRight size={14} />
-              </Link>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    </details>
   );
 }
 
 export default function ServicesSection() {
-  const [active, setActive] = useState<number | null>(null);
-  const toggle = (i: number) => setActive(active === i ? null : i);
-
   return (
     <section className="min-h-screen px-4 sm:px-6 lg:px-10 py-8 sm:py-10 lg:py-12">
       {/* Header */}
@@ -298,11 +217,7 @@ export default function ServicesSection() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-[2px] mb-[2px]">
         {services.map((s, i) => (
           <div key={i} className={s.span}>
-            <ServiceCard
-              service={s}
-              isActive={active === i}
-              onToggle={() => toggle(i)}
-            />
+            <ServiceCard service={s} />
           </div>
         ))}
       </div>

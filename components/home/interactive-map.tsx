@@ -1,7 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
-
 const INFO_ITEMS = [
   { label: "Address", value: "164 Block G1, Johar Town" },
   { label: "City", value: "Lahore, Punjab" },
@@ -28,10 +24,7 @@ export default function InteractiveMap() {
 
         {/* Header row - asymmetric, oversized */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          <div
           >
             {/* Eyebrow */}
             <div className="flex items-center gap-3 mb-4">
@@ -51,25 +44,19 @@ export default function InteractiveMap() {
               <br />
               <span className="text-purple-500">Studio.</span>
             </h2>
-          </motion.div>
+          </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+          <p
             className="text-sm text-black/50 max-w-xs md:text-right leading-relaxed"
             style={{ fontFamily: "'DM Mono', monospace" }}
           >
             Bridge Homies is rooted in Johar Town, Lahore, a creative hub where
             ideas are built into products.
-          </motion.p>
+          </p>
         </div>
 
         {/* Map + Info card layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+        <div
           className="relative"
         >
           {/* Map */}
@@ -94,10 +81,7 @@ export default function InteractiveMap() {
           </div>
 
           {/* Floating info card - overlaps bottom-left of map */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.55 }}
+          <div
             className="absolute -bottom-6 left-6 md:left-10 z-10"
             style={{
               background: "rgba(14,14,14,0.92)",
@@ -171,9 +155,9 @@ export default function InteractiveMap() {
                 </span>
               </a>
             </div>
-          </motion.div>
+          </div>
 
-        </motion.div>
+        </div>
 
         {/* Bottom spacer for floating card overflow */}
         <div className="h-10" />

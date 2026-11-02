@@ -1,12 +1,7 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-
-gsap.registerPlugin(useGSAP, ScrollTrigger);
 
 type Testimonial = {
   id: string;
@@ -38,9 +33,6 @@ function getInitials(name: string) {
 export default function TestimonialsSection() {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [loading, setLoading] = useState(true);
-  const sectionRef = useRef<HTMLElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     fetch("/api/testimonials")
       .then((r) => r.json())
@@ -51,52 +43,10 @@ export default function TestimonialsSection() {
       .catch(() => setLoading(false));
   }, []);
 
-  useGSAP(
-    () => {
-      const section = sectionRef.current;
-      if (!section) return;
-
-      const headings = section.querySelectorAll<HTMLElement>(".tmn-heading");
-      if (!headings.length) return;
-
-      gsap.from(headings, {
-        y: 40,
-        opacity: 0,
-        duration: 0.9,
-        ease: "power3.out",
-        stagger: 0.12,
-        scrollTrigger: {
-          trigger: section,
-          start: "top 80%",
-        },
-      });
-    },
-    { scope: sectionRef, dependencies: [loading, testimonials.length] }
-  );
-
-  useGSAP(
-    () => {
-      if (loading || !testimonials.length) return;
-      gsap.from(".tmn-card", {
-        x: 30,
-        opacity: 0,
-        duration: 0.55,
-        ease: "power2.out",
-        stagger: 0.08,
-        scrollTrigger: {
-          trigger: trackRef.current,
-          start: "top 85%",
-        },
-      });
-    },
-    { scope: trackRef, dependencies: [loading, testimonials.length] }
-  );
-
   if (!loading && testimonials.length === 0) return null;
 
   return (
     <section
-      ref={sectionRef}
       id="testimonials"
       className="py-24 bg-[#080808] border-t border-white/[0.06] overflow-hidden"
       style={{ fontFamily: "'DM Sans', sans-serif" }}
@@ -136,7 +86,6 @@ export default function TestimonialsSection() {
           </div>
         ) : (
           <div
-            ref={trackRef}
             className="flex gap-4 overflow-x-auto pb-4 scrollbar-none"
             style={{ scrollbarWidth: "none" }}
           >
