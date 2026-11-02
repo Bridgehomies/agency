@@ -394,7 +394,6 @@
 //   );
 // }
 
-import Image from "next/image";
 import { Activity, ArrowRight, Cpu } from "lucide-react";
 
 export default function HeroSectionSpatial() {
@@ -419,15 +418,13 @@ export default function HeroSectionSpatial() {
 
         <div className="relative w-full max-w-4xl">
           <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
-            <Image
+            <img
               src="/team.webp"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
               width={1408}
               height={768}
-              sizes="(max-width: 896px) 100vw, 896px"
-              quality={75}
-              preload
               className="block h-auto w-full object-cover"
+              loading="eager"
               fetchPriority="high"
             />
           </div>
