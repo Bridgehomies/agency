@@ -177,10 +177,6 @@ export default function RootLayout({
           }}
         />
 
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32"
-          strategy="lazyOnload"
-        />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
@@ -190,13 +186,31 @@ export default function RootLayout({
           `}
         </Script>
 
-        <Script id="microsoft-clarity" strategy="lazyOnload">
+        <Script id="deferred-third-party-analytics" strategy="afterInteractive">
           {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "z1pwqxzsth");
+            (function () {
+              var loaded = false;
+              function loadAnalytics() {
+                if (loaded) return;
+                loaded = true;
+
+                var gtagScript = document.createElement('script');
+                gtagScript.async = true;
+                gtagScript.src = 'https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32';
+                document.head.appendChild(gtagScript);
+
+                (function(c,l,a,r,i,t,y){
+                  c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+                  t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+                  y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+                })(window, document, 'clarity', 'script', 'z1pwqxzsth');
+              }
+
+              window.setTimeout(loadAnalytics, 5000);
+              ['pointerdown', 'scroll', 'keydown', 'touchstart'].forEach(function (eventName) {
+                window.addEventListener(eventName, loadAnalytics, { once: true, passive: true });
+              });
+            })();
           `}
         </Script>
 
