@@ -420,7 +420,7 @@ export default function HeroSectionSpatial() {
         <div className="relative w-full max-w-4xl">
           <div className="relative overflow-hidden rounded-2xl border border-primary/10 bg-muted shadow-2xl shadow-primary/20">
             <Image
-              src="/team.png"
+              src="/team.webp"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
               width={1408}
               height={768}
