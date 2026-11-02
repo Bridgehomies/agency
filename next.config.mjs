@@ -10,6 +10,11 @@ const nextConfig = {
   async redirects() {
     return [
       {
+        source: "/about",
+        destination: "/aboutus",
+        permanent: true,
+      },
+      {
         source: "/:path*",
         has: [{ type: "host", value: "bridgehomies.com" }],
         destination: "https://www.bridgehomies.com/:path*",

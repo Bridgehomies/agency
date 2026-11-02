@@ -15,7 +15,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 // "Bridge Homies Editorial <hello@bridgehomies.com>"
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "";
-const SITE_URL = process.env.SITE_URL || "https://bridgehomies.com";
+const SITE_URL = process.env.SITE_URL || "https://www.bridgehomies.com";
 
 const FROM = `Bridge Homies Editorial <${ADMIN_EMAIL}>`;
 

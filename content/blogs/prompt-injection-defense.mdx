@@ -38,7 +38,7 @@ That content may arrive directly through chat. More dangerously, it can arrive t
 
 The practical defence is not a clever sentence in a system prompt. Use nonce-delimited prompt boundaries to make trusted instructions and untrusted content easier for the model to distinguish. Then assume the model can still be influenced, and make sure it has no authority to expose data or perform an unsafe action.
 
-For production [AI agent development](https://bridgehomies.com/ai-ml-development), the real security boundary lives outside the model:
+For production [AI agent development](https://www.bridgehomies.com/ai-ml-development), the real security boundary lives outside the model:
 
 - Tenant-scoped data access enforced by backend services
 - Role-based authorisation for every read and action
@@ -60,7 +60,7 @@ The more realistic problem is indirect prompt injection. A user asks an assistan
 
 For example, a CV, email, or webpage may contain an instruction attempting to make an AI system reveal data or request an unrelated action. The risk is not magic model takeover. The risk is the model treating hostile content as instruction while it has access to private context, retrieved documents, or connected tools.
 
-This is why a [RAG pipeline](https://bridgehomies.com/blog/what-is-a-rag-pipeline) needs more than embeddings and semantic search. Retrieval improves access to information; it does not make that information trustworthy.
+This is why a [RAG pipeline](https://www.bridgehomies.com/blog/what-is-a-rag-pipeline) needs more than embeddings and semantic search. Retrieval improves access to information; it does not make that information trustworthy.
 
 ## The risk rises when the model can act
 
@@ -76,7 +76,7 @@ The worst plausible outcomes include:
 - A user receiving documents they were never authorised to access
 - A model being persuaded to use a broad export capability beyond the current task
 
-In regulated workflows, deterministic systems should remain responsible for calculations, validation, access control, submission states, and irreversible actions. The same principle is visible in systems such as [Aierpify’s compliance-oriented workflow infrastructure](https://bridgehomies.com/case-studies/aierpify): traceability and controlled exceptions matter more than automatic-looking behaviour.
+In regulated workflows, deterministic systems should remain responsible for calculations, validation, access control, submission states, and irreversible actions. The same principle is visible in systems such as [Aierpify’s compliance-oriented workflow infrastructure](https://www.bridgehomies.com/case-studies/aierpify): traceability and controlled exceptions matter more than automatic-looking behaviour.
 
 Our working rule is simple:
 
@@ -108,7 +108,7 @@ For each source, ask:
 4. What tools can the model request?
 5. What server-side control would stop an unsafe action?
 
-This is also the right mindset for [AI vendor selection and proof-of-concept planning](https://bridgehomies.com/blog/ai-vendor-selection): test the riskiest real workflow and failure mode, not only the clean demo.
+This is also the right mindset for [AI vendor selection and proof-of-concept planning](https://www.bridgehomies.com/blog/ai-vendor-selection): test the riskiest real workflow and failure mode, not only the clean demo.
 
 ## Use nonce-delimited prompts for structure, not authority
 
@@ -173,7 +173,7 @@ For multi-tenant systems, tenant IDs must be enforced in database queries, vecto
 
 Do not depend on an instruction such as “only use this customer’s documents.”
 
-The retrieval service should make cross-tenant records inaccessible before anything reaches the model. This is part of a broader [custom software development approach](https://bridgehomies.com/software) where access control and workflow rules are enforced by the application, not inferred from natural language.
+The retrieval service should make cross-tenant records inaccessible before anything reaches the model. This is part of a broader [custom software development approach](https://www.bridgehomies.com/software) where access control and workflow rules are enforced by the application, not inferred from natural language.
 
 A strong test is to create highly similar documents across two tenants, then confirm that each user can retrieve only the records permitted for their tenant and role.
 
@@ -202,7 +202,7 @@ The application should reject output that:
 - Attempts an action requiring confirmation
 - Includes fields outside the tool’s defined contract
 
-This is where [API integration services](https://bridgehomies.com/software) matter: the connector should expose a narrow business operation, not unrestricted access to a third-party system.
+This is where [API integration services](https://www.bridgehomies.com/software) matter: the connector should expose a narrow business operation, not unrestricted access to a third-party system.
 
 ### Give tools the least privilege possible
 
@@ -238,7 +238,7 @@ Require explicit user approval for:
 
 The approval screen should show the proposed action, affected records, destination, source evidence, and approver. The approval should be time-bound and tied to the exact action payload.
 
-That is how [role-based access control and audit-trail implementation](https://bridgehomies.com/case-studies/aierpify) becomes meaningful in an AI workflow: the business can reconstruct what was proposed, who approved it, and what ultimately happened.
+That is how [role-based access control and audit-trail implementation](https://www.bridgehomies.com/case-studies/aierpify) becomes meaningful in an AI workflow: the business can reconstruct what was proposed, who approved it, and what ultimately happened.
 
 ### Restrict outbound data paths
 
@@ -326,7 +326,7 @@ Indirect prompt injection occurs when hostile instructions appear inside content
 
 ### Does RAG prevent prompt injection?
 
-No. RAG can improve factual grounding, but retrieved documents remain untrusted input. A secure RAG system needs permission-aware retrieval, tenant isolation, source controls, output validation, and adversarial testing. For the architecture decision itself, see [RAG vs fine-tuning: choosing the right approach](https://bridgehomies.com/blog/difference-between-fine-tuning-and-rag).
+No. RAG can improve factual grounding, but retrieved documents remain untrusted input. A secure RAG system needs permission-aware retrieval, tenant isolation, source controls, output validation, and adversarial testing. For the architecture decision itself, see [RAG vs fine-tuning: choosing the right approach](https://www.bridgehomies.com/blog/difference-between-fine-tuning-and-rag).
 
 ### Should an AI agent have direct database access?
 

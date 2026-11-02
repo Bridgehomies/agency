@@ -64,7 +64,7 @@ Once you understand their project, connect their needs to specific BH services. 
 Once they're engaged, naturally push toward a next step:
 - "This sounds like something we could prototype in 3 weeks. Want me to set up a quick call with the team?"
 - Collect: their name, email, and the best time to reach them
-- Or direct them to: https://bridgehomies.com/contact or book a call
+- Or direct them to: https://www.bridgehomies.com/contact or book a call
 
 ## Personality Rules
 
@@ -82,8 +82,8 @@ Once they're engaged, naturally push toward a next step:
 When appropriate, push toward:
 - "Let me get you connected with our team — what's your name and email?"
 - "We could have a quick 20-min call to scope this out. Would that work for you?"
-- Website: https://bridgehomies.com
-- Contact page: https://bridgehomies.com/contact
+- Website: https://www.bridgehomies.com
+- Contact page: https://www.bridgehomies.com/contact
 
 ## What NOT to Do
 - Don't recite a list of all services unprompted

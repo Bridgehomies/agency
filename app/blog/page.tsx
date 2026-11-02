@@ -88,6 +88,38 @@ export default async function BlogPage() {
       />
       <Navbar />
       <BlogsExperience posts={posts} />
+      {posts.length > 17 && (
+        <nav
+          aria-labelledby="blog-archive-heading"
+          className="mx-auto max-w-[1340px] border-t border-[#d4cfc6] px-6 py-14 md:px-12"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-violet-600">
+            Article directory
+          </p>
+          <h2
+            id="blog-archive-heading"
+            className="mt-3 text-3xl font-semibold tracking-tight text-zinc-950"
+          >
+            More from the archive
+          </h2>
+          <p className="mt-3 max-w-2xl text-sm leading-6 text-zinc-600">
+            Browse older articles directly by title. Every published post has a
+            link here, including posts beyond the interactive list’s first page.
+          </p>
+          <ul className="mt-8 grid gap-x-8 sm:grid-cols-2 lg:grid-cols-3">
+            {posts.slice(17).map((post) => (
+              <li key={post.slug} className="border-t border-zinc-200 py-3">
+                <a
+                  href={`/blog/${post.slug}`}
+                  className="text-sm leading-6 text-zinc-800 underline decoration-zinc-300 underline-offset-4 transition-colors hover:text-violet-700 hover:decoration-violet-500"
+                >
+                  {post.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )}
       <Footer />
     </>
   );
