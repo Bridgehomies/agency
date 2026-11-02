@@ -397,6 +397,7 @@
 "use client";
 
 import { useRef, MouseEvent } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { useToast } from "@/components/ui/use-toast";
@@ -508,11 +509,14 @@ export default function HeroSectionSpatial() {
           {/* Main Image */}
           <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary/20 border border-primary/10 bg-muted transform-gpu">
             <div className="absolute inset-0 bg-gradient-to-tr from-background/40 to-transparent mix-blend-overlay z-10" />
-            <img
+            <Image
               src="/team.png"
               alt="Bridge Homies software engineering team collaborating on an AI and custom software project"
               width={1408}
               height={768}
+              sizes="(max-width: 896px) 100vw, 896px"
+              quality={75}
+              preload
               className="w-full h-auto object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
               fetchPriority="high"
             />

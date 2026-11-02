@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { motion, useMotionValue, useSpring, AnimatePresence, useTransform } from "framer-motion";
+import Image from "next/image";
 import { X, ArrowUpRight, ExternalLink, Sparkles, TrendingUp, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -308,13 +309,22 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
       >
         {/* Image - Fixed Aspect Ratio */}
         <div className="relative w-full shrink-0 overflow-hidden" style={{ aspectRatio: "4/3" }}>
-          <motion.img
-            src={project.image}
-            alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
+          <motion.div
             animate={{ scale: hovered ? 1.05 : 1 }}
             transition={{ duration: 0.5, ease: "easeOut" }}
-            className="w-full h-full object-cover"
-          />
+            className="absolute inset-0"
+          >
+            <Image
+              src={project.image}
+              alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
+              fill
+              sizes="(max-width: 639px) calc(100vw - 3rem), (max-width: 1023px) calc(50vw - 3rem), (max-width: 1599px) calc(33.333vw - 3rem), 480px"
+              quality={75}
+              loading="lazy"
+              decoding="async"
+              className="object-cover"
+            />
+          </motion.div>
           {/* Subtle index number overlay */}
           <div
             className="absolute top-2 right-4 leading-none font-black select-none pointer-events-none"
@@ -568,12 +578,18 @@ function ProjectDetail({ project, onClose, projects, onSelect }: {
             className="order-1 lg:order-2 w-full"
           >
             <div className="relative shadow-xl overflow-hidden" style={{ border: `1px solid ${project.color}25` }}>
-              <img
-                src={project.image}
-                alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
-                className="w-full h-auto object-cover block"
-                style={{ aspectRatio: "16/10" }}
-              />
+              <div className="relative aspect-[16/10] w-full">
+                <Image
+                  src={project.image}
+                  alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 50vw"
+                  quality={75}
+                  loading="lazy"
+                  decoding="async"
+                  className="object-cover"
+                />
+              </div>
             </div>
           </motion.div>
         </div>

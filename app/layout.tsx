@@ -179,7 +179,7 @@ export default function RootLayout({
 
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4ZY8E5FZ32"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
         <Script id="google-analytics" strategy="afterInteractive">
           {`

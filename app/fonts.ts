@@ -41,6 +41,7 @@ export const libreBaskerville = Libre_Baskerville({
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-baskerville",
 });
 
@@ -48,6 +49,7 @@ export const ibmPlexMono = IBM_Plex_Mono({
   weight: ["400", "500"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-plex-mono",
 });
 
@@ -55,6 +57,7 @@ export const ibmPlexSans = IBM_Plex_Sans({
   weight: ["300", "400", "500"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-plex-sans",
 });
 
@@ -64,6 +67,7 @@ export const playfairDisplay = Playfair_Display({
   style: ["normal", "italic"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-playfair",
 });
 
@@ -71,6 +75,7 @@ export const dmSans = DM_Sans({
   weight: ["400", "500", "600"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-dm-sans",
 });
 
@@ -78,6 +83,7 @@ export const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500"],
   subsets: ["latin"],
   display: "swap",
+  preload: false,
   variable: "--font-jetbrains",
 });
 
