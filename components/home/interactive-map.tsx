@@ -31,14 +31,14 @@ export default function InteractiveMap() {
               <span className="block w-8 h-px bg-purple-500" />
               <span
                 className="text-[11px] tracking-[0.25em] uppercase text-purple-500 font-medium"
-                style={{ fontFamily: "'DM Mono', monospace" }}
+                style={{ fontFamily: "var(--font-plex-mono), monospace" }}
               >
                 Find Us
               </span>
             </div>
             <h2
               className="text-5xl md:text-7xl font-black leading-none text-black/80"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "1px" }}
+              style={{ fontFamily: "var(--font-bebas), sans-serif", letterSpacing: "1px" }}
             >
               Our
               <br />
@@ -48,7 +48,7 @@ export default function InteractiveMap() {
 
           <p
             className="text-sm text-black/50 max-w-xs md:text-right leading-relaxed"
-            style={{ fontFamily: "'DM Mono', monospace" }}
+            style={{ fontFamily: "var(--font-plex-mono), monospace" }}
           >
             Bridge Homies is rooted in Johar Town, Lahore, a creative hub where
             ideas are built into products.
@@ -96,20 +96,20 @@ export default function InteractiveMap() {
             <div className="flex items-center gap-3 mb-5">
               <span
                 className="flex items-center justify-center w-8 h-8 rounded-full text-[#0a0a0a] text-xs font-bold"
-                style={{ background: "#9f77e6", fontFamily: "'Syne', sans-serif" }}
+                style={{ background: "#9f77e6", fontFamily: "var(--font-dm-sans), sans-serif" }}
               >
                 BH
               </span>
               <div>
                 <p
                   className="text-white text-sm font-semibold leading-none"
-                  style={{ fontFamily: "'Syne', sans-serif" }}
+                  style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}
                 >
                   Bridge Homies
                 </p>
                 <p
                   className="text-white/40 text-xs mt-0.5"
-                  style={{ fontFamily: "'DM Mono', monospace" }}
+                  style={{ fontFamily: "var(--font-plex-mono), monospace" }}
                 >
                   Headquarters
                 </p>
@@ -122,13 +122,13 @@ export default function InteractiveMap() {
                 <div key={i} className="flex items-baseline justify-between gap-8">
                   <span
                     className="text-[10px] tracking-widest uppercase text-white/30"
-                    style={{ fontFamily: "'DM Mono', monospace" }}
+                    style={{ fontFamily: "var(--font-plex-mono), monospace" }}
                   >
                     {item.label}
                   </span>
                   <span
                     className="text-xs text-white/80 text-right"
-                    style={{ fontFamily: "'DM Mono', monospace" }}
+                    style={{ fontFamily: "var(--font-plex-mono), monospace" }}
                   >
                     {item.value}
                   </span>
@@ -146,7 +146,7 @@ export default function InteractiveMap() {
               >
                 <span
                   className="text-xs text-purple-500 tracking-wider uppercase"
-                  style={{ fontFamily: "'DM Mono', monospace" }}
+                  style={{ fontFamily: "var(--font-plex-mono), monospace" }}
                 >
                   Contact us
                 </span>
@@ -163,10 +163,6 @@ export default function InteractiveMap() {
         <div className="h-10" />
       </div>
 
-      {/* Load Syne + DM Mono fonts */}
-      <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&display=swap');
-      `}</style>
     </section>
   );
 }
