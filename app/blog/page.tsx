@@ -54,7 +54,7 @@ function buildJsonLd(posts: { title: string; slug: string; excerpt: string; date
             "@id": "https://www.bridgehomies.com/#organization",
             name: "Bridge Homies",
             url: "https://www.bridgehomies.com",
-            logo: { "@type": "ImageObject", url: "https://www.bridgehomies.com/logo-bg.png" },
+            logo: { "@type": "ImageObject", url: "https://www.bridgehomies.com/logo-bg.webp" },
           },
         },
         breadcrumb: {

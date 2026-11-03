@@ -49,7 +49,7 @@ export default function TestimonialsSection() {
     <section
       id="testimonials"
       className="py-24 bg-[#080808] border-t border-white/[0.06] overflow-hidden"
-      style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}
+      style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
     >
       <div className="max-w-6xl mx-auto px-6">
         {/* Header */}
@@ -60,7 +60,7 @@ export default function TestimonialsSection() {
             </p>
             <h2
               className="tmn-heading text-[40px] md:text-[52px] leading-[1.05] tracking-[-0.025em] font-bold text-white"
-              style={{ fontFamily: "var(--font-playfair), serif" }}
+              style={{ fontFamily: 'Georgia, "Times New Roman", serif' }}
             >
               Trusted by
               <br />

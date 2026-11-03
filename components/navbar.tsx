@@ -131,8 +131,12 @@ export default function Navbar() {
           className="flex items-center gap-3 group shrink-0"
         >
           <img
-            src="/logo-bg.png"
+            src="/logo-bg-64.webp"
+            srcSet="/logo-bg-64.webp 64w, /logo-bg-120.webp 120w, /logo-bg.webp 180w"
+            sizes="(min-width: 768px) 42px, (min-width: 640px) 38px, 34px"
             alt="Bridge Homies"
+            width={180}
+            height={172}
             className="h-8 sm:h-9 md:h-10 w-auto object-contain"
           />
         </button>

@@ -395,8 +395,16 @@
 // }
 
 import { Activity, ArrowRight, Cpu } from "lucide-react";
+import { preload } from "react-dom";
 
 export default function HeroSectionSpatial() {
+  preload("/team-mobile.webp", {
+    as: "image",
+    type: "image/webp",
+    media: "(max-width: 640px)",
+    fetchPriority: "high",
+  });
+
   return (
     <section
       id="home"

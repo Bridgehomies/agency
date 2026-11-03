@@ -31,7 +31,7 @@ export default function InteractiveMap() {
               <span className="block w-8 h-px bg-purple-500" />
               <span
                 className="text-[11px] tracking-[0.25em] uppercase text-purple-500 font-medium"
-                style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+                style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
               >
                 Find Us
               </span>
@@ -48,7 +48,7 @@ export default function InteractiveMap() {
 
           <p
             className="text-sm text-black/50 max-w-xs md:text-right leading-relaxed"
-            style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+            style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
           >
             Bridge Homies is rooted in Johar Town, Lahore, a creative hub where
             ideas are built into products.
@@ -96,20 +96,20 @@ export default function InteractiveMap() {
             <div className="flex items-center gap-3 mb-5">
               <span
                 className="flex items-center justify-center w-8 h-8 rounded-full text-[#0a0a0a] text-xs font-bold"
-                style={{ background: "#9f77e6", fontFamily: "var(--font-dm-sans), sans-serif" }}
+                style={{ background: "#9f77e6", fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
               >
                 BH
               </span>
               <div>
                 <p
                   className="text-white text-sm font-semibold leading-none"
-                  style={{ fontFamily: "var(--font-dm-sans), sans-serif" }}
+                  style={{ fontFamily: "ui-sans-serif, system-ui, sans-serif" }}
                 >
                   Bridge Homies
                 </p>
                 <p
                   className="text-white/40 text-xs mt-0.5"
-                  style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+                  style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
                 >
                   Headquarters
                 </p>
@@ -122,13 +122,13 @@ export default function InteractiveMap() {
                 <div key={i} className="flex items-baseline justify-between gap-8">
                   <span
                     className="text-[10px] tracking-widest uppercase text-white/30"
-                    style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+                    style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
                   >
                     {item.label}
                   </span>
                   <span
                     className="text-xs text-white/80 text-right"
-                    style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+                    style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
                   >
                     {item.value}
                   </span>
@@ -146,7 +146,7 @@ export default function InteractiveMap() {
               >
                 <span
                   className="text-xs text-purple-500 tracking-wider uppercase"
-                  style={{ fontFamily: "var(--font-plex-mono), monospace" }}
+                  style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
                 >
                   Contact us
                 </span>

@@ -4,6 +4,20 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  async headers() {
+    return [
+      {
+        source: "/",
+        headers: [
+          // Start the responsive LCP image as soon as response headers arrive.
+          {
+            key: "Link",
+            value: '</team-mobile.webp>; rel=preload; as=image; type=image/webp; fetchpriority=high; media="(max-width: 640px)", </team.webp>; rel=preload; as=image; type=image/webp; fetchpriority=high; media="(min-width: 641px)"',
+          },
+        ],
+      },
+    ];
+  },
   async redirects() {
     return [
       {

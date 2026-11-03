@@ -258,46 +258,15 @@ const getIcon = (name: string) => {
 
 /* ─── PROJECT CARD ───────────────────────────────────────────────────────── */
 
-function ProjectCard({ project, index, onClick }: { project: Project; index: number; onClick: () => void }) {
+function ProjectCard({ project, isTouch, onClick }: { project: Project; isTouch: boolean; onClick: () => void }) {
   const [hovered, setHovered] = useState(false);
-  const ref = useRef<HTMLButtonElement>(null);
-  const isTouch = useIsTouchDevice();
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const rotateX = useSpring(useTransform(mouseY, [-100, 100], [4, -4]), { stiffness: 300, damping: 30 });
-  const rotateY = useSpring(useTransform(mouseX, [-100, 100], [-4, 4]), { stiffness: 300, damping: 30 });
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (isTouch) return;
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set(e.clientX - rect.left - rect.width / 2);
-    mouseY.set(e.clientY - rect.top - rect.height / 2);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0); mouseY.set(0); setHovered(false);
-  };
 
   return (
-    <motion.button
-      ref={ref}
+    <button
       onClick={onClick}
-      onMouseMove={handleMouseMove}
       onMouseEnter={() => setHovered(true)}
-      onMouseLeave={handleMouseLeave}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
-      style={{
-        rotateX: isTouch ? 0 : rotateX,
-        rotateY: isTouch ? 0 : rotateY,
-        transformStyle: "preserve-3d",
-        perspective: 1000,
-      }}
-      className={`group flex flex-col w-full h-full text-left bg-transparent border-none p-0 ${isTouch ? "cursor-pointer" : "cursor-none"}`}
+      onMouseLeave={() => setHovered(false)}
+      className={`group flex flex-col w-full h-full text-left bg-transparent border-none p-0 transition-transform duration-300 hover:-translate-y-1 ${isTouch ? "cursor-pointer" : "cursor-none"}`}
     >
       <div
         className="relative flex flex-col w-full h-full overflow-hidden"
@@ -309,11 +278,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
       >
         {/* Image - Fixed Aspect Ratio */}
         <div className="relative w-full shrink-0 overflow-hidden" style={{ aspectRatio: "4/3" }}>
-          <motion.div
-            animate={{ scale: hovered ? 1.05 : 1 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-            className="absolute inset-0"
-          >
+          <div className="absolute inset-0 transition-transform duration-500 ease-out group-hover:scale-105">
             <Image
               src={project.image}
               alt={project.imageAlt ?? `${project.title.replace("\n", " ")} project interface`}
@@ -324,7 +289,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
               decoding="async"
               className="object-cover"
             />
-          </motion.div>
+          </div>
           {/* Subtle index number overlay */}
           <div
             className="absolute top-2 right-4 leading-none font-black select-none pointer-events-none"
@@ -361,14 +326,12 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
                 {project.title}
               </h3>
             </div>
-            <motion.div
-              animate={{ rotate: hovered ? 45 : 0, scale: hovered ? 1.1 : 1 }}
-              transition={{ duration: 0.3 }}
-              className="flex items-center justify-center shrink-0 w-9 h-9 rounded-full"
+            <div
+              className="flex items-center justify-center shrink-0 w-9 h-9 rounded-full transition-transform duration-300 group-hover:rotate-45 group-hover:scale-110"
               style={{ border: `1px solid ${project.color}50` }}
             >
               <ArrowUpRight style={{ width: 16, height: 16, color: project.color }} />
-            </motion.div>
+            </div>
           </div>
           
           <p className="text-xs leading-relaxed flex-grow" style={{ color: "rgba(30,10,60,0.6)", letterSpacing: "0.02em" }}>
@@ -398,7 +361,7 @@ function ProjectCard({ project, index, onClick }: { project: Project; index: num
           </div>
         </div>
       </div>
-    </motion.button>
+    </button>
   );
 }
 
@@ -851,14 +814,14 @@ export default function WorkSection() {
 
         {/* Adding items-stretch makes all divs share exact uniform height in the row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-          {filteredProjects.map((project, i) => (
+          {filteredProjects.map((project) => (
             <div
               key={project.id}
               className="flex w-full h-full"
               onMouseEnter={() => !isTouch && setCursorColor(project.color)}
               onMouseLeave={() => !isTouch && setCursorColor(undefined)}
             >
-              <ProjectCard project={project} index={i} onClick={() => openProject(project)} />
+              <ProjectCard project={project} isTouch={isTouch} onClick={() => openProject(project)} />
             </div>
           ))}
         </div>
