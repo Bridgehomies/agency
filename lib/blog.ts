@@ -42,6 +42,8 @@ export interface BlogFaqItem {
 type GuestSubmission = {
   id: string;
   submittedAt: string;
+  approvedAt?: string;
+  dateModified?: string;
   status: 'pending' | 'approved' | 'rejected';
   title: string;
   slug: string;

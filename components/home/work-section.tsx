@@ -182,7 +182,10 @@ const PROJECTS = [
   
 ];
 
-type Project = typeof PROJECTS[0];
+type Project = (typeof PROJECTS)[number] & {
+  keyFeatures?: { icon: string; title: string; description: string }[];
+  highlights?: string[];
+};
 
 /* ─── HOOKS ──────────────────────────────────────────────────────────────── */
 

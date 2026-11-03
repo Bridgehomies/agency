@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(useGSAP);
 
@@ -104,6 +104,7 @@ const inputClass =
 // ─── Page ──────────────────────────────────────────────────────────────────────
 export default function TestimonialSubmitPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const [form, setForm] = useState<FormState>(INITIAL_FORM);
   const [status, setStatus] = useState<Status>("idle");
@@ -177,9 +178,7 @@ export default function TestimonialSubmitPage() {
       });
 
       if (res.ok) {
-        setStatus("success");
-        gsap.to(".form-wrap", { opacity: 0, y: -20, duration: 0.4, ease: "power2.in" });
-        gsap.from(".success-wrap", { opacity: 0, y: 30, duration: 0.7, delay: 0.3, ease: "power3.out" });
+        router.replace("/");
       } else {
         const data = await res.json().catch(() => ({}));
         setErrorMsg(data.error || "Something went wrong. Please try again.");
@@ -189,7 +188,7 @@ export default function TestimonialSubmitPage() {
       setErrorMsg("Network error. Please try again.");
       setStatus("error");
     }
-  }, [form]);
+  }, [form, router]);
 
   // ── Render ──
   return (
@@ -214,41 +213,16 @@ export default function TestimonialSubmitPage() {
 
       <div className="relative z-10 max-w-2xl mx-auto px-6 py-16 md:py-24">
         {/* Back link */}
-        <Link
+        <a
           href="/"
           className="anim-header inline-flex items-center gap-2 text-[11px] tracking-[2px] uppercase text-black/30 hover:text-violet-600 transition-colors mb-12 font-semibold"
         >
           <span>←</span> Bridge Homies
-        </Link>
+        </a>
 
-        {status === "success" ? (
-          /* ── Success state ── */
-          <div className="success-wrap text-center py-16">
-            <div className="w-16 h-16 mx-auto mb-6 rounded-full bg-violet-100 border border-violet-300 flex items-center justify-center text-2xl text-violet-600">
-              ✓
-            </div>
-            <h2
-              className="text-3xl font-bold mb-3 tracking-tight text-black"
-              style={{ fontFamily: "'DM Serif Display', serif" }}
-            >
-              Thank you, {form.name.split(" ")[0]}!
-            </h2>
-            <p className="text-black/45 text-sm leading-relaxed max-w-sm mx-auto">
-              Your review has been submitted and is under review. We genuinely
-              appreciate you taking the time — it means a lot to the team.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 mt-8 px-5 py-2.5 border border-black/12 text-[11px] tracking-[2px] uppercase text-black/45 hover:text-black hover:border-black/30 transition-all font-semibold"
-            >
-              Back to homepage
-            </Link>
-          </div>
-        ) : (
-          /* ── Form ── */
-          <div className="form-wrap">
-            {/* Header */}
-            <div className="mb-12">
+        <div className="form-wrap">
+          {/* Header */}
+          <div className="mb-12">
               <p className="anim-header text-[10px] tracking-[3px] uppercase text-violet-600/80 mb-4 font-semibold">
                 Bridge Homies — Client Review
               </p>
@@ -266,7 +240,7 @@ export default function TestimonialSubmitPage() {
               </p>
             </div>
 
-            <div className="space-y-6">
+          <div className="space-y-6">
               {/* Name + Email */}
               <div className="anim-field grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
@@ -413,9 +387,8 @@ export default function TestimonialSubmitPage() {
                   is never shared publicly.
                 </p>
               </div>
-            </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

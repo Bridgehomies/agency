@@ -20,14 +20,6 @@ export type Testimonial = {
 const KV_KEY = "testimonials";
 const FILE_PATH = path.join(process.cwd(), "data", "testimonials.json");
 
-// Use the local JSON store in development when KV credentials are not present.
-function hasKvConfig() {
-  return Boolean(
-    (process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL) &&
-      (process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN)
-  );
-}
-
 async function readFileStore(): Promise<Testimonial[]> {
   try {
     const raw = await readFile(FILE_PATH, "utf8");
@@ -44,11 +36,19 @@ async function writeFileStore(data: Testimonial[]) {
 }
 
 export async function readTestimonials(): Promise<Testimonial[]> {
-  if (!hasKvConfig()) return readFileStore();
-  return (await kv.get<Testimonial[]>(KV_KEY)) ?? [];
+  try {
+    return (await kv.get<Testimonial[]>(KV_KEY)) ?? [];
+  } catch (error) {
+    if (process.env.NODE_ENV === "production") throw error;
+    return readFileStore();
+  }
 }
 
 export async function writeTestimonials(data: Testimonial[]) {
-  if (!hasKvConfig()) return writeFileStore(data);
-  await kv.set(KV_KEY, data);
+  try {
+    await kv.set(KV_KEY, data);
+  } catch (error) {
+    if (process.env.NODE_ENV === "production") throw error;
+    await writeFileStore(data);
+  }
 }

@@ -31,3 +31,6 @@
 //     return NextResponse.json({ error: "Failed to send email" }, { status: 500 });
 //   }
 // }
+
+// Keep this route module valid while the booking email integration is disabled.
+export {};
