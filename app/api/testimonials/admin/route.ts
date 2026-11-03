@@ -1,37 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, writeFile, mkdir } from "fs/promises";
-import path from "path";
-
-type Testimonial = {
-  id: string;
-  submittedAt: string;
-  status: "pending" | "approved" | "rejected";
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  role?: string;
-  services: string[];
-  rating: number;
-  feedback: string;
-  adminNotes?: string;
-};
-
-const FILE_PATH = path.join(process.cwd(), "data", "testimonials.json");
-
-async function readAll(): Promise<Testimonial[]> {
-  try {
-    const raw = await readFile(FILE_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-async function saveAll(data: Testimonial[]) {
-  await mkdir(path.dirname(FILE_PATH), { recursive: true });
-  await writeFile(FILE_PATH, JSON.stringify(data, null, 2), "utf-8");
-}
+import { readTestimonials, writeTestimonials } from "@/lib/testimonials";
 
 // GET /api/testimonials/admin — all submissions (require admin key)
 export async function GET(req: NextRequest) {
@@ -39,8 +7,12 @@ export async function GET(req: NextRequest) {
   if (key !== process.env.ADMIN_SECRET_KEY) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
-  const all = await readAll();
-  return NextResponse.json({ testimonials: all });
+  try {
+    return NextResponse.json({ testimonials: await readTestimonials() });
+  } catch (err) {
+    console.error("[testimonials/admin GET]", err);
+    return NextResponse.json({ error: "Unable to load testimonials." }, { status: 500 });
+  }
 }
 
 // PATCH /api/testimonials/admin — approve or reject
@@ -56,7 +28,7 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
-    const all = await readAll();
+    const all = await readTestimonials();
     const idx = all.findIndex((t) => t.id === id);
     if (idx === -1) {
       return NextResponse.json({ error: "Not found." }, { status: 404 });
@@ -64,7 +36,7 @@ export async function PATCH(req: NextRequest) {
 
     all[idx].status = action === "approve" ? "approved" : "rejected";
     if (adminNotes) all[idx].adminNotes = adminNotes;
-    await saveAll(all);
+    await writeTestimonials(all);
 
     return NextResponse.json({ success: true });
   } catch (err) {
@@ -82,9 +54,9 @@ export async function DELETE(req: NextRequest) {
 
   try {
     const { id } = await req.json();
-    const all = await readAll();
+    const all = await readTestimonials();
     const filtered = all.filter((t) => t.id !== id);
-    await saveAll(filtered);
+    await writeTestimonials(filtered);
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ error: "Internal server error." }, { status: 500 });

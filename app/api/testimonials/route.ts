@@ -1,43 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import { readFile, writeFile, mkdir } from "fs/promises";
-import path from "path";
-
-export type Testimonial = {
-  id: string;
-  submittedAt: string;
-  status: "pending" | "approved" | "rejected";
-  name: string;
-  email: string;
-  phone?: string;
-  company?: string;
-  role?: string;
-  services: string[];
-  rating: number;
-  feedback: string;
-  adminNotes?: string;
-};
-
-const FILE_PATH = path.join(process.cwd(), "data", "testimonials.json");
-
-async function readAll(): Promise<Testimonial[]> {
-  try {
-    const raw = await readFile(FILE_PATH, "utf-8");
-    return JSON.parse(raw);
-  } catch {
-    return [];
-  }
-}
-
-async function saveAll(data: Testimonial[]) {
-  await mkdir(path.dirname(FILE_PATH), { recursive: true });
-  await writeFile(FILE_PATH, JSON.stringify(data, null, 2), "utf-8");
-}
+import { readTestimonials, writeTestimonials, type Testimonial } from "@/lib/testimonials";
 
 // GET /api/testimonials — return only approved ones
 export async function GET() {
-  const all = await readAll();
-  const approved = all.filter((t) => t.status === "approved");
-  return NextResponse.json({ testimonials: approved });
+  try {
+    const all = await readTestimonials();
+    return NextResponse.json({ testimonials: all.filter((t) => t.status === "approved") });
+  } catch (err) {
+    console.error("[testimonials GET]", err);
+    return NextResponse.json({ error: "Unable to load testimonials." }, { status: 500 });
+  }
 }
 
 // POST /api/testimonials — submit a new testimonial (goes to pending)
@@ -46,12 +18,20 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { name, email, phone, company, role, services, rating, feedback } = body;
 
-    if (!name || !email || !services?.length || !rating || !feedback) {
+    if (
+      typeof name !== "string" || !name.trim() ||
+      typeof email !== "string" || !email.trim() ||
+      !Array.isArray(services) || services.length === 0 ||
+      !Number.isInteger(Number(rating)) || !feedback || typeof feedback !== "string"
+    ) {
       return NextResponse.json({ error: "Missing required fields." }, { status: 400 });
     }
 
-    if (rating < 1 || rating > 5) {
+    if (Number(rating) < 1 || Number(rating) > 5) {
       return NextResponse.json({ error: "Rating must be 1–5." }, { status: 400 });
+    }
+    if (feedback.trim().length < 30) {
+      return NextResponse.json({ error: "Feedback must be at least 30 characters." }, { status: 400 });
     }
 
     const id = `tmn_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
@@ -61,17 +41,17 @@ export async function POST(req: NextRequest) {
       status: "pending",
       name: name.trim(),
       email: email.trim(),
-      phone: phone?.trim() || undefined,
-      company: company?.trim() || undefined,
-      role: role?.trim() || undefined,
-      services,
+      phone: typeof phone === "string" ? phone.trim() || undefined : undefined,
+      company: typeof company === "string" ? company.trim() || undefined : undefined,
+      role: typeof role === "string" ? role.trim() || undefined : undefined,
+      services: services.filter((service: unknown): service is string => typeof service === "string"),
       rating: Number(rating),
       feedback: feedback.trim(),
     };
 
-    const all = await readAll();
+    const all = await readTestimonials();
     all.push(entry);
-    await saveAll(all);
+    await writeTestimonials(all);
 
     return NextResponse.json({ success: true, id });
   } catch (err) {
