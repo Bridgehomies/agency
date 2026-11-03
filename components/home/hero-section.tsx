@@ -416,7 +416,7 @@ export default function HeroSectionSpatial() {
       </div>
 
       <div className="container relative z-10 mx-auto mt-8 flex max-w-6xl flex-col items-center px-4 sm:mt-16 lg:mt-20">
-        <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-4 py-2 shadow-xl backdrop-blur-xl">
+        <div className="mt-6 mb-8 inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-4 py-2 shadow-xl backdrop-blur-xl">
           <div className="relative flex h-3 w-3">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
             <span className="relative inline-flex h-3 w-3 rounded-full bg-primary" />
